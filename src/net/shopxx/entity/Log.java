@@ -11,69 +11,65 @@ public class Log extends BaseEntity
 {
   private static final long serialVersionUID = -4494144902110236826L;
   public static final String LOG_CONTENT_ATTRIBUTE_NAME = Log.class.getName() + ".CONTENT";
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
+  private String operation;
+  private String operator;
+  private String content;
+  private String parameter;
+  private String ip;
 
   @Column(nullable=false, updatable=false)
   public String getOperation()
   {
-    return this.IIIllIlI;
+    return this.operation;
   }
 
   public void setOperation(String operation)
   {
-    this.IIIllIlI = operation;
+    this.operation = operation;
   }
 
   @Column(updatable=false)
   public String getOperator()
   {
-    return this.IIIllIll;
+    return this.operator;
   }
 
   public void setOperator(String operator)
   {
-    this.IIIllIll = operator;
+    this.operator = operator;
   }
 
   @Column(length=3000, updatable=false)
   public String getContent()
   {
-    return this.IIIlllII;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIlllII = content;
+    this.content = content;
   }
 
   @Lob
   @Column(updatable=false)
   public String getParameter()
   {
-    return this.IIIlllIl;
+    return this.parameter;
   }
 
   public void setParameter(String parameter)
   {
-    this.IIIlllIl = parameter;
+    this.parameter = parameter;
   }
 
   @Column(nullable=false, updatable=false)
   public String getIp()
   {
-    return this.IIIllllI;
+    return this.ip;
   }
 
   public void setIp(String ip)
   {
-    this.IIIllllI = ip;
+    this.ip = ip;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Log
-

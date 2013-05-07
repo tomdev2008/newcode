@@ -15,42 +15,42 @@ import javax.persistence.Transient;
 public class PluginConfig extends OrderEntity
 {
   private static final long serialVersionUID = -4357367409438384806L;
-  private String IIIllIlI;
-  private Boolean IIIllIll;
-  private Map<String, String> IIIlllII = new HashMap();
+  private String pluginId;
+  private Boolean isEnabled;
+  private Map<String, String> attributes = new HashMap();
 
   @Column(nullable=false, updatable=false, unique=true)
   public String getPluginId()
   {
-    return this.IIIllIlI;
+    return this.pluginId;
   }
 
   public void setPluginId(String pluginId)
   {
-    this.IIIllIlI = pluginId;
+    this.pluginId = pluginId;
   }
 
   @Column(nullable=false)
   public Boolean getIsEnabled()
   {
-    return this.IIIllIll;
+    return this.isEnabled;
   }
 
   public void setIsEnabled(Boolean isEnabled)
   {
-    this.IIIllIll = isEnabled;
+    this.isEnabled = isEnabled;
   }
 
   @ElementCollection(fetch=FetchType.EAGER)
   @CollectionTable(name="xx_plugin_config_attribute")
   public Map<String, String> getAttributes()
   {
-    return this.IIIlllII;
+    return this.attributes;
   }
 
   public void setAttributes(Map<String, String> attributes)
   {
-    this.IIIlllII = attributes;
+    this.attributes = attributes;
   }
 
   @Transient
@@ -68,7 +68,3 @@ public class PluginConfig extends OrderEntity
       getAttributes().put(name, value);
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.PluginConfig
-

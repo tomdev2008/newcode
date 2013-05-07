@@ -38,7 +38,3 @@ public class PromotionListDirective extends BaseDirective
     IIIllIlI("promotions", localList1, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.PromotionListDirective
-

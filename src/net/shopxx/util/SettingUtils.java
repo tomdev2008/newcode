@@ -152,7 +152,3 @@ public final class SettingUtils
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.SettingUtils
-

@@ -192,7 +192,3 @@ public class FtpPlugin extends StoragePlugin
     return localArrayList;
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.ftp.FtpPlugin
-

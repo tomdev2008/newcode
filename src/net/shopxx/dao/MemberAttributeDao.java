@@ -9,7 +9,3 @@ public abstract interface MemberAttributeDao extends BaseDao<MemberAttribute, Lo
 
   public abstract List<MemberAttribute> findList();
 }
-
-
- * Qualified Name:     net.shopxx.dao.MemberAttributeDao
-

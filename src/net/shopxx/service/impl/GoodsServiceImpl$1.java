@@ -12,7 +12,3 @@ class GoodsServiceImpl$1
     return (localProduct != null) && (localProduct.getId() != null);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.GoodsServiceImpl.1
-

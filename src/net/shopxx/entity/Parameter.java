@@ -15,8 +15,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Parameter extends OrderEntity
 {
   private static final long serialVersionUID = -5833568086582136314L;
-  private String IIIllIlI;
-  private ParameterGroup IIIllIll;
+  private String name;
+  private ParameterGroup parameterGroup;
 
   @JsonProperty
   @NotEmpty
@@ -24,27 +24,23 @@ public class Parameter extends OrderEntity
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false)
   public ParameterGroup getParameterGroup()
   {
-    return this.IIIllIll;
+    return this.parameterGroup;
   }
 
   public void setParameterGroup(ParameterGroup parameterGroup)
   {
-    this.IIIllIll = parameterGroup;
+    this.parameterGroup = parameterGroup;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Parameter
-

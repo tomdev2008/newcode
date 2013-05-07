@@ -12,34 +12,38 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Navigation extends OrderEntity
 {
   private static final long serialVersionUID = -7635757647887646795L;
-  private String IIIllIlI;
-  private Navigation.Position IIIllIll;
-  private String IIIlllII;
-  private Boolean IIIlllIl;
+  public enum NavigationPosition
+  {
+    top, middle, bottom;
+  }
+  private String name;
+  private NavigationPosition position;
+  private String url;
+  private Boolean isBlankTarget;
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull
   @Column(nullable=false)
-  public Navigation.Position getPosition()
+  public NavigationPosition getPosition()
   {
-    return this.IIIllIll;
+    return this.position;
   }
 
-  public void setPosition(Navigation.Position position)
+  public void setPosition(NavigationPosition position)
   {
-    this.IIIllIll = position;
+    this.position = position;
   }
 
   @NotEmpty
@@ -47,27 +51,23 @@ public class Navigation extends OrderEntity
   @Column(nullable=false)
   public String getUrl()
   {
-    return this.IIIlllII;
+    return this.url;
   }
 
   public void setUrl(String url)
   {
-    this.IIIlllII = url;
+    this.url = url;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsBlankTarget()
   {
-    return this.IIIlllIl;
+    return this.isBlankTarget;
   }
 
   public void setIsBlankTarget(Boolean isBlankTarget)
   {
-    this.IIIlllIl = isBlankTarget;
+    this.isBlankTarget = isBlankTarget;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Navigation
-

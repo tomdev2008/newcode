@@ -91,7 +91,3 @@ public class LogInterceptor extends HandlerInterceptorAdapter
     this.IIIlllII = ignoreParameters;
   }
 }
-
-
- * Qualified Name:     net.shopxx.interceptor.LogInterceptor
-

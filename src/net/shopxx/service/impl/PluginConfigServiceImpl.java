@@ -33,7 +33,3 @@ public class PluginConfigServiceImpl extends BaseServiceImpl<PluginConfig, Long>
     return this.IIIllIlI.findByPluginId(pluginId);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.PluginConfigServiceImpl
-

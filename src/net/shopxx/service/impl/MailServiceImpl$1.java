@@ -11,7 +11,3 @@ class MailServiceImpl$1
     MailServiceImpl.IIIllIlI(this.IIIllIlI).send(this.IIIllIll);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.MailServiceImpl.1
-

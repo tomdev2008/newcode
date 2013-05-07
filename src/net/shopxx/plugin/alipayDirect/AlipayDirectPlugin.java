@@ -13,7 +13,7 @@ public class AlipayDirectPlugin extends PaymentPlugin
 {
   public String getName()
   {
-    return "支付宝即时交易";
+    return "鏀粯瀹濆嵆鏃朵氦鏄�;
   }
 
   public String getVersion()
@@ -81,7 +81,3 @@ public class AlipayDirectPlugin extends PaymentPlugin
     return "success";
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.alipayDirect.AlipayDirectPlugin
-

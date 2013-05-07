@@ -81,7 +81,3 @@ public final class RSAUtils
     return arrayOfByte != null ? new String(arrayOfByte) : null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.RSAUtils
-

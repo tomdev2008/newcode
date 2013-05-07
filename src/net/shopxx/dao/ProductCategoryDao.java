@@ -11,7 +11,3 @@ public abstract interface ProductCategoryDao extends BaseDao<ProductCategory, Lo
 
   public abstract List<ProductCategory> findChildren(ProductCategory paramProductCategory, Integer paramInteger);
 }
-
-
- * Qualified Name:     net.shopxx.dao.ProductCategoryDao
-

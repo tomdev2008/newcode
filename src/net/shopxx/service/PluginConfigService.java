@@ -8,7 +8,3 @@ public abstract interface PluginConfigService extends BaseService<PluginConfig, 
 
   public abstract PluginConfig findByPluginId(String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.service.PluginConfigService
-

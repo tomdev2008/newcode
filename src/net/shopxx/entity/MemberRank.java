@@ -22,25 +22,25 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class MemberRank extends BaseEntity
 {
   private static final long serialVersionUID = 3599029355500655209L;
-  private String IIIllIlI;
-  private Double IIIllIll;
-  private BigDecimal IIIlllII;
-  private Boolean IIIlllIl;
-  private Boolean IIIllllI;
-  private Set<Member> IIIlllll = new HashSet();
-  private Set<Promotion> IIlIIIII = new HashSet();
+  private String name;
+  private Double scale;
+  private BigDecimal amount;
+  private Boolean isDefault;
+  private Boolean isSpecial;
+  private Set<Member> members = new HashSet();
+  private Set<Promotion> promotions = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false, unique=true)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull
@@ -49,12 +49,12 @@ public class MemberRank extends BaseEntity
   @Column(nullable=false, precision=12, scale=6)
   public Double getScale()
   {
-    return this.IIIllIll;
+    return this.scale;
   }
 
   public void setScale(Double scale)
   {
-    this.IIIllIll = scale;
+    this.scale = scale;
   }
 
   @Min(0L)
@@ -62,58 +62,58 @@ public class MemberRank extends BaseEntity
   @Column(unique=true, precision=21, scale=6)
   public BigDecimal getAmount()
   {
-    return this.IIIlllII;
+    return this.amount;
   }
 
   public void setAmount(BigDecimal amount)
   {
-    this.IIIlllII = amount;
+    this.amount = amount;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsDefault()
   {
-    return this.IIIlllIl;
+    return this.isDefault;
   }
 
   public void setIsDefault(Boolean isDefault)
   {
-    this.IIIlllIl = isDefault;
+    this.isDefault = isDefault;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsSpecial()
   {
-    return this.IIIllllI;
+    return this.isSpecial;
   }
 
   public void setIsSpecial(Boolean isSpecial)
   {
-    this.IIIllllI = isSpecial;
+    this.isSpecial = isSpecial;
   }
 
   @OneToMany(mappedBy="memberRank", fetch=FetchType.LAZY)
   public Set<Member> getMembers()
   {
-    return this.IIIlllll;
+    return this.members;
   }
 
   public void setMembers(Set<Member> members)
   {
-    this.IIIlllll = members;
+    this.members = members;
   }
 
   @ManyToMany(mappedBy="memberRanks", fetch=FetchType.LAZY)
   public Set<Promotion> getPromotions()
   {
-    return this.IIlIIIII;
+    return this.promotions;
   }
 
   public void setPromotions(Set<Promotion> promotions)
   {
-    this.IIlIIIII = promotions;
+    this.promotions = promotions;
   }
 
   @PreRemove
@@ -131,7 +131,3 @@ public class MemberRank extends BaseEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.MemberRank
-

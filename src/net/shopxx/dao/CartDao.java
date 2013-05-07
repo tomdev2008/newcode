@@ -6,7 +6,3 @@ public abstract interface CartDao extends BaseDao<Cart, Long>
 {
   public abstract void evictExpired();
 }
-
-
- * Qualified Name:     net.shopxx.dao.CartDao
-

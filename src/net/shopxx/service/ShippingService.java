@@ -9,7 +9,3 @@ public abstract interface ShippingService extends BaseService<Shipping, Long>
 
   public abstract Map<String, Object> query(Shipping paramShipping);
 }
-
-
- * Qualified Name:     net.shopxx.service.ShippingService
-

@@ -16,7 +16,3 @@ public class SpecificationValueServiceImpl extends BaseServiceImpl<Specification
     super.setBaseDao(specificationValueDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.SpecificationValueServiceImpl
-

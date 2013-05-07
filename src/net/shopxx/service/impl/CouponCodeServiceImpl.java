@@ -76,7 +76,3 @@ public class CouponCodeServiceImpl extends BaseServiceImpl<CouponCode, Long>
     return this.IIIllIlI.count(coupon, member, hasBegun, hasExpired, isUsed);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.CouponCodeServiceImpl
-

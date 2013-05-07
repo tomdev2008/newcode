@@ -84,7 +84,3 @@ public class OssController extends BaseController
     return "redirect:/admin/storage_plugin/list.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.oss.OssController
-

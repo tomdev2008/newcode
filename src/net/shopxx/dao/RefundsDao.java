@@ -6,6 +6,3 @@ public abstract interface RefundsDao extends BaseDao<Refunds, Long>
 {
 }
 
-
- * Qualified Name:     net.shopxx.dao.RefundsDao
-

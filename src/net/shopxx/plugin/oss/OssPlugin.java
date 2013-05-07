@@ -23,7 +23,7 @@ public class OssPlugin extends StoragePlugin
 {
   public String getName()
   {
-    return "阿里云存储";
+    return "闃块噷浜戝瓨鍌�;
   }
 
   public String getVersion()
@@ -149,7 +149,3 @@ public class OssPlugin extends StoragePlugin
     return (List<FileInfo>)localArrayList;
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.oss.OssPlugin
-

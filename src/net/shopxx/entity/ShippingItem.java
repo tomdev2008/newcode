@@ -15,33 +15,33 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ShippingItem extends BaseEntity
 {
   private static final long serialVersionUID = 2756395514949325790L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private Integer IIIlllII;
-  private Shipping IIIlllIl;
+  private String sn;
+  private String name;
+  private Integer quantity;
+  private Shipping shipping;
 
   @NotEmpty
   @Column(nullable=false, updatable=false)
   public String getSn()
   {
-    return this.IIIllIlI;
+    return this.sn;
   }
 
   public void setSn(String sn)
   {
-    this.IIIllIlI = sn;
+    this.sn = sn;
   }
 
   @NotEmpty
   @Column(nullable=false, updatable=false)
   public String getName()
   {
-    return this.IIIllIll;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIll = name;
+    this.name = name;
   }
 
   @NotNull
@@ -49,27 +49,23 @@ public class ShippingItem extends BaseEntity
   @Column(nullable=false, updatable=false)
   public Integer getQuantity()
   {
-    return this.IIIlllII;
+    return this.quantity;
   }
 
   public void setQuantity(Integer quantity)
   {
-    this.IIIlllII = quantity;
+    this.quantity = quantity;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Shipping getShipping()
   {
-    return this.IIIlllIl;
+    return this.shipping;
   }
 
   public void setShipping(Shipping shipping)
   {
-    this.IIIlllIl = shipping;
+    this.shipping = shipping;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.ShippingItem
-

@@ -31,13 +31,13 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Long>
   private long IIIllIlI = System.currentTimeMillis();
 
   @Resource(name="ehCacheManager")
-  private CacheManager IIIllIll;
+  private CacheManager cacheManager;
 
   @Resource(name="articleDaoImpl")
-  private ArticleDao IIIlllII;
+  private ArticleDao articleDao;
 
   @Resource(name="staticServiceImpl")
-  private StaticService IIIlllIl;
+  private StaticService staticService;
 
   @Resource(name="articleDaoImpl")
   public void setBaseDao(ArticleDao articleDao)
@@ -48,31 +48,31 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Long>
   @Transactional(readOnly=true)
   public List<Article> findList(ArticleCategory articleCategory, List<Tag> tags, Integer count, List<Filter> filters, List<Order> orders)
   {
-    return this.IIIlllII.findList(articleCategory, tags, count, filters, orders);
+    return this.articleDao.findList(articleCategory, tags, count, filters, orders);
   }
 
   @Transactional(readOnly=true)
   @Cacheable({"article"})
   public List<Article> findList(ArticleCategory articleCategory, List<Tag> tags, Integer count, List<Filter> filters, List<Order> orders, String cacheRegion)
   {
-    return this.IIIlllII.findList(articleCategory, tags, count, filters, orders);
+    return this.articleDao.findList(articleCategory, tags, count, filters, orders);
   }
 
   @Transactional(readOnly=true)
   public List<Article> findList(ArticleCategory articleCategory, Date beginDate, Date endDate, Integer first, Integer count)
   {
-    return this.IIIlllII.findList(articleCategory, beginDate, endDate, first, count);
+    return this.articleDao.findList(articleCategory, beginDate, endDate, first, count);
   }
 
   @Transactional(readOnly=true)
   public Page<Article> findPage(ArticleCategory articleCategory, List<Tag> tags, Pageable pageable)
   {
-    return this.IIIlllII.findPage(articleCategory, tags, pageable);
+    return this.articleDao.findPage(articleCategory, tags, pageable);
   }
 
   public long viewHits(Long id)
   {
-    Ehcache localEhcache = this.IIIllIll.getEhcache("articleHits");
+    Ehcache localEhcache = this.cacheManager.getEhcache("articleHits");
     Element localElement = localEhcache.get(id);
     if (localElement != null)
     {
@@ -80,7 +80,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Long>
     }
     else
     {
-      Article localArticle = (Article)this.IIIlllII.find(id);
+      Article localArticle = (Article)this.articleDao.find(id);
       if (localArticle == null)
         return 0L;
       localLong = localArticle.getHits();
@@ -104,19 +104,19 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Long>
 
   private void IIIllIlI()
   {
-    Ehcache localEhcache = this.IIIllIll.getEhcache("articleHits");
+    Ehcache localEhcache = this.cacheManager.getEhcache("articleHits");
     List localList = localEhcache.getKeys();
     Iterator localIterator = localList.iterator();
     while (localIterator.hasNext())
     {
       Long localLong = (Long)localIterator.next();
-      Article localArticle = (Article)this.IIIlllII.find(localLong);
+      Article localArticle = (Article)this.articleDao.find(localLong);
       if (localArticle == null)
         continue;
       Element localElement = localEhcache.get(localLong);
       long l = ((Long)localElement.getObjectValue()).longValue();
       localArticle.setHits(Long.valueOf(l));
-      this.IIIlllII.merge(localArticle);
+      this.articleDao.merge(localArticle);
     }
   }
 
@@ -126,8 +126,8 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Long>
   {
     Assert.notNull(article);
     super.save(article);
-    this.IIIlllII.flush();
-    this.IIIlllIl.build(article);
+    this.articleDao.flush();
+    this.staticService.build(article);
   }
 
   @Transactional
@@ -136,8 +136,8 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Long>
   {
     Assert.notNull(article);
     Article localArticle = (Article)super.update(article);
-    this.IIIlllII.flush();
-    this.IIIlllIl.build(localArticle);
+    this.articleDao.flush();
+    this.staticService.build(localArticle);
     return localArticle;
   }
 
@@ -167,11 +167,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, Long>
   public void delete(Article article)
   {
     if (article != null)
-      this.IIIlllIl.delete(article);
+      this.staticService.delete(article);
     super.delete(article);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ArticleServiceImpl
-

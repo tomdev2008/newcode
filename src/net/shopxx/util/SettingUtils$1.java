@@ -61,7 +61,3 @@ class SettingUtils$1 extends ConvertUtilsBean
     return super.convert(value, targetType);
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.SettingUtils.1
-

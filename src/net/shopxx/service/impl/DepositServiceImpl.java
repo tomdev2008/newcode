@@ -30,7 +30,3 @@ public class DepositServiceImpl extends BaseServiceImpl<Deposit, Long>
     return this.IIIllIlI.findPage(member, pageable);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.DepositServiceImpl
-

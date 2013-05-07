@@ -8,7 +8,3 @@ public abstract interface CacheService
 
   public abstract void clear();
 }
-
-
- * Qualified Name:     net.shopxx.service.CacheService
-

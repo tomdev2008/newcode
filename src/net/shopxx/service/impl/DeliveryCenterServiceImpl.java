@@ -27,7 +27,3 @@ public class DeliveryCenterServiceImpl extends BaseServiceImpl<DeliveryCenter, L
     return this.IIIllIlI.findDefault();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.DeliveryCenterServiceImpl
-

@@ -9,7 +9,3 @@ public abstract interface DepositService extends BaseService<Deposit, Long>
 {
   public abstract Page<Deposit> findPage(Member paramMember, Pageable paramPageable);
 }
-
-
- * Qualified Name:     net.shopxx.service.DepositService
-

@@ -16,7 +16,3 @@ public class CartItemServiceImpl extends BaseServiceImpl<CartItem, Long>
     super.setBaseDao(cartItemDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.CartItemServiceImpl
-

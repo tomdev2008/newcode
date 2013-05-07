@@ -12,74 +12,74 @@ import javax.persistence.Table;
 public class OrderLog extends BaseEntity
 {
   private static final long serialVersionUID = -2704154761295319939L;
-  private OrderLog.Type IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private Order IIIlllIl;
+  public enum OrderLogType
+  {
+    create, modify, confirm, payment, refunds, shipping, returns, complete, cancel, other;
+  }
+  private OrderLogType type;
+  private String operator;
+  private String content;
+  private Order order;
 
   public OrderLog()
   {
   }
 
-  public OrderLog(OrderLog.Type type, String operator)
+  public OrderLog(OrderLogType type, String operator)
   {
-    this.IIIllIlI = type;
-    this.IIIllIll = operator;
+    this.type = type;
+    this.operator = operator;
   }
 
-  public OrderLog(OrderLog.Type type, String operator, String content)
+  public OrderLog(OrderLogType type, String operator, String content)
   {
-    this.IIIllIlI = type;
-    this.IIIllIll = operator;
-    this.IIIlllII = content;
+    this.type = type;
+    this.operator = operator;
+    this.content = content;
   }
 
   @Column(nullable=false, updatable=false)
-  public OrderLog.Type getType()
+  public OrderLogType getType()
   {
-    return this.IIIllIlI;
+    return this.type;
   }
 
-  public void setType(OrderLog.Type type)
+  public void setType(OrderLogType type)
   {
-    this.IIIllIlI = type;
+    this.type = type;
   }
 
   @Column(updatable=false)
   public String getOperator()
   {
-    return this.IIIllIll;
+    return this.operator;
   }
 
   public void setOperator(String operator)
   {
-    this.IIIllIll = operator;
+    this.operator = operator;
   }
 
   @Column(updatable=false)
   public String getContent()
   {
-    return this.IIIlllII;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIlllII = content;
+    this.content = content;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(name="orders", nullable=false, updatable=false)
   public Order getOrder()
   {
-    return this.IIIlllIl;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIIlllIl = order;
+    this.order = order;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.OrderLog
-

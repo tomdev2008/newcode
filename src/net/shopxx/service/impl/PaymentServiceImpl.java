@@ -27,7 +27,3 @@ public class PaymentServiceImpl extends BaseServiceImpl<Payment, Long>
     return this.IIIllIlI.findBySn(sn);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.PaymentServiceImpl
-

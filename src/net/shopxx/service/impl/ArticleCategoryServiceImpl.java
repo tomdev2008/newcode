@@ -129,7 +129,3 @@ public class ArticleCategoryServiceImpl extends BaseServiceImpl<ArticleCategory,
     super.delete(articleCategory);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ArticleCategoryServiceImpl
-

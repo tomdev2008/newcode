@@ -6,20 +6,20 @@ import org.jsoup.safety.Whitelist;
 
 public class HtmlCleanEditor extends PropertyEditorSupport
 {
-  private boolean IIIllIlI;
-  private boolean IIIllIll;
+  private boolean trim;
+  private boolean emptyAsNull;
   private Whitelist IIIlllII = Whitelist.none();
 
   public HtmlCleanEditor(boolean trim, boolean emptyAsNull)
   {
-    this.IIIllIlI = trim;
-    this.IIIllIll = emptyAsNull;
+    this.trim = trim;
+    this.emptyAsNull = emptyAsNull;
   }
 
   public HtmlCleanEditor(boolean trim, boolean emptyAsNull, Whitelist whitelist)
   {
-    this.IIIllIlI = trim;
-    this.IIIllIll = emptyAsNull;
+    this.trim = trim;
+    this.emptyAsNull = emptyAsNull;
     this.IIIlllII = whitelist;
   }
 
@@ -33,9 +33,9 @@ public class HtmlCleanEditor extends PropertyEditorSupport
   {
     if (text != null)
     {
-      String str = this.IIIllIlI ? text.trim() : text;
+      String str = this.trim ? text.trim() : text;
       str = Jsoup.clean(str, this.IIIlllII);
-      if ((this.IIIllIll) && ("".equals(str)))
+      if ((this.emptyAsNull) && ("".equals(str)))
         str = null;
       setValue(str);
     }
@@ -45,7 +45,3 @@ public class HtmlCleanEditor extends PropertyEditorSupport
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.HtmlCleanEditor
-

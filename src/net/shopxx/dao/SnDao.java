@@ -1,12 +1,8 @@
 package net.shopxx.dao;
 
-import net.shopxx.entity.Sn.Type;
+import net.shopxx.entity.Sn.SnType;
 
 public abstract interface SnDao
 {
-  public abstract String generate(Sn.Type paramType);
+  public abstract String generate(SnType paramType);
 }
-
-
- * Qualified Name:     net.shopxx.dao.SnDao
-

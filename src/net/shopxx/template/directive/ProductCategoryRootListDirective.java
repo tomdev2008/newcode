@@ -30,7 +30,3 @@ public class ProductCategoryRootListDirective extends BaseDirective
     IIIllIlI("productCategories", localList, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ProductCategoryRootListDirective
-

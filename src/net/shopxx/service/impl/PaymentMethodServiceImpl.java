@@ -16,7 +16,3 @@ public class PaymentMethodServiceImpl extends BaseServiceImpl<PaymentMethod, Lon
     super.setBaseDao(paymentMethodDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.PaymentMethodServiceImpl
-

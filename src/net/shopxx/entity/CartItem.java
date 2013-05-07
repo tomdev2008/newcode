@@ -18,43 +18,43 @@ public class CartItem extends BaseEntity
 {
   private static final long serialVersionUID = 2979296789363163144L;
   public static final Integer MAX_QUANTITY = Integer.valueOf(10000);
-  private Integer IIIllIlI;
-  private Product IIIllIll;
-  private Cart IIIlllII;
+  private Integer quantity;
+  private Product product;
+  private Cart cart;
 
   @Column(nullable=false)
   public Integer getQuantity()
   {
-    return this.IIIllIlI;
+    return this.quantity;
   }
 
   public void setQuantity(Integer quantity)
   {
-    this.IIIllIlI = quantity;
+    this.quantity = quantity;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Product getProduct()
   {
-    return this.IIIllIll;
+    return this.product;
   }
 
   public void setProduct(Product product)
   {
-    this.IIIllIll = product;
+    this.product = product;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false)
   public Cart getCart()
   {
-    return this.IIIlllII;
+    return this.cart;
   }
 
   public void setCart(Cart cart)
   {
-    this.IIIlllII = cart;
+    this.cart = cart;
   }
 
   @Transient
@@ -117,7 +117,3 @@ public class CartItem extends BaseEntity
         setQuantity(Integer.valueOf(quantity));
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.CartItem
-

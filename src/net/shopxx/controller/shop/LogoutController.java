@@ -19,7 +19,3 @@ public class LogoutController extends BaseController
     return "redirect:/";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.LogoutController
-

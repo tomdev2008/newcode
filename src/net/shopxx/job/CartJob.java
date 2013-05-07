@@ -20,7 +20,3 @@ public class CartJob
     this.IIIllIlI.evictExpired();
   }
 }
-
-
- * Qualified Name:     net.shopxx.job.CartJob
-

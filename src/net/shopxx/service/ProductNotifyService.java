@@ -16,7 +16,3 @@ public abstract interface ProductNotifyService extends BaseService<ProductNotify
 
   public abstract int send(Long[] paramArrayOfLong);
 }
-
-
- * Qualified Name:     net.shopxx.service.ProductNotifyService
-

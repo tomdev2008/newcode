@@ -98,7 +98,3 @@ public final class CookieUtils
     removeCookie(request, response, name, localSetting.getCookiePath(), localSetting.getCookieDomain());
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.CookieUtils
-

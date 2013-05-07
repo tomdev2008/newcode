@@ -30,7 +30,3 @@ public class ArticleCategoryRootListDirective extends BaseDirective
     IIIllIlI("articleCategories", localList, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ArticleCategoryRootListDirective
-

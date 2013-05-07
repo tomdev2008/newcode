@@ -142,7 +142,3 @@ public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ConsultationServiceImpl
-

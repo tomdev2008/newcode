@@ -6,7 +6,3 @@ public abstract interface DeliveryTemplateDao extends BaseDao<DeliveryTemplate, 
 {
   public abstract DeliveryTemplate findDefault();
 }
-
-
- * Qualified Name:     net.shopxx.dao.DeliveryTemplateDao
-

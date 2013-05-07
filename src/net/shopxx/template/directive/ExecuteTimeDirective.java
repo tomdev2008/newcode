@@ -25,7 +25,3 @@ public class ExecuteTimeDirective extends BaseDirective
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ExecuteTimeDirective
-

@@ -11,7 +11,3 @@ public abstract interface CartService extends BaseService<Cart, Long>
 
   public abstract void evictExpired();
 }
-
-
- * Qualified Name:     net.shopxx.service.CartService
-

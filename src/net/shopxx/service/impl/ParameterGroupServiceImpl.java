@@ -16,7 +16,3 @@ public class ParameterGroupServiceImpl extends BaseServiceImpl<ParameterGroup, L
     super.setBaseDao(parameterGroupDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ParameterGroupServiceImpl
-

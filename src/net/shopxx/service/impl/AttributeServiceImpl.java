@@ -16,7 +16,3 @@ public class AttributeServiceImpl extends BaseServiceImpl<Attribute, Long>
     super.setBaseDao(attributeDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.AttributeServiceImpl
-

@@ -9,32 +9,32 @@ import javax.persistence.Table;
 public class Sn extends BaseEntity
 {
   private static final long serialVersionUID = -2330598144835706164L;
-  private Sn.Type IIIllIlI;
-  private Long IIIllIll;
+  public enum SnType
+  {
+    product, order, payment, refunds, shipping, returns;
+  }
+  private SnType type;
+  private Long lastValue;
 
   @Column(nullable=false, updatable=false, unique=true)
-  public Sn.Type getType()
+  public SnType getType()
   {
-    return this.IIIllIlI;
+    return this.type;
   }
 
-  public void setType(Sn.Type type)
+  public void setType(SnType type)
   {
-    this.IIIllIlI = type;
+    this.type = type;
   }
 
   @Column(nullable=false)
   public Long getLastValue()
   {
-    return this.IIIllIll;
+    return this.lastValue;
   }
 
   public void setLastValue(Long lastValue)
   {
-    this.IIIllIll = lastValue;
+    this.lastValue = lastValue;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Sn
-

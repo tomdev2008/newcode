@@ -34,7 +34,3 @@ public abstract interface MemberService extends BaseService<Member, Long>
 
   public abstract String getCurrentUsername();
 }
-
-
- * Qualified Name:     net.shopxx.service.MemberService
-

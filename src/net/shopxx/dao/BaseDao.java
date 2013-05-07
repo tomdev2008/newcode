@@ -38,7 +38,3 @@ public abstract interface BaseDao<T, ID extends Serializable>
 
   public abstract void flush();
 }
-
-
- * Qualified Name:     net.shopxx.dao.BaseDao
-

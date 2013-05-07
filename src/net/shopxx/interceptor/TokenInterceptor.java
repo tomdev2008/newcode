@@ -46,7 +46,3 @@ public class TokenInterceptor extends HandlerInterceptorAdapter
     return true;
   }
 }
-
-
- * Qualified Name:     net.shopxx.interceptor.TokenInterceptor
-

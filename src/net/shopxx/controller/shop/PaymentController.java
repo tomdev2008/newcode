@@ -169,7 +169,3 @@ public class PaymentController extends BaseController
     return "shop/payment/notify";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.PaymentController
-

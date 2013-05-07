@@ -3,13 +3,14 @@ package net.shopxx.dao;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import net.shopxx.Filter;
 import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Member;
-import net.shopxx.entity.Order.OrderStatus;
-import net.shopxx.entity.Order.PaymentStatus;
-import net.shopxx.entity.Order.ShippingStatus;
+import net.shopxx.entity.Order.OrderOrderStatus;
+import net.shopxx.entity.Order.OrderPaymentStatus;
+import net.shopxx.entity.Order.OrderShippingStatus;
 
 public abstract interface OrderDao extends BaseDao<net.shopxx.entity.Order, Long>
 {
@@ -19,9 +20,9 @@ public abstract interface OrderDao extends BaseDao<net.shopxx.entity.Order, Long
 
   public abstract Page<net.shopxx.entity.Order> findPage(Member paramMember, Pageable paramPageable);
 
-  public abstract Page<net.shopxx.entity.Order> findPage(Order.OrderStatus paramOrderStatus, Order.PaymentStatus paramPaymentStatus, Order.ShippingStatus paramShippingStatus, Boolean paramBoolean, Pageable paramPageable);
+  public abstract Page<net.shopxx.entity.Order> findPage(OrderOrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean, Pageable paramPageable);
 
-  public abstract Long count(Order.OrderStatus paramOrderStatus, Order.PaymentStatus paramPaymentStatus, Order.ShippingStatus paramShippingStatus, Boolean paramBoolean);
+  public abstract Long count(OrderOrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean);
 
   public abstract Long waitingPaymentCount(Member paramMember);
 
@@ -33,7 +34,3 @@ public abstract interface OrderDao extends BaseDao<net.shopxx.entity.Order, Long
 
   public abstract void releaseStock();
 }
-
-
- * Qualified Name:     net.shopxx.dao.OrderDao
-

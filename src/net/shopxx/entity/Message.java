@@ -18,28 +18,28 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Message extends BaseEntity
 {
   private static final long serialVersionUID = -5035343536762850722L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private Boolean IIIlllIl;
-  private Boolean IIIllllI;
-  private Boolean IIIlllll;
-  private Boolean IIlIIIII;
-  private Boolean IIlIIIIl;
-  private Member IIlIIIlI;
-  private Member IIlIIIll;
-  private Message IIlIIlII;
-  private Set<Message> IIlIIlIl = new HashSet();
+  private String title;
+  private String content;
+  private String ip;
+  private Boolean isDraft;
+  private Boolean senderRead;
+  private Boolean receiverRead;
+  private Boolean senderDelete;
+  private Boolean receiverDelete;
+  private Member sender;
+  private Member receiver;
+  private Message forMessage;
+  private Set<Message> replyMessages = new HashSet();
 
   @Column(nullable=false, updatable=false)
   public String getTitle()
   {
-    return this.IIIllIlI;
+    return this.title;
   }
 
   public void setTitle(String title)
   {
-    this.IIIllIlI = title;
+    this.title = title;
   }
 
   @NotEmpty
@@ -47,129 +47,125 @@ public class Message extends BaseEntity
   @Column(nullable=false, updatable=false, length=1000)
   public String getContent()
   {
-    return this.IIIllIll;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIllIll = content;
+    this.content = content;
   }
 
   @Column(nullable=false, updatable=false)
   public String getIp()
   {
-    return this.IIIlllII;
+    return this.ip;
   }
 
   public void setIp(String ip)
   {
-    this.IIIlllII = ip;
+    this.ip = ip;
   }
 
   @Column(nullable=false, updatable=false)
   public Boolean getIsDraft()
   {
-    return this.IIIlllIl;
+    return this.isDraft;
   }
 
   public void setIsDraft(Boolean isDraft)
   {
-    this.IIIlllIl = isDraft;
+    this.isDraft = isDraft;
   }
 
   @Column(nullable=false)
   public Boolean getSenderRead()
   {
-    return this.IIIllllI;
+    return this.senderRead;
   }
 
   public void setSenderRead(Boolean senderRead)
   {
-    this.IIIllllI = senderRead;
+    this.senderRead = senderRead;
   }
 
   @Column(nullable=false)
   public Boolean getReceiverRead()
   {
-    return this.IIIlllll;
+    return this.receiverRead;
   }
 
   public void setReceiverRead(Boolean receiverRead)
   {
-    this.IIIlllll = receiverRead;
+    this.receiverRead = receiverRead;
   }
 
   @Column(nullable=false)
   public Boolean getSenderDelete()
   {
-    return this.IIlIIIII;
+    return this.senderDelete;
   }
 
   public void setSenderDelete(Boolean senderDelete)
   {
-    this.IIlIIIII = senderDelete;
+    this.senderDelete = senderDelete;
   }
 
   @Column(nullable=false)
   public Boolean getReceiverDelete()
   {
-    return this.IIlIIIIl;
+    return this.receiverDelete;
   }
 
   public void setReceiverDelete(Boolean receiverDelete)
   {
-    this.IIlIIIIl = receiverDelete;
+    this.receiverDelete = receiverDelete;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Member getSender()
   {
-    return this.IIlIIIlI;
+    return this.sender;
   }
 
   public void setSender(Member sender)
   {
-    this.IIlIIIlI = sender;
+    this.sender = sender;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Member getReceiver()
   {
-    return this.IIlIIIll;
+    return this.receiver;
   }
 
   public void setReceiver(Member receiver)
   {
-    this.IIlIIIll = receiver;
+    this.receiver = receiver;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Message getForMessage()
   {
-    return this.IIlIIlII;
+    return this.forMessage;
   }
 
   public void setForMessage(Message forMessage)
   {
-    this.IIlIIlII = forMessage;
+    this.forMessage = forMessage;
   }
 
   @OneToMany(mappedBy="forMessage", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   @OrderBy("createDate asc")
   public Set<Message> getReplyMessages()
   {
-    return this.IIlIIlIl;
+    return this.replyMessages;
   }
 
   public void setReplyMessages(Set<Message> replyMessages)
   {
-    this.IIlIIlIl = replyMessages;
+    this.replyMessages = replyMessages;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Message
-

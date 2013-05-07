@@ -12,45 +12,49 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class FriendLink extends OrderEntity
 {
   private static final long serialVersionUID = 3019642557500517628L;
-  private String IIIllIlI;
-  private FriendLink.Type IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
+  public enum FriendLinkType
+  {
+    text, image;
+  }
+  private String name;
+  private FriendLinkType type;
+  private String logo;
+  private String url;
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull
   @Column(nullable=false)
-  public FriendLink.Type getType()
+  public FriendLinkType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(FriendLink.Type type)
+  public void setType(FriendLinkType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   @Length(max=200)
   public String getLogo()
   {
-    return this.IIIlllII;
+    return this.logo;
   }
 
   public void setLogo(String logo)
   {
-    this.IIIlllII = logo;
+    this.logo = logo;
   }
 
   @NotEmpty
@@ -58,15 +62,11 @@ public class FriendLink extends OrderEntity
   @Column(nullable=false)
   public String getUrl()
   {
-    return this.IIIlllIl;
+    return this.url;
   }
 
   public void setUrl(String url)
   {
-    this.IIIlllIl = url;
+    this.url = url;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.FriendLink
-

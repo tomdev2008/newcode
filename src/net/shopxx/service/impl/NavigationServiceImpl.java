@@ -82,7 +82,3 @@ public class NavigationServiceImpl extends BaseServiceImpl<Navigation, Long>
     super.delete(navigation);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.NavigationServiceImpl
-

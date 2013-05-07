@@ -98,7 +98,3 @@ public class FilePlugin extends StoragePlugin
     return localArrayList;
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.file.FilePlugin
-

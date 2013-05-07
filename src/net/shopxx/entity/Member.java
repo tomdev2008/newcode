@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -23,8 +24,10 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
 import net.shopxx.interceptor.MemberInterceptor;
 import net.shopxx.util.JsonUtils;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Email;
@@ -36,68 +39,76 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Member extends BaseEntity
 {
   private static final long serialVersionUID = 1533130686714725835L;
+  public enum MemberGender
+  {
+    male, female;
+  }
+  public enum MemberAttributeType
+  {
+    name, gender, birth, area, address, zipCode, phone, mobile, text, select, checkbox;
+  }
   public static final String PRINCIPAL_ATTRIBUTE_NAME = MemberInterceptor.class.getName() + ".PRINCIPAL";
   public static final String USERNAME_COOKIE_NAME = "username";
   public static final int ATTRIBUTE_VALUE_PROPERTY_COUNT = 10;
   public static final String ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX = "attributeValue";
   public static final Integer MAX_FAVORITE_COUNT = Integer.valueOf(10);
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private Long IIIlllIl;
-  private BigDecimal IIIllllI;
-  private BigDecimal IIIlllll;
-  private Boolean IIlIIIII;
-  private Boolean IIlIIIIl;
-  private Integer IIlIIIlI;
-  private Date IIlIIIll;
-  private String IIlIIlII;
-  private String IIlIIlIl;
-  private Date IIlIIllI;
-  private String IIlIIlll;
-  private Member.Gender IIlIlIII;
-  private Date IIlIlIIl;
-  private String IIlIlIlI;
-  private String IIlIlIll;
-  private String IIlIllII;
-  private String IIlIllIl;
-  private String IIlIlllI;
-  private String IIlIllll;
-  private String IIllIIII;
-  private String IIllIIIl;
-  private String IIllIIlI;
-  private String IIllIIll;
-  private String IIllIlII;
-  private String IIllIlIl;
-  private String IIllIllI;
-  private String IIllIlll;
-  private SafeKey IIlllIII;
-  private Area IIlllIIl;
-  private MemberRank IIlllIlI;
-  private Cart IIlllIll;
-  private Set<Order> IIllllII = new HashSet();
-  private Set<Deposit> IIllllIl = new HashSet();
-  private Set<Payment> IIlllllI = new HashSet();
-  private Set<CouponCode> IIllllll = new HashSet();
-  private Set<Receiver> IlIIIIII = new HashSet();
-  private Set<Review> IlIIIIIl = new HashSet();
-  private Set<Consultation> IlIIIIlI = new HashSet();
-  private Set<Product> IlIIIIll = new HashSet();
-  private Set<ProductNotify> IlIIIlII = new HashSet();
-  private Set<Message> IlIIIlIl = new HashSet();
-  private Set<Message> IlIIIllI = new HashSet();
+  private String username;
+  private String password;
+  private String email;
+  private Long point;
+  private BigDecimal amount;
+  private BigDecimal balance;
+  private Boolean isEnabled;
+  private Boolean isLocked;
+  private Integer loginFailureCount;
+  private Date lockedDate;
+  private String registerIp;
+  private String loginIp;
+  private Date loginDate;
+  private String name;
+  private MemberGender gender;
+  private Date birth;
+  private String address;
+  private String zipCode;
+  private String phone;
+  private String mobile;
+  private String attributeValue0;
+  private String attributeValue1;
+  private String attributeValue2;
+  private String attributeValue3;
+  private String attributeValue4;
+  private String attributeValue5;
+  private String attributeValue6;
+  private String attributeValue7;
+  private String attributeValue8;
+  private String attributeValue9;
+  private SafeKey safeKey;
+  private Area area;
+  private MemberRank memberRank;
+  private Cart cart;
+  private Set<Order> orders = new HashSet();
+  private Set<Deposit> deposits = new HashSet();
+  private Set<Payment> payments = new HashSet();
+  private Set<CouponCode> couponCodes = new HashSet();
+  private Set<Receiver> receivers = new HashSet();
+  private Set<Review> reviews = new HashSet();
+  private Set<Consultation> consultations = new HashSet();
+  private Set<Product> favoriteProducts = new HashSet();
+  private Set<ProductNotify> productNotifies = new HashSet();
+  private Set<Message> inMessages = new HashSet();
+  private Set<Message> outMessages = new HashSet();
 
   @NotEmpty(groups={BaseEntity.Save.class})
   @Pattern(regexp="^[0-9a-z_A-Z\\u4e00-\\u9fa5]+$")
   @Column(nullable=false, updatable=false, unique=true)
   public String getUsername()
   {
-    return this.IIIllIlI;
+    return this.username;
   }
 
   public void setUsername(String username)
   {
-    this.IIIllIlI = username;
+    this.username = username;
   }
 
   @NotEmpty(groups={BaseEntity.Save.class})
@@ -105,12 +116,12 @@ public class Member extends BaseEntity
   @Column(nullable=false)
   public String getPassword()
   {
-    return this.IIIllIll;
+    return this.password;
   }
 
   public void setPassword(String password)
   {
-    this.IIIllIll = password;
+    this.password = password;
   }
 
   @NotEmpty
@@ -119,12 +130,12 @@ public class Member extends BaseEntity
   @Column(nullable=false)
   public String getEmail()
   {
-    return this.IIIlllII;
+    return this.email;
   }
 
   public void setEmail(String email)
   {
-    this.IIIlllII = email;
+    this.email = email;
   }
 
   @NotNull(groups={BaseEntity.Save.class})
@@ -132,23 +143,23 @@ public class Member extends BaseEntity
   @Column(nullable=false)
   public Long getPoint()
   {
-    return this.IIIlllIl;
+    return this.point;
   }
 
   public void setPoint(Long point)
   {
-    this.IIIlllIl = point;
+    this.point = point;
   }
 
   @Column(nullable=false, precision=27, scale=12)
   public BigDecimal getAmount()
   {
-    return this.IIIllllI;
+    return this.amount;
   }
 
   public void setAmount(BigDecimal amount)
   {
-    this.IIIllllI = amount;
+    this.amount = amount;
   }
 
   @NotNull(groups={BaseEntity.Save.class})
@@ -157,294 +168,294 @@ public class Member extends BaseEntity
   @Column(nullable=false, precision=27, scale=12)
   public BigDecimal getBalance()
   {
-    return this.IIIlllll;
+    return this.balance;
   }
 
   public void setBalance(BigDecimal balance)
   {
-    this.IIIlllll = balance;
+    this.balance = balance;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsEnabled()
   {
-    return this.IIlIIIII;
+    return this.isEnabled;
   }
 
   public void setIsEnabled(Boolean isEnabled)
   {
-    this.IIlIIIII = isEnabled;
+    this.isEnabled = isEnabled;
   }
 
   @Column(nullable=false)
   public Boolean getIsLocked()
   {
-    return this.IIlIIIIl;
+    return this.isLocked;
   }
 
   public void setIsLocked(Boolean isLocked)
   {
-    this.IIlIIIIl = isLocked;
+    this.isLocked = isLocked;
   }
 
   @Column(nullable=false)
   public Integer getLoginFailureCount()
   {
-    return this.IIlIIIlI;
+    return this.loginFailureCount;
   }
 
   public void setLoginFailureCount(Integer loginFailureCount)
   {
-    this.IIlIIIlI = loginFailureCount;
+    this.loginFailureCount = loginFailureCount;
   }
 
   public Date getLockedDate()
   {
-    return this.IIlIIIll;
+    return this.lockedDate;
   }
 
   public void setLockedDate(Date lockedDate)
   {
-    this.IIlIIIll = lockedDate;
+    this.lockedDate = lockedDate;
   }
 
   @Column(nullable=false, updatable=false)
   public String getRegisterIp()
   {
-    return this.IIlIIlII;
+    return this.registerIp;
   }
 
   public void setRegisterIp(String registerIp)
   {
-    this.IIlIIlII = registerIp;
+    this.registerIp = registerIp;
   }
 
   public String getLoginIp()
   {
-    return this.IIlIIlIl;
+    return this.loginIp;
   }
 
   public void setLoginIp(String loginIp)
   {
-    this.IIlIIlIl = loginIp;
+    this.loginIp = loginIp;
   }
 
   public Date getLoginDate()
   {
-    return this.IIlIIllI;
+    return this.loginDate;
   }
 
   public void setLoginDate(Date loginDate)
   {
-    this.IIlIIllI = loginDate;
+    this.loginDate = loginDate;
   }
 
   @Length(max=200)
   public String getName()
   {
-    return this.IIlIIlll;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIlIIlll = name;
+    this.name = name;
   }
 
-  public Member.Gender getGender()
+  public MemberGender getGender()
   {
-    return this.IIlIlIII;
+    return this.gender;
   }
 
-  public void setGender(Member.Gender gender)
+  public void setGender(MemberGender gender)
   {
-    this.IIlIlIII = gender;
+    this.gender = gender;
   }
 
   public Date getBirth()
   {
-    return this.IIlIlIIl;
+    return this.birth;
   }
 
   public void setBirth(Date birth)
   {
-    this.IIlIlIIl = birth;
+    this.birth = birth;
   }
 
   @Length(max=200)
   public String getAddress()
   {
-    return this.IIlIlIlI;
+    return this.address;
   }
 
   public void setAddress(String address)
   {
-    this.IIlIlIlI = address;
+    this.address = address;
   }
 
   @Length(max=200)
   public String getZipCode()
   {
-    return this.IIlIlIll;
+    return this.zipCode;
   }
 
   public void setZipCode(String zipCode)
   {
-    this.IIlIlIll = zipCode;
+    this.zipCode = zipCode;
   }
 
   @Length(max=200)
   public String getPhone()
   {
-    return this.IIlIllII;
+    return this.phone;
   }
 
   public void setPhone(String phone)
   {
-    this.IIlIllII = phone;
+    this.phone = phone;
   }
 
   @Length(max=200)
   public String getMobile()
   {
-    return this.IIlIllIl;
+    return this.mobile;
   }
 
   public void setMobile(String mobile)
   {
-    this.IIlIllIl = mobile;
+    this.mobile = mobile;
   }
 
   @Length(max=200)
   public String getAttributeValue0()
   {
-    return this.IIlIlllI;
+    return this.attributeValue0;
   }
 
   public void setAttributeValue0(String attributeValue0)
   {
-    this.IIlIlllI = attributeValue0;
+    this.attributeValue0 = attributeValue0;
   }
 
   @Length(max=200)
   public String getAttributeValue1()
   {
-    return this.IIlIllll;
+    return this.attributeValue1;
   }
 
   public void setAttributeValue1(String attributeValue1)
   {
-    this.IIlIllll = attributeValue1;
+    this.attributeValue1 = attributeValue1;
   }
 
   @Length(max=200)
   public String getAttributeValue2()
   {
-    return this.IIllIIII;
+    return this.attributeValue2;
   }
 
   public void setAttributeValue2(String attributeValue2)
   {
-    this.IIllIIII = attributeValue2;
+    this.attributeValue2 = attributeValue2;
   }
 
   @Length(max=200)
   public String getAttributeValue3()
   {
-    return this.IIllIIIl;
+    return this.attributeValue3;
   }
 
   public void setAttributeValue3(String attributeValue3)
   {
-    this.IIllIIIl = attributeValue3;
+    this.attributeValue3 = attributeValue3;
   }
 
   @Length(max=200)
   public String getAttributeValue4()
   {
-    return this.IIllIIlI;
+    return this.attributeValue4;
   }
 
   public void setAttributeValue4(String attributeValue4)
   {
-    this.IIllIIlI = attributeValue4;
+    this.attributeValue4 = attributeValue4;
   }
 
   @Length(max=200)
   public String getAttributeValue5()
   {
-    return this.IIllIIll;
+    return this.attributeValue5;
   }
 
   public void setAttributeValue5(String attributeValue5)
   {
-    this.IIllIIll = attributeValue5;
+    this.attributeValue5 = attributeValue5;
   }
 
   @Length(max=200)
   public String getAttributeValue6()
   {
-    return this.IIllIlII;
+    return this.attributeValue6;
   }
 
   public void setAttributeValue6(String attributeValue6)
   {
-    this.IIllIlII = attributeValue6;
+    this.attributeValue6 = attributeValue6;
   }
 
   @Length(max=200)
   public String getAttributeValue7()
   {
-    return this.IIllIlIl;
+    return this.attributeValue7;
   }
 
   public void setAttributeValue7(String attributeValue7)
   {
-    this.IIllIlIl = attributeValue7;
+    this.attributeValue7 = attributeValue7;
   }
 
   @Length(max=200)
   public String getAttributeValue8()
   {
-    return this.IIllIllI;
+    return this.attributeValue8;
   }
 
   public void setAttributeValue8(String attributeValue8)
   {
-    this.IIllIllI = attributeValue8;
+    this.attributeValue8 = attributeValue8;
   }
 
   @Length(max=200)
   public String getAttributeValue9()
   {
-    return this.IIllIlll;
+    return this.attributeValue9;
   }
 
   public void setAttributeValue9(String attributeValue9)
   {
-    this.IIllIlll = attributeValue9;
+    this.attributeValue9 = attributeValue9;
   }
 
   @Embedded
   public SafeKey getSafeKey()
   {
-    return this.IIlllIII;
+    return this.safeKey;
   }
 
   public void setSafeKey(SafeKey safeKey)
   {
-    this.IIlllIII = safeKey;
+    this.safeKey = safeKey;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   public Area getArea()
   {
-    return this.IIlllIIl;
+    return this.area;
   }
 
   public void setArea(Area area)
   {
-    this.IIlllIIl = area;
+    this.area = area;
   }
 
   @NotNull
@@ -452,103 +463,103 @@ public class Member extends BaseEntity
   @JoinColumn(nullable=false)
   public MemberRank getMemberRank()
   {
-    return this.IIlllIlI;
+    return this.memberRank;
   }
 
   public void setMemberRank(MemberRank memberRank)
   {
-    this.IIlllIlI = memberRank;
+    this.memberRank = memberRank;
   }
 
   @OneToOne(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Cart getCart()
   {
-    return this.IIlllIll;
+    return this.cart;
   }
 
   public void setCart(Cart cart)
   {
-    this.IIlllIll = cart;
+    this.cart = cart;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<Order> getOrders()
   {
-    return this.IIllllII;
+    return this.orders;
   }
 
   public void setOrders(Set<Order> orders)
   {
-    this.IIllllII = orders;
+    this.orders = orders;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<Deposit> getDeposits()
   {
-    return this.IIllllIl;
+    return this.deposits;
   }
 
   public void setDeposits(Set<Deposit> deposits)
   {
-    this.IIllllIl = deposits;
+    this.deposits = deposits;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<Payment> getPayments()
   {
-    return this.IIlllllI;
+    return this.payments;
   }
 
   public void setPayments(Set<Payment> payments)
   {
-    this.IIlllllI = payments;
+    this.payments = payments;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<CouponCode> getCouponCodes()
   {
-    return this.IIllllll;
+    return this.couponCodes;
   }
 
   public void setCouponCodes(Set<CouponCode> couponCodes)
   {
-    this.IIllllll = couponCodes;
+    this.couponCodes = couponCodes;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   @OrderBy("isDefault desc, createDate desc")
   public Set<Receiver> getReceivers()
   {
-    return this.IlIIIIII;
+    return this.receivers;
   }
 
   public void setReceivers(Set<Receiver> receivers)
   {
-    this.IlIIIIII = receivers;
+    this.receivers = receivers;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   @OrderBy("createDate desc")
   public Set<Review> getReviews()
   {
-    return this.IlIIIIIl;
+    return this.reviews;
   }
 
   public void setReviews(Set<Review> reviews)
   {
-    this.IlIIIIIl = reviews;
+    this.reviews = reviews;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   @OrderBy("createDate desc")
   public Set<Consultation> getConsultations()
   {
-    return this.IlIIIIlI;
+    return this.consultations;
   }
 
   public void setConsultations(Set<Consultation> consultations)
   {
-    this.IlIIIIlI = consultations;
+    this.consultations = consultations;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
@@ -556,45 +567,45 @@ public class Member extends BaseEntity
   @OrderBy("createDate desc")
   public Set<Product> getFavoriteProducts()
   {
-    return this.IlIIIIll;
+    return this.favoriteProducts;
   }
 
   public void setFavoriteProducts(Set<Product> favoriteProducts)
   {
-    this.IlIIIIll = favoriteProducts;
+    this.favoriteProducts = favoriteProducts;
   }
 
   @OneToMany(mappedBy="member", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<ProductNotify> getProductNotifies()
   {
-    return this.IlIIIlII;
+    return this.productNotifies;
   }
 
   public void setProductNotifies(Set<ProductNotify> productNotifies)
   {
-    this.IlIIIlII = productNotifies;
+    this.productNotifies = productNotifies;
   }
 
   @OneToMany(mappedBy="receiver", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<Message> getInMessages()
   {
-    return this.IlIIIlIl;
+    return this.inMessages;
   }
 
   public void setInMessages(Set<Message> inMessages)
   {
-    this.IlIIIlIl = inMessages;
+    this.inMessages = inMessages;
   }
 
   @OneToMany(mappedBy="sender", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<Message> getOutMessages()
   {
-    return this.IlIIIllI;
+    return this.outMessages;
   }
 
   public void setOutMessages(Set<Message> outMessages)
   {
-    this.IlIIIllI = outMessages;
+    this.outMessages = outMessages;
   }
 
   @Transient
@@ -602,23 +613,23 @@ public class Member extends BaseEntity
   {
     if (memberAttribute != null)
     {
-      if (memberAttribute.getType() == MemberAttribute.Type.name)
+      if (memberAttribute.getType() == MemberAttributeType.name)
         return getName();
-      if (memberAttribute.getType() == MemberAttribute.Type.gender)
+      if (memberAttribute.getType() == MemberAttributeType.gender)
         return getGender();
-      if (memberAttribute.getType() == MemberAttribute.Type.birth)
+      if (memberAttribute.getType() == MemberAttributeType.birth)
         return getBirth();
-      if (memberAttribute.getType() == MemberAttribute.Type.area)
+      if (memberAttribute.getType() == MemberAttributeType.area)
         return getArea();
-      if (memberAttribute.getType() == MemberAttribute.Type.address)
+      if (memberAttribute.getType() == MemberAttributeType.address)
         return getAddress();
-      if (memberAttribute.getType() == MemberAttribute.Type.zipCode)
+      if (memberAttribute.getType() == MemberAttributeType.zipCode)
         return getZipCode();
-      if (memberAttribute.getType() == MemberAttribute.Type.phone)
+      if (memberAttribute.getType() == MemberAttributeType.phone)
         return getPhone();
-      if (memberAttribute.getType() == MemberAttribute.Type.mobile)
+      if (memberAttribute.getType() == MemberAttributeType.mobile)
         return getMobile();
-      if (memberAttribute.getType() == MemberAttribute.Type.checkbox)
+      if (memberAttribute.getType() == MemberAttributeType.checkbox)
       {
         if (memberAttribute.getPropertyIndex() != null)
           try
@@ -671,23 +682,23 @@ public class Member extends BaseEntity
     {
       if (((attributeValue instanceof String)) && (StringUtils.isEmpty((String)attributeValue)))
         attributeValue = null;
-      if ((memberAttribute.getType() == MemberAttribute.Type.name) && (((attributeValue instanceof String)) || (attributeValue == null)))
+      if ((memberAttribute.getType() == MemberAttributeType.name) && (((attributeValue instanceof String)) || (attributeValue == null)))
         setName((String)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.gender) && (((attributeValue instanceof Member.Gender)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.gender) && (((attributeValue instanceof Member.Gender)) || (attributeValue == null)))
         setGender((Member.Gender)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.birth) && (((attributeValue instanceof Date)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.birth) && (((attributeValue instanceof Date)) || (attributeValue == null)))
         setBirth((Date)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.area) && (((attributeValue instanceof Area)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.area) && (((attributeValue instanceof Area)) || (attributeValue == null)))
         setArea((Area)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.address) && (((attributeValue instanceof String)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.address) && (((attributeValue instanceof String)) || (attributeValue == null)))
         setAddress((String)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.zipCode) && (((attributeValue instanceof String)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.zipCode) && (((attributeValue instanceof String)) || (attributeValue == null)))
         setZipCode((String)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.phone) && (((attributeValue instanceof String)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.phone) && (((attributeValue instanceof String)) || (attributeValue == null)))
         setPhone((String)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.mobile) && (((attributeValue instanceof String)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.mobile) && (((attributeValue instanceof String)) || (attributeValue == null)))
         setMobile((String)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttribute.Type.checkbox) && (((attributeValue instanceof List)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.checkbox) && (((attributeValue instanceof List)) || (attributeValue == null)))
       {
         if ((memberAttribute.getPropertyIndex() != null) && ((attributeValue == null) || ((memberAttribute.getOptions() != null) && (memberAttribute.getOptions().containsAll((List)attributeValue)))))
           try
@@ -762,7 +773,3 @@ public class Member extends BaseEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Member
-

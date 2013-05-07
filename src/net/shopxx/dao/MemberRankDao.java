@@ -13,7 +13,3 @@ public abstract interface MemberRankDao extends BaseDao<MemberRank, Long>
 
   public abstract MemberRank findByAmount(BigDecimal paramBigDecimal);
 }
-
-
- * Qualified Name:     net.shopxx.dao.MemberRankDao
-

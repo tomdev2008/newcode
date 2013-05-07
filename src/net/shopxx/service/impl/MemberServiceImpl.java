@@ -184,7 +184,3 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long>
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.MemberServiceImpl
-

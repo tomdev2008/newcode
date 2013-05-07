@@ -81,7 +81,3 @@ public class PromotionServiceImpl extends BaseServiceImpl<Promotion, Long>
     super.delete(promotion);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.PromotionServiceImpl
-

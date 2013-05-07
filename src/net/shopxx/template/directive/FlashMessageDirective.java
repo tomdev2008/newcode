@@ -34,7 +34,3 @@ public class FlashMessageDirective extends BaseDirective
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.FlashMessageDirective
-

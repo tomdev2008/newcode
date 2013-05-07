@@ -16,7 +16,3 @@ public class ParameterServiceImpl extends BaseServiceImpl<Parameter, Long>
     super.setBaseDao(parameterDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ParameterServiceImpl
-

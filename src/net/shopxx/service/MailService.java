@@ -20,7 +20,3 @@ public abstract interface MailService
 
   public abstract void sendProductNotifyMail(ProductNotify paramProductNotify);
 }
-
-
- * Qualified Name:     net.shopxx.service.MailService
-

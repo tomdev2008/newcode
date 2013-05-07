@@ -60,7 +60,3 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long>
     super.delete(role);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.RoleServiceImpl
-

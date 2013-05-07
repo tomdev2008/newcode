@@ -39,7 +39,3 @@ public class FileController extends BaseController
     return "redirect:/admin/storage_plugin/list.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.file.FileController
-

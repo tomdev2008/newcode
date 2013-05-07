@@ -189,7 +189,3 @@ public class CartController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.CartController
-

@@ -21,9 +21,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ParameterGroup extends OrderEntity
 {
   private static final long serialVersionUID = 192003501177471941L;
-  private String IIIllIlI;
-  private ProductCategory IIIllIll;
-  private List<Parameter> IIIlllII = new ArrayList();
+  private String name;
+  private ProductCategory productCategory;
+  private List<Parameter> parameters = new ArrayList();
 
   @JsonProperty
   @NotEmpty
@@ -31,12 +31,12 @@ public class ParameterGroup extends OrderEntity
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull
@@ -44,12 +44,12 @@ public class ParameterGroup extends OrderEntity
   @JoinColumn(nullable=false)
   public ProductCategory getProductCategory()
   {
-    return this.IIIllIll;
+    return this.productCategory;
   }
 
   public void setProductCategory(ProductCategory productCategory)
   {
-    this.IIIllIll = productCategory;
+    this.productCategory = productCategory;
   }
 
   @JsonProperty
@@ -59,15 +59,12 @@ public class ParameterGroup extends OrderEntity
   @OrderBy("order asc")
   public List<Parameter> getParameters()
   {
-    return this.IIIlllII;
+    return this.parameters;
   }
 
   public void setParameters(List<Parameter> parameters)
   {
-    this.IIIlllII = parameters;
+    this.parameters = parameters;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.ParameterGroup
 

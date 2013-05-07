@@ -28,27 +28,31 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Promotion extends OrderEntity
 {
   private static final long serialVersionUID = 3536993535267962279L;
+  public enum PromotionOperator
+  {
+    add, subtract, multiply, divide;
+  }
   private static final String IIIllIlI = "/promotion/content";
   private static final String IIIllIll = ".jhtml";
-  private String IIIlllII;
-  private String IIIlllIl;
-  private Date IIIllllI;
-  private Date IIIlllll;
-  private BigDecimal IIlIIIII;
-  private BigDecimal IIlIIIIl;
-  private Promotion.Operator IIlIIIlI;
-  private BigDecimal IIlIIIll;
-  private Promotion.Operator IIlIIlII;
-  private BigDecimal IIlIIlIl;
-  private Boolean IIlIIllI;
-  private Boolean IIlIIlll;
-  private String IIlIlIII;
-  private Set<MemberRank> IIlIlIIl = new HashSet();
-  private Set<ProductCategory> IIlIlIlI = new HashSet();
-  private Set<Product> IIlIlIll = new HashSet();
-  private Set<Brand> IIlIllII = new HashSet();
-  private Set<Coupon> IIlIllIl = new HashSet();
-  private List<GiftItem> IIlIlllI = new ArrayList();
+  private String name;
+  private String title;
+  private Date beginDate;
+  private Date endDate;
+  private BigDecimal startPrice;
+  private BigDecimal endPrice;
+  private PromotionOperator priceOperator;
+  private BigDecimal priceValue;
+  private PromotionOperator pointOperator;
+  private BigDecimal pointValue;
+  private Boolean isFreeShipping;
+  private Boolean isCouponAllowed;
+  private String introduction;
+  private Set<MemberRank> memberRanks = new HashSet();
+  private Set<ProductCategory> productCategories = new HashSet();
+  private Set<Product> products = new HashSet();
+  private Set<Brand> brands = new HashSet();
+  private Set<Coupon> coupons = new HashSet();
+  private List<GiftItem> giftItems = new ArrayList();
 
   @JsonProperty
   @NotEmpty
@@ -56,12 +60,12 @@ public class Promotion extends OrderEntity
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIlllII;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIlllII = name;
+    this.name = name;
   }
 
   @JsonProperty
@@ -70,34 +74,34 @@ public class Promotion extends OrderEntity
   @Column(nullable=false)
   public String getTitle()
   {
-    return this.IIIlllIl;
+    return this.title;
   }
 
   public void setTitle(String title)
   {
-    this.IIIlllIl = title;
+    this.title = title;
   }
 
   @JsonProperty
   public Date getBeginDate()
   {
-    return this.IIIllllI;
+    return this.beginDate;
   }
 
   public void setBeginDate(Date beginDate)
   {
-    this.IIIllllI = beginDate;
+    this.beginDate = beginDate;
   }
 
   @JsonProperty
   public Date getEndDate()
   {
-    return this.IIIlllll;
+    return this.endDate;
   }
 
   public void setEndDate(Date endDate)
   {
-    this.IIIlllll = endDate;
+    this.endDate = endDate;
   }
 
   @JsonProperty
@@ -106,12 +110,12 @@ public class Promotion extends OrderEntity
   @Column(precision=21, scale=6)
   public BigDecimal getStartPrice()
   {
-    return this.IIlIIIII;
+    return this.startPrice;
   }
 
   public void setStartPrice(BigDecimal startPrice)
   {
-    this.IIlIIIII = startPrice;
+    this.startPrice = startPrice;
   }
 
   @JsonProperty
@@ -120,70 +124,70 @@ public class Promotion extends OrderEntity
   @Column(precision=21, scale=6)
   public BigDecimal getEndPrice()
   {
-    return this.IIlIIIIl;
+    return this.endPrice;
   }
 
   public void setEndPrice(BigDecimal endPrice)
   {
-    this.IIlIIIIl = endPrice;
+    this.endPrice = endPrice;
   }
 
   @NotNull
   @Column(nullable=false)
-  public Promotion.Operator getPriceOperator()
+  public PromotionOperator getPriceOperator()
   {
-    return this.IIlIIIlI;
+    return this.priceOperator;
   }
 
-  public void setPriceOperator(Promotion.Operator priceOperator)
+  public void setPriceOperator(PromotionOperator priceOperator)
   {
-    this.IIlIIIlI = priceOperator;
+    this.priceOperator = priceOperator;
   }
 
   @Digits(integer=12, fraction=3)
   @Column(precision=21, scale=6)
   public BigDecimal getPriceValue()
   {
-    return this.IIlIIIll;
+    return this.priceValue;
   }
 
   public void setPriceValue(BigDecimal priceValue)
   {
-    this.IIlIIIll = priceValue;
+    this.priceValue = priceValue;
   }
 
   @NotNull
   @Column(nullable=false)
-  public Promotion.Operator getPointOperator()
+  public PromotionOperator getPointOperator()
   {
-    return this.IIlIIlII;
+    return this.pointOperator;
   }
 
-  public void setPointOperator(Promotion.Operator pointOperator)
+  public void setPointOperator(PromotionOperator pointOperator)
   {
-    this.IIlIIlII = pointOperator;
+    this.pointOperator = pointOperator;
   }
 
   public BigDecimal getPointValue()
   {
-    return this.IIlIIlIl;
+    return this.pointValue;
   }
 
   public void setPointValue(BigDecimal pointValue)
   {
-    this.IIlIIlIl = pointValue;
+    this.pointValue = pointValue;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsFreeShipping()
   {
-    return this.IIlIIllI;
+    return this.isFreeShipping;
   }
 
   public void setIsFreeShipping(Boolean isFreeShipping)
   {
-    this.IIlIIllI = isFreeShipping;
+    this.isFreeShipping = isFreeShipping;
   }
 
   @JsonProperty
@@ -191,95 +195,95 @@ public class Promotion extends OrderEntity
   @Column(nullable=false)
   public Boolean getIsCouponAllowed()
   {
-    return this.IIlIIlll;
+    return this.isCouponAllowed;
   }
 
   public void setIsCouponAllowed(Boolean isCouponAllowed)
   {
-    this.IIlIIlll = isCouponAllowed;
+    this.isCouponAllowed = isCouponAllowed;
   }
 
   @Lob
   public String getIntroduction()
   {
-    return this.IIlIlIII;
+    return this.introduction;
   }
 
   public void setIntroduction(String introduction)
   {
-    this.IIlIlIII = introduction;
+    this.introduction = introduction;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
   @JoinTable(name="xx_promotion_member_rank")
   public Set<MemberRank> getMemberRanks()
   {
-    return this.IIlIlIIl;
+    return this.memberRanks;
   }
 
   public void setMemberRanks(Set<MemberRank> memberRanks)
   {
-    this.IIlIlIIl = memberRanks;
+    this.memberRanks = memberRanks;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
   @JoinTable(name="xx_promotion_product_category")
   public Set<ProductCategory> getProductCategories()
   {
-    return this.IIlIlIlI;
+    return this.productCategories;
   }
 
   public void setProductCategories(Set<ProductCategory> productCategories)
   {
-    this.IIlIlIlI = productCategories;
+    this.productCategories = productCategories;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
   @JoinTable(name="xx_promotion_product")
   public Set<Product> getProducts()
   {
-    return this.IIlIlIll;
+    return this.products;
   }
 
   public void setProducts(Set<Product> products)
   {
-    this.IIlIlIll = products;
+    this.products = products;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
   @JoinTable(name="xx_promotion_brand")
   public Set<Brand> getBrands()
   {
-    return this.IIlIllII;
+    return this.brands;
   }
 
   public void setBrands(Set<Brand> brands)
   {
-    this.IIlIllII = brands;
+    this.brands = brands;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
   @JoinTable(name="xx_promotion_coupon")
   public Set<Coupon> getCoupons()
   {
-    return this.IIlIllIl;
+    return this.coupons;
   }
 
   public void setCoupons(Set<Coupon> coupons)
   {
-    this.IIlIllIl = coupons;
+    this.coupons = coupons;
   }
 
   @Valid
   @OneToMany(mappedBy="promotion", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.ALL}, orphanRemoval=true)
   public List<GiftItem> getGiftItems()
   {
-    return this.IIlIlllI;
+    return this.giftItems;
   }
 
   public void setGiftItems(List<GiftItem> giftItems)
   {
-    this.IIlIlllI = giftItems;
+    this.giftItems = giftItems;
   }
 
   @Transient
@@ -308,11 +312,11 @@ public class Promotion extends OrderEntity
     if ((price != null) && (getPriceOperator() != null) && (getPriceValue() != null))
     {
       BigDecimal localBigDecimal;
-      if (getPriceOperator() == Promotion.Operator.add)
+      if (getPriceOperator() == PromotionOperator.add)
         localBigDecimal = price.add(getPriceValue());
-      else if (getPriceOperator() == Promotion.Operator.subtract)
+      else if (getPriceOperator() == PromotionOperator.subtract)
         localBigDecimal = price.subtract(getPriceValue());
-      else if (getPriceOperator() == Promotion.Operator.multiply)
+      else if (getPriceOperator() == PromotionOperator.multiply)
         localBigDecimal = price.multiply(getPriceValue());
       else
         localBigDecimal = price.divide(getPriceValue());
@@ -327,11 +331,11 @@ public class Promotion extends OrderEntity
     if ((point != null) && (getPointOperator() != null) && (getPointValue() != null))
     {
       BigDecimal localBigDecimal;
-      if (getPointOperator() == Promotion.Operator.add)
+      if (getPointOperator() == PromotionOperator.add)
         localBigDecimal = new BigDecimal(point.intValue()).add(getPointValue());
-      else if (getPointOperator() == Promotion.Operator.subtract)
+      else if (getPointOperator() == PromotionOperator.subtract)
         localBigDecimal = new BigDecimal(point.intValue()).subtract(getPointValue());
-      else if (getPointOperator() == Promotion.Operator.multiply)
+      else if (getPointOperator() == PromotionOperator.multiply)
         localBigDecimal = new BigDecimal(point.intValue()).multiply(getPointValue());
       else
         localBigDecimal = new BigDecimal(point.intValue()).divide(getPointValue());
@@ -340,7 +344,3 @@ public class Promotion extends OrderEntity
     return point;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Promotion
-

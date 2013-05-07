@@ -17,7 +17,3 @@ public abstract interface AdminService extends BaseService<Admin, Long>
 
   public abstract String getCurrentUsername();
 }
-
-
- * Qualified Name:     net.shopxx.service.AdminService
-

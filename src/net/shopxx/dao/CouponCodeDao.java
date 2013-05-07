@@ -21,7 +21,3 @@ public abstract interface CouponCodeDao extends BaseDao<CouponCode, Long>
 
   public abstract Long count(Coupon paramCoupon, Member paramMember, Boolean paramBoolean1, Boolean paramBoolean2, Boolean paramBoolean3);
 }
-
-
- * Qualified Name:     net.shopxx.dao.CouponCodeDao
-

@@ -15,10 +15,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ProductNotify extends BaseEntity
 {
   private static final long serialVersionUID = 3192904068727393421L;
-  private String IIIllIlI;
-  private Boolean IIIllIll;
-  private Member IIIlllII;
-  private Product IIIlllIl;
+  private String email;
+  private Boolean hasSent;
+  private Member member;
+  private Product product;
 
   @NotEmpty
   @Email
@@ -26,50 +26,46 @@ public class ProductNotify extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getEmail()
   {
-    return this.IIIllIlI;
+    return this.email;
   }
 
   public void setEmail(String email)
   {
-    this.IIIllIlI = email;
+    this.email = email;
   }
 
   @Column(nullable=false)
   public Boolean getHasSent()
   {
-    return this.IIIllIll;
+    return this.hasSent;
   }
 
   public void setHasSent(Boolean hasSent)
   {
-    this.IIIllIll = hasSent;
+    this.hasSent = hasSent;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Member getMember()
   {
-    return this.IIIlllII;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIIlllII = member;
+    this.member = member;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Product getProduct()
   {
-    return this.IIIlllIl;
+    return this.product;
   }
 
   public void setProduct(Product product)
   {
-    this.IIIlllIl = product;
+    this.product = product;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.ProductNotify
-

@@ -14,119 +14,119 @@ import org.hibernate.validator.constraints.Length;
 public class Deposit extends BaseEntity
 {
   private static final long serialVersionUID = -8323452873046981882L;
-  private Deposit.Type IIIllIlI;
-  private BigDecimal IIIllIll;
-  private BigDecimal IIIlllII;
-  private BigDecimal IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private Member IIlIIIII;
-  private Order IIlIIIIl;
-  private Payment IIlIIIlI;
+  public enum DepositType
+  {
+    memberRecharge, memberPayment, adminRecharge, adminChargeback, adminPayment, adminRefunds;
+  }
+  private DepositType type;
+  private BigDecimal credit;
+  private BigDecimal debit;
+  private BigDecimal balance;
+  private String operator;
+  private String memo;
+  private Member member;
+  private Order order;
+  private Payment payment;
 
   @Column(nullable=false, updatable=false)
-  public Deposit.Type getType()
+  public DepositType getType()
   {
-    return this.IIIllIlI;
+    return this.type;
   }
 
-  public void setType(Deposit.Type type)
+  public void setType(DepositType type)
   {
-    this.IIIllIlI = type;
+    this.type = type;
   }
 
   @Column(nullable=false, updatable=false, precision=21, scale=6)
   public BigDecimal getCredit()
   {
-    return this.IIIllIll;
+    return this.credit;
   }
 
   public void setCredit(BigDecimal credit)
   {
-    this.IIIllIll = credit;
+    this.credit = credit;
   }
 
   @Column(nullable=false, updatable=false, precision=21, scale=6)
   public BigDecimal getDebit()
   {
-    return this.IIIlllII;
+    return this.debit;
   }
 
   public void setDebit(BigDecimal debit)
   {
-    this.IIIlllII = debit;
+    this.debit = debit;
   }
 
   @Column(nullable=false, updatable=false, precision=21, scale=6)
   public BigDecimal getBalance()
   {
-    return this.IIIlllIl;
+    return this.balance;
   }
 
   public void setBalance(BigDecimal balance)
   {
-    this.IIIlllIl = balance;
+    this.balance = balance;
   }
 
   @Column(updatable=false)
   public String getOperator()
   {
-    return this.IIIllllI;
+    return this.operator;
   }
 
   public void setOperator(String operator)
   {
-    this.IIIllllI = operator;
+    this.operator = operator;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getMemo()
   {
-    return this.IIIlllll;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIIlllll = memo;
+    this.memo = memo;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Member getMember()
   {
-    return this.IIlIIIII;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIlIIIII = member;
+    this.member = member;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(name="orders")
   public Order getOrder()
   {
-    return this.IIlIIIIl;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIlIIIIl = order;
+    this.order = order;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   public Payment getPayment()
   {
-    return this.IIlIIIlI;
+    return this.payment;
   }
 
   public void setPayment(Payment payment)
   {
-    this.IIlIIIlI = payment;
+    this.payment = payment;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Deposit
-

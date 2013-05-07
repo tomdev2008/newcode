@@ -5,7 +5,3 @@ import net.shopxx.entity.ShippingMethod;
 public abstract interface ShippingMethodService extends BaseService<ShippingMethod, Long>
 {
 }
-
-
- * Qualified Name:     net.shopxx.service.ShippingMethodService
-

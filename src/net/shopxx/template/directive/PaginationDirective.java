@@ -77,7 +77,3 @@ public class PaginationDirective extends BaseDirective
     IIIllIlI(localHashMap, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.PaginationDirective
-

@@ -23,82 +23,86 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class PaymentMethod extends OrderEntity
 {
   private static final long serialVersionUID = 6949816500116581199L;
-  private String IIIllIlI;
-  private PaymentMethod.Type IIIllIll;
-  private Integer IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private Set<ShippingMethod> IIlIIIII = new HashSet();
-  private Set<Order> IIlIIIIl = new HashSet();
+  public enum PaymentMethodType
+  {
+    online, offline;
+  }
+  private String name;
+  private PaymentMethodType type;
+  private Integer timeout;
+  private String icon;
+  private String description;
+  private String content;
+  private Set<ShippingMethod> shippingMethods = new HashSet();
+  private Set<Order> orders = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull
   @Column(nullable=false)
-  public PaymentMethod.Type getType()
+  public PaymentMethodType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(PaymentMethod.Type type)
+  public void setType(PaymentMethodType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   @Min(1L)
   public Integer getTimeout()
   {
-    return this.IIIlllII;
+    return this.timeout;
   }
 
   public void setTimeout(Integer timeout)
   {
-    this.IIIlllII = timeout;
+    this.timeout = timeout;
   }
 
   @Length(max=200)
   public String getIcon()
   {
-    return this.IIIlllIl;
+    return this.icon;
   }
 
   public void setIcon(String icon)
   {
-    this.IIIlllIl = icon;
+    this.icon = icon;
   }
 
   @Length(max=200)
   public String getDescription()
   {
-    return this.IIIllllI;
+    return this.description;
   }
 
   public void setDescription(String description)
   {
-    this.IIIllllI = description;
+    this.description = description;
   }
 
   @Lob
   public String getContent()
   {
-    return this.IIIlllll;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIlllll = content;
+    this.content = content;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
@@ -106,23 +110,23 @@ public class PaymentMethod extends OrderEntity
   @OrderBy("order asc")
   public Set<ShippingMethod> getShippingMethods()
   {
-    return this.IIlIIIII;
+    return this.shippingMethods;
   }
 
   public void setShippingMethods(Set<ShippingMethod> shippingMethods)
   {
-    this.IIlIIIII = shippingMethods;
+    this.shippingMethods = shippingMethods;
   }
 
   @OneToMany(mappedBy="paymentMethod", fetch=FetchType.LAZY)
   public Set<Order> getOrders()
   {
-    return this.IIlIIIIl;
+    return this.orders;
   }
 
   public void setOrders(Set<Order> orders)
   {
-    this.IIlIIIIl = orders;
+    this.orders = orders;
   }
 
   @PreRemove
@@ -140,7 +144,3 @@ public class PaymentMethod extends OrderEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.PaymentMethod
-

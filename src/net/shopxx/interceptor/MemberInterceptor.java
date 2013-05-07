@@ -72,7 +72,3 @@ public class MemberInterceptor extends HandlerInterceptorAdapter
     this.IIIllllI = loginUrl;
   }
 }
-
-
- * Qualified Name:     net.shopxx.interceptor.MemberInterceptor
-

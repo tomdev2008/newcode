@@ -33,7 +33,3 @@ public class BrandListDirective extends BaseDirective
     IIIllIlI("brands", localList1, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.BrandListDirective
-

@@ -9,7 +9,3 @@ public abstract interface ParameterDao extends BaseDao<Parameter, Long>
 {
   public abstract List<Parameter> findList(ParameterGroup paramParameterGroup, Set<Parameter> paramSet);
 }
-
-
- * Qualified Name:     net.shopxx.dao.ParameterDao
-

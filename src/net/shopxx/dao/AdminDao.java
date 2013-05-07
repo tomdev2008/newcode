@@ -8,7 +8,3 @@ public abstract interface AdminDao extends BaseDao<Admin, Long>
 
   public abstract Admin findByUsername(String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.dao.AdminDao
-

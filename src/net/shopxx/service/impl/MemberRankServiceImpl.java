@@ -63,7 +63,3 @@ public class MemberRankServiceImpl extends BaseServiceImpl<MemberRank, Long>
     return this.IIIllIlI.findByAmount(amount);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.MemberRankServiceImpl
-

@@ -163,7 +163,3 @@ public class TemplateServiceImpl
     return localTemplate;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.TemplateServiceImpl
-

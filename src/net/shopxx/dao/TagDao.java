@@ -1,14 +1,11 @@
 package net.shopxx.dao;
 
 import java.util.List;
+
 import net.shopxx.entity.Tag;
-import net.shopxx.entity.Tag.Type;
+import net.shopxx.entity.Tag.TagType;
 
 public abstract interface TagDao extends BaseDao<Tag, Long>
 {
-  public abstract List<Tag> findList(Tag.Type paramType);
+  public abstract List<Tag> findList(TagType paramType);
 }
-
-
- * Qualified Name:     net.shopxx.dao.TagDao
-

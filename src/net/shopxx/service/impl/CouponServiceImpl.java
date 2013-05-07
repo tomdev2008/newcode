@@ -29,7 +29,3 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon, Long>
     return this.IIIllIlI.findPage(isEnabled, isExchange, hasExpired, pageable);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.CouponServiceImpl
-

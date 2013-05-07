@@ -15,8 +15,8 @@ public class SiteStatusFilter extends OncePerRequestFilter
   private static final String[] IIIllIlI = { "/admin/**" };
   private static final String IIIllIll = "/common/site_close.jhtml";
   private static AntPathMatcher IIIlllII = new AntPathMatcher();
-  private String[] IIIlllIl = IIIllIlI;
-  private String IIIllllI = "/common/site_close.jhtml";
+  private String[] ignoreUrlPatterns = IIIllIlI;
+  private String redirectUrl = "/common/site_close.jhtml";
 
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
   {
@@ -28,44 +28,40 @@ public class SiteStatusFilter extends OncePerRequestFilter
     else
     {
       String str1 = request.getServletPath();
-      if (str1.equals(this.IIIllllI))
+      if (str1.equals(this.redirectUrl))
       {
         filterChain.doFilter(request, response);
         return;
       }
-      if (this.IIIlllIl != null)
-        for (String str2 : this.IIIlllIl)
+      if (this.ignoreUrlPatterns != null)
+        for (String str2 : this.ignoreUrlPatterns)
         {
           if (!IIIlllII.match(str2, str1))
             continue;
           filterChain.doFilter(request, response);
           return;
         }
-      response.sendRedirect(request.getContextPath() + this.IIIllllI);
+      response.sendRedirect(request.getContextPath() + this.redirectUrl);
     }
   }
 
   public String[] getIgnoreUrlPatterns()
   {
-    return this.IIIlllIl;
+    return this.ignoreUrlPatterns;
   }
 
   public void setIgnoreUrlPatterns(String[] ignoreUrlPatterns)
   {
-    this.IIIlllIl = ignoreUrlPatterns;
+    this.ignoreUrlPatterns = ignoreUrlPatterns;
   }
 
   public String getRedirectUrl()
   {
-    return this.IIIllllI;
+    return this.redirectUrl;
   }
 
   public void setRedirectUrl(String redirectUrl)
   {
-    this.IIIllllI = redirectUrl;
+    this.redirectUrl = redirectUrl;
   }
 }
-
-
- * Qualified Name:     net.shopxx.filter.SiteStatusFilter
-

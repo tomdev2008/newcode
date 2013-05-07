@@ -4,63 +4,67 @@ import java.util.Date;
 
 public class FileInfo
 {
-  private String IIIllIlI;
-  private String IIIllIll;
-  private Boolean IIIlllII;
-  private Long IIIlllIl;
-  private Date IIIllllI;
+	public enum FileInfoOrderType
+	{
+	  name, size, type;
+	}
+	public enum FileInfoFileType
+	{
+	  image, flash, media, file;
+	}
+  private String name;
+  private String url;
+  private Boolean isDirectory;
+  private Long size;
+  private Date lastModified;
 
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   public String getUrl()
   {
-    return this.IIIllIll;
+    return this.url;
   }
 
   public void setUrl(String url)
   {
-    this.IIIllIll = url;
+    this.url = url;
   }
 
   public Boolean getIsDirectory()
   {
-    return this.IIIlllII;
+    return this.isDirectory;
   }
 
   public void setIsDirectory(Boolean isDirectory)
   {
-    this.IIIlllII = isDirectory;
+    this.isDirectory = isDirectory;
   }
 
   public Long getSize()
   {
-    return this.IIIlllIl;
+    return this.size;
   }
 
   public void setSize(Long size)
   {
-    this.IIIlllIl = size;
+    this.size = size;
   }
 
   public Date getLastModified()
   {
-    return this.IIIllllI;
+    return this.lastModified;
   }
 
   public void setLastModified(Date lastModified)
   {
-    this.IIIllllI = lastModified;
+    this.lastModified = lastModified;
   }
 }
-
-
- * Qualified Name:     net.shopxx.FileInfo
-

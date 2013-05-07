@@ -14,7 +14,3 @@ public abstract interface ProductNotifyDao extends BaseDao<ProductNotify, Long>
 
   public abstract Long count(Member paramMember, Boolean paramBoolean1, Boolean paramBoolean2, Boolean paramBoolean3);
 }
-
-
- * Qualified Name:     net.shopxx.dao.ProductNotifyDao
-

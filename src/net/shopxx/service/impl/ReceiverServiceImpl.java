@@ -36,7 +36,3 @@ public class ReceiverServiceImpl extends BaseServiceImpl<Receiver, Long>
     return this.IIIllIlI.findPage(member, pageable);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ReceiverServiceImpl
-

@@ -190,7 +190,3 @@ public class BaseServiceImpl<T, ID extends Serializable>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.BaseServiceImpl
-

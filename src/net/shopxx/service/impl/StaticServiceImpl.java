@@ -347,7 +347,3 @@ public class StaticServiceImpl
     return i;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.StaticServiceImpl
-

@@ -59,7 +59,3 @@ public class ArticleController extends BaseController
     return Long.valueOf(this.IIIllllI.viewHits(id));
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.ArticleController
-

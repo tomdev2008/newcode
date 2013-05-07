@@ -22,7 +22,3 @@ public abstract interface ArticleService extends BaseService<Article, Long>
 
   public abstract long viewHits(Long paramLong);
 }
-
-
- * Qualified Name:     net.shopxx.service.ArticleService
-

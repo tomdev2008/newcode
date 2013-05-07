@@ -4,7 +4,3 @@ package net.shopxx.util;
 {
   auto, jdk, graphicsMagick, imageMagick;
 }
-
-
- * Qualified Name:     net.shopxx.util.ImageUtils.Type
-

@@ -1,18 +1,18 @@
 package net.shopxx.filter;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
+
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class EncodingConvertFilter extends OncePerRequestFilter
 {
-  private String IIIllIlI = "ISO-8859-1";
-  private String IIIllIll = "UTF-8";
+  private String fromEncoding = "ISO-8859-1";
+  private String toEncoding = "UTF-8";
 
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
   {
@@ -25,7 +25,7 @@ public class EncodingConvertFilter extends OncePerRequestFilter
         for (int i = 0; i < arrayOfString.length; i++)
           try
           {
-            arrayOfString[i] = new String(arrayOfString[i].getBytes(this.IIIllIlI), this.IIIllIll);
+            arrayOfString[i] = new String(arrayOfString[i].getBytes(this.fromEncoding), this.toEncoding);
           }
           catch (UnsupportedEncodingException localUnsupportedEncodingException)
           {
@@ -38,25 +38,21 @@ public class EncodingConvertFilter extends OncePerRequestFilter
 
   public String getFromEncoding()
   {
-    return this.IIIllIlI;
+    return this.fromEncoding;
   }
 
   public void setFromEncoding(String fromEncoding)
   {
-    this.IIIllIlI = fromEncoding;
+    this.fromEncoding = fromEncoding;
   }
 
   public String getToEncoding()
   {
-    return this.IIIllIll;
+    return this.toEncoding;
   }
 
   public void setToEncoding(String toEncoding)
   {
-    this.IIIllIll = toEncoding;
+    this.toEncoding = toEncoding;
   }
 }
-
-
- * Qualified Name:     net.shopxx.filter.EncodingConvertFilter
-

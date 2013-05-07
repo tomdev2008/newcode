@@ -25,7 +25,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Admin extends BaseEntity
 {
   private static final long serialVersionUID = -7519486823153844426L;
-  private String IIIllIlI;
+  private String username;
   private String password;
   private String email;
   private String name;
@@ -45,12 +45,12 @@ public class Admin extends BaseEntity
   @Column(nullable=false, updatable=false, unique=true)
   public String getUsername()
   {
-    return this.IIIllIlI;
+    return this.username;
   }
 
   public void setUsername(String username)
   {
-    this.IIIllIlI = username;
+    this.username = username;
   }
 
   @NotEmpty(groups={BaseEntity.Save.class})
@@ -207,7 +207,3 @@ public class Admin extends BaseEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Admin
-

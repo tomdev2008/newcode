@@ -28,120 +28,120 @@ public class ProductCategory extends OrderEntity
   public static final String TREE_PATH_SEPARATOR = ",";
   private static final String IIIllIlI = "/product/list";
   private static final String IIIllIll = ".jhtml";
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private String IIlIIIII;
-  private Integer IIlIIIIl;
-  private ProductCategory IIlIIIlI;
-  private Set<ProductCategory> IIlIIIll = new HashSet();
-  private Set<Product> IIlIIlII = new HashSet();
-  private Set<Brand> IIlIIlIl = new HashSet();
-  private Set<ParameterGroup> IIlIIllI = new HashSet();
-  private Set<Attribute> IIlIIlll = new HashSet();
-  private Set<Promotion> IIlIlIII = new HashSet();
+  private String name;
+  private String seoTitle;
+  private String seoKeywords;
+  private String seoDescription;
+  private String treePath;
+  private Integer grade;
+  private ProductCategory parent;
+  private Set<ProductCategory> children = new HashSet();
+  private Set<Product> products = new HashSet();
+  private Set<Brand> brands = new HashSet();
+  private Set<ParameterGroup> parameterGroups = new HashSet();
+  private Set<Attribute> attributes = new HashSet();
+  private Set<Promotion> promotions = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIlllII;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIlllII = name;
+    this.name = name;
   }
 
   @Length(max=200)
   public String getSeoTitle()
   {
-    return this.IIIlllIl;
+    return this.seoTitle;
   }
 
   public void setSeoTitle(String seoTitle)
   {
-    this.IIIlllIl = seoTitle;
+    this.seoTitle = seoTitle;
   }
 
   @Length(max=200)
   public String getSeoKeywords()
   {
-    return this.IIIllllI;
+    return this.seoKeywords;
   }
 
   public void setSeoKeywords(String seoKeywords)
   {
-    this.IIIllllI = seoKeywords;
+    this.seoKeywords = seoKeywords;
   }
 
   @Length(max=200)
   public String getSeoDescription()
   {
-    return this.IIIlllll;
+    return this.seoDescription;
   }
 
   public void setSeoDescription(String seoDescription)
   {
-    this.IIIlllll = seoDescription;
+    this.seoDescription = seoDescription;
   }
 
   @Column(nullable=false)
   public String getTreePath()
   {
-    return this.IIlIIIII;
+    return this.treePath;
   }
 
   public void setTreePath(String treePath)
   {
-    this.IIlIIIII = treePath;
+    this.treePath = treePath;
   }
 
   @Column(nullable=false)
   public Integer getGrade()
   {
-    return this.IIlIIIIl;
+    return this.grade;
   }
 
   public void setGrade(Integer grade)
   {
-    this.IIlIIIIl = grade;
+    this.grade = grade;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   public ProductCategory getParent()
   {
-    return this.IIlIIIlI;
+    return this.parent;
   }
 
   public void setParent(ProductCategory parent)
   {
-    this.IIlIIIlI = parent;
+    this.parent = parent;
   }
 
   @OneToMany(mappedBy="parent", fetch=FetchType.LAZY)
   @OrderBy("order asc")
   public Set<ProductCategory> getChildren()
   {
-    return this.IIlIIIll;
+    return this.children;
   }
 
   public void setChildren(Set<ProductCategory> children)
   {
-    this.IIlIIIll = children;
+    this.children = children;
   }
 
   @OneToMany(mappedBy="productCategory", fetch=FetchType.LAZY)
   public Set<Product> getProducts()
   {
-    return this.IIlIIlII;
+    return this.products;
   }
 
   public void setProducts(Set<Product> products)
   {
-    this.IIlIIlII = products;
+    this.products = products;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
@@ -149,47 +149,47 @@ public class ProductCategory extends OrderEntity
   @OrderBy("order asc")
   public Set<Brand> getBrands()
   {
-    return this.IIlIIlIl;
+    return this.brands;
   }
 
   public void setBrands(Set<Brand> brands)
   {
-    this.IIlIIlIl = brands;
+    this.brands = brands;
   }
 
   @OneToMany(mappedBy="productCategory", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   @OrderBy("order asc")
   public Set<ParameterGroup> getParameterGroups()
   {
-    return this.IIlIIllI;
+    return this.parameterGroups;
   }
 
   public void setParameterGroups(Set<ParameterGroup> parameterGroups)
   {
-    this.IIlIIllI = parameterGroups;
+    this.parameterGroups = parameterGroups;
   }
 
   @OneToMany(mappedBy="productCategory", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   @OrderBy("order asc")
   public Set<Attribute> getAttributes()
   {
-    return this.IIlIIlll;
+    return this.attributes;
   }
 
   public void setAttributes(Set<Attribute> attributes)
   {
-    this.IIlIIlll = attributes;
+    this.attributes = attributes;
   }
 
   @ManyToMany(mappedBy="productCategories", fetch=FetchType.LAZY)
   public Set<Promotion> getPromotions()
   {
-    return this.IIlIlIII;
+    return this.promotions;
   }
 
   public void setPromotions(Set<Promotion> promotions)
   {
-    this.IIlIlIII = promotions;
+    this.promotions = promotions;
   }
 
   @Transient
@@ -226,7 +226,3 @@ public class ProductCategory extends OrderEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.ProductCategory
-

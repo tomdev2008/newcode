@@ -19,7 +19,3 @@ class FileServiceImpl$1
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.FileServiceImpl.1
-

@@ -20,7 +20,3 @@ public class OrderJob
     this.IIIllIlI.releaseStock();
   }
 }
-
-
- * Qualified Name:     net.shopxx.job.OrderJob
-

@@ -9,24 +9,24 @@ import org.apache.commons.lang.time.DateUtils;
 public class DateEditor extends PropertyEditorSupport
 {
   private static final String IIIllIlI = "yyyy-MM-dd HH:mm:ss";
-  private boolean IIIllIll;
-  private String IIIlllII = "yyyy-MM-dd HH:mm:ss";
+  private boolean emptyAsNull;
+  private String dateFormat = "yyyy-MM-dd HH:mm:ss";
 
   public DateEditor(boolean emptyAsNull)
   {
-    this.IIIllIll = emptyAsNull;
+    this.emptyAsNull = emptyAsNull;
   }
 
   public DateEditor(boolean emptyAsNull, String dateFormat)
   {
-    this.IIIllIll = emptyAsNull;
-    this.IIIlllII = dateFormat;
+    this.emptyAsNull = emptyAsNull;
+    this.dateFormat = dateFormat;
   }
 
   public String getAsText()
   {
     Date localDate = (Date)getValue();
-    return localDate != null ? new SimpleDateFormat(this.IIIlllII).format(localDate) : "";
+    return localDate != null ? new SimpleDateFormat(this.dateFormat).format(localDate) : "";
   }
 
   public void setAsText(String text)
@@ -38,7 +38,7 @@ public class DateEditor extends PropertyEditorSupport
     else
     {
       String str = text.trim();
-      if ((this.IIIllIll) && ("".equals(str)))
+      if ((this.emptyAsNull) && ("".equals(str)))
         setValue(null);
       else
         try
@@ -52,7 +52,3 @@ public class DateEditor extends PropertyEditorSupport
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.DateEditor
-

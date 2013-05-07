@@ -21,46 +21,50 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Specification extends OrderEntity
 {
   private static final long serialVersionUID = -6346775052811140926L;
-  private String IIIllIlI;
-  private Specification.Type IIIllIll;
-  private String IIIlllII;
-  private List<SpecificationValue> IIIlllIl = new ArrayList();
-  private Set<Product> IIIllllI = new HashSet();
+  public enum SpecificationType
+  {
+    text, image;
+  }
+  private String name;
+  private SpecificationType type;
+  private String memo;
+  private List<SpecificationValue> specificationValues = new ArrayList();
+  private Set<Product> products = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull
   @Column(nullable=false)
-  public Specification.Type getType()
+  public SpecificationType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(Specification.Type type)
+  public void setType(SpecificationType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   @Length(max=200)
   public String getMemo()
   {
-    return this.IIIlllII;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIIlllII = memo;
+    this.memo = memo;
   }
 
   @Valid
@@ -69,26 +73,22 @@ public class Specification extends OrderEntity
   @OrderBy("order asc")
   public List<SpecificationValue> getSpecificationValues()
   {
-    return this.IIIlllIl;
+    return this.specificationValues;
   }
 
   public void setSpecificationValues(List<SpecificationValue> specificationValues)
   {
-    this.IIIlllIl = specificationValues;
+    this.specificationValues = specificationValues;
   }
 
   @ManyToMany(mappedBy="specifications", fetch=FetchType.LAZY)
   public Set<Product> getProducts()
   {
-    return this.IIIllllI;
+    return this.products;
   }
 
   public void setProducts(Set<Product> products)
   {
-    this.IIIllllI = products;
+    this.products = products;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Specification
-

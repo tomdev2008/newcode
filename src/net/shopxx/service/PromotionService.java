@@ -11,7 +11,3 @@ public abstract interface PromotionService extends BaseService<Promotion, Long>
 
   public abstract List<Promotion> findList(Boolean paramBoolean1, Boolean paramBoolean2, Integer paramInteger, List<Filter> paramList, List<Order> paramList1, String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.service.PromotionService
-

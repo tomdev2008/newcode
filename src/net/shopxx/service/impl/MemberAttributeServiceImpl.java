@@ -85,7 +85,3 @@ public class MemberAttributeServiceImpl extends BaseServiceImpl<MemberAttribute,
     super.delete(memberAttribute);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.MemberAttributeServiceImpl
-

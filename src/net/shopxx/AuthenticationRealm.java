@@ -116,7 +116,3 @@ public class AuthenticationRealm extends AuthorizingRealm
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.AuthenticationRealm
-

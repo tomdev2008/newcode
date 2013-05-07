@@ -60,6 +60,10 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 public class Product extends BaseEntity
 {
   private static final long serialVersionUID = 2167830430439593293L;
+  public enum ProductOrderType
+  {
+    topDesc, priceAsc, priceDesc, salesDesc, scoreDesc, dateDesc;
+  }
   public static final String HITS_CACHE_NAME = "productHits";
   public static final int HITS_CACHE_INTERVAL = 600000;
   public static final int ATTRIBUTE_VALUE_PROPERTY_COUNT = 20;
@@ -68,79 +72,79 @@ public class Product extends BaseEntity
   public static final String FULL_NAME_SPECIFICATION_SUFFIX = "]";
   public static final String FULL_NAME_SPECIFICATION_SEPARATOR = " ";
   private static String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private BigDecimal IIIllllI;
-  private BigDecimal IIIlllll;
-  private BigDecimal IIlIIIII;
-  private String IIlIIIIl;
-  private String IIlIIIlI;
-  private Integer IIlIIIll;
-  private Integer IIlIIlII;
-  private Integer IIlIIlIl;
-  private String IIlIIllI;
-  private Long IIlIIlll;
-  private Boolean IIlIlIII;
-  private Boolean IIlIlIIl;
-  private Boolean IIlIlIlI;
-  private Boolean IIlIlIll;
-  private String IIlIllII;
-  private String IIlIllIl;
-  private String IIlIlllI;
-  private String IIlIllll;
-  private String IIllIIII;
-  private String IIllIIIl;
-  private Float IIllIIlI;
-  private Long IIllIIll;
-  private Long IIllIlII;
-  private Long IIllIlIl;
-  private Long IIllIllI;
-  private Long IIllIlll;
-  private Long IIlllIII;
-  private Long IIlllIIl;
-  private Long IIlllIlI;
-  private Date IIlllIll;
-  private Date IIllllII;
-  private Date IIllllIl;
-  private Date IIlllllI;
-  private String IIllllll;
-  private String IlIIIIII;
-  private String IlIIIIIl;
-  private String IlIIIIlI;
-  private String IlIIIIll;
-  private String IlIIIlII;
-  private String IlIIIlIl;
-  private String IlIIIllI;
-  private String IlIIIlll;
-  private String IlIIlIII;
-  private String IlIIlIIl;
-  private String IlIIlIlI;
-  private String IlIIlIll;
-  private String IlIIllII;
-  private String IlIIllIl;
-  private String IlIIlllI;
-  private String IlIIllll;
-  private String IlIlIIII;
-  private String IlIlIIIl;
-  private String IlIlIIlI;
-  private ProductCategory IlIlIIll;
-  private Goods IlIlIlII;
-  private Brand IlIlIlIl;
-  private List<ProductImage> IlIlIllI = new ArrayList();
-  private Set<Review> IlIlIlll = new HashSet();
-  private Set<Consultation> IlIllIII = new HashSet();
-  private Set<Tag> IlIllIIl = new HashSet();
-  private Set<Member> IlIllIlI = new HashSet();
-  private Set<Specification> IlIllIll = new HashSet();
-  private Set<SpecificationValue> IlIlllII = new HashSet();
-  private Set<Promotion> IlIlllIl = new HashSet();
-  private Set<CartItem> IlIllllI = new HashSet();
-  private Set<OrderItem> IlIlllll = new HashSet();
-  private Set<GiftItem> IllIIIII = new HashSet();
-  private Set<ProductNotify> IllIIIIl = new HashSet();
-  private Map<MemberRank, BigDecimal> IllIIIlI = new HashMap();
-  private Map<Parameter, String> IllIIIll = new HashMap();
+  private String sn;
+  private String name;
+  private String fullName;
+  private BigDecimal price;
+  private BigDecimal cost;
+  private BigDecimal marketPrice;
+  private String image;
+  private String unit;
+  private Integer weight;
+  private Integer stock;
+  private Integer allocatedStock;
+  private String stockMemo;
+  private Long point;
+  private Boolean isMarketable;
+  private Boolean isList;
+  private Boolean isTop;
+  private Boolean isGift;
+  private String introduction;
+  private String memo;
+  private String keyword;
+  private String seoTitle;
+  private String seoKeywords;
+  private String seoDescription;
+  private Float score;
+  private Long totalScore;
+  private Long scoreCount;
+  private Long hits;
+  private Long weekHits;
+  private Long monthHits;
+  private Long sales;
+  private Long weekSales;
+  private Long monthSales;
+  private Date weekHitsDate;
+  private Date monthHitsDate;
+  private Date weekSalesDate;
+  private Date monthSalesDate;
+  private String attributeValue0;
+  private String attributeValue1;
+  private String attributeValue2;
+  private String attributeValue3;
+  private String attributeValue4;
+  private String attributeValue5;
+  private String attributeValue6;
+  private String attributeValue7;
+  private String attributeValue8;
+  private String attributeValue9;
+  private String attributeValue10;
+  private String attributeValue11;
+  private String attributeValue12;
+  private String attributeValue13;
+  private String attributeValue14;
+  private String attributeValue15;
+  private String attributeValue16;
+  private String attributeValue17;
+  private String attributeValue18;
+  private String attributeValue19;
+  private ProductCategory productCategory;
+  private Goods goods;
+  private Brand brand;
+  private List<ProductImage> productImages = new ArrayList();
+  private Set<Review> reviews = new HashSet();
+  private Set<Consultation> consultations = new HashSet();
+  private Set<Tag> tags = new HashSet();
+  private Set<Member> favoriteMembers = new HashSet();
+  private Set<Specification> specifications = new HashSet();
+  private Set<SpecificationValue> specificationValues = new HashSet();
+  private Set<Promotion> promotions = new HashSet();
+  private Set<CartItem> cartItems = new HashSet();
+  private Set<OrderItem> orderItems = new HashSet();
+  private Set<GiftItem> giftItems = new HashSet();
+  private Set<ProductNotify> productNotifies = new HashSet();
+  private Map<MemberRank, BigDecimal> memberPrice = new HashMap();
+  private Map<Parameter, String> parameterValue = new HashMap();
 
   static
   {
@@ -164,12 +168,12 @@ public class Product extends BaseEntity
   @Column(nullable=false, unique=true)
   public String getSn()
   {
-    return this.IIIllIll;
+    return this.sn;
   }
 
   public void setSn(String sn)
   {
-    this.IIIllIll = sn;
+    this.sn = sn;
   }
 
   @JsonProperty
@@ -179,12 +183,12 @@ public class Product extends BaseEntity
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIlllII;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIlllII = name;
+    this.name = name;
   }
 
   @JsonProperty
@@ -192,12 +196,12 @@ public class Product extends BaseEntity
   @Column(nullable=false)
   public String getFullName()
   {
-    return this.IIIlllIl;
+    return this.fullName;
   }
 
   public void setFullName(String fullName)
   {
-    this.IIIlllIl = fullName;
+    this.fullName = fullName;
   }
 
   @JsonProperty
@@ -210,12 +214,12 @@ public class Product extends BaseEntity
   @Column(nullable=false, precision=21, scale=6)
   public BigDecimal getPrice()
   {
-    return this.IIIllllI;
+    return this.price;
   }
 
   public void setPrice(BigDecimal price)
   {
-    this.IIIllllI = price;
+    this.price = price;
   }
 
   @Min(0L)
@@ -223,12 +227,12 @@ public class Product extends BaseEntity
   @Column(precision=21, scale=6)
   public BigDecimal getCost()
   {
-    return this.IIIlllll;
+    return this.cost;
   }
 
   public void setCost(BigDecimal cost)
   {
-    this.IIIlllll = cost;
+    this.cost = cost;
   }
 
   @Field(store=Store.YES, index=Index.NO)
@@ -237,12 +241,12 @@ public class Product extends BaseEntity
   @Column(nullable=false, precision=21, scale=6)
   public BigDecimal getMarketPrice()
   {
-    return this.IIlIIIII;
+    return this.marketPrice;
   }
 
   public void setMarketPrice(BigDecimal marketPrice)
   {
-    this.IIlIIIII = marketPrice;
+    this.marketPrice = marketPrice;
   }
 
   @JsonProperty
@@ -250,12 +254,12 @@ public class Product extends BaseEntity
   @Length(max=200)
   public String getImage()
   {
-    return this.IIlIIIIl;
+    return this.image;
   }
 
   public void setImage(String image)
   {
-    this.IIlIIIIl = image;
+    this.image = image;
   }
 
   @JsonProperty
@@ -263,59 +267,59 @@ public class Product extends BaseEntity
   @Length(max=200)
   public String getUnit()
   {
-    return this.IIlIIIlI;
+    return this.unit;
   }
 
   public void setUnit(String unit)
   {
-    this.IIlIIIlI = unit;
+    this.unit = unit;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Min(0L)
   public Integer getWeight()
   {
-    return this.IIlIIIll;
+    return this.weight;
   }
 
   public void setWeight(Integer weight)
   {
-    this.IIlIIIll = weight;
+    this.weight = weight;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Min(0L)
   public Integer getStock()
   {
-    return this.IIlIIlII;
+    return this.stock;
   }
 
   public void setStock(Integer stock)
   {
-    this.IIlIIlII = stock;
+    this.stock = stock;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Column(nullable=false)
   public Integer getAllocatedStock()
   {
-    return this.IIlIIlIl;
+    return this.allocatedStock;
   }
 
   public void setAllocatedStock(Integer allocatedStock)
   {
-    this.IIlIIlIl = allocatedStock;
+    this.allocatedStock = allocatedStock;
   }
 
   @Length(max=200)
   public String getStockMemo()
   {
-    return this.IIlIIllI;
+    return this.stockMemo;
   }
 
   public void setStockMemo(String stockMemo)
   {
-    this.IIlIIllI = stockMemo;
+    this.stockMemo = stockMemo;
   }
 
   @Field(store=Store.YES, index=Index.NO)
@@ -323,12 +327,12 @@ public class Product extends BaseEntity
   @Column(nullable=false)
   public Long getPoint()
   {
-    return this.IIlIIlll;
+    return this.point;
   }
 
   public void setPoint(Long point)
   {
-    this.IIlIIlll = point;
+    this.point = point;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
@@ -336,12 +340,12 @@ public class Product extends BaseEntity
   @Column(nullable=false)
   public Boolean getIsMarketable()
   {
-    return this.IIlIlIII;
+    return this.isMarketable;
   }
 
   public void setIsMarketable(Boolean isMarketable)
   {
-    this.IIlIlIII = isMarketable;
+    this.isMarketable = isMarketable;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
@@ -349,12 +353,12 @@ public class Product extends BaseEntity
   @Column(nullable=false)
   public Boolean getIsList()
   {
-    return this.IIlIlIIl;
+    return this.isList;
   }
 
   public void setIsList(Boolean isList)
   {
-    this.IIlIlIIl = isList;
+    this.isList = isList;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
@@ -362,12 +366,12 @@ public class Product extends BaseEntity
   @Column(nullable=false)
   public Boolean getIsTop()
   {
-    return this.IIlIlIlI;
+    return this.isTop;
   }
 
   public void setIsTop(Boolean isTop)
   {
-    this.IIlIlIlI = isTop;
+    this.isTop = isTop;
   }
 
   @JsonProperty
@@ -376,84 +380,84 @@ public class Product extends BaseEntity
   @Column(nullable=false)
   public Boolean getIsGift()
   {
-    return this.IIlIlIll;
+    return this.isGift;
   }
 
   public void setIsGift(Boolean isGift)
   {
-    this.IIlIlIll = isGift;
+    this.isGift = isGift;
   }
 
   @Field(store=Store.YES, index=Index.TOKENIZED, analyzer=@Analyzer(impl=IKAnalyzer.class))
   @Lob
   public String getIntroduction()
   {
-    return this.IIlIllII;
+    return this.introduction;
   }
 
   public void setIntroduction(String introduction)
   {
-    this.IIlIllII = introduction;
+    this.introduction = introduction;
   }
 
   @Length(max=200)
   public String getMemo()
   {
-    return this.IIlIllIl;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIlIllIl = memo;
+    this.memo = memo;
   }
 
   @Field(store=Store.YES, index=Index.TOKENIZED, analyzer=@Analyzer(impl=IKAnalyzer.class))
   @Length(max=200)
   public String getKeyword()
   {
-    return this.IIlIlllI;
+    return this.keyword;
   }
 
   public void setKeyword(String keyword)
   {
     if (keyword != null)
       keyword = keyword.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
-    this.IIlIlllI = keyword;
+    this.keyword = keyword;
   }
 
   @Length(max=200)
   public String getSeoTitle()
   {
-    return this.IIlIllll;
+    return this.seoTitle;
   }
 
   public void setSeoTitle(String seoTitle)
   {
-    this.IIlIllll = seoTitle;
+    this.seoTitle = seoTitle;
   }
 
   @Length(max=200)
   public String getSeoKeywords()
   {
-    return this.IIllIIII;
+    return this.seoKeywords;
   }
 
   public void setSeoKeywords(String seoKeywords)
   {
     if (seoKeywords != null)
       seoKeywords = seoKeywords.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
-    this.IIllIIII = seoKeywords;
+    this.seoKeywords = seoKeywords;
   }
 
   @Length(max=200)
   public String getSeoDescription()
   {
-    return this.IIllIIIl;
+    return this.seoDescription;
   }
 
   public void setSeoDescription(String seoDescription)
   {
-    this.IIllIIIl = seoDescription;
+    this.seoDescription = seoDescription;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
@@ -461,371 +465,371 @@ public class Product extends BaseEntity
   @Column(nullable=false, precision=12, scale=6)
   public Float getScore()
   {
-    return this.IIllIIlI;
+    return this.score;
   }
 
   public void setScore(Float score)
   {
-    this.IIllIIlI = score;
+    this.score = score;
   }
 
   @Column(nullable=false)
   public Long getTotalScore()
   {
-    return this.IIllIIll;
+    return this.totalScore;
   }
 
   public void setTotalScore(Long totalScore)
   {
-    this.IIllIIll = totalScore;
+    this.totalScore = totalScore;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
   @Column(nullable=false)
   public Long getScoreCount()
   {
-    return this.IIllIlII;
+    return this.scoreCount;
   }
 
   public void setScoreCount(Long scoreCount)
   {
-    this.IIllIlII = scoreCount;
+    this.scoreCount = scoreCount;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
   @Column(nullable=false)
   public Long getHits()
   {
-    return this.IIllIlIl;
+    return this.hits;
   }
 
   public void setHits(Long hits)
   {
-    this.IIllIlIl = hits;
+    this.hits = hits;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Column(nullable=false)
   public Long getWeekHits()
   {
-    return this.IIllIllI;
+    return this.weekHits;
   }
 
   public void setWeekHits(Long weekHits)
   {
-    this.IIllIllI = weekHits;
+    this.weekHits = weekHits;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Column(nullable=false)
   public Long getMonthHits()
   {
-    return this.IIllIlll;
+    return this.monthHits;
   }
 
   public void setMonthHits(Long monthHits)
   {
-    this.IIllIlll = monthHits;
+    this.monthHits = monthHits;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
   @Column(nullable=false)
   public Long getSales()
   {
-    return this.IIlllIII;
+    return this.sales;
   }
 
   public void setSales(Long sales)
   {
-    this.IIlllIII = sales;
+    this.sales = sales;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Column(nullable=false)
   public Long getWeekSales()
   {
-    return this.IIlllIIl;
+    return this.weekSales;
   }
 
   public void setWeekSales(Long weekSales)
   {
-    this.IIlllIIl = weekSales;
+    this.weekSales = weekSales;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Column(nullable=false)
   public Long getMonthSales()
   {
-    return this.IIlllIlI;
+    return this.monthSales;
   }
 
   public void setMonthSales(Long monthSales)
   {
-    this.IIlllIlI = monthSales;
+    this.monthSales = monthSales;
   }
 
   @Column(nullable=false)
   public Date getWeekHitsDate()
   {
-    return this.IIlllIll;
+    return this.weekHitsDate;
   }
 
   public void setWeekHitsDate(Date weekHitsDate)
   {
-    this.IIlllIll = weekHitsDate;
+    this.weekHitsDate = weekHitsDate;
   }
 
   @Column(nullable=false)
   public Date getMonthHitsDate()
   {
-    return this.IIllllII;
+    return this.monthHitsDate;
   }
 
   public void setMonthHitsDate(Date monthHitsDate)
   {
-    this.IIllllII = monthHitsDate;
+    this.monthHitsDate = monthHitsDate;
   }
 
   @Column(nullable=false)
   public Date getWeekSalesDate()
   {
-    return this.IIllllIl;
+    return this.weekSalesDate;
   }
 
   public void setWeekSalesDate(Date weekSalesDate)
   {
-    this.IIllllIl = weekSalesDate;
+    this.weekSalesDate = weekSalesDate;
   }
 
   @Column(nullable=false)
   public Date getMonthSalesDate()
   {
-    return this.IIlllllI;
+    return this.monthSalesDate;
   }
 
   public void setMonthSalesDate(Date monthSalesDate)
   {
-    this.IIlllllI = monthSalesDate;
+    this.monthSalesDate = monthSalesDate;
   }
 
   @Length(max=200)
   public String getAttributeValue0()
   {
-    return this.IIllllll;
+    return this.attributeValue0;
   }
 
   public void setAttributeValue0(String attributeValue0)
   {
-    this.IIllllll = attributeValue0;
+    this.attributeValue0 = attributeValue0;
   }
 
   @Length(max=200)
   public String getAttributeValue1()
   {
-    return this.IlIIIIII;
+    return this.attributeValue1;
   }
 
   public void setAttributeValue1(String attributeValue1)
   {
-    this.IlIIIIII = attributeValue1;
+    this.attributeValue1 = attributeValue1;
   }
 
   @Length(max=200)
   public String getAttributeValue2()
   {
-    return this.IlIIIIIl;
+    return this.attributeValue2;
   }
 
   public void setAttributeValue2(String attributeValue2)
   {
-    this.IlIIIIIl = attributeValue2;
+    this.attributeValue2 = attributeValue2;
   }
 
   @Length(max=200)
   public String getAttributeValue3()
   {
-    return this.IlIIIIlI;
+    return this.attributeValue3;
   }
 
   public void setAttributeValue3(String attributeValue3)
   {
-    this.IlIIIIlI = attributeValue3;
+    this.attributeValue3 = attributeValue3;
   }
 
   @Length(max=200)
   public String getAttributeValue4()
   {
-    return this.IlIIIIll;
+    return this.attributeValue4;
   }
 
   public void setAttributeValue4(String attributeValue4)
   {
-    this.IlIIIIll = attributeValue4;
+    this.attributeValue4 = attributeValue4;
   }
 
   @Length(max=200)
   public String getAttributeValue5()
   {
-    return this.IlIIIlII;
+    return this.attributeValue5;
   }
 
   public void setAttributeValue5(String attributeValue5)
   {
-    this.IlIIIlII = attributeValue5;
+    this.attributeValue5 = attributeValue5;
   }
 
   @Length(max=200)
   public String getAttributeValue6()
   {
-    return this.IlIIIlIl;
+    return this.attributeValue6;
   }
 
   public void setAttributeValue6(String attributeValue6)
   {
-    this.IlIIIlIl = attributeValue6;
+    this.attributeValue6 = attributeValue6;
   }
 
   @Length(max=200)
   public String getAttributeValue7()
   {
-    return this.IlIIIllI;
+    return this.attributeValue7;
   }
 
   public void setAttributeValue7(String attributeValue7)
   {
-    this.IlIIIllI = attributeValue7;
+    this.attributeValue7 = attributeValue7;
   }
 
   @Length(max=200)
   public String getAttributeValue8()
   {
-    return this.IlIIIlll;
+    return this.attributeValue8;
   }
 
   public void setAttributeValue8(String attributeValue8)
   {
-    this.IlIIIlll = attributeValue8;
+    this.attributeValue8 = attributeValue8;
   }
 
   @Length(max=200)
   public String getAttributeValue9()
   {
-    return this.IlIIlIII;
+    return this.attributeValue9;
   }
 
   public void setAttributeValue9(String attributeValue9)
   {
-    this.IlIIlIII = attributeValue9;
+    this.attributeValue9 = attributeValue9;
   }
 
   @Length(max=200)
   public String getAttributeValue10()
   {
-    return this.IlIIlIIl;
+    return this.attributeValue10;
   }
 
   public void setAttributeValue10(String attributeValue10)
   {
-    this.IlIIlIIl = attributeValue10;
+    this.attributeValue10 = attributeValue10;
   }
 
   @Length(max=200)
   public String getAttributeValue11()
   {
-    return this.IlIIlIlI;
+    return this.attributeValue11;
   }
 
   public void setAttributeValue11(String attributeValue11)
   {
-    this.IlIIlIlI = attributeValue11;
+    this.attributeValue11 = attributeValue11;
   }
 
   @Length(max=200)
   public String getAttributeValue12()
   {
-    return this.IlIIlIll;
+    return this.attributeValue12;
   }
 
   public void setAttributeValue12(String attributeValue12)
   {
-    this.IlIIlIll = attributeValue12;
+    this.attributeValue12 = attributeValue12;
   }
 
   @Length(max=200)
   public String getAttributeValue13()
   {
-    return this.IlIIllII;
+    return this.attributeValue13;
   }
 
   public void setAttributeValue13(String attributeValue13)
   {
-    this.IlIIllII = attributeValue13;
+    this.attributeValue13 = attributeValue13;
   }
 
   @Length(max=200)
   public String getAttributeValue14()
   {
-    return this.IlIIllIl;
+    return this.attributeValue14;
   }
 
   public void setAttributeValue14(String attributeValue14)
   {
-    this.IlIIllIl = attributeValue14;
+    this.attributeValue14 = attributeValue14;
   }
 
   @Length(max=200)
   public String getAttributeValue15()
   {
-    return this.IlIIlllI;
+    return this.attributeValue15;
   }
 
   public void setAttributeValue15(String attributeValue15)
   {
-    this.IlIIlllI = attributeValue15;
+    this.attributeValue15 = attributeValue15;
   }
 
   @Length(max=200)
   public String getAttributeValue16()
   {
-    return this.IlIIllll;
+    return this.attributeValue16;
   }
 
   public void setAttributeValue16(String attributeValue16)
   {
-    this.IlIIllll = attributeValue16;
+    this.attributeValue16 = attributeValue16;
   }
 
   @Length(max=200)
   public String getAttributeValue17()
   {
-    return this.IlIlIIII;
+    return this.attributeValue17;
   }
 
   public void setAttributeValue17(String attributeValue17)
   {
-    this.IlIlIIII = attributeValue17;
+    this.attributeValue17 = attributeValue17;
   }
 
   @Length(max=200)
   public String getAttributeValue18()
   {
-    return this.IlIlIIIl;
+    return this.attributeValue18;
   }
 
   public void setAttributeValue18(String attributeValue18)
   {
-    this.IlIlIIIl = attributeValue18;
+    this.attributeValue18 = attributeValue18;
   }
 
   @Length(max=200)
   public String getAttributeValue19()
   {
-    return this.IlIlIIlI;
+    return this.attributeValue19;
   }
 
   public void setAttributeValue19(String attributeValue19)
   {
-    this.IlIlIIlI = attributeValue19;
+    this.attributeValue19 = attributeValue19;
   }
 
   @NotNull
@@ -833,35 +837,35 @@ public class Product extends BaseEntity
   @JoinColumn(nullable=false)
   public ProductCategory getProductCategory()
   {
-    return this.IlIlIIll;
+    return this.productCategory;
   }
 
   public void setProductCategory(ProductCategory productCategory)
   {
-    this.IlIlIIll = productCategory;
+    this.productCategory = productCategory;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Goods getGoods()
   {
-    return this.IlIlIlII;
+    return this.goods;
   }
 
   public void setGoods(Goods goods)
   {
-    this.IlIlIlII = goods;
+    this.goods = goods;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   public Brand getBrand()
   {
-    return this.IlIlIlIl;
+    return this.brand;
   }
 
   public void setBrand(Brand brand)
   {
-    this.IlIlIlIl = brand;
+    this.brand = brand;
   }
 
   @Valid
@@ -869,34 +873,34 @@ public class Product extends BaseEntity
   @CollectionTable(name="xx_product_product_image")
   public List<ProductImage> getProductImages()
   {
-    return this.IlIlIllI;
+    return this.productImages;
   }
 
   public void setProductImages(List<ProductImage> productImages)
   {
-    this.IlIlIllI = productImages;
+    this.productImages = productImages;
   }
 
   @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<Review> getReviews()
   {
-    return this.IlIlIlll;
+    return this.reviews;
   }
 
   public void setReviews(Set<Review> reviews)
   {
-    this.IlIlIlll = reviews;
+    this.reviews = reviews;
   }
 
   @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<Consultation> getConsultations()
   {
-    return this.IlIllIII;
+    return this.consultations;
   }
 
   public void setConsultations(Set<Consultation> consultations)
   {
-    this.IlIllIII = consultations;
+    this.consultations = consultations;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
@@ -904,23 +908,23 @@ public class Product extends BaseEntity
   @OrderBy("order asc")
   public Set<Tag> getTags()
   {
-    return this.IlIllIIl;
+    return this.tags;
   }
 
   public void setTags(Set<Tag> tags)
   {
-    this.IlIllIIl = tags;
+    this.tags = tags;
   }
 
   @ManyToMany(mappedBy="favoriteProducts", fetch=FetchType.LAZY)
   public Set<Member> getFavoriteMembers()
   {
-    return this.IlIllIlI;
+    return this.favoriteMembers;
   }
 
   public void setFavoriteMembers(Set<Member> favoriteMembers)
   {
-    this.IlIllIlI = favoriteMembers;
+    this.favoriteMembers = favoriteMembers;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
@@ -928,12 +932,12 @@ public class Product extends BaseEntity
   @OrderBy("order asc")
   public Set<Specification> getSpecifications()
   {
-    return this.IlIllIll;
+    return this.specifications;
   }
 
   public void setSpecifications(Set<Specification> specifications)
   {
-    this.IlIllIll = specifications;
+    this.specifications = specifications;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
@@ -941,91 +945,91 @@ public class Product extends BaseEntity
   @OrderBy("specification asc")
   public Set<SpecificationValue> getSpecificationValues()
   {
-    return this.IlIlllII;
+    return this.specificationValues;
   }
 
   public void setSpecificationValues(Set<SpecificationValue> specificationValues)
   {
-    this.IlIlllII = specificationValues;
+    this.specificationValues = specificationValues;
   }
 
   @ManyToMany(mappedBy="products", fetch=FetchType.LAZY)
   public Set<Promotion> getPromotions()
   {
-    return this.IlIlllIl;
+    return this.promotions;
   }
 
   public void setPromotions(Set<Promotion> promotions)
   {
-    this.IlIlllIl = promotions;
+    this.promotions = promotions;
   }
 
   @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<CartItem> getCartItems()
   {
-    return this.IlIllllI;
+    return this.cartItems;
   }
 
   public void setCartItems(Set<CartItem> cartItems)
   {
-    this.IlIllllI = cartItems;
+    this.cartItems = cartItems;
   }
 
   @OneToMany(mappedBy="product", fetch=FetchType.LAZY)
   public Set<OrderItem> getOrderItems()
   {
-    return this.IlIlllll;
+    return this.orderItems;
   }
 
   public void setOrderItems(Set<OrderItem> orderItems)
   {
-    this.IlIlllll = orderItems;
+    this.orderItems = orderItems;
   }
 
   @OneToMany(mappedBy="gift", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.ALL})
   public Set<GiftItem> getGiftItems()
   {
-    return this.IllIIIII;
+    return this.giftItems;
   }
 
   public void setGiftItems(Set<GiftItem> giftItems)
   {
-    this.IllIIIII = giftItems;
+    this.giftItems = giftItems;
   }
 
   @OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<ProductNotify> getProductNotifies()
   {
-    return this.IllIIIIl;
+    return this.productNotifies;
   }
 
   public void setProductNotifies(Set<ProductNotify> productNotifies)
   {
-    this.IllIIIIl = productNotifies;
+    this.productNotifies = productNotifies;
   }
 
   @ElementCollection(fetch=FetchType.LAZY)
   @CollectionTable(name="xx_product_member_price")
   public Map<MemberRank, BigDecimal> getMemberPrice()
   {
-    return this.IllIIIlI;
+    return this.memberPrice;
   }
 
   public void setMemberPrice(Map<MemberRank, BigDecimal> memberPrice)
   {
-    this.IllIIIlI = memberPrice;
+    this.memberPrice = memberPrice;
   }
 
   @ElementCollection(fetch=FetchType.LAZY)
   @CollectionTable(name="xx_product_parameter_value")
   public Map<Parameter, String> getParameterValue()
   {
-    return this.IllIIIll;
+    return this.parameterValue;
   }
 
   public void setParameterValue(Map<Parameter, String> parameterValue)
   {
-    this.IllIIIll = parameterValue;
+    this.parameterValue = parameterValue;
   }
 
   @Transient
@@ -1228,7 +1232,3 @@ public class Product extends BaseEntity
     return getFullName();
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Product
-

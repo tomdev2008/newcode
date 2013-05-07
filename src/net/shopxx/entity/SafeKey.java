@@ -11,29 +11,29 @@ public class SafeKey
   implements Serializable
 {
   private static final long serialVersionUID = -8536541568286987548L;
-  private String IIIllIlI;
-  private Date IIIllIll;
+  private String value;
+  private Date expire;
 
   @Column(name="safe_key_value")
   public String getValue()
   {
-    return this.IIIllIlI;
+    return this.value;
   }
 
   public void setValue(String value)
   {
-    this.IIIllIlI = value;
+    this.value = value;
   }
 
   @Column(name="safe_key_expire")
   public Date getExpire()
   {
-    return this.IIIllIll;
+    return this.expire;
   }
 
   public void setExpire(Date expire)
   {
-    this.IIIllIll = expire;
+    this.expire = expire;
   }
 
   @Transient
@@ -42,7 +42,3 @@ public class SafeKey
     return (getExpire() != null) && (new Date().after(getExpire()));
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.SafeKey
-

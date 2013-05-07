@@ -1,14 +1,15 @@
 package net.shopxx.service;
 
 import java.util.List;
+
 import net.shopxx.Template;
-import net.shopxx.Template.Type;
+import net.shopxx.Template.TemplateType;
 
 public abstract interface TemplateService
 {
   public abstract List<Template> getAll();
 
-  public abstract List<Template> getList(Template.Type paramType);
+  public abstract List<Template> getList(TemplateType paramType);
 
   public abstract Template get(String paramString);
 
@@ -20,7 +21,3 @@ public abstract interface TemplateService
 
   public abstract void write(Template paramTemplate, String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.service.TemplateService
-

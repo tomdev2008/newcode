@@ -27,7 +27,3 @@ public class DeliveryTemplateServiceImpl extends BaseServiceImpl<DeliveryTemplat
     return this.IIIllIlI.findDefault();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.DeliveryTemplateServiceImpl
-

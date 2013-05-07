@@ -33,7 +33,3 @@ public class TagListDirective extends BaseDirective
     IIIllIlI("tags", localList1, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.TagListDirective
-

@@ -112,7 +112,3 @@ public class PasswordController extends BaseController
     return Message.success("shop.password.resetSuccess", new Object[0]);
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.PasswordController
-

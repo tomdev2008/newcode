@@ -18,7 +18,3 @@ public abstract interface ArticleDao extends BaseDao<Article, Long>
 
   public abstract Page<Article> findPage(ArticleCategory paramArticleCategory, List<Tag> paramList, Pageable paramPageable);
 }
-
-
- * Qualified Name:     net.shopxx.dao.ArticleDao
-

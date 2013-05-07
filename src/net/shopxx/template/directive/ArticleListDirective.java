@@ -57,7 +57,3 @@ public class ArticleListDirective extends BaseDirective
     IIIllIlI("articles", localObject, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ArticleListDirective
-

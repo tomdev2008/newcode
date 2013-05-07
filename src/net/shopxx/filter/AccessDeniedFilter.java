@@ -26,7 +26,3 @@ public class AccessDeniedFilter
     localHttpServletResponse.sendError(403, "Access denied!");
   }
 }
-
-
- * Qualified Name:     net.shopxx.filter.AccessDeniedFilter
-

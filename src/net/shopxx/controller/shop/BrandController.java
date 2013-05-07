@@ -37,7 +37,3 @@ public class BrandController extends BaseController
     return "/shop/brand/content";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.BrandController
-

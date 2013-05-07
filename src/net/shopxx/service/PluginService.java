@@ -18,7 +18,3 @@ public abstract interface PluginService
 
   public abstract StoragePlugin getStoragePlugin(String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.service.PluginService
-

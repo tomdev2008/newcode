@@ -33,7 +33,3 @@ public class FriendLinkListDirective extends BaseDirective
     IIIllIlI("friendLinks", localList1, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.FriendLinkListDirective
-

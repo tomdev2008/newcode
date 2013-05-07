@@ -46,7 +46,3 @@ public class LogConfigServiceImpl
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.LogConfigServiceImpl
-

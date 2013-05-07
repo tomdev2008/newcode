@@ -16,86 +16,86 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class MemberAttribute extends OrderEntity
 {
   private static final long serialVersionUID = 4513705276569738136L;
-  private String IIIllIlI;
-  private MemberAttribute.Type IIIllIll;
-  private Boolean IIIlllII;
-  private Boolean IIIlllIl;
-  private Integer IIIllllI;
-  private List<String> IIIlllll = new ArrayList();
+  public enum MemberAttributeType
+  {
+    name, gender, birth, area, address, zipCode, phone, mobile, text, select, checkbox;
+  }
+  private String name;
+  private MemberAttributeType type;
+  private Boolean isEnabled;
+  private Boolean isRequired;
+  private Integer propertyIndex;
+  private List<String> options = new ArrayList();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull(groups={BaseEntity.Save.class})
   @Column(nullable=false, updatable=false)
-  public MemberAttribute.Type getType()
+  public MemberAttributeType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(MemberAttribute.Type type)
+  public void setType(MemberAttributeType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsEnabled()
   {
-    return this.IIIlllII;
+    return this.isEnabled;
   }
 
   public void setIsEnabled(Boolean isEnabled)
   {
-    this.IIIlllII = isEnabled;
+    this.isEnabled = isEnabled;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsRequired()
   {
-    return this.IIIlllIl;
+    return this.isRequired;
   }
 
   public void setIsRequired(Boolean isRequired)
   {
-    this.IIIlllIl = isRequired;
+    this.isRequired = isRequired;
   }
 
   @Column(updatable=false)
   public Integer getPropertyIndex()
   {
-    return this.IIIllllI;
+    return this.propertyIndex;
   }
 
   public void setPropertyIndex(Integer propertyIndex)
   {
-    this.IIIllllI = propertyIndex;
+    this.propertyIndex = propertyIndex;
   }
 
   @ElementCollection
   @CollectionTable(name="xx_member_attribute_option")
   public List<String> getOptions()
   {
-    return this.IIIlllll;
+    return this.options;
   }
 
   public void setOptions(List<String> options)
   {
-    this.IIIlllll = options;
+    this.options = options;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.MemberAttribute
-

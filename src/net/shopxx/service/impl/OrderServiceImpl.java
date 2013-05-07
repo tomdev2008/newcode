@@ -843,7 +843,3 @@ public class OrderServiceImpl extends BaseServiceImpl<net.shopxx.entity.Order, L
     super.delete(order);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.OrderServiceImpl
-

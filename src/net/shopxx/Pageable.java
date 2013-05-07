@@ -3,6 +3,9 @@ package net.shopxx;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.shopxx.Order.OrderDirection;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -13,14 +16,14 @@ public class Pageable
   private static final int IIIllIlI = 1;
   private static final int IIIllIll = 20;
   private static final int IIIlllII = 1000;
-  private int IIIlllIl = 1;
-  private int IIIllllI = 20;
-  private String IIIlllll;
-  private String IIlIIIII;
-  private String IIlIIIIl;
-  private Order.Direction IIlIIIlI;
-  private List<Filter> IIlIIIll = new ArrayList();
-  private List<Order> IIlIIlII = new ArrayList();
+  private int pageNumber = 1;
+  private int pageSize = 20;
+  private String searchProperty;
+  private String searchValue;
+  private String orderProperty;
+  private OrderDirection orderDirection;
+  private List<Filter> filters = new ArrayList();
+  private List<Order> orders = new ArrayList();
 
   public Pageable()
   {
@@ -29,93 +32,93 @@ public class Pageable
   public Pageable(Integer pageNumber, Integer pageSize)
   {
     if ((pageNumber != null) && (pageNumber.intValue() >= 1))
-      this.IIIlllIl = pageNumber.intValue();
+      this.pageNumber = pageNumber.intValue();
     if ((pageSize != null) && (pageSize.intValue() >= 1) && (pageSize.intValue() <= 1000))
-      this.IIIllllI = pageSize.intValue();
+      this.pageSize = pageSize.intValue();
   }
 
   public int getPageNumber()
   {
-    return this.IIIlllIl;
+    return this.pageNumber;
   }
 
   public void setPageNumber(int pageNumber)
   {
     if (pageNumber < 1)
       pageNumber = 1;
-    this.IIIlllIl = pageNumber;
+    this.pageNumber = pageNumber;
   }
 
   public int getPageSize()
   {
-    return this.IIIllllI;
+    return this.pageSize;
   }
 
   public void setPageSize(int pageSize)
   {
     if ((pageSize < 1) || (pageSize > 1000))
       pageSize = 20;
-    this.IIIllllI = pageSize;
+    this.pageSize = pageSize;
   }
 
   public String getSearchProperty()
   {
-    return this.IIIlllll;
+    return this.searchProperty;
   }
 
   public void setSearchProperty(String searchProperty)
   {
-    this.IIIlllll = searchProperty;
+    this.searchProperty = searchProperty;
   }
 
   public String getSearchValue()
   {
-    return this.IIlIIIII;
+    return this.searchValue;
   }
 
   public void setSearchValue(String searchValue)
   {
-    this.IIlIIIII = searchValue;
+    this.searchValue = searchValue;
   }
 
   public String getOrderProperty()
   {
-    return this.IIlIIIIl;
+    return this.orderProperty;
   }
 
   public void setOrderProperty(String orderProperty)
   {
-    this.IIlIIIIl = orderProperty;
+    this.orderProperty = orderProperty;
   }
 
-  public Order.Direction getOrderDirection()
+  public OrderDirection getOrderDirection()
   {
-    return this.IIlIIIlI;
+    return this.orderDirection;
   }
 
-  public void setOrderDirection(Order.Direction orderDirection)
+  public void setOrderDirection(OrderDirection orderDirection)
   {
-    this.IIlIIIlI = orderDirection;
+    this.orderDirection = orderDirection;
   }
 
   public List<Filter> getFilters()
   {
-    return this.IIlIIIll;
+    return this.filters;
   }
 
   public void setFilters(List<Filter> filters)
   {
-    this.IIlIIIll = filters;
+    this.filters = filters;
   }
 
   public List<Order> getOrders()
   {
-    return this.IIlIIlII;
+    return this.orders;
   }
 
   public void setOrders(List<Order> orders)
   {
-    this.IIlIIlII = orders;
+    this.orders = orders;
   }
 
   public boolean equals(Object obj)
@@ -135,7 +138,3 @@ public class Pageable
     return new HashCodeBuilder(17, 37).append(getPageNumber()).append(getPageSize()).append(getSearchProperty()).append(getSearchValue()).append(getOrderProperty()).append(getOrderDirection()).append(getFilters()).append(getOrders()).toHashCode();
   }
 }
-
-
- * Qualified Name:     net.shopxx.Pageable
-

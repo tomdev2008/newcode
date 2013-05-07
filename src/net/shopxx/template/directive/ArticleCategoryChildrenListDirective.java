@@ -42,7 +42,3 @@ public class ArticleCategoryChildrenListDirective extends BaseDirective
     IIIllIlI("articleCategories", localObject, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ArticleCategoryChildrenListDirective
-

@@ -11,7 +11,3 @@ public abstract interface MemberAttributeService extends BaseService<MemberAttri
 
   public abstract List<MemberAttribute> findList(String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.service.MemberAttributeService
-

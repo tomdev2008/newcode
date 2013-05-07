@@ -6,7 +6,3 @@ public abstract interface ProductImageService
 {
   public abstract void build(ProductImage paramProductImage);
 }
-
-
- * Qualified Name:     net.shopxx.service.ProductImageService
-

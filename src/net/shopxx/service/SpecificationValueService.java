@@ -6,6 +6,3 @@ public abstract interface SpecificationValueService extends BaseService<Specific
 {
 }
 
-
- * Qualified Name:     net.shopxx.service.SpecificationValueService
-

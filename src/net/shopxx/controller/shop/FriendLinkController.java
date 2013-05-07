@@ -23,7 +23,3 @@ public class FriendLinkController extends BaseController
     return "/shop/friend_link/index";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.FriendLinkController
-

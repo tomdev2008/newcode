@@ -41,7 +41,3 @@ public class CaptchaServiceImpl
     return true;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.CaptchaServiceImpl
-

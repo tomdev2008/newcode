@@ -17,55 +17,55 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class DeliveryCorp extends OrderEntity
 {
   private static final long serialVersionUID = 10595703086045998L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private Set<ShippingMethod> IIIlllIl = new HashSet();
+  private String name;
+  private String url;
+  private String code;
+  private Set<ShippingMethod> shippingMethods = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @Length(max=200)
   public String getUrl()
   {
-    return this.IIIllIll;
+    return this.url;
   }
 
   public void setUrl(String url)
   {
-    this.IIIllIll = url;
+    this.url = url;
   }
 
   @Length(max=200)
   public String getCode()
   {
-    return this.IIIlllII;
+    return this.code;
   }
 
   public void setCode(String code)
   {
-    this.IIIlllII = code;
+    this.code = code;
   }
 
   @OneToMany(mappedBy="defaultDeliveryCorp", fetch=FetchType.LAZY)
   public Set<ShippingMethod> getShippingMethods()
   {
-    return this.IIIlllIl;
+    return this.shippingMethods;
   }
 
   public void setShippingMethods(Set<ShippingMethod> shippingMethods)
   {
-    this.IIIlllIl = shippingMethods;
+    this.shippingMethods = shippingMethods;
   }
 
   @PreRemove
@@ -83,7 +83,3 @@ public class DeliveryCorp extends OrderEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.DeliveryCorp
-

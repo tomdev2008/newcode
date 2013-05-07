@@ -105,7 +105,3 @@ public final class JsonUtils
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.JsonUtils
-

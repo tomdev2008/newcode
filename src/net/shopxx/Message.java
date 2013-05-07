@@ -4,66 +4,66 @@ import net.shopxx.util.SpringUtils;
 
 public class Message
 {
-  private Message.Type IIIllIlI;
-  private String IIIllIll;
+	public enum MessageType
+	{
+	  success, warn, error;
+	}
+  private MessageType type;
+  private String content;
 
   public Message()
   {
   }
 
-  public Message(Message.Type type, String content)
+  public Message(MessageType type, String content)
   {
-    this.IIIllIlI = type;
-    this.IIIllIll = content;
+    this.type = type;
+    this.content = content;
   }
 
-  public Message(Message.Type type, String content, Object[] args)
+  public Message(MessageType type, String content, Object[] args)
   {
-    this.IIIllIlI = type;
-    this.IIIllIll = SpringUtils.getMessage(content, args);
+    this.type = type;
+    this.content = SpringUtils.getMessage(content, args);
   }
 
   public static Message success(String content, Object[] args)
   {
-    return new Message(Message.Type.success, content, args);
+    return new Message(MessageType.success, content, args);
   }
 
   public static Message warn(String content, Object[] args)
   {
-    return new Message(Message.Type.warn, content, args);
+    return new Message(MessageType.warn, content, args);
   }
 
   public static Message error(String content, Object[] args)
   {
-    return new Message(Message.Type.error, content, args);
+    return new Message(MessageType.error, content, args);
   }
 
-  public Message.Type getType()
+  public MessageType getType()
   {
-    return this.IIIllIlI;
+    return this.type;
   }
 
-  public void setType(Message.Type type)
+  public void setType(MessageType type)
   {
-    this.IIIllIlI = type;
+    this.type = type;
   }
 
   public String getContent()
   {
-    return this.IIIllIll;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIllIll = content;
+    this.content = content;
   }
 
   public String toString()
   {
-    return SpringUtils.getMessage(this.IIIllIll, new Object[0]);
+    return SpringUtils.getMessage(this.content, new Object[0]);
   }
 }
-
-
- * Qualified Name:     net.shopxx.Message
-

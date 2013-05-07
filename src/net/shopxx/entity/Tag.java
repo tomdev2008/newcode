@@ -18,80 +18,85 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Tag extends OrderEntity
 {
   private static final long serialVersionUID = -2735037966597250149L;
-  private String IIIllIlI;
-  private Tag.Type IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private Set<Article> IIIllllI = new HashSet();
-  private Set<Product> IIIlllll = new HashSet();
+  public enum TagType
+  {
+    article, product;
+  }
+
+  private String name;
+  private TagType type;
+  private String icon;
+  private String memo;
+  private Set<Article> articles = new HashSet();
+  private Set<Product> products = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull(groups={BaseEntity.Save.class})
   @Column(nullable=false, updatable=false)
-  public Tag.Type getType()
+  public TagType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(Tag.Type type)
+  public void setType(TagType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   @Length(max=200)
   public String getIcon()
   {
-    return this.IIIlllII;
+    return this.icon;
   }
 
   public void setIcon(String icon)
   {
-    this.IIIlllII = icon;
+    this.icon = icon;
   }
 
   @Length(max=200)
   public String getMemo()
   {
-    return this.IIIlllIl;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIIlllIl = memo;
+    this.memo = memo;
   }
 
   @ManyToMany(mappedBy="tags", fetch=FetchType.LAZY)
   public Set<Article> getArticles()
   {
-    return this.IIIllllI;
+    return this.articles;
   }
 
   public void setArticles(Set<Article> articles)
   {
-    this.IIIllllI = articles;
+    this.articles = articles;
   }
 
   @ManyToMany(mappedBy="tags", fetch=FetchType.LAZY)
   public Set<Product> getProducts()
   {
-    return this.IIIlllll;
+    return this.products;
   }
 
   public void setProducts(Set<Product> products)
   {
-    this.IIIlllll = products;
+    this.products = products;
   }
 
   @PreRemove
@@ -120,7 +125,3 @@ public class Tag extends OrderEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Tag
-

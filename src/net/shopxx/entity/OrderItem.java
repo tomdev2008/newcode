@@ -20,54 +20,54 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class OrderItem extends BaseEntity
 {
   private static final long serialVersionUID = -4999926022604479334L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private BigDecimal IIIlllIl;
-  private Integer IIIllllI;
-  private String IIIlllll;
-  private Boolean IIlIIIII;
-  private Integer IIlIIIIl;
-  private Integer IIlIIIlI;
-  private Integer IIlIIIll;
-  private Product IIlIIlII;
-  private Order IIlIIlIl;
+  private String sn;
+  private String name;
+  private String fullName;
+  private BigDecimal price;
+  private Integer weight;
+  private String thumbnail;
+  private Boolean isGift;
+  private Integer quantity;
+  private Integer shippedQuantity;
+  private Integer returnQuantity;
+  private Product product;
+  private Order order;
 
   @JsonProperty
   @NotEmpty
   @Column(nullable=false, updatable=false)
   public String getSn()
   {
-    return this.IIIllIlI;
+    return this.sn;
   }
 
   public void setSn(String sn)
   {
-    this.IIIllIlI = sn;
+    this.sn = sn;
   }
 
   @JsonProperty
   @Column(nullable=false, updatable=false)
   public String getName()
   {
-    return this.IIIllIll;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIll = name;
+    this.name = name;
   }
 
   @JsonProperty
   @Column(nullable=false, updatable=false)
   public String getFullName()
   {
-    return this.IIIlllII;
+    return this.fullName;
   }
 
   public void setFullName(String fullName)
   {
-    this.IIIlllII = fullName;
+    this.fullName = fullName;
   }
 
   @JsonProperty
@@ -77,48 +77,48 @@ public class OrderItem extends BaseEntity
   @Column(nullable=false, precision=21, scale=6)
   public BigDecimal getPrice()
   {
-    return this.IIIlllIl;
+    return this.price;
   }
 
   public void setPrice(BigDecimal price)
   {
-    this.IIIlllIl = price;
+    this.price = price;
   }
 
   @JsonProperty
   @Column(updatable=false)
   public Integer getWeight()
   {
-    return this.IIIllllI;
+    return this.weight;
   }
 
   public void setWeight(Integer weight)
   {
-    this.IIIllllI = weight;
+    this.weight = weight;
   }
 
   @JsonProperty
   @Column(updatable=false)
   public String getThumbnail()
   {
-    return this.IIIlllll;
+    return this.thumbnail;
   }
 
   public void setThumbnail(String thumbnail)
   {
-    this.IIIlllll = thumbnail;
+    this.thumbnail = thumbnail;
   }
 
   @JsonProperty
   @Column(nullable=false, updatable=false)
   public Boolean getIsGift()
   {
-    return this.IIlIIIII;
+    return this.isGift;
   }
 
   public void setIsGift(Boolean isGift)
   {
-    this.IIlIIIII = isGift;
+    this.isGift = isGift;
   }
 
   @JsonProperty
@@ -128,57 +128,57 @@ public class OrderItem extends BaseEntity
   @Column(nullable=false)
   public Integer getQuantity()
   {
-    return this.IIlIIIIl;
+    return this.quantity;
   }
 
   public void setQuantity(Integer quantity)
   {
-    this.IIlIIIIl = quantity;
+    this.quantity = quantity;
   }
 
   @Column(nullable=false)
   public Integer getShippedQuantity()
   {
-    return this.IIlIIIlI;
+    return this.shippedQuantity;
   }
 
   public void setShippedQuantity(Integer shippedQuantity)
   {
-    this.IIlIIIlI = shippedQuantity;
+    this.shippedQuantity = shippedQuantity;
   }
 
   @Column(nullable=false)
   public Integer getReturnQuantity()
   {
-    return this.IIlIIIll;
+    return this.returnQuantity;
   }
 
   public void setReturnQuantity(Integer returnQuantity)
   {
-    this.IIlIIIll = returnQuantity;
+    this.returnQuantity = returnQuantity;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   public Product getProduct()
   {
-    return this.IIlIIlII;
+    return this.product;
   }
 
   public void setProduct(Product product)
   {
-    this.IIlIIlII = product;
+    this.product = product;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(name="orders", nullable=false, updatable=false)
   public Order getOrder()
   {
-    return this.IIlIIlIl;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIlIIlIl = order;
+    this.order = order;
   }
 
   @JsonProperty
@@ -199,7 +199,3 @@ public class OrderItem extends BaseEntity
     return new BigDecimal(0);
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.OrderItem
-

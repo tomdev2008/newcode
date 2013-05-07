@@ -6,7 +6,3 @@ public abstract interface DeliveryTemplateService extends BaseService<DeliveryTe
 {
   public abstract DeliveryTemplate findDefault();
 }
-
-
- * Qualified Name:     net.shopxx.service.DeliveryTemplateService
-

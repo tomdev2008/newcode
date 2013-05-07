@@ -53,7 +53,3 @@ class ProductImageServiceImpl$1
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ProductImageServiceImpl.1
-

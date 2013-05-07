@@ -10,58 +10,58 @@ import org.hibernate.validator.constraints.Length;
 public class Seo extends BaseEntity
 {
   private static final long serialVersionUID = -3503657242384822672L;
-  private Seo.Type IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
+  public enum SeoType
+  {
+    index, productList, productSearch, productContent, articleList, articleSearch, articleContent, brandList, brandContent;
+  }
+  private SeoType type;
+  private String title;
+  private String keywords;
+  private String description;
 
   @Column(nullable=false, updatable=false, unique=true)
-  public Seo.Type getType()
+  public SeoType getType()
   {
-    return this.IIIllIlI;
+    return this.type;
   }
 
-  public void setType(Seo.Type type)
+  public void setType(SeoType type)
   {
-    this.IIIllIlI = type;
+    this.type = type;
   }
 
   @Length(max=200)
   public String getTitle()
   {
-    return this.IIIllIll;
+    return this.title;
   }
 
   public void setTitle(String title)
   {
-    this.IIIllIll = title;
+    this.title = title;
   }
 
   @Length(max=200)
   public String getKeywords()
   {
-    return this.IIIlllII;
+    return this.keywords;
   }
 
   public void setKeywords(String keywords)
   {
     if (keywords != null)
       keywords = keywords.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
-    this.IIIlllII = keywords;
+    this.keywords = keywords;
   }
 
   @Length(max=200)
   public String getDescription()
   {
-    return this.IIIlllIl;
+    return this.description;
   }
 
   public void setDescription(String description)
   {
-    this.IIIlllIl = description;
+    this.description = description;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Seo
-

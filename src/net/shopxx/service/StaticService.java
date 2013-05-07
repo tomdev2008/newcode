@@ -32,7 +32,3 @@ public abstract interface StaticService
 
   public abstract int deleteOther();
 }
-
-
- * Qualified Name:     net.shopxx.service.StaticService
-

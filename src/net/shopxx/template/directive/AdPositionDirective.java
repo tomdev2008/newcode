@@ -51,7 +51,3 @@ public class AdPositionDirective extends BaseDirective
       }
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.AdPositionDirective
-

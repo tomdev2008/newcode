@@ -76,7 +76,3 @@ public class AlipayDirectController extends BaseController
     return "redirect:/admin/payment_plugin/list.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.alipayDirect.AlipayDirectController
-

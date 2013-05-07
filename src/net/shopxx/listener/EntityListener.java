@@ -20,7 +20,3 @@ public class EntityListener
     entity.setModifyDate(new Date());
   }
 }
-
-
- * Qualified Name:     net.shopxx.listener.EntityListener
-

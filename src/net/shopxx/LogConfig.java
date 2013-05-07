@@ -6,30 +6,26 @@ public class LogConfig
   implements Serializable
 {
   private static final long serialVersionUID = -1108848647938408402L;
-  private String IIIllIlI;
-  private String IIIllIll;
+  private String operation;
+  private String urlPattern;
 
   public String getOperation()
   {
-    return this.IIIllIlI;
+    return this.operation;
   }
 
   public void setOperation(String operation)
   {
-    this.IIIllIlI = operation;
+    this.operation = operation;
   }
 
   public String getUrlPattern()
   {
-    return this.IIIllIll;
+    return this.urlPattern;
   }
 
   public void setUrlPattern(String urlPattern)
   {
-    this.IIIllIll = urlPattern;
+    this.urlPattern = urlPattern;
   }
 }
-
-
- * Qualified Name:     net.shopxx.LogConfig
-

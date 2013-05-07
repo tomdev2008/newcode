@@ -6,7 +6,3 @@ public abstract interface DeliveryCenterService extends BaseService<DeliveryCent
 {
   public abstract DeliveryCenter findDefault();
 }
-
-
- * Qualified Name:     net.shopxx.service.DeliveryCenterService
-

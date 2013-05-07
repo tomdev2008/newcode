@@ -8,48 +8,52 @@ public class Order
   implements Serializable
 {
   private static final long serialVersionUID = -3078342809727773232L;
-  private static final Order.Direction IIIllIlI = Order.Direction.desc;
-  private String IIIllIll;
-  private Order.Direction IIIlllII = IIIllIlI;
+  public enum OrderDirection
+  {
+    asc, desc;
+  }
+  private static final OrderDirection IIIllIlI = OrderDirection.desc;
+  private String property;
+  private OrderDirection direction = IIIllIlI;
 
   public Order()
   {
   }
 
-  public Order(String property, Order.Direction direction)
+  public Order(String property, OrderDirection direction)
   {
-    this.IIIllIll = property;
-    this.IIIlllII = direction;
+    this.property = property;
+    this.direction = direction;
   }
 
   public static Order asc(String property)
   {
-    return new Order(property, Order.Direction.asc);
+    return new Order(property, OrderDirection.asc);
   }
 
   public static Order desc(String property)
   {
-    return new Order(property, Order.Direction.desc);
+    return new Order(property, OrderDirection.desc);
   }
 
   public String getProperty()
   {
-    return this.IIIllIll;
+    return this.property;
   }
 
   public void setProperty(String property)
   {
-    this.IIIllIll = property;
+    this.property = property;
   }
 
-  public Order.Direction getDirection()
+  public OrderDirection getDirection()
   {
-    return this.IIIlllII;
+    return this.direction;
   }
 
-  public void setDirection(Order.Direction direction)
+  public void setDirection(OrderDirection direction)
   {
-    this.IIIlllII = direction;
+    this.direction = direction;
   }
 
   public boolean equals(Object obj)
@@ -69,7 +73,3 @@ public class Order
     return new HashCodeBuilder(17, 37).append(getProperty()).append(getDirection()).toHashCode();
   }
 }
-
-
- * Qualified Name:     net.shopxx.Order
-

@@ -24,64 +24,64 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Returns extends BaseEntity
 {
   private static final long serialVersionUID = -8019074120457087212L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private BigDecimal IIIllllI;
-  private String IIIlllll;
-  private String IIlIIIII;
-  private String IIlIIIIl;
-  private String IIlIIIlI;
-  private String IIlIIIll;
-  private String IIlIIlII;
-  private String IIlIIlIl;
-  private Order IIlIIllI;
-  private List<ReturnsItem> IIlIIlll = new ArrayList();
+  private String sn;
+  private String shippingMethod;
+  private String deliveryCorp;
+  private String trackingNo;
+  private BigDecimal freight;
+  private String shipper;
+  private String area;
+  private String address;
+  private String zipCode;
+  private String phone;
+  private String operator;
+  private String memo;
+  private Order order;
+  private List<ReturnsItem> returnsItems = new ArrayList();
 
   @Column(nullable=false, updatable=false, unique=true)
   public String getSn()
   {
-    return this.IIIllIlI;
+    return this.sn;
   }
 
   public void setSn(String sn)
   {
-    this.IIIllIlI = sn;
+    this.sn = sn;
   }
 
   @Column(updatable=false)
   public String getShippingMethod()
   {
-    return this.IIIllIll;
+    return this.shippingMethod;
   }
 
   public void setShippingMethod(String shippingMethod)
   {
-    this.IIIllIll = shippingMethod;
+    this.shippingMethod = shippingMethod;
   }
 
   @Column(updatable=false)
   public String getDeliveryCorp()
   {
-    return this.IIIlllII;
+    return this.deliveryCorp;
   }
 
   public void setDeliveryCorp(String deliveryCorp)
   {
-    this.IIIlllII = deliveryCorp;
+    this.deliveryCorp = deliveryCorp;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getTrackingNo()
   {
-    return this.IIIlllIl;
+    return this.trackingNo;
   }
 
   public void setTrackingNo(String trackingNo)
   {
-    this.IIIlllIl = trackingNo;
+    this.trackingNo = trackingNo;
   }
 
   @Min(0L)
@@ -89,12 +89,12 @@ public class Returns extends BaseEntity
   @Column(updatable=false, precision=21, scale=6)
   public BigDecimal getFreight()
   {
-    return this.IIIllllI;
+    return this.freight;
   }
 
   public void setFreight(BigDecimal freight)
   {
-    this.IIIllllI = freight;
+    this.freight = freight;
   }
 
   @NotEmpty
@@ -102,24 +102,24 @@ public class Returns extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getShipper()
   {
-    return this.IIIlllll;
+    return this.shipper;
   }
 
   public void setShipper(String shipper)
   {
-    this.IIIlllll = shipper;
+    this.shipper = shipper;
   }
 
   @NotEmpty
   @Column(nullable=false, updatable=false)
   public String getArea()
   {
-    return this.IIlIIIII;
+    return this.area;
   }
 
   public void setArea(String area)
   {
-    this.IIlIIIII = area;
+    this.area = area;
   }
 
   @NotEmpty
@@ -127,12 +127,12 @@ public class Returns extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getAddress()
   {
-    return this.IIlIIIIl;
+    return this.address;
   }
 
   public void setAddress(String address)
   {
-    this.IIlIIIIl = address;
+    this.address = address;
   }
 
   @NotEmpty
@@ -140,12 +140,12 @@ public class Returns extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getZipCode()
   {
-    return this.IIlIIIlI;
+    return this.zipCode;
   }
 
   public void setZipCode(String zipCode)
   {
-    this.IIlIIIlI = zipCode;
+    this.zipCode = zipCode;
   }
 
   @NotEmpty
@@ -153,35 +153,35 @@ public class Returns extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getPhone()
   {
-    return this.IIlIIIll;
+    return this.phone;
   }
 
   public void setPhone(String phone)
   {
-    this.IIlIIIll = phone;
+    this.phone = phone;
   }
 
   @Column(nullable=false, updatable=false)
   public String getOperator()
   {
-    return this.IIlIIlII;
+    return this.operator;
   }
 
   public void setOperator(String operator)
   {
-    this.IIlIIlII = operator;
+    this.operator = operator;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getMemo()
   {
-    return this.IIlIIlIl;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIlIIlIl = memo;
+    this.memo = memo;
   }
 
   @NotNull
@@ -189,12 +189,12 @@ public class Returns extends BaseEntity
   @JoinColumn(name="orders", nullable=false, updatable=false)
   public Order getOrder()
   {
-    return this.IIlIIllI;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIlIIllI = order;
+    this.order = order;
   }
 
   @Valid
@@ -202,12 +202,12 @@ public class Returns extends BaseEntity
   @OneToMany(mappedBy="returns", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.ALL})
   public List<ReturnsItem> getReturnsItems()
   {
-    return this.IIlIIlll;
+    return this.returnsItems;
   }
 
   public void setReturnsItems(List<ReturnsItem> returnsItems)
   {
-    this.IIlIIlll = returnsItems;
+    this.returnsItems = returnsItems;
   }
 
   @Transient
@@ -228,7 +228,3 @@ public class Returns extends BaseEntity
     return i;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Returns
-

@@ -15,7 +15,3 @@ public abstract interface MessageService extends BaseService<Message, Long>
 
   public abstract void delete(Long paramLong, Member paramMember);
 }
-
-
- * Qualified Name:     net.shopxx.service.MessageService
-

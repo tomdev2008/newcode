@@ -16,7 +16,3 @@ public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem, Long>
     super.setBaseDao(orderItemDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.OrderItemServiceImpl
-

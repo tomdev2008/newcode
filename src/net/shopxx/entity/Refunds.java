@@ -17,73 +17,77 @@ import org.hibernate.validator.constraints.Length;
 public class Refunds extends BaseEntity
 {
   private static final long serialVersionUID = 354885216604823632L;
-  private String IIIllIlI;
-  private Refunds.Type IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private BigDecimal IIIlllll;
-  private String IIlIIIII;
-  private String IIlIIIIl;
-  private String IIlIIIlI;
-  private Order IIlIIIll;
+  public enum RefundsType
+  {
+    online, offline, deposit;
+  }
+  private String sn;
+  private RefundsType type;
+  private String paymentMethod;
+  private String bank;
+  private String account;
+  private BigDecimal amount;
+  private String payee;
+  private String operator;
+  private String memo;
+  private Order order;
 
   @Column(nullable=false, updatable=false, unique=true)
   public String getSn()
   {
-    return this.IIIllIlI;
+    return this.sn;
   }
 
   public void setSn(String sn)
   {
-    this.IIIllIlI = sn;
+    this.sn = sn;
   }
 
   @NotNull
   @Column(nullable=false, updatable=false)
-  public Refunds.Type getType()
+  public RefundsType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(Refunds.Type type)
+  public void setType(RefundsType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   @Column(updatable=false)
   public String getPaymentMethod()
   {
-    return this.IIIlllII;
+    return this.paymentMethod;
   }
 
   public void setPaymentMethod(String paymentMethod)
   {
-    this.IIIlllII = paymentMethod;
+    this.paymentMethod = paymentMethod;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getBank()
   {
-    return this.IIIlllIl;
+    return this.bank;
   }
 
   public void setBank(String bank)
   {
-    this.IIIlllIl = bank;
+    this.bank = bank;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getAccount()
   {
-    return this.IIIllllI;
+    return this.account;
   }
 
   public void setAccount(String account)
   {
-    this.IIIllllI = account;
+    this.account = account;
   }
 
   @NotNull
@@ -92,47 +96,47 @@ public class Refunds extends BaseEntity
   @Column(nullable=false, updatable=false, precision=21, scale=6)
   public BigDecimal getAmount()
   {
-    return this.IIIlllll;
+    return this.amount;
   }
 
   public void setAmount(BigDecimal amount)
   {
-    this.IIIlllll = amount;
+    this.amount = amount;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getPayee()
   {
-    return this.IIlIIIII;
+    return this.payee;
   }
 
   public void setPayee(String payee)
   {
-    this.IIlIIIII = payee;
+    this.payee = payee;
   }
 
   @Column(nullable=false, updatable=false)
   public String getOperator()
   {
-    return this.IIlIIIIl;
+    return this.operator;
   }
 
   public void setOperator(String operator)
   {
-    this.IIlIIIIl = operator;
+    this.operator = operator;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getMemo()
   {
-    return this.IIlIIIlI;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIlIIIlI = memo;
+    this.memo = memo;
   }
 
   @NotNull
@@ -140,15 +144,11 @@ public class Refunds extends BaseEntity
   @JoinColumn(name="orders", nullable=false, updatable=false)
   public Order getOrder()
   {
-    return this.IIlIIIll;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIlIIIll = order;
+    this.order = order;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Refunds
-

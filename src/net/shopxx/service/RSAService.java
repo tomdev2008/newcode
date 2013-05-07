@@ -11,7 +11,3 @@ public abstract interface RSAService
 
   public abstract String decryptParameter(String paramString, HttpServletRequest paramHttpServletRequest);
 }
-
-
- * Qualified Name:     net.shopxx.service.RSAService
-

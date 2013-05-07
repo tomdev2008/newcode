@@ -29,7 +29,3 @@ public class MemberAttributeListDirective extends BaseDirective
     IIIllIlI("memberAttributes", localList, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.MemberAttributeListDirective
-

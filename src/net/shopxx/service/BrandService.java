@@ -9,7 +9,3 @@ public abstract interface BrandService extends BaseService<Brand, Long>
 {
   public abstract List<Brand> findList(Integer paramInteger, List<Filter> paramList, List<Order> paramList1, String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.service.BrandService
-

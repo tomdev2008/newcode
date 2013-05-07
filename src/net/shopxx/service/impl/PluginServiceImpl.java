@@ -67,7 +67,3 @@ public class PluginServiceImpl
     return (StoragePlugin)this.IIIlllIl.get(id);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.PluginServiceImpl
-

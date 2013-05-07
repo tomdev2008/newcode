@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.shopxx.Order.OrderDirection;
+
 public class Page<T>
   implements Serializable
 {
@@ -50,7 +52,7 @@ public class Page<T>
     return this.IIIlllII.getOrderProperty();
   }
 
-  public Order.Direction getOrderDirection()
+  public OrderDirection getOrderDirection()
   {
     return this.IIIlllII.getOrderDirection();
   }
@@ -85,7 +87,3 @@ public class Page<T>
     return this.IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.Page
-

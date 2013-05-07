@@ -12,7 +12,3 @@ class PluginServiceImpl$2
     return localStoragePlugin.getIsEnabled() == this.IIIllIll;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.PluginServiceImpl.2
-

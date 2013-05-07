@@ -33,7 +33,3 @@ public class NavigationListDirective extends BaseDirective
     IIIllIlI("navigations", localList1, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.NavigationListDirective
-

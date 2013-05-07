@@ -5,7 +5,3 @@ import net.shopxx.entity.Refunds;
 public abstract interface RefundsService extends BaseService<Refunds, Long>
 {
 }
-
-
- * Qualified Name:     net.shopxx.service.RefundsService
-

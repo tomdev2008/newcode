@@ -61,7 +61,3 @@ public class CacheServiceImpl
     this.IIIlllII.getConfiguration().clearTemplateCache();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.CacheServiceImpl
-

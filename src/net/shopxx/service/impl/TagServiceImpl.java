@@ -82,7 +82,3 @@ public class TagServiceImpl extends BaseServiceImpl<Tag, Long>
     super.delete(tag);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.TagServiceImpl
-

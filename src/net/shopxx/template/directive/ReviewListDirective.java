@@ -1,21 +1,25 @@
 package net.shopxx.template.directive;
 
-import freemarker.core.Environment;
-import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import net.shopxx.entity.Member;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.Review;
-import net.shopxx.entity.Review.Type;
+import net.shopxx.entity.Review.ReviewType;
 import net.shopxx.service.MemberService;
 import net.shopxx.service.ProductService;
 import net.shopxx.service.ReviewService;
 import net.shopxx.util.FreemarkerUtils;
+
 import org.springframework.stereotype.Component;
+
+import freemarker.core.Environment;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateModel;
 
 @Component("reviewListDirective")
 public class ReviewListDirective extends BaseDirective
@@ -38,7 +42,7 @@ public class ReviewListDirective extends BaseDirective
   {
     Long localLong1 = (Long)FreemarkerUtils.getParameter("memberId", Long.class, params);
     Long localLong2 = (Long)FreemarkerUtils.getParameter("productId", Long.class, params);
-    Review.Type localType = (Review.Type)FreemarkerUtils.getParameter("type", Review.Type.class, params);
+    ReviewType localType = (ReviewType)FreemarkerUtils.getParameter("type", ReviewType.class, params);
     Member localMember = (Member)this.IIIlllll.find(localLong1);
     Product localProduct = (Product)this.IIlIIIII.find(localLong2);
     Object localObject;
@@ -61,7 +65,3 @@ public class ReviewListDirective extends BaseDirective
     IIIllIlI("reviews", localObject, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ReviewListDirective
-

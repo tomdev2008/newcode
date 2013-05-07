@@ -17,7 +17,3 @@ public abstract interface MemberRankService extends BaseService<MemberRank, Long
 
   public abstract MemberRank findByAmount(BigDecimal paramBigDecimal);
 }
-
-
- * Qualified Name:     net.shopxx.service.MemberRankService
-

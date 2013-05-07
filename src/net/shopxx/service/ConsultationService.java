@@ -21,7 +21,3 @@ public abstract interface ConsultationService extends BaseService<Consultation, 
 
   public abstract void reply(Consultation paramConsultation1, Consultation paramConsultation2);
 }
-
-
- * Qualified Name:     net.shopxx.service.ConsultationService
-

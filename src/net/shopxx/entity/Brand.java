@@ -22,107 +22,111 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Brand extends OrderEntity
 {
   private static final long serialVersionUID = -6109590619136943215L;
+  public enum BrandType
+  {
+    text, image;
+  }
   private static final String IIIllIlI = "/brand/content";
   private static final String IIIllIll = ".jhtml";
-  private String IIIlllII;
-  private Brand.Type IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private String IIlIIIII;
-  private Set<Product> IIlIIIIl = new HashSet();
-  private Set<ProductCategory> IIlIIIlI = new HashSet();
-  private Set<Promotion> IIlIIIll = new HashSet();
+  private String name;
+  private BrandType type;
+  private String logo;
+  private String url;
+  private String introduction;
+  private Set<Product> products = new HashSet();
+  private Set<ProductCategory> productCategories = new HashSet();
+  private Set<Promotion> promotions = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIlllII;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIlllII = name;
+    this.name = name;
   }
 
   @NotNull
   @Column(nullable=false)
-  public Brand.Type getType()
+  public BrandType getType()
   {
-    return this.IIIlllIl;
+    return this.type;
   }
 
-  public void setType(Brand.Type type)
+  public void setType(BrandType type)
   {
-    this.IIIlllIl = type;
+    this.type = type;
   }
 
   @Length(max=200)
   public String getLogo()
   {
-    return this.IIIllllI;
+    return this.logo;
   }
 
   public void setLogo(String logo)
   {
-    this.IIIllllI = logo;
+    this.logo = logo;
   }
 
   @Length(max=200)
   public String getUrl()
   {
-    return this.IIIlllll;
+    return this.url;
   }
 
   public void setUrl(String url)
   {
-    this.IIIlllll = url;
+    this.url = url;
   }
 
   @Lob
   public String getIntroduction()
   {
-    return this.IIlIIIII;
+    return this.introduction;
   }
 
   public void setIntroduction(String introduction)
   {
-    this.IIlIIIII = introduction;
+    this.introduction = introduction;
   }
 
   @OneToMany(mappedBy="brand", fetch=FetchType.LAZY)
   public Set<Product> getProducts()
   {
-    return this.IIlIIIIl;
+    return this.products;
   }
 
   public void setProducts(Set<Product> products)
   {
-    this.IIlIIIIl = products;
+    this.products = products;
   }
 
   @ManyToMany(mappedBy="brands", fetch=FetchType.LAZY)
   @OrderBy("order asc")
   public Set<ProductCategory> getProductCategories()
   {
-    return this.IIlIIIlI;
+    return this.productCategories;
   }
 
   public void setProductCategories(Set<ProductCategory> productCategories)
   {
-    this.IIlIIIlI = productCategories;
+    this.productCategories = productCategories;
   }
 
   @ManyToMany(mappedBy="brands", fetch=FetchType.LAZY)
   public Set<Promotion> getPromotions()
   {
-    return this.IIlIIIll;
+    return this.promotions;
   }
 
   public void setPromotions(Set<Promotion> promotions)
   {
-    this.IIlIIIll = promotions;
+    this.promotions = promotions;
   }
 
   @Transient
@@ -169,7 +173,3 @@ public class Brand extends OrderEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Brand
-

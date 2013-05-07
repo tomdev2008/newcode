@@ -125,7 +125,3 @@ public class CommonController
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.CommonController
-

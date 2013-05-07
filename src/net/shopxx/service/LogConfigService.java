@@ -7,7 +7,3 @@ public abstract interface LogConfigService
 {
   public abstract List<LogConfig> getAll();
 }
-
-
- * Qualified Name:     net.shopxx.service.LogConfigService
-

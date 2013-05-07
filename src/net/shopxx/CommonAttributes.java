@@ -6,7 +6,3 @@ public final class CommonAttributes
   public static final String SHOPXX_XML_PATH = "/shopxx.xml";
   public static final String SHOPXX_PROPERTIES_PATH = "/shopxx.properties";
 }
-
-
- * Qualified Name:     net.shopxx.CommonAttributes
-

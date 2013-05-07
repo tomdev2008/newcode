@@ -16,7 +16,3 @@ class FileServiceImpl$SizeComparator
     return new CompareToBuilder().append(!fileInfos1.getIsDirectory().booleanValue(), !fileInfos2.getIsDirectory().booleanValue()).append(fileInfos1.getSize(), fileInfos2.getSize()).toComparison();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.FileServiceImpl.SizeComparator
-

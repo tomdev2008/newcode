@@ -63,7 +63,3 @@ public class ProductNotifyServiceImpl extends BaseServiceImpl<ProductNotify, Lon
     return localList.size();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ProductNotifyServiceImpl
-

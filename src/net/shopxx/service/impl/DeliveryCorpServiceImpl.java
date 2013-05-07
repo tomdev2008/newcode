@@ -16,7 +16,3 @@ public class DeliveryCorpServiceImpl extends BaseServiceImpl<DeliveryCorp, Long>
     super.setBaseDao(deliveryCorpDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.DeliveryCorpServiceImpl
-

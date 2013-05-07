@@ -17,7 +17,3 @@ public abstract interface ConsultationDao extends BaseDao<Consultation, Long>
 
   public abstract Long count(Member paramMember, Product paramProduct, Boolean paramBoolean);
 }
-
-
- * Qualified Name:     net.shopxx.dao.ConsultationDao
-

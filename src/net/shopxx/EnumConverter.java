@@ -4,7 +4,7 @@ import org.apache.commons.beanutils.converters.AbstractConverter;
 
 public class EnumConverter extends AbstractConverter
 {
-  private final Class<?> IIIllIlI;
+  private final Class<?> enumClass;
 
   public EnumConverter(Class<?> enumClass)
   {
@@ -14,12 +14,12 @@ public class EnumConverter extends AbstractConverter
   public EnumConverter(Class<?> enumClass, Object defaultValue)
   {
     super(defaultValue);
-    this.IIIllIlI = enumClass;
+    this.enumClass = enumClass;
   }
 
   protected Class<?> getDefaultType()
   {
-    return this.IIIllIlI;
+    return this.enumClass;
   }
 
   protected Object convertToType(Class type, Object value)
@@ -33,7 +33,3 @@ public class EnumConverter extends AbstractConverter
     return value.toString();
   }
 }
-
-
- * Qualified Name:     net.shopxx.EnumConverter
-

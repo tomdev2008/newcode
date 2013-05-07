@@ -29,33 +29,37 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Coupon extends BaseEntity
 {
   private static final long serialVersionUID = -7907808728349149722L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private Date IIIlllII;
-  private Date IIIlllIl;
-  private BigDecimal IIIllllI;
-  private BigDecimal IIIlllll;
-  private Boolean IIlIIIII;
-  private Boolean IIlIIIIl;
-  private Integer IIlIIIlI;
-  private Coupon.Operator IIlIIIll;
-  private BigDecimal IIlIIlII;
-  private String IIlIIlIl;
-  private Set<CouponCode> IIlIIllI = new HashSet();
-  private Set<Promotion> IIlIIlll = new HashSet();
-  private List<Order> IIlIlIII = new ArrayList();
+  public enum CouponOperator
+  {
+    add, subtract, multiply, divide;
+  }
+  private String name;
+  private String prefix;
+  private Date beginDate;
+  private Date endDate;
+  private BigDecimal startPrice;
+  private BigDecimal endPrice;
+  private Boolean isEnabled;
+  private Boolean isExchange;
+  private Integer point;
+  private CouponOperator priceOperator;
+  private BigDecimal priceValue;
+  private String introduction;
+  private Set<CouponCode> couponCodes = new HashSet();
+  private Set<Promotion> promotions = new HashSet();
+  private List<Order> orders = new ArrayList();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotEmpty
@@ -63,32 +67,32 @@ public class Coupon extends BaseEntity
   @Column(nullable=false)
   public String getPrefix()
   {
-    return this.IIIllIll;
+    return this.prefix;
   }
 
   public void setPrefix(String prefix)
   {
-    this.IIIllIll = prefix;
+    this.prefix = prefix;
   }
 
   public Date getBeginDate()
   {
-    return this.IIIlllII;
+    return this.beginDate;
   }
 
   public void setBeginDate(Date beginDate)
   {
-    this.IIIlllII = beginDate;
+    this.beginDate = beginDate;
   }
 
   public Date getEndDate()
   {
-    return this.IIIlllIl;
+    return this.endDate;
   }
 
   public void setEndDate(Date endDate)
   {
-    this.IIIlllIl = endDate;
+    this.endDate = endDate;
   }
 
   @Min(0L)
@@ -96,12 +100,12 @@ public class Coupon extends BaseEntity
   @Column(precision=21, scale=6)
   public BigDecimal getStartPrice()
   {
-    return this.IIIllllI;
+    return this.startPrice;
   }
 
   public void setStartPrice(BigDecimal startPrice)
   {
-    this.IIIllllI = startPrice;
+    this.startPrice = startPrice;
   }
 
   @Min(0L)
@@ -109,115 +113,115 @@ public class Coupon extends BaseEntity
   @Column(precision=21, scale=6)
   public BigDecimal getEndPrice()
   {
-    return this.IIIlllll;
+    return this.endPrice;
   }
 
   public void setEndPrice(BigDecimal endPrice)
   {
-    this.IIIlllll = endPrice;
+    this.endPrice = endPrice;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsEnabled()
   {
-    return this.IIlIIIII;
+    return this.isEnabled;
   }
 
   public void setIsEnabled(Boolean isEnabled)
   {
-    this.IIlIIIII = isEnabled;
+    this.isEnabled = isEnabled;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsExchange()
   {
-    return this.IIlIIIIl;
+    return this.isExchange;
   }
 
   public void setIsExchange(Boolean isExchange)
   {
-    this.IIlIIIIl = isExchange;
+    this.isExchange = isExchange;
   }
 
   @Min(0L)
   public Integer getPoint()
   {
-    return this.IIlIIIlI;
+    return this.point;
   }
 
   public void setPoint(Integer point)
   {
-    this.IIlIIIlI = point;
+    this.point = point;
   }
 
   @NotNull
   @Column(nullable=false)
-  public Coupon.Operator getPriceOperator()
+  public CouponOperator getPriceOperator()
   {
-    return this.IIlIIIll;
+    return this.priceOperator;
   }
 
-  public void setPriceOperator(Coupon.Operator priceOperator)
+  public void setPriceOperator(CouponOperator priceOperator)
   {
-    this.IIlIIIll = priceOperator;
+    this.priceOperator = priceOperator;
   }
 
   @Digits(integer=12, fraction=3)
   @Column(precision=21, scale=6)
   public BigDecimal getPriceValue()
   {
-    return this.IIlIIlII;
+    return this.priceValue;
   }
 
   public void setPriceValue(BigDecimal priceValue)
   {
-    this.IIlIIlII = priceValue;
+    this.priceValue = priceValue;
   }
 
   @Lob
   public String getIntroduction()
   {
-    return this.IIlIIlIl;
+    return this.introduction;
   }
 
   public void setIntroduction(String introduction)
   {
-    this.IIlIIlIl = introduction;
+    this.introduction = introduction;
   }
 
   @OneToMany(mappedBy="coupon", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<CouponCode> getCouponCodes()
   {
-    return this.IIlIIllI;
+    return this.couponCodes;
   }
 
   public void setCouponCodes(Set<CouponCode> couponCodes)
   {
-    this.IIlIIllI = couponCodes;
+    this.couponCodes = couponCodes;
   }
 
   @ManyToMany(mappedBy="coupons", fetch=FetchType.LAZY)
   public Set<Promotion> getPromotions()
   {
-    return this.IIlIIlll;
+    return this.promotions;
   }
 
   public void setPromotions(Set<Promotion> promotions)
   {
-    this.IIlIIlll = promotions;
+    this.promotions = promotions;
   }
 
   @ManyToMany(mappedBy="coupons", fetch=FetchType.LAZY)
   public List<Order> getOrders()
   {
-    return this.IIlIlIII;
+    return this.orders;
   }
 
   public void setOrders(List<Order> orders)
   {
-    this.IIlIlIII = orders;
+    this.orders = orders;
   }
 
   @Transient
@@ -278,7 +282,3 @@ public class Coupon extends BaseEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Coupon
-

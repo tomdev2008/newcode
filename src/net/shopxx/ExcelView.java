@@ -30,14 +30,14 @@ import org.springframework.web.servlet.view.document.AbstractExcelView;
 public class ExcelView extends AbstractExcelView
 {
   private static final String IIIllIlI = "yyyy-MM-dd HH:mm:ss";
-  private String IIIllIll;
-  private String IIIlllII;
-  private String[] IIIlllIl;
-  private String[] IIIllllI;
-  private Integer[] IIIlllll;
-  private Converter[] IIlIIIII;
-  private Collection<?> IIlIIIIl;
-  private String[] IIlIIIlI;
+  private String filename;
+  private String sheetName;
+  private String[] properties;
+  private String[] titles;
+  private Integer[] widths;
+  private Converter[] converters;
+  private Collection<?> data;
+  private String[] contents;
 
   static
   {
@@ -48,43 +48,43 @@ public class ExcelView extends AbstractExcelView
 
   public ExcelView(String filename, String sheetName, String[] properties, String[] titles, Integer[] widths, Converter[] converters, Collection<?> data, String[] contents)
   {
-    this.IIIllIll = filename;
-    this.IIIlllII = sheetName;
-    this.IIIlllIl = properties;
-    this.IIIllllI = titles;
-    this.IIIlllll = widths;
-    this.IIlIIIII = converters;
-    this.IIlIIIIl = data;
-    this.IIlIIIlI = contents;
+    this.filename = filename;
+    this.sheetName = sheetName;
+    this.properties = properties;
+    this.titles = titles;
+    this.widths = widths;
+    this.converters = converters;
+    this.data = data;
+    this.contents = contents;
   }
 
   public ExcelView(String[] properties, String[] titles, Collection<?> data, String[] contents)
   {
-    this.IIIlllIl = properties;
-    this.IIIllllI = titles;
-    this.IIlIIIIl = data;
-    this.IIlIIIlI = contents;
+    this.properties = properties;
+    this.titles = titles;
+    this.data = data;
+    this.contents = contents;
   }
 
   public ExcelView(String[] properties, String[] titles, Collection<?> data)
   {
-    this.IIIlllIl = properties;
-    this.IIIllllI = titles;
-    this.IIlIIIIl = data;
+    this.properties = properties;
+    this.titles = titles;
+    this.data = data;
   }
 
   public ExcelView(String[] properties, Collection<?> data)
   {
-    this.IIIlllIl = properties;
-    this.IIlIIIIl = data;
+    this.properties = properties;
+    this.data = data;
   }
 
   public void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response)
   {
-    Assert.notEmpty(this.IIIlllIl);
+    Assert.notEmpty(this.properties);
     HSSFSheet localHSSFSheet;
-    if (StringUtils.isNotEmpty(this.IIIlllII))
-      localHSSFSheet = workbook.createSheet(this.IIIlllII);
+    if (StringUtils.isNotEmpty(this.sheetName))
+      localHSSFSheet = workbook.createSheet(this.sheetName);
     else
       localHSSFSheet = workbook.createSheet();
     int i = 0;
@@ -93,11 +93,11 @@ public class ExcelView extends AbstractExcelView
     Object localObject3;
     Object localObject4;
     Object localObject5;
-    if ((this.IIIllllI != null) && (this.IIIllllI.length > 0))
+    if ((this.titles != null) && (this.titles.length > 0))
     {
       localObject1 = localHSSFSheet.createRow(i);
       ((HSSFRow)localObject1).setHeight(400);
-      for (int j = 0; j < this.IIIlllIl.length; j++)
+      for (int j = 0; j < this.properties.length; j++)
       {
         localObject2 = ((HSSFRow)localObject1).createCell(j);
         HSSFCellStyle localHSSFCellStyle = workbook.createCellStyle();
@@ -117,32 +117,32 @@ public class ExcelView extends AbstractExcelView
           ((HSSFComment)localObject5).setString(new HSSFRichTextString("Powered By SHOP++"));
           ((HSSFCell)localObject2).setCellComment((Comment)localObject5);
         }
-        if ((this.IIIllllI.length > j) && (this.IIIllllI[j] != null))
-          ((HSSFCell)localObject2).setCellValue(this.IIIllllI[j]);
+        if ((this.titles.length > j) && (this.titles[j] != null))
+          ((HSSFCell)localObject2).setCellValue(this.titles[j]);
         else
-          ((HSSFCell)localObject2).setCellValue(this.IIIlllIl[j]);
-        if ((this.IIIlllll != null) && (this.IIIlllll.length > j) && (this.IIIlllll[j] != null))
-          localHSSFSheet.setColumnWidth(j, this.IIIlllll[j].intValue());
+          ((HSSFCell)localObject2).setCellValue(this.properties[j]);
+        if ((this.widths != null) && (this.widths.length > j) && (this.widths[j] != null))
+          localHSSFSheet.setColumnWidth(j, this.widths[j].intValue());
         else
           localHSSFSheet.autoSizeColumn(j);
       }
       i++;
     }
-    if (this.IIlIIIIl != null)
+    if (this.data != null)
     {
-      Iterator localIterator = this.IIlIIIIl.iterator();
+      Iterator localIterator = this.data.iterator();
       while (localIterator.hasNext())
       {
         localObject1 = localIterator.next();
         localObject2 = localHSSFSheet.createRow(i);
-        for (int n = 0; n < this.IIIlllIl.length; n++)
+        for (int n = 0; n < this.properties.length; n++)
         {
           localObject3 = ((HSSFRow)localObject2).createCell(n);
-          if ((this.IIlIIIII != null) && (this.IIlIIIII.length > n) && (this.IIlIIIII[n] != null))
+          if ((this.converters != null) && (this.converters.length > n) && (this.converters[n] != null))
           {
-            localObject4 = PropertyUtils.getPropertyType(localObject1, this.IIIlllIl[n]);
-            ConvertUtils.register(this.IIlIIIII[n], (Class)localObject4);
-            ((HSSFCell)localObject3).setCellValue(BeanUtils.getProperty(localObject1, this.IIIlllIl[n]));
+            localObject4 = PropertyUtils.getPropertyType(localObject1, this.properties[n]);
+            ConvertUtils.register(this.converters[n], (Class)localObject4);
+            ((HSSFCell)localObject3).setCellValue(BeanUtils.getProperty(localObject1, this.properties[n]));
             ConvertUtils.deregister((Class)localObject4);
             if (localObject4.equals(Date.class))
             {
@@ -153,22 +153,22 @@ public class ExcelView extends AbstractExcelView
           }
           else
           {
-            ((HSSFCell)localObject3).setCellValue(BeanUtils.getProperty(localObject1, this.IIIlllIl[n]));
+            ((HSSFCell)localObject3).setCellValue(BeanUtils.getProperty(localObject1, this.properties[n]));
           }
           if ((i != 0) && (i != 1))
             continue;
-          if ((this.IIIlllll != null) && (this.IIIlllll.length > n) && (this.IIIlllll[n] != null))
-            localHSSFSheet.setColumnWidth(n, this.IIIlllll[n].intValue());
+          if ((this.widths != null) && (this.widths.length > n) && (this.widths[n] != null))
+            localHSSFSheet.setColumnWidth(n, this.widths[n].intValue());
           else
             localHSSFSheet.autoSizeColumn(n);
         }
         i++;
       }
     }
-    if ((this.IIlIIIlI != null) && (this.IIlIIIlI.length > 0))
+    if ((this.contents != null) && (this.contents.length > 0))
     {
       i++;
-      for (localObject1 : this.IIlIIIlI)
+      for (localObject1 : this.contents)
       {
         localObject3 = localHSSFSheet.createRow(i);
         localObject4 = ((HSSFRow)localObject3).createCell(0);
@@ -182,93 +182,89 @@ public class ExcelView extends AbstractExcelView
       }
     }
     response.setContentType("application/force-download");
-    if (StringUtils.isNotEmpty(this.IIIllIll))
-      response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(this.IIIllIll, "UTF-8"));
+    if (StringUtils.isNotEmpty(this.filename))
+      response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(this.filename, "UTF-8"));
     else
       response.setHeader("Content-disposition", "attachment");
   }
 
   public String getFileName()
   {
-    return this.IIIllIll;
+    return this.filename;
   }
 
   public void setFileName(String filename)
   {
-    this.IIIllIll = filename;
+    this.filename = filename;
   }
 
   public String getSheetName()
   {
-    return this.IIIlllII;
+    return this.sheetName;
   }
 
   public void setSheetName(String sheetName)
   {
-    this.IIIlllII = sheetName;
+    this.sheetName = sheetName;
   }
 
   public String[] getProperties()
   {
-    return this.IIIlllIl;
+    return this.properties;
   }
 
   public void setProperties(String[] properties)
   {
-    this.IIIlllIl = properties;
+    this.properties = properties;
   }
 
   public String[] getTitles()
   {
-    return this.IIIllllI;
+    return this.titles;
   }
 
   public void setTitles(String[] titles)
   {
-    this.IIIllllI = titles;
+    this.titles = titles;
   }
 
   public Integer[] getWidths()
   {
-    return this.IIIlllll;
+    return this.widths;
   }
 
   public void setWidths(Integer[] widths)
   {
-    this.IIIlllll = widths;
+    this.widths = widths;
   }
 
   public Converter[] getConverters()
   {
-    return this.IIlIIIII;
+    return this.converters;
   }
 
   public void setConverters(Converter[] converters)
   {
-    this.IIlIIIII = converters;
+    this.converters = converters;
   }
 
   public Collection<?> getData()
   {
-    return this.IIlIIIIl;
+    return this.data;
   }
 
   public void setData(Collection<?> data)
-  {
-    this.IIlIIIIl = data;
+  {data
+    this.data = data;
   }
 
   public String[] getContents()
   {
-    return this.IIlIIIlI;
+    return this.contents;
   }
 
   public void setContents(String[] contents)
   {
-    this.IIlIIIlI = contents;
+    this.contents = contents;
   }
 }
-
-
- * Qualified Name:     net.shopxx.ExcelView
-

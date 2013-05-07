@@ -1,24 +1,25 @@
 package net.shopxx.template.directive;
 
-import freemarker.core.Environment;
-import freemarker.template.Template;
-import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateDirectiveModel;
-import freemarker.template.TemplateModel;
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import net.shopxx.Filter;
 import net.shopxx.Order;
-import net.shopxx.Order.Direction;
+import net.shopxx.Order.OrderDirection;
 import net.shopxx.util.FreemarkerUtils;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+
+import freemarker.core.Environment;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateDirectiveModel;
+import freemarker.template.TemplateModel;
 
 public abstract class BaseDirective
   implements TemplateDirectiveModel
@@ -81,7 +82,7 @@ public abstract class BaseDirective
         if (!StringUtils.isNotEmpty(str2))
           continue;
         Object localObject = null;
-        Order.Direction localDirection = null;
+        OrderDirection localDirection = null;
         String[] arrayOfString3 = str2.split("\\s+");
         if (arrayOfString3.length == 1)
         {
@@ -94,7 +95,7 @@ public abstract class BaseDirective
           localObject = arrayOfString3[0];
           try
           {
-            localDirection = Order.Direction.valueOf(arrayOfString3[1]);
+            localDirection = OrderDirection.valueOf(arrayOfString3[1]);
           }
           catch (IllegalArgumentException localIllegalArgumentException)
           {
@@ -132,7 +133,3 @@ public abstract class BaseDirective
     FreemarkerUtils.setVariables(localHashMap, paramEnvironment);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.BaseDirective
-

@@ -77,7 +77,3 @@ public class AreaServiceImpl extends BaseServiceImpl<Area, Long>
     super.delete(area);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.AreaServiceImpl
-

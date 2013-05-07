@@ -42,7 +42,3 @@ public class ProductCategoryChildrenListDirective extends BaseDirective
     IIIllIlI("productCategories", localObject, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ProductCategoryChildrenListDirective
-

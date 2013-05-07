@@ -50,18 +50,18 @@ public class Article extends BaseEntity
   private static final String IIIllIll = "<hr class=\"pageBreak\" />";
   private static final Pattern IIIlllII = Pattern.compile("[,;\\.!?，；。！？]");
   private static String IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private String IIlIIIII;
-  private String IIlIIIIl;
-  private String IIlIIIlI;
-  private String IIlIIIll;
-  private Boolean IIlIIlII;
-  private Boolean IIlIIlIl;
-  private Long IIlIIllI;
-  private Integer IIlIIlll;
-  private ArticleCategory IIlIlIII;
-  private Set<Tag> IIlIlIIl = new HashSet();
+  private String title;
+  private String author;
+  private String content;
+  private String seoTitle;
+  private String seoKeywords;
+  private String seoDescription;
+  private Boolean isPublication;
+  private Boolean isTop;
+  private Long hits;
+  private Integer pageNumber;
+  private ArticleCategory articleCategory;
+  private Set<Tag> tags = new HashSet();
 
   static
   {
@@ -84,80 +84,80 @@ public class Article extends BaseEntity
   @Column(nullable=false)
   public String getTitle()
   {
-    return this.IIIllllI;
+    return this.title;
   }
 
   public void setTitle(String title)
   {
-    this.IIIllllI = title;
+    this.title = title;
   }
 
   @Field(store=Store.YES, index=Index.NO)
   @Length(max=200)
   public String getAuthor()
   {
-    return this.IIIlllll;
+    return this.author;
   }
 
   public void setAuthor(String author)
   {
-    this.IIIlllll = author;
+    this.author = author;
   }
 
   @Field(store=Store.YES, index=Index.TOKENIZED, analyzer=@Analyzer(impl=IKAnalyzer.class))
   @Lob
   public String getContent()
   {
-    if (this.IIlIIlll != null)
+    if (this.pageNumber != null)
     {
       String[] arrayOfString = getPageContents();
-      if (this.IIlIIlll.intValue() < 1)
-        this.IIlIIlll = Integer.valueOf(1);
-      if (this.IIlIIlll.intValue() > arrayOfString.length)
-        this.IIlIIlll = Integer.valueOf(arrayOfString.length);
-      return arrayOfString[(this.IIlIIlll.intValue() - 1)];
+      if (this.pageNumber.intValue() < 1)
+        this.pageNumber = Integer.valueOf(1);
+      if (this.pageNumber.intValue() > arrayOfString.length)
+        this.pageNumber = Integer.valueOf(arrayOfString.length);
+      return arrayOfString[(this.pageNumber.intValue() - 1)];
     }
-    return this.IIlIIIII;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIlIIIII = content;
+    this.content = content;
   }
 
   @Length(max=200)
   public String getSeoTitle()
   {
-    return this.IIlIIIIl;
+    return this.seoTitle;
   }
 
   public void setSeoTitle(String seoTitle)
   {
-    this.IIlIIIIl = seoTitle;
+    this.seoTitle = seoTitle;
   }
 
   @Length(max=200)
   public String getSeoKeywords()
   {
-    return this.IIlIIIlI;
+    return this.seoKeywords;
   }
 
   public void setSeoKeywords(String seoKeywords)
   {
     if (seoKeywords != null)
       seoKeywords = seoKeywords.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
-    this.IIlIIIlI = seoKeywords;
+    this.seoKeywords = seoKeywords;
   }
 
   @Length(max=200)
   public String getSeoDescription()
   {
-    return this.IIlIIIll;
+    return this.seoDescription;
   }
 
   public void setSeoDescription(String seoDescription)
   {
-    this.IIlIIIll = seoDescription;
+    this.seoDescription = seoDescription;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
@@ -165,12 +165,12 @@ public class Article extends BaseEntity
   @Column(nullable=false)
   public Boolean getIsPublication()
   {
-    return this.IIlIIlII;
+    return this.isPublication;
   }
 
   public void setIsPublication(Boolean isPublication)
   {
-    this.IIlIIlII = isPublication;
+    this.isPublication = isPublication;
   }
 
   @Field(store=Store.YES, index=Index.UN_TOKENIZED)
@@ -178,35 +178,35 @@ public class Article extends BaseEntity
   @Column(nullable=false)
   public Boolean getIsTop()
   {
-    return this.IIlIIlIl;
+    return this.isTop;
   }
 
   public void setIsTop(Boolean isTop)
   {
-    this.IIlIIlIl = isTop;
+    this.isTop = isTop;
   }
 
   @Column(nullable=false)
   public Long getHits()
   {
-    return this.IIlIIllI;
+    return this.hits;
   }
 
   public void setHits(Long hits)
   {
-    this.IIlIIllI = hits;
+    this.hits = hits;
   }
 
   @Transient
   public Integer getPageNumber()
   {
-    return this.IIlIIlll;
+    return this.pageNumber;
   }
 
   @Transient
   public void setPageNumber(Integer pageNumber)
   {
-    this.IIlIIlll = pageNumber;
+    this.pageNumber = pageNumber;
   }
 
   @NotNull
@@ -214,12 +214,12 @@ public class Article extends BaseEntity
   @JoinColumn(nullable=false)
   public ArticleCategory getArticleCategory()
   {
-    return this.IIlIlIII;
+    return this.articleCategory;
   }
 
   public void setArticleCategory(ArticleCategory articleCategory)
   {
-    this.IIlIlIII = articleCategory;
+    this.articleCategory = articleCategory;
   }
 
   @ManyToMany(fetch=FetchType.LAZY)
@@ -227,12 +227,12 @@ public class Article extends BaseEntity
   @OrderBy("order asc")
   public Set<Tag> getTags()
   {
-    return this.IIlIlIIl;
+    return this.tags;
   }
 
   public void setTags(Set<Tag> tags)
   {
-    this.IIlIlIIl = tags;
+    this.tags = tags;
   }
 
   @Transient
@@ -262,12 +262,12 @@ public class Article extends BaseEntity
   @Transient
   public String[] getPageContents()
   {
-    if (StringUtils.isEmpty(this.IIlIIIII))
+    if (StringUtils.isEmpty(this.content))
       return new String[] { "" };
-    if (this.IIlIIIII.contains("<hr class=\"pageBreak\" />"))
-      return this.IIlIIIII.split("<hr class=\"pageBreak\" />");
+    if (this.content.contains("<hr class=\"pageBreak\" />"))
+      return this.content.split("<hr class=\"pageBreak\" />");
     ArrayList localArrayList = new ArrayList();
-    org.jsoup.nodes.Document localDocument = Jsoup.parse(this.IIlIIIII);
+    org.jsoup.nodes.Document localDocument = Jsoup.parse(this.content);
     List localList = localDocument.body().childNodes();
     if (localList != null)
     {
@@ -324,7 +324,3 @@ public class Article extends BaseEntity
     return getPageContents().length;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Article
-

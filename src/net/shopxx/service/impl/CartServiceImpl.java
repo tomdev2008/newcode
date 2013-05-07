@@ -141,7 +141,3 @@ public class CartServiceImpl extends BaseServiceImpl<Cart, Long>
     this.IIIllIlI.evictExpired();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.CartServiceImpl
-

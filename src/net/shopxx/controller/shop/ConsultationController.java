@@ -103,7 +103,3 @@ public class ConsultationController extends BaseController
     return Message.success("shop.consultation.success", new Object[0]);
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.ConsultationController
-

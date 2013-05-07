@@ -12,7 +12,3 @@ class PluginServiceImpl$1
     return localPaymentPlugin.getIsEnabled() == this.IIIllIll;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.PluginServiceImpl.1
-

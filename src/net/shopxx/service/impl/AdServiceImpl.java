@@ -60,7 +60,3 @@ public class AdServiceImpl extends BaseServiceImpl<Ad, Long>
     super.delete(ad);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.AdServiceImpl
-

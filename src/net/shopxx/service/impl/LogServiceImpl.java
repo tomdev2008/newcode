@@ -25,7 +25,3 @@ public class LogServiceImpl extends BaseServiceImpl<Log, Long>
     this.IIIllIlI.removeAll();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.LogServiceImpl
-

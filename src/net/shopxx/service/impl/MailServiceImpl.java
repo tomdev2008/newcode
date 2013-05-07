@@ -145,7 +145,3 @@ public class MailServiceImpl
     send(productNotify.getEmail(), str, localTemplate.getTemplatePath(), localHashMap);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.MailServiceImpl
-

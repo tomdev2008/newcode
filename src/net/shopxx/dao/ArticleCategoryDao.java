@@ -11,7 +11,3 @@ public abstract interface ArticleCategoryDao extends BaseDao<ArticleCategory, Lo
 
   public abstract List<ArticleCategory> findChildren(ArticleCategory paramArticleCategory, Integer paramInteger);
 }
-
-
- * Qualified Name:     net.shopxx.dao.ArticleCategoryDao
-

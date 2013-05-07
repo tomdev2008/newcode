@@ -15,7 +15,7 @@ public class AdPositionServiceImpl extends BaseServiceImpl<AdPosition, Long>
 {
 
   @Resource(name="adPositionDaoImpl")
-  private AdPositionDao IIIllIlI;
+  private AdPositionDao adPositionDao;
 
   @Resource(name="adPositionDaoImpl")
   public void setBaseDao(AdPositionDao adPositionDao)
@@ -27,7 +27,7 @@ public class AdPositionServiceImpl extends BaseServiceImpl<AdPosition, Long>
   @Cacheable({"adPosition"})
   public AdPosition find(Long id, String cacheRegion)
   {
-    return (AdPosition)this.IIIllIlI.find(id);
+    return (AdPosition)this.adPositionDao.find(id);
   }
 
   @Transactional
@@ -72,7 +72,3 @@ public class AdPositionServiceImpl extends BaseServiceImpl<AdPosition, Long>
     super.delete(adPosition);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.AdPositionServiceImpl
-

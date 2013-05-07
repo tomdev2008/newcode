@@ -247,7 +247,3 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long>
     super.delete(product);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ProductServiceImpl
-

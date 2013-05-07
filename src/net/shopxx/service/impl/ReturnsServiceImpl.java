@@ -16,7 +16,3 @@ public class ReturnsServiceImpl extends BaseServiceImpl<Returns, Long>
     super.setBaseDao(returnsDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ReturnsServiceImpl
-

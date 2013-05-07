@@ -56,7 +56,3 @@ public class ShippingServiceImpl extends BaseServiceImpl<Shipping, Long>
     return (Map<String, Object>)localObject;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ShippingServiceImpl
-

@@ -17,59 +17,55 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class SpecificationValue extends OrderEntity
 {
   private static final long serialVersionUID = -8624741017444123488L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private Specification IIIlllII;
-  private Set<Product> IIIlllIl = new HashSet();
+  private String name;
+  private String image;
+  private Specification specification;
+  private Set<Product> products = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @Length(max=200)
   public String getImage()
   {
-    return this.IIIllIll;
+    return this.image;
   }
 
   public void setImage(String image)
   {
-    this.IIIllIll = image;
+    this.image = image;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false)
   public Specification getSpecification()
   {
-    return this.IIIlllII;
+    return this.specification;
   }
 
   public void setSpecification(Specification specification)
   {
-    this.IIIlllII = specification;
+    this.specification = specification;
   }
 
   @ManyToMany(mappedBy="specificationValues", fetch=FetchType.LAZY)
   public Set<Product> getProducts()
   {
-    return this.IIIlllIl;
+    return this.products;
   }
 
   public void setProducts(Set<Product> products)
   {
-    this.IIIlllIl = products;
+    this.products = products;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.SpecificationValue
-

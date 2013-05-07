@@ -1,21 +1,18 @@
 package net.shopxx.template.directive;
 
-import freemarker.core.Environment;
-import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
+
 import javax.annotation.Resource;
+
 import net.shopxx.entity.Article;
 import net.shopxx.entity.Attribute;
 import net.shopxx.entity.Brand;
-import net.shopxx.entity.Product.OrderType;
+import net.shopxx.entity.Product.ProductOrderType;
 import net.shopxx.entity.ProductCategory;
 import net.shopxx.entity.Promotion;
 import net.shopxx.service.AttributeService;
@@ -25,7 +22,12 @@ import net.shopxx.service.ProductService;
 import net.shopxx.service.PromotionService;
 import net.shopxx.service.TagService;
 import net.shopxx.util.FreemarkerUtils;
+
 import org.springframework.stereotype.Component;
+
+import freemarker.core.Environment;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateModel;
 
 @Component("productListDirective")
 public class ProductListDirective extends BaseDirective
@@ -67,7 +69,7 @@ public class ProductListDirective extends BaseDirective
     Map localMap = (Map)FreemarkerUtils.getParameter("attributeValue", Map.class, params);
     BigDecimal localBigDecimal1 = (BigDecimal)FreemarkerUtils.getParameter("startPrice", BigDecimal.class, params);
     BigDecimal localBigDecimal2 = (BigDecimal)FreemarkerUtils.getParameter("endPrice", BigDecimal.class, params);
-    Product.OrderType localOrderType = (Product.OrderType)FreemarkerUtils.getParameter("orderType", Product.OrderType.class, params);
+    ProductOrderType localOrderType = (ProductOrderType)FreemarkerUtils.getParameter("orderType", ProductOrderType.class, params);
     ProductCategory localProductCategory = (ProductCategory)this.IIlIIlII.find(localLong1);
     Brand localBrand = (Brand)this.IIlIIlIl.find(localLong2);
     Promotion localPromotion = (Promotion)this.IIlIIllI.find(localLong3);
@@ -106,7 +108,3 @@ public class ProductListDirective extends BaseDirective
     IIIllIlI("products", localObject1, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ProductListDirective
-

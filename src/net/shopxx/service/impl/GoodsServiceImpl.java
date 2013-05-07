@@ -120,7 +120,3 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods, Long>
     super.delete(goods);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.GoodsServiceImpl
-

@@ -75,7 +75,3 @@ public class BrandServiceImpl extends BaseServiceImpl<Brand, Long>
     super.delete(brand);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.BrandServiceImpl
-

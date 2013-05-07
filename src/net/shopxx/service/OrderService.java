@@ -3,6 +3,7 @@ package net.shopxx.service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import net.shopxx.Filter;
 import net.shopxx.Page;
 import net.shopxx.Pageable;
@@ -10,9 +11,9 @@ import net.shopxx.entity.Admin;
 import net.shopxx.entity.Cart;
 import net.shopxx.entity.CouponCode;
 import net.shopxx.entity.Member;
-import net.shopxx.entity.Order.OrderStatus;
-import net.shopxx.entity.Order.PaymentStatus;
-import net.shopxx.entity.Order.ShippingStatus;
+import net.shopxx.entity.Order.OrderOrderStatus;
+import net.shopxx.entity.Order.OrderPaymentStatus;
+import net.shopxx.entity.Order.OrderShippingStatus;
 import net.shopxx.entity.Payment;
 import net.shopxx.entity.PaymentMethod;
 import net.shopxx.entity.Receiver;
@@ -29,9 +30,9 @@ public abstract interface OrderService extends BaseService<net.shopxx.entity.Ord
 
   public abstract Page<net.shopxx.entity.Order> findPage(Member paramMember, Pageable paramPageable);
 
-  public abstract Page<net.shopxx.entity.Order> findPage(Order.OrderStatus paramOrderStatus, Order.PaymentStatus paramPaymentStatus, Order.ShippingStatus paramShippingStatus, Boolean paramBoolean, Pageable paramPageable);
+  public abstract Page<net.shopxx.entity.Order> findPage(OrderOrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean, Pageable paramPageable);
 
-  public abstract Long count(Order.OrderStatus paramOrderStatus, Order.PaymentStatus paramPaymentStatus, Order.ShippingStatus paramShippingStatus, Boolean paramBoolean);
+  public abstract Long count(OrderOrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean);
 
   public abstract Long waitingPaymentCount(Member paramMember);
 
@@ -63,7 +64,3 @@ public abstract interface OrderService extends BaseService<net.shopxx.entity.Ord
 
   public abstract void returns(net.shopxx.entity.Order paramOrder, Returns paramReturns, Admin paramAdmin);
 }
-
-
- * Qualified Name:     net.shopxx.service.OrderService
-

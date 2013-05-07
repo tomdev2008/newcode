@@ -174,7 +174,3 @@ public class LoginController extends BaseController
     return (Message)(Message)(Message)IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.LoginController
-

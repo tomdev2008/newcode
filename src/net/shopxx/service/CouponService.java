@@ -8,7 +8,3 @@ public abstract interface CouponService extends BaseService<Coupon, Long>
 {
   public abstract Page<Coupon> findPage(Boolean paramBoolean1, Boolean paramBoolean2, Boolean paramBoolean3, Pageable paramPageable);
 }
-
-
- * Qualified Name:     net.shopxx.service.CouponService
-

@@ -262,7 +262,3 @@ public class SearchServiceImpl
     return (Page<Product>)new Page();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.SearchServiceImpl
-

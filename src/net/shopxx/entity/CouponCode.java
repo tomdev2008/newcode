@@ -15,78 +15,78 @@ import javax.persistence.Table;
 public class CouponCode extends BaseEntity
 {
   private static final long serialVersionUID = -1812874037224306719L;
-  private String IIIllIlI;
-  private Boolean IIIllIll;
-  private Date IIIlllII;
-  private Coupon IIIlllIl;
-  private Member IIIllllI;
-  private Order IIIlllll;
+  private String code;
+  private Boolean isUsed;
+  private Date usedDate;
+  private Coupon coupon;
+  private Member member;
+  private Order order;
 
   @Column(nullable=false, updatable=false, unique=true)
   public String getCode()
   {
-    return this.IIIllIlI;
+    return this.code;
   }
 
   public void setCode(String code)
   {
-    this.IIIllIlI = code;
+    this.code = code;
   }
 
   @Column(nullable=false)
   public Boolean getIsUsed()
   {
-    return this.IIIllIll;
+    return this.isUsed;
   }
 
   public void setIsUsed(Boolean isUsed)
   {
-    this.IIIllIll = isUsed;
+    this.isUsed = isUsed;
   }
 
   public Date getUsedDate()
   {
-    return this.IIIlllII;
+    return this.usedDate;
   }
 
   public void setUsedDate(Date usedDate)
   {
-    this.IIIlllII = usedDate;
+    this.usedDate = usedDate;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Coupon getCoupon()
   {
-    return this.IIIlllIl;
+    return this.coupon;
   }
 
   public void setCoupon(Coupon coupon)
   {
-    this.IIIlllIl = coupon;
+    this.coupon = coupon;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   public Member getMember()
   {
-    return this.IIIllllI;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIIllllI = member;
+    this.member = member;
   }
 
   @OneToOne(mappedBy="couponCode", fetch=FetchType.LAZY)
   @JoinColumn(name="orders")
   public Order getOrder()
   {
-    return this.IIIlllll;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIIlllll = order;
+    this.order = order;
   }
 
   @PreRemove
@@ -96,7 +96,3 @@ public class CouponCode extends BaseEntity
       getOrder().setCouponCode(null);
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.CouponCode
-

@@ -16,7 +16,3 @@ public class OrderLogServiceImpl extends BaseServiceImpl<OrderLog, Long>
     super.setBaseDao(orderLogDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.OrderLogServiceImpl
-

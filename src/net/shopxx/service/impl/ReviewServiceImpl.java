@@ -152,7 +152,3 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review, Long>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ReviewServiceImpl
-

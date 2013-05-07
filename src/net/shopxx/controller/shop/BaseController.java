@@ -77,7 +77,3 @@ public class BaseController
       paramRedirectAttributes.addFlashAttribute(FlashMessageDirective.FLASH_MESSAGE_ATTRIBUTE_NAME, paramMessage);
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.BaseController
-

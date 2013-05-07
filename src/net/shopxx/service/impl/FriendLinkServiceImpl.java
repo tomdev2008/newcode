@@ -82,7 +82,3 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, Long>
     super.delete(friendLink);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.FriendLinkServiceImpl
-

@@ -93,7 +93,3 @@ public abstract class StoragePlugin
     return new CompareToBuilder().append(getOrder(), storagePlugin.getOrder()).append(getId(), storagePlugin.getId()).toComparison();
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.StoragePlugin
-

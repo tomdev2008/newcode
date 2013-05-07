@@ -25,7 +25,3 @@ public abstract interface ProductCategoryService extends BaseService<ProductCate
 
   public abstract List<ProductCategory> findChildren(ProductCategory paramProductCategory, Integer paramInteger, String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.service.ProductCategoryService
-

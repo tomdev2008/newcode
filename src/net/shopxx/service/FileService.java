@@ -1,24 +1,22 @@
 package net.shopxx.service;
 
 import java.util.List;
+
 import net.shopxx.FileInfo;
-import net.shopxx.FileInfo.FileType;
-import net.shopxx.FileInfo.OrderType;
+import net.shopxx.FileInfo.FileInfoFileType;
+import net.shopxx.FileInfo.FileInfoOrderType;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public abstract interface FileService
 {
-  public abstract boolean isValid(FileInfo.FileType paramFileType, MultipartFile paramMultipartFile);
+  public abstract boolean isValid(FileInfoFileType paramFileType, MultipartFile paramMultipartFile);
 
-  public abstract String upload(FileInfo.FileType paramFileType, MultipartFile paramMultipartFile, boolean paramBoolean);
+  public abstract String upload(FileInfoFileType paramFileType, MultipartFile paramMultipartFile, boolean paramBoolean);
 
-  public abstract String upload(FileInfo.FileType paramFileType, MultipartFile paramMultipartFile);
+  public abstract String upload(FileInfoFileType paramFileType, MultipartFile paramMultipartFile);
 
-  public abstract String uploadLocal(FileInfo.FileType paramFileType, MultipartFile paramMultipartFile);
+  public abstract String uploadLocal(FileInfoFileType paramFileType, MultipartFile paramMultipartFile);
 
-  public abstract List<FileInfo> browser(String paramString, FileInfo.FileType paramFileType, FileInfo.OrderType paramOrderType);
+  public abstract List<FileInfo> browser(String paramString, FileInfoFileType paramFileType, FileInfoOrderType paramOrderType);
 }
-
-
- * Qualified Name:     net.shopxx.service.FileService
-

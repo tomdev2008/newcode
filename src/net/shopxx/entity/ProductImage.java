@@ -15,86 +15,86 @@ public class ProductImage
   implements Serializable, Comparable<ProductImage>
 {
   private static final long serialVersionUID = -673883300094536107L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private Integer IIIlllll;
-  private MultipartFile IIlIIIII;
+  private String title;
+  private String source;
+  private String large;
+  private String medium;
+  private String thumbnail;
+  private Integer order;
+  private MultipartFile file;
 
   @Length(max=200)
   public String getTitle()
   {
-    return this.IIIllIlI;
+    return this.title;
   }
 
   public void setTitle(String title)
   {
-    this.IIIllIlI = title;
+    this.title = title;
   }
 
   public String getSource()
   {
-    return this.IIIllIll;
+    return this.source;
   }
 
   public void setSource(String source)
   {
-    this.IIIllIll = source;
+    this.source = source;
   }
 
   public String getLarge()
   {
-    return this.IIIlllII;
+    return this.large;
   }
 
   public void setLarge(String large)
   {
-    this.IIIlllII = large;
+    this.large = large;
   }
 
   public String getMedium()
   {
-    return this.IIIlllIl;
+    return this.medium;
   }
 
   public void setMedium(String medium)
   {
-    this.IIIlllIl = medium;
+    this.medium = medium;
   }
 
   public String getThumbnail()
   {
-    return this.IIIllllI;
+    return this.thumbnail;
   }
 
   public void setThumbnail(String thumbnail)
   {
-    this.IIIllllI = thumbnail;
+    this.thumbnail = thumbnail;
   }
 
   @Min(0L)
   @Column(name="orders")
   public Integer getOrder()
   {
-    return this.IIIlllll;
+    return this.order;
   }
 
   public void setOrder(Integer order)
   {
-    this.IIIlllll = order;
+    this.order = order;
   }
 
   @Transient
   public MultipartFile getFile()
   {
-    return this.IIlIIIII;
+    return this.file;
   }
 
   public void setFile(MultipartFile file)
   {
-    this.IIlIIIII = file;
+    this.file = file;
   }
 
   @Transient
@@ -108,7 +108,3 @@ public class ProductImage
     return new CompareToBuilder().append(getOrder(), productImage.getOrder()).toComparison();
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.ProductImage
-

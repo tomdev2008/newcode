@@ -20,7 +20,3 @@ public class StaticJob
     this.IIIllIlI.buildAll();
   }
 }
-
-
- * Qualified Name:     net.shopxx.job.StaticJob
-

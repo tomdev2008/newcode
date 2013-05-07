@@ -202,7 +202,3 @@ public class FileServiceImpl
     return (List<FileInfo>)localObject;
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.FileServiceImpl
-

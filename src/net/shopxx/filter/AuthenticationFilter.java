@@ -24,8 +24,8 @@ public class AuthenticationFilter extends FormAuthenticationFilter
   private static final String IIIllIll = "captchaId";
   private static final String IIIlllII = "captcha";
   private String IIIlllIl = "enPassword";
-  private String IIIllllI = "captchaId";
-  private String IIIlllll = "captcha";
+  private String captchaIdParam = "captchaId";
+  private String captchaParam = "captcha";
 
   @Resource(name="rsaServiceImpl")
   private RSAService IIlIIIII;
@@ -88,7 +88,7 @@ public class AuthenticationFilter extends FormAuthenticationFilter
 
   protected String IIIllIlI(ServletRequest paramServletRequest)
   {
-    String str = WebUtils.getCleanParam(paramServletRequest, this.IIIllllI);
+    String str = WebUtils.getCleanParam(paramServletRequest, this.captchaIdParam);
     if (str == null)
       str = ((HttpServletRequest)paramServletRequest).getSession().getId();
     return str;
@@ -96,7 +96,7 @@ public class AuthenticationFilter extends FormAuthenticationFilter
 
   protected String IIIllIll(ServletRequest paramServletRequest)
   {
-    return WebUtils.getCleanParam(paramServletRequest, this.IIIlllll);
+    return WebUtils.getCleanParam(paramServletRequest, this.captchaParam);
   }
 
   public String getEnPasswordParam()
@@ -111,25 +111,21 @@ public class AuthenticationFilter extends FormAuthenticationFilter
 
   public String getCaptchaIdParam()
   {
-    return this.IIIllllI;
+    return this.captchaIdParam;
   }
 
   public void setCaptchaIdParam(String captchaIdParam)
   {
-    this.IIIllllI = captchaIdParam;
+    this.captchaIdParam = captchaIdParam;
   }
 
   public String getCaptchaParam()
   {
-    return this.IIIlllll;
+    return this.captchaParam;
   }
 
   public void setCaptchaParam(String captchaParam)
   {
-    this.IIIlllll = captchaParam;
+    this.captchaParam = captchaParam;
   }
 }
-
-
- * Qualified Name:     net.shopxx.filter.AuthenticationFilter
-

@@ -14,27 +14,27 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class DeliveryTemplate extends BaseEntity
 {
   private static final long serialVersionUID = -3711024981692804054L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private Integer IIIlllII;
-  private Integer IIIlllIl;
-  private Integer IIIllllI;
-  private Integer IIIlllll;
-  private String IIlIIIII;
-  private Boolean IIlIIIIl;
-  private String IIlIIIlI;
+  private String name;
+  private String content;
+  private Integer width;
+  private Integer height;
+  private Integer offsetX;
+  private Integer offsetY;
+  private String background;
+  private Boolean isDefault;
+  private String memo;
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotEmpty
@@ -42,12 +42,12 @@ public class DeliveryTemplate extends BaseEntity
   @Column(nullable=false)
   public String getContent()
   {
-    return this.IIIllIll;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIllIll = content;
+    this.content = content;
   }
 
   @NotNull
@@ -55,12 +55,12 @@ public class DeliveryTemplate extends BaseEntity
   @Column(nullable=false)
   public Integer getWidth()
   {
-    return this.IIIlllII;
+    return this.width;
   }
 
   public void setWidth(Integer width)
   {
-    this.IIIlllII = width;
+    this.width = width;
   }
 
   @NotNull
@@ -68,73 +68,69 @@ public class DeliveryTemplate extends BaseEntity
   @Column(nullable=false)
   public Integer getHeight()
   {
-    return this.IIIlllIl;
+    return this.height;
   }
 
   public void setHeight(Integer height)
   {
-    this.IIIlllIl = height;
+    this.height = height;
   }
 
   @NotNull
   @Column(nullable=false)
   public Integer getOffsetX()
   {
-    return this.IIIllllI;
+    return this.offsetX;
   }
 
   public void setOffsetX(Integer offsetX)
   {
-    this.IIIllllI = offsetX;
+    this.offsetX = offsetX;
   }
 
   @NotNull
   @Column(nullable=false)
   public Integer getOffsetY()
   {
-    return this.IIIlllll;
+    return this.offsetY;
   }
 
   public void setOffsetY(Integer offsetY)
   {
-    this.IIIlllll = offsetY;
+    this.offsetY = offsetY;
   }
 
   @Length(max=200)
   public String getBackground()
   {
-    return this.IIlIIIII;
+    return this.background;
   }
 
   public void setBackground(String background)
   {
-    this.IIlIIIII = background;
+    this.background = background;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsDefault()
   {
-    return this.IIlIIIIl;
+    return this.isDefault;
   }
 
   public void setIsDefault(Boolean isDefault)
   {
-    this.IIlIIIIl = isDefault;
+    this.isDefault = isDefault;
   }
 
   @Length(max=200)
   public String getMemo()
   {
-    return this.IIlIIIlI;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIlIIIlI = memo;
+    this.memo = memo;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.DeliveryTemplate
-

@@ -47,7 +47,3 @@ public class ExecuteTimeInterceptor extends HandlerInterceptorAdapter
       IIIllIlI.debug("[" + handler + "] executeTime: " + localLong1 + "ms");
   }
 }
-
-
- * Qualified Name:     net.shopxx.interceptor.ExecuteTimeInterceptor
-

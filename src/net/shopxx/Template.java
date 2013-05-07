@@ -6,74 +6,74 @@ public class Template
   implements Serializable
 {
   private static final long serialVersionUID = -517540800437045215L;
-  private String IIIllIlI;
-  private Template.Type IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
+  public enum TemplateType
+  {
+    page, mail, print;
+  }
+  private String id;
+  private TemplateType type;
+  private String name;
+  private String templatePath;
+  private String staticPath;
+  private String description;
 
   public String getId()
   {
-    return this.IIIllIlI;
+    return this.id;
   }
 
   public void setId(String id)
   {
-    this.IIIllIlI = id;
+    this.id = id;
   }
 
-  public Template.Type getType()
+  public TemplateType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(Template.Type type)
+  public void setType(TemplateType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   public String getName()
   {
-    return this.IIIlllII;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIlllII = name;
+    this.name = name;
   }
 
   public String getTemplatePath()
   {
-    return this.IIIlllIl;
+    return this.templatePath;
   }
 
   public void setTemplatePath(String templatePath)
   {
-    this.IIIlllIl = templatePath;
+    this.templatePath = templatePath;
   }
 
   public String getStaticPath()
   {
-    return this.IIIllllI;
+    return this.staticPath;
   }
 
   public void setStaticPath(String staticPath)
   {
-    this.IIIllllI = staticPath;
+    this.staticPath = staticPath;
   }
 
   public String getDescription()
   {
-    return this.IIIlllll;
+    return this.description;
   }
 
   public void setDescription(String description)
   {
-    this.IIIlllll = description;
+    this.description = description;
   }
 }
-
-
- * Qualified Name:     net.shopxx.Template
-

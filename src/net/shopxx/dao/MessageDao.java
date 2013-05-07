@@ -15,7 +15,3 @@ public abstract interface MessageDao extends BaseDao<Message, Long>
 
   public abstract void remove(Long paramLong, Member paramMember);
 }
-
-
- * Qualified Name:     net.shopxx.dao.MessageDao
-

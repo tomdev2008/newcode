@@ -19,71 +19,67 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Role extends BaseEntity
 {
   private static final long serialVersionUID = -6614052029623997372L;
-  private String IIIllIlI;
-  private Boolean IIIllIll;
-  private String IIIlllII;
-  private List<String> IIIlllIl = new ArrayList();
-  private Set<Admin> IIIllllI = new HashSet();
+  private String name;
+  private Boolean isSystem;
+  private String description;
+  private List<String> authorities = new ArrayList();
+  private Set<Admin> admins = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @Column(nullable=false, updatable=false)
   public Boolean getIsSystem()
   {
-    return this.IIIllIll;
+    return this.isSystem;
   }
 
   public void setIsSystem(Boolean isSystem)
   {
-    this.IIIllIll = isSystem;
+    this.isSystem = isSystem;
   }
 
   @Length(max=200)
   public String getDescription()
   {
-    return this.IIIlllII;
+    return this.description;
   }
 
   public void setDescription(String description)
   {
-    this.IIIlllII = description;
+    this.description = description;
   }
 
   @ElementCollection
   @CollectionTable(name="xx_role_authority")
   public List<String> getAuthorities()
   {
-    return this.IIIlllIl;
+    return this.authorities;
   }
 
   public void setAuthorities(List<String> authorities)
   {
-    this.IIIlllIl = authorities;
+    this.authorities = authorities;
   }
 
   @ManyToMany(mappedBy="roles", fetch=FetchType.LAZY)
   public Set<Admin> getAdmins()
   {
-    return this.IIIllllI;
+    return this.admins;
   }
 
   public void setAdmins(Set<Admin> admins)
   {
-    this.IIIllllI = admins;
+    this.admins = admins;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Role
-

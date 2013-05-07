@@ -5,7 +5,3 @@ import net.shopxx.entity.PaymentMethod;
 public abstract interface PaymentMethodService extends BaseService<PaymentMethod, Long>
 {
 }
-
-
- * Qualified Name:     net.shopxx.service.PaymentMethodService
-

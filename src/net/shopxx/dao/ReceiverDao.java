@@ -11,7 +11,3 @@ public abstract interface ReceiverDao extends BaseDao<Receiver, Long>
 
   public abstract Page<Receiver> findPage(Member paramMember, Pageable paramPageable);
 }
-
-
- * Qualified Name:     net.shopxx.dao.ReceiverDao
-

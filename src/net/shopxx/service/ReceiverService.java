@@ -11,7 +11,3 @@ public abstract interface ReceiverService extends BaseService<Receiver, Long>
 
   public abstract Page<Receiver> findPage(Member paramMember, Pageable paramPageable);
 }
-
-
- * Qualified Name:     net.shopxx.service.ReceiverService
-

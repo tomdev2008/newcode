@@ -20,10 +20,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Attribute extends OrderEntity
 {
   private static final long serialVersionUID = 2447794131117928367L;
-  private String IIIllIlI;
-  private Integer IIIllIll;
-  private ProductCategory IIIlllII;
-  private List<String> IIIlllIl = new ArrayList();
+  private String name;
+  private Integer propertyIndex;
+  private ProductCategory productCategory;
+  private List<String> options = new ArrayList();
 
   @JsonProperty
   @NotEmpty
@@ -31,23 +31,23 @@ public class Attribute extends OrderEntity
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @Column(nullable=false, updatable=false)
   public Integer getPropertyIndex()
   {
-    return this.IIIllIll;
+    return this.propertyIndex;
   }
 
   public void setPropertyIndex(Integer propertyIndex)
   {
-    this.IIIllIll = propertyIndex;
+    this.propertyIndex = propertyIndex;
   }
 
   @NotNull(groups={BaseEntity.Save.class})
@@ -55,12 +55,12 @@ public class Attribute extends OrderEntity
   @JoinColumn(nullable=false, updatable=false)
   public ProductCategory getProductCategory()
   {
-    return this.IIIlllII;
+    return this.productCategory;
   }
 
   public void setProductCategory(ProductCategory productCategory)
   {
-    this.IIIlllII = productCategory;
+    this.productCategory = productCategory;
   }
 
   @JsonProperty
@@ -69,15 +69,11 @@ public class Attribute extends OrderEntity
   @CollectionTable(name="xx_attribute_option")
   public List<String> getOptions()
   {
-    return this.IIIlllIl;
+    return this.options;
   }
 
   public void setOptions(List<String> options)
   {
-    this.IIIlllIl = options;
+    this.options = options;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Attribute
-

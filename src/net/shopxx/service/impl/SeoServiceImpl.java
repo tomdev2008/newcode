@@ -79,7 +79,3 @@ public class SeoServiceImpl extends BaseServiceImpl<Seo, Long>
     super.delete(seo);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.SeoServiceImpl
-

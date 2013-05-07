@@ -16,7 +16,3 @@ public class ShippingMethodServiceImpl extends BaseServiceImpl<ShippingMethod, L
     super.setBaseDao(shippingMethodDao);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.ShippingMethodServiceImpl
-

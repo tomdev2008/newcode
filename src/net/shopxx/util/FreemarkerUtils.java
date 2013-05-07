@@ -114,7 +114,3 @@ public final class FreemarkerUtils
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.FreemarkerUtils
-

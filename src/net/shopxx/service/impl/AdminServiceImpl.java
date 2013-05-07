@@ -3,13 +3,15 @@ package net.shopxx.service.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Principal;
 import net.shopxx.dao.AdminDao;
 import net.shopxx.entity.Admin;
 import net.shopxx.entity.Role;
 import net.shopxx.service.AdminService;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,7 +24,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long>
 {
 
   @Resource(name="adminDaoImpl")
-  private AdminDao IIIllIlI;
+  private AdminDao adminDao;
 
   @Resource(name="adminDaoImpl")
   public void setBaseDao(AdminDao adminDao)
@@ -33,20 +35,20 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long>
   @Transactional(readOnly=true)
   public boolean usernameExists(String username)
   {
-    return this.IIIllIlI.usernameExists(username);
+    return this.adminDao.usernameExists(username);
   }
 
   @Transactional(readOnly=true)
   public Admin findByUsername(String username)
   {
-    return this.IIIllIlI.findByUsername(username);
+    return this.adminDao.findByUsername(username);
   }
 
   @Transactional(readOnly=true)
   public List<String> findAuthorities(Long id)
   {
     ArrayList localArrayList = new ArrayList();
-    Admin localAdmin = (Admin)this.IIIllIlI.find(id);
+    Admin localAdmin = (Admin)this.adminDao.find(id);
     if (localAdmin != null)
     {
       Iterator localIterator = localAdmin.getRoles().iterator();
@@ -76,7 +78,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long>
     {
       Principal localPrincipal = (Principal)localSubject.getPrincipal();
       if (localPrincipal != null)
-        return (Admin)this.IIIllIlI.find(localPrincipal.getId());
+        return (Admin)this.adminDao.find(localPrincipal.getId());
     }
     return null;
   }
@@ -136,7 +138,3 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long>
     super.delete(admin);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.AdminServiceImpl
-

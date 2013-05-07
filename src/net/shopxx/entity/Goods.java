@@ -14,17 +14,17 @@ import javax.persistence.Transient;
 public class Goods extends BaseEntity
 {
   private static final long serialVersionUID = -6977025562650112419L;
-  private Set<Product> IIIllIlI = new HashSet();
+  private Set<Product> products = new HashSet();
 
   @OneToMany(mappedBy="goods", fetch=FetchType.EAGER, cascade={javax.persistence.CascadeType.ALL}, orphanRemoval=true)
   public Set<Product> getProducts()
   {
-    return this.IIIllIlI;
+    return this.products;
   }
 
   public void setProducts(Set<Product> products)
   {
-    this.IIIllIlI = products;
+    this.products = products;
   }
 
   @Transient
@@ -43,7 +43,3 @@ public class Goods extends BaseEntity
     return localHashSet;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Goods
-

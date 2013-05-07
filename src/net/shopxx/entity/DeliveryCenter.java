@@ -16,28 +16,28 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class DeliveryCenter extends BaseEntity
 {
   private static final long serialVersionUID = 3328996121729039075L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private String IIlIIIII;
-  private String IIlIIIIl;
-  private Boolean IIlIIIlI;
-  private Area IIlIIIll;
+  private String name;
+  private String contact;
+  private String areaName;
+  private String address;
+  private String zipCode;
+  private String phone;
+  private String mobile;
+  private String memo;
+  private Boolean isDefault;
+  private Area area;
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotEmpty
@@ -45,23 +45,23 @@ public class DeliveryCenter extends BaseEntity
   @Column(nullable=false)
   public String getContact()
   {
-    return this.IIIllIll;
+    return this.contact;
   }
 
   public void setContact(String contact)
   {
-    this.IIIllIll = contact;
+    this.contact = contact;
   }
 
   @Column(nullable=false)
   public String getAreaName()
   {
-    return this.IIIlllII;
+    return this.areaName;
   }
 
   public void setAreaName(String areaName)
   {
-    this.IIIlllII = areaName;
+    this.areaName = areaName;
   }
 
   @NotEmpty
@@ -69,80 +69,80 @@ public class DeliveryCenter extends BaseEntity
   @Column(nullable=false)
   public String getAddress()
   {
-    return this.IIIlllIl;
+    return this.address;
   }
 
   public void setAddress(String address)
   {
-    this.IIIlllIl = address;
+    this.address = address;
   }
 
   @Length(max=200)
   public String getZipCode()
   {
-    return this.IIIllllI;
+    return this.zipCode;
   }
 
   public void setZipCode(String zipCode)
   {
-    this.IIIllllI = zipCode;
+    this.zipCode = zipCode;
   }
 
   @Length(max=200)
   public String getPhone()
   {
-    return this.IIIlllll;
+    return this.phone;
   }
 
   public void setPhone(String phone)
   {
-    this.IIIlllll = phone;
+    this.phone = phone;
   }
 
   @Length(max=200)
   public String getMobile()
   {
-    return this.IIlIIIII;
+    return this.mobile;
   }
 
   public void setMobile(String mobile)
   {
-    this.IIlIIIII = mobile;
+    this.mobile = mobile;
   }
 
   @Length(max=200)
   public String getMemo()
   {
-    return this.IIlIIIIl;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIlIIIIl = memo;
+    this.memo = memo;
   }
 
   @NotNull
   @Column(nullable=false)
   public Boolean getIsDefault()
   {
-    return this.IIlIIIlI;
+    return this.isDefault;
   }
 
   public void setIsDefault(Boolean isDefault)
   {
-    this.IIlIIIlI = isDefault;
+    this.isDefault = isDefault;
   }
 
   @NotNull
   @ManyToOne(fetch=FetchType.LAZY)
   public Area getArea()
   {
-    return this.IIlIIIll;
+    return this.area;
   }
 
   public void setArea(Area area)
   {
-    this.IIlIIIll = area;
+    this.area = area;
   }
 
   @PrePersist
@@ -159,7 +159,3 @@ public class DeliveryCenter extends BaseEntity
       setAreaName(getArea().getFullName());
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.DeliveryCenter
-

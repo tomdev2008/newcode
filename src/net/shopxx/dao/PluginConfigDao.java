@@ -8,7 +8,3 @@ public abstract interface PluginConfigDao extends BaseDao<PluginConfig, Long>
 
   public abstract PluginConfig findByPluginId(String paramString);
 }
-
-
- * Qualified Name:     net.shopxx.dao.PluginConfigDao
-

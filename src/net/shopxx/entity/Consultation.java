@@ -21,95 +21,95 @@ public class Consultation extends BaseEntity
   private static final long serialVersionUID = -3950317769006303385L;
   private static final String IIIllIlI = "/consultation/content";
   private static final String IIIllIll = ".jhtml";
-  private String IIIlllII;
-  private Boolean IIIlllIl;
-  private String IIIllllI;
-  private Member IIIlllll;
-  private Product IIlIIIII;
-  private Consultation IIlIIIIl;
-  private Set<Consultation> IIlIIIlI = new HashSet();
+  private String content;
+  private Boolean isShow;
+  private String ip;
+  private Member member;
+  private Product product;
+  private Consultation forConsultation;
+  private Set<Consultation> replyConsultations = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false, updatable=false)
   public String getContent()
   {
-    return this.IIIlllII;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIlllII = content;
+    this.content = content;
   }
 
   @Column(nullable=false)
   public Boolean getIsShow()
   {
-    return this.IIIlllIl;
+    return this.isShow;
   }
 
   public void setIsShow(Boolean isShow)
   {
-    this.IIIlllIl = isShow;
+    this.isShow = isShow;
   }
 
   @Column(nullable=false, updatable=false)
   public String getIp()
   {
-    return this.IIIllllI;
+    return this.ip;
   }
 
   public void setIp(String ip)
   {
-    this.IIIllllI = ip;
+    this.ip = ip;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Member getMember()
   {
-    return this.IIIlllll;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIIlllll = member;
+    this.member = member;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Product getProduct()
   {
-    return this.IIlIIIII;
+    return this.product;
   }
 
   public void setProduct(Product product)
   {
-    this.IIlIIIII = product;
+    this.product = product;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Consultation getForConsultation()
   {
-    return this.IIlIIIIl;
+    return this.forConsultation;
   }
 
   public void setForConsultation(Consultation forConsultation)
   {
-    this.IIlIIIIl = forConsultation;
+    this.forConsultation = forConsultation;
   }
 
   @OneToMany(mappedBy="forConsultation", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   @OrderBy("createDate asc")
   public Set<Consultation> getReplyConsultations()
   {
-    return this.IIlIIIlI;
+    return this.replyConsultations;
   }
 
   public void setReplyConsultations(Set<Consultation> replyConsultations)
   {
-    this.IIlIIIlI = replyConsultations;
+    this.replyConsultations = replyConsultations;
   }
 
   @Transient
@@ -120,7 +120,3 @@ public class Consultation extends BaseEntity
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Consultation
-

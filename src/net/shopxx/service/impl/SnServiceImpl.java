@@ -1,9 +1,11 @@
 package net.shopxx.service.impl;
 
 import javax.annotation.Resource;
+
 import net.shopxx.dao.SnDao;
-import net.shopxx.entity.Sn.Type;
+import net.shopxx.entity.Sn.SnType;
 import net.shopxx.service.SnService;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +18,8 @@ public class SnServiceImpl
   private SnDao IIIllIlI;
 
   @Transactional
-  public String generate(Sn.Type type)
+  public String generate(SnType type)
   {
     return this.IIIllIlI.generate(type);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.SnServiceImpl
-

@@ -54,7 +54,3 @@ public class InitListener
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.listener.InitListener
-

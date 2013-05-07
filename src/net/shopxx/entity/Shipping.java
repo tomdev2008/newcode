@@ -24,90 +24,90 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Shipping extends BaseEntity
 {
   private static final long serialVersionUID = -261737051893669935L;
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private BigDecimal IIlIIIII;
-  private String IIlIIIIl;
-  private String IIlIIIlI;
-  private String IIlIIIll;
-  private String IIlIIlII;
-  private String IIlIIlIl;
-  private String IIlIIllI;
-  private String IIlIIlll;
-  private Order IIlIlIII;
-  private List<ShippingItem> IIlIlIIl = new ArrayList();
+  private String sn;
+  private String shippingMethod;
+  private String deliveryCorp;
+  private String deliveryCorpUrl;
+  private String deliveryCorpCode;
+  private String trackingNo;
+  private BigDecimal freight;
+  private String consignee;
+  private String area;
+  private String address;
+  private String zipCode;
+  private String phone;
+  private String operator;
+  private String memo;
+  private Order order;
+  private List<ShippingItem> shippingItems = new ArrayList();
 
   @Column(nullable=false, updatable=false, unique=true)
   public String getSn()
   {
-    return this.IIIllIlI;
+    return this.sn;
   }
 
   public void setSn(String sn)
   {
-    this.IIIllIlI = sn;
+    this.sn = sn;
   }
 
   @NotEmpty
   @Column(nullable=false, updatable=false)
   public String getShippingMethod()
   {
-    return this.IIIllIll;
+    return this.shippingMethod;
   }
 
   public void setShippingMethod(String shippingMethod)
   {
-    this.IIIllIll = shippingMethod;
+    this.shippingMethod = shippingMethod;
   }
 
   @NotEmpty
   @Column(nullable=false, updatable=false)
   public String getDeliveryCorp()
   {
-    return this.IIIlllII;
+    return this.deliveryCorp;
   }
 
   public void setDeliveryCorp(String deliveryCorp)
   {
-    this.IIIlllII = deliveryCorp;
+    this.deliveryCorp = deliveryCorp;
   }
 
   public String getDeliveryCorpUrl()
   {
-    return this.IIIlllIl;
+    return this.deliveryCorpUrl;
   }
 
   @Column(updatable=false)
   public void setDeliveryCorpUrl(String deliveryCorpUrl)
   {
-    this.IIIlllIl = deliveryCorpUrl;
+    this.deliveryCorpUrl = deliveryCorpUrl;
   }
 
   public String getDeliveryCorpCode()
   {
-    return this.IIIllllI;
+    return this.deliveryCorpCode;
   }
 
   @Column(updatable=false)
   public void setDeliveryCorpCode(String deliveryCorpCode)
   {
-    this.IIIllllI = deliveryCorpCode;
+    this.deliveryCorpCode = deliveryCorpCode;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getTrackingNo()
   {
-    return this.IIIlllll;
+    return this.trackingNo;
   }
 
   public void setTrackingNo(String trackingNo)
   {
-    this.IIIlllll = trackingNo;
+    this.trackingNo = trackingNo;
   }
 
   @Min(0L)
@@ -115,12 +115,12 @@ public class Shipping extends BaseEntity
   @Column(updatable=false, precision=21, scale=6)
   public BigDecimal getFreight()
   {
-    return this.IIlIIIII;
+    return this.freight;
   }
 
   public void setFreight(BigDecimal freight)
   {
-    this.IIlIIIII = freight;
+    this.freight = freight;
   }
 
   @NotEmpty
@@ -128,24 +128,24 @@ public class Shipping extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getConsignee()
   {
-    return this.IIlIIIIl;
+    return this.consignee;
   }
 
   public void setConsignee(String consignee)
   {
-    this.IIlIIIIl = consignee;
+    this.consignee = consignee;
   }
 
   @NotEmpty
   @Column(nullable=false, updatable=false)
   public String getArea()
   {
-    return this.IIlIIIlI;
+    return this.area;
   }
 
   public void setArea(String area)
   {
-    this.IIlIIIlI = area;
+    this.area = area;
   }
 
   @NotEmpty
@@ -153,12 +153,12 @@ public class Shipping extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getAddress()
   {
-    return this.IIlIIIll;
+    return this.address;
   }
 
   public void setAddress(String address)
   {
-    this.IIlIIIll = address;
+    this.address = address;
   }
 
   @NotEmpty
@@ -166,12 +166,12 @@ public class Shipping extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getZipCode()
   {
-    return this.IIlIIlII;
+    return this.zipCode;
   }
 
   public void setZipCode(String zipCode)
   {
-    this.IIlIIlII = zipCode;
+    this.zipCode = zipCode;
   }
 
   @NotEmpty
@@ -179,35 +179,35 @@ public class Shipping extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getPhone()
   {
-    return this.IIlIIlIl;
+    return this.phone;
   }
 
   public void setPhone(String phone)
   {
-    this.IIlIIlIl = phone;
+    this.phone = phone;
   }
 
   @Column(nullable=false, updatable=false)
   public String getOperator()
   {
-    return this.IIlIIllI;
+    return this.operator;
   }
 
   public void setOperator(String operator)
   {
-    this.IIlIIllI = operator;
+    this.operator = operator;
   }
 
   @Length(max=200)
   @Column(updatable=false)
   public String getMemo()
   {
-    return this.IIlIIlll;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIlIIlll = memo;
+    this.memo = memo;
   }
 
   @NotNull
@@ -215,12 +215,12 @@ public class Shipping extends BaseEntity
   @JoinColumn(name="orders", nullable=false, updatable=false)
   public Order getOrder()
   {
-    return this.IIlIlIII;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIlIlIII = order;
+    this.order = order;
   }
 
   @Valid
@@ -228,12 +228,12 @@ public class Shipping extends BaseEntity
   @OneToMany(mappedBy="shipping", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.ALL})
   public List<ShippingItem> getShippingItems()
   {
-    return this.IIlIlIIl;
+    return this.shippingItems;
   }
 
   public void setShippingItems(List<ShippingItem> shippingItems)
   {
-    this.IIlIlIIl = shippingItems;
+    this.shippingItems = shippingItems;
   }
 
   @Transient
@@ -254,7 +254,3 @@ public class Shipping extends BaseEntity
     return i;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Shipping
-

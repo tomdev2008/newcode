@@ -34,7 +34,3 @@ public class CaptchaEngine extends ListImageCaptchaEngine
     addFactory(new GimpyFactory(new RandomWordGenerator("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), new ComposedWordToImage(localRandomFontGenerator, localFileReaderRandomBackgroundGenerator, localDecoratedRandomTextPaster)));
   }
 }
-
-
- * Qualified Name:     net.shopxx.CaptchaEngine
-

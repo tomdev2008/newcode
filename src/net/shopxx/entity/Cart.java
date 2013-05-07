@@ -31,41 +31,41 @@ public class Cart extends BaseEntity
   public static final Integer MAX_PRODUCT_COUNT = Integer.valueOf(100);
   public static final String ID_COOKIE_NAME = "cartId";
   public static final String KEY_COOKIE_NAME = "cartKey";
-  private String IIIllIlI;
-  private Member IIIllIll;
-  private Set<CartItem> IIIlllII = new HashSet();
+  private String key;
+  private Member member;
+  private Set<CartItem> cartItems = new HashSet();
 
   @Column(name="cart_key", nullable=false, updatable=false)
   public String getKey()
   {
-    return this.IIIllIlI;
+    return this.key;
   }
 
   public void setKey(String key)
   {
-    this.IIIllIlI = key;
+    this.key = key;
   }
 
   @OneToOne(fetch=FetchType.LAZY)
   public Member getMember()
   {
-    return this.IIIllIll;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIIllIll = member;
+    this.member = member;
   }
 
   @OneToMany(mappedBy="cart", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
   public Set<CartItem> getCartItems()
   {
-    return this.IIIlllII;
+    return this.cartItems;
   }
 
   public void setCartItems(Set<CartItem> cartItems)
   {
-    this.IIIlllII = cartItems;
+    this.cartItems = cartItems;
   }
 
   @Transient
@@ -213,7 +213,7 @@ public class Cart extends BaseEntity
     while (localIterator.hasNext())
     {
       localObject2 = (Promotion)localIterator.next();
-      if (!IIIllIlI((Promotion)localObject2))
+      if (!key((Promotion)localObject2))
         continue;
       ((Set)localObject1).add(localObject2);
     }
@@ -221,7 +221,7 @@ public class Cart extends BaseEntity
   }
 
   @Transient
-  private boolean IIIllIlI(Promotion paramPromotion)
+  private boolean key(Promotion paramPromotion)
   {
     if ((paramPromotion == null) || (!paramPromotion.hasBegun()) || (paramPromotion.hasEnded()))
       return false;
@@ -355,7 +355,4 @@ public class Cart extends BaseEntity
     return (getCartItems() == null) || (getCartItems().isEmpty());
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Cart
 

@@ -47,7 +47,3 @@ public class MessageServiceImpl extends BaseServiceImpl<Message, Long>
     this.IIIllIlI.remove(id, member);
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.MessageServiceImpl
-

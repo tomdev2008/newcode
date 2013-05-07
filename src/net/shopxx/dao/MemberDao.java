@@ -18,7 +18,3 @@ public abstract interface MemberDao extends BaseDao<Member, Long>
 
   public abstract Page<Object> findPurchasePage(Date paramDate1, Date paramDate2, Pageable paramPageable);
 }
-
-
- * Qualified Name:     net.shopxx.dao.MemberDao
-

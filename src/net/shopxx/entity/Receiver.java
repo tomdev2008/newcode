@@ -19,14 +19,14 @@ public class Receiver extends BaseEntity
 {
   private static final long serialVersionUID = 2673602067029665976L;
   public static final Integer MAX_RECEIVER_COUNT = Integer.valueOf(8);
-  private String IIIllIlI;
-  private String IIIllIll;
-  private String IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private Boolean IIIlllll;
-  private Area IIlIIIII;
-  private Member IIlIIIIl;
+  private String consignee;
+  private String areaName;
+  private String address;
+  private String zipCode;
+  private String phone;
+  private Boolean isDefault;
+  private Area area;
+  private Member member;
 
   @JsonProperty
   @NotEmpty
@@ -34,24 +34,24 @@ public class Receiver extends BaseEntity
   @Column(nullable=false)
   public String getConsignee()
   {
-    return this.IIIllIlI;
+    return this.consignee;
   }
 
   public void setConsignee(String consignee)
   {
-    this.IIIllIlI = consignee;
+    this.consignee = consignee;
   }
 
   @JsonProperty
   @Column(nullable=false)
   public String getAreaName()
   {
-    return this.IIIllIll;
+    return this.areaName;
   }
 
   public void setAreaName(String areaName)
   {
-    this.IIIllIll = areaName;
+    this.areaName = areaName;
   }
 
   @JsonProperty
@@ -60,12 +60,12 @@ public class Receiver extends BaseEntity
   @Column(nullable=false)
   public String getAddress()
   {
-    return this.IIIlllII;
+    return this.address;
   }
 
   public void setAddress(String address)
   {
-    this.IIIlllII = address;
+    this.address = address;
   }
 
   @JsonProperty
@@ -74,12 +74,12 @@ public class Receiver extends BaseEntity
   @Column(nullable=false)
   public String getZipCode()
   {
-    return this.IIIlllIl;
+    return this.zipCode;
   }
 
   public void setZipCode(String zipCode)
   {
-    this.IIIlllIl = zipCode;
+    this.zipCode = zipCode;
   }
 
   @JsonProperty
@@ -88,12 +88,12 @@ public class Receiver extends BaseEntity
   @Column(nullable=false)
   public String getPhone()
   {
-    return this.IIIllllI;
+    return this.phone;
   }
 
   public void setPhone(String phone)
   {
-    this.IIIllllI = phone;
+    this.phone = phone;
   }
 
   @JsonProperty
@@ -101,36 +101,36 @@ public class Receiver extends BaseEntity
   @Column(nullable=false)
   public Boolean getIsDefault()
   {
-    return this.IIIlllll;
+    return this.isDefault;
   }
 
   public void setIsDefault(Boolean isDefault)
   {
-    this.IIIlllll = isDefault;
+    this.isDefault = isDefault;
   }
 
   @NotNull
   @ManyToOne(fetch=FetchType.LAZY)
   public Area getArea()
   {
-    return this.IIlIIIII;
+    return this.area;
   }
 
   public void setArea(Area area)
   {
-    this.IIlIIIII = area;
+    this.area = area;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Member getMember()
   {
-    return this.IIlIIIIl;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIlIIIIl = member;
+    this.member = member;
   }
 
   @PrePersist
@@ -147,7 +147,3 @@ public class Receiver extends BaseEntity
       setAreaName(getArea().getFullName());
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Receiver
-

@@ -21,101 +21,109 @@ import org.hibernate.validator.constraints.Length;
 public class Payment extends BaseEntity
 {
   private static final long serialVersionUID = -5052430116564638634L;
+  public enum PaymentStatus
+  {
+    wait, success, failure;
+  }
+  public enum PaymentType
+  {
+    online, offline, deposit;
+  }
   public static final String TYPE_SEPARATOR = "-";
-  private String IIIllIlI;
-  private Payment.Type IIIllIll;
-  private Payment.Status IIIlllII;
-  private String IIIlllIl;
-  private String IIIllllI;
-  private String IIIlllll;
-  private BigDecimal IIlIIIII;
-  private BigDecimal IIlIIIIl;
-  private String IIlIIIlI;
-  private String IIlIIIll;
-  private Date IIlIIlII;
-  private String IIlIIlIl;
-  private String IIlIIllI;
-  private Date IIlIIlll;
-  private Deposit IIlIlIII;
-  private Member IIlIlIIl;
-  private Order IIlIlIlI;
+  private String sn;
+  private PaymentType type;
+  private PaymentStatus status;
+  private String paymentMethod;
+  private String bank;
+  private String account;
+  private BigDecimal fee;
+  private BigDecimal amount;
+  private String payer;
+  private String operator;
+  private Date paymentDate;
+  private String memo;
+  private String paymentPluginId;
+  private Date expire;
+  private Deposit deposit;
+  private Member member;
+  private Order order;
 
   @Column(nullable=false, updatable=false, unique=true)
   public String getSn()
   {
-    return this.IIIllIlI;
+    return this.sn;
   }
 
   public void setSn(String sn)
   {
-    this.IIIllIlI = sn;
+    this.sn = sn;
   }
 
   @NotNull
   @Column(nullable=false, updatable=false)
-  public Payment.Type getType()
+  public PaymentType getType()
   {
-    return this.IIIllIll;
+    return this.type;
   }
 
-  public void setType(Payment.Type type)
+  public void setType(PaymentType type)
   {
-    this.IIIllIll = type;
+    this.type = type;
   }
 
   @Column(nullable=false)
-  public Payment.Status getStatus()
+  public PaymentStatus getStatus()
   {
-    return this.IIIlllII;
+    return this.status;
   }
 
-  public void setStatus(Payment.Status status)
+  public void setStatus(PaymentStatus status)
   {
-    this.IIIlllII = status;
+    this.status = status;
   }
 
   @Column(updatable=false)
   public String getPaymentMethod()
   {
-    return this.IIIlllIl;
+    return this.paymentMethod;
   }
 
   public void setPaymentMethod(String paymentMethod)
   {
-    this.IIIlllIl = paymentMethod;
+    this.paymentMethod = paymentMethod;
   }
 
   @Length(max=200)
   public String getBank()
   {
-    return this.IIIllllI;
+    return this.bank;
   }
 
   public void setBank(String bank)
   {
-    this.IIIllllI = bank;
+    this.bank = bank;
   }
 
   @Length(max=200)
   public String getAccount()
   {
-    return this.IIIlllll;
+    return this.account;
   }
 
   public void setAccount(String account)
   {
-    this.IIIlllll = account;
+    this.account = account;
   }
 
   @Column(nullable=false, precision=21, scale=6)
   public BigDecimal getFee()
   {
-    return this.IIlIIIII;
+    return this.fee;
   }
 
   public void setFee(BigDecimal fee)
   {
-    this.IIlIIIII = fee;
+    this.fee = fee;
   }
 
   @NotNull
@@ -124,100 +132,100 @@ public class Payment extends BaseEntity
   @Column(nullable=false, precision=21, scale=6)
   public BigDecimal getAmount()
   {
-    return this.IIlIIIIl;
+    return this.amount;
   }
 
   public void setAmount(BigDecimal amount)
   {
-    this.IIlIIIIl = amount;
+    this.amount = amount;
   }
 
   @Length(max=200)
   public String getPayer()
   {
-    return this.IIlIIIlI;
+    return this.payer;
   }
 
   public void setPayer(String payer)
   {
-    this.IIlIIIlI = payer;
+    this.payer = payer;
   }
 
   @Column(updatable=false)
   public String getOperator()
   {
-    return this.IIlIIIll;
+    return this.operator;
   }
 
   public void setOperator(String operator)
   {
-    this.IIlIIIll = operator;
+    this.operator = operator;
   }
 
   public Date getPaymentDate()
   {
-    return this.IIlIIlII;
+    return this.paymentDate;
   }
 
   public void setPaymentDate(Date paymentDate)
   {
-    this.IIlIIlII = paymentDate;
+    this.paymentDate = paymentDate;
   }
 
   @Length(max=200)
   public String getMemo()
   {
-    return this.IIlIIlIl;
+    return this.memo;
   }
 
   public void setMemo(String memo)
   {
-    this.IIlIIlIl = memo;
+    this.memo = memo;
   }
 
   @JoinColumn(updatable=false)
   public String getPaymentPluginId()
   {
-    return this.IIlIIllI;
+    return this.paymentPluginId;
   }
 
   public void setPaymentPluginId(String paymentPluginId)
   {
-    this.IIlIIllI = paymentPluginId;
+    this.paymentPluginId = paymentPluginId;
   }
 
   @JoinColumn(updatable=false)
   public Date getExpire()
   {
-    return this.IIlIIlll;
+    return this.expire;
   }
 
   public void setExpire(Date expire)
   {
-    this.IIlIIlll = expire;
+    this.expire = expire;
   }
 
   @OneToOne(mappedBy="payment", fetch=FetchType.LAZY)
   public Deposit getDeposit()
   {
-    return this.IIlIlIII;
+    return this.deposit;
   }
 
   public void setDeposit(Deposit deposit)
   {
-    this.IIlIlIII = deposit;
+    this.deposit = deposit;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Member getMember()
   {
-    return this.IIlIlIIl;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIlIlIIl = member;
+    this.member = member;
   }
 
   @NotNull
@@ -225,12 +233,12 @@ public class Payment extends BaseEntity
   @JoinColumn(name="orders", updatable=false)
   public Order getOrder()
   {
-    return this.IIlIlIlI;
+    return this.order;
   }
 
   public void setOrder(Order order)
   {
-    this.IIlIlIlI = order;
+    this.order = order;
   }
 
   @Transient
@@ -246,7 +254,3 @@ public class Payment extends BaseEntity
       getDeposit().setPayment(null);
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Payment
-

@@ -22,7 +22,3 @@ public class BigDecimalNumericFieldBridge extends NumericFieldBridge
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.BigDecimalNumericFieldBridge
-

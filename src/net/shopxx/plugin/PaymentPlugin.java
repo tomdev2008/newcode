@@ -22,6 +22,15 @@ public abstract class PaymentPlugin
   public static final String LOGO_ATTRIBUTE_NAME = "logo";
   public static final String DESCRIPTION_ATTRIBUTE_NAME = "description";
 
+  public enum PaymentPluginFeeType
+  {
+    scale, fixed;
+  }
+  public enum PaymentPluginMethod
+  {
+    post, get;
+  }
+  
   @Resource(name="pluginConfigServiceImpl")
   private PluginConfigService IIIllIlI;
 
@@ -78,10 +87,10 @@ public abstract class PaymentPlugin
     return localPluginConfig != null ? localPluginConfig.getAttribute("paymentName") : null;
   }
 
-  public PaymentPlugin.FeeType getFeeType()
+  public PaymentPluginFeeType getFeeType()
   {
     PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? PaymentPlugin.FeeType.valueOf(localPluginConfig.getAttribute("feeType")) : null;
+    return localPluginConfig != null ? PaymentPluginFeeType.valueOf(localPluginConfig.getAttribute("feeType")) : null;
   }
 
   public BigDecimal getFee()
@@ -104,7 +113,7 @@ public abstract class PaymentPlugin
 
   public abstract String getUrl();
 
-  public abstract PaymentPlugin.Method getMethod();
+  public abstract PaymentPluginMethod getMethod();
 
   public abstract Integer getTimeout();
 
@@ -132,7 +141,7 @@ public abstract class PaymentPlugin
   {
     Setting localSetting = SettingUtils.get();
     BigDecimal localBigDecimal;
-    if (getFeeType() == PaymentPlugin.FeeType.scale)
+    if (getFeeType() == PaymentPluginFeeType.scale)
       localBigDecimal = amount.multiply(getFee());
     else
       localBigDecimal = getFee();
@@ -161,7 +170,3 @@ public abstract class PaymentPlugin
     return new CompareToBuilder().append(getOrder(), paymentPlugin.getOrder()).append(getId(), paymentPlugin.getId()).toComparison();
   }
 }
-
-
- * Qualified Name:     net.shopxx.plugin.PaymentPlugin
-

@@ -18,14 +18,19 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Review extends BaseEntity
 {
   private static final long serialVersionUID = 8795901519290584100L;
+  public enum ReviewType
+  {
+    positive, moderate, negative;
+  }
+
   private static final String IIIllIlI = "/review/content";
   private static final String IIIllIll = ".jhtml";
-  private Integer IIIlllII;
-  private String IIIlllIl;
-  private Boolean IIIllllI;
-  private String IIIlllll;
-  private Member IIlIIIII;
-  private Product IIlIIIIl;
+  private Integer score;
+  private String content;
+  private Boolean isShow;
+  private String ip;
+  private Member member;
+  private Product product;
 
   @NotNull
   @Min(1L)
@@ -33,12 +38,12 @@ public class Review extends BaseEntity
   @Column(nullable=false, updatable=false)
   public Integer getScore()
   {
-    return this.IIIlllII;
+    return this.score;
   }
 
   public void setScore(Integer score)
   {
-    this.IIIlllII = score;
+    this.score = score;
   }
 
   @NotEmpty
@@ -46,58 +51,58 @@ public class Review extends BaseEntity
   @Column(nullable=false, updatable=false)
   public String getContent()
   {
-    return this.IIIlllIl;
+    return this.content;
   }
 
   public void setContent(String content)
   {
-    this.IIIlllIl = content;
+    this.content = content;
   }
 
   @Column(nullable=false)
   public Boolean getIsShow()
   {
-    return this.IIIllllI;
+    return this.isShow;
   }
 
   public void setIsShow(Boolean isShow)
   {
-    this.IIIllllI = isShow;
+    this.isShow = isShow;
   }
 
   @Column(nullable=false, updatable=false)
   public String getIp()
   {
-    return this.IIIlllll;
+    return this.ip;
   }
 
   public void setIp(String ip)
   {
-    this.IIIlllll = ip;
+    this.ip = ip;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(updatable=false)
   public Member getMember()
   {
-    return this.IIlIIIII;
+    return this.member;
   }
 
   public void setMember(Member member)
   {
-    this.IIlIIIII = member;
+    this.member = member;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public Product getProduct()
   {
-    return this.IIlIIIIl;
+    return this.product;
   }
 
   public void setProduct(Product product)
   {
-    this.IIlIIIIl = product;
+    this.product = product;
   }
 
   @Transient
@@ -108,7 +113,3 @@ public class Review extends BaseEntity
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.Review
-

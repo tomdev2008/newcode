@@ -449,7 +449,3 @@ public final class ImageUtils
     return localStringBuffer.toString();
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.ImageUtils
-

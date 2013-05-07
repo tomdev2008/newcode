@@ -51,7 +51,3 @@ public final class SpringUtils
     return IIIllIlI.getMessage(code, args, localLocale);
   }
 }
-
-
- * Qualified Name:     net.shopxx.util.SpringUtils
-

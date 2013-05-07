@@ -34,7 +34,3 @@ public class ListInterceptor extends HandlerInterceptorAdapter
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.interceptor.ListInterceptor
-

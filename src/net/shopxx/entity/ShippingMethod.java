@@ -27,28 +27,28 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ShippingMethod extends OrderEntity
 {
   private static final long serialVersionUID = 5873163245980853245L;
-  private String IIIllIlI;
-  private Integer IIIllIll;
-  private Integer IIIlllII;
-  private BigDecimal IIIlllIl;
-  private BigDecimal IIIllllI;
-  private String IIIlllll;
-  private String IIlIIIII;
-  private DeliveryCorp IIlIIIIl;
-  private Set<PaymentMethod> IIlIIIlI = new HashSet();
-  private Set<Order> IIlIIIll = new HashSet();
+  private String name;
+  private Integer firstWeight;
+  private Integer continueWeight;
+  private BigDecimal firstPrice;
+  private BigDecimal continuePrice;
+  private String icon;
+  private String description;
+  private DeliveryCorp defaultDeliveryCorp;
+  private Set<PaymentMethod> paymentMethods = new HashSet();
+  private Set<Order> orders = new HashSet();
 
   @NotEmpty
   @Length(max=200)
   @Column(nullable=false)
   public String getName()
   {
-    return this.IIIllIlI;
+    return this.name;
   }
 
   public void setName(String name)
   {
-    this.IIIllIlI = name;
+    this.name = name;
   }
 
   @NotNull
@@ -56,12 +56,12 @@ public class ShippingMethod extends OrderEntity
   @Column(nullable=false)
   public Integer getFirstWeight()
   {
-    return this.IIIllIll;
+    return this.firstWeight;
   }
 
   public void setFirstWeight(Integer firstWeight)
   {
-    this.IIIllIll = firstWeight;
+    this.firstWeight = firstWeight;
   }
 
   @NotNull
@@ -69,12 +69,12 @@ public class ShippingMethod extends OrderEntity
   @Column(nullable=false)
   public Integer getContinueWeight()
   {
-    return this.IIIlllII;
+    return this.continueWeight;
   }
 
   public void setContinueWeight(Integer continueWeight)
   {
-    this.IIIlllII = continueWeight;
+    this.continueWeight = continueWeight;
   }
 
   @NotNull
@@ -83,12 +83,12 @@ public class ShippingMethod extends OrderEntity
   @Column(nullable=false, precision=21, scale=6)
   public BigDecimal getFirstPrice()
   {
-    return this.IIIlllIl;
+    return this.firstPrice;
   }
 
   public void setFirstPrice(BigDecimal firstPrice)
   {
-    this.IIIlllIl = firstPrice;
+    this.firstPrice = firstPrice;
   }
 
   @NotNull
@@ -97,67 +97,67 @@ public class ShippingMethod extends OrderEntity
   @Column(nullable=false, precision=21, scale=6)
   public BigDecimal getContinuePrice()
   {
-    return this.IIIllllI;
+    return this.continuePrice;
   }
 
   public void setContinuePrice(BigDecimal continuePrice)
   {
-    this.IIIllllI = continuePrice;
+    this.continuePrice = continuePrice;
   }
 
   @Length(max=200)
   public String getIcon()
   {
-    return this.IIIlllll;
+    return this.icon;
   }
 
   public void setIcon(String icon)
   {
-    this.IIIlllll = icon;
+    this.icon = icon;
   }
 
   @Lob
   public String getDescription()
   {
-    return this.IIlIIIII;
+    return this.description;
   }
 
   public void setDescription(String description)
   {
-    this.IIlIIIII = description;
+    this.description = description;
   }
 
   @ManyToOne(fetch=FetchType.LAZY)
   public DeliveryCorp getDefaultDeliveryCorp()
   {
-    return this.IIlIIIIl;
+    return this.defaultDeliveryCorp;
   }
 
   public void setDefaultDeliveryCorp(DeliveryCorp defaultDeliveryCorp)
   {
-    this.IIlIIIIl = defaultDeliveryCorp;
+    this.defaultDeliveryCorp = defaultDeliveryCorp;
   }
 
   @ManyToMany(mappedBy="shippingMethods", fetch=FetchType.LAZY)
   public Set<PaymentMethod> getPaymentMethods()
   {
-    return this.IIlIIIlI;
+    return this.paymentMethods;
   }
 
   public void setPaymentMethods(Set<PaymentMethod> paymentMethods)
   {
-    this.IIlIIIlI = paymentMethods;
+    this.paymentMethods = paymentMethods;
   }
 
   @OneToMany(mappedBy="shippingMethod", fetch=FetchType.LAZY)
   public Set<Order> getOrders()
   {
-    return this.IIlIIIll;
+    return this.orders;
   }
 
   public void setOrders(Set<Order> orders)
   {
-    this.IIlIIIll = orders;
+    this.orders = orders;
   }
 
   @Transient
@@ -204,7 +204,3 @@ public class ShippingMethod extends OrderEntity
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.entity.ShippingMethod
-

@@ -9,7 +9,3 @@ public abstract interface DepositDao extends BaseDao<Deposit, Long>
 {
   public abstract Page<Deposit> findPage(Member paramMember, Pageable paramPageable);
 }
-
-
- * Qualified Name:     net.shopxx.dao.DepositDao
-

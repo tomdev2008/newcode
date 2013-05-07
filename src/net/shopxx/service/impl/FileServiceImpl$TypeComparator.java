@@ -17,7 +17,3 @@ class FileServiceImpl$TypeComparator
     return new CompareToBuilder().append(!fileInfos1.getIsDirectory().booleanValue(), !fileInfos2.getIsDirectory().booleanValue()).append(FilenameUtils.getExtension(fileInfos1.getName()), FilenameUtils.getExtension(fileInfos2.getName())).toComparison();
   }
 }
-
-
- * Qualified Name:     net.shopxx.service.impl.FileServiceImpl.TypeComparator
-

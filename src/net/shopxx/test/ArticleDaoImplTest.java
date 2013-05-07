@@ -30,13 +30,13 @@ public class ArticleDaoImplTest
 {
 
   @Resource(name="articleCategoryDaoImpl")
-  private ArticleCategoryDao IIIllIlI;
+  private ArticleCategoryDao articleCategoryDao;
 
   @Resource(name="tagDaoImpl")
-  private TagDao IIIllIll;
+  private TagDao tagDao;
 
   @Resource(name="articleDaoImpl")
-  private ArticleDao IIIlllII;
+  private ArticleDao articleDao;
   private static final Logger IIIlllIl = LoggerFactory.getLogger(ArticleDaoImplTest.class);
   private static Long[] IIIllllI = new Long[100];
   private static Long[] IIIlllll = new Long[100];
@@ -55,19 +55,19 @@ public class ArticleDaoImplTest
       {
         ((ArticleCategory)localObject).setName(str);
         ((ArticleCategory)localObject).setOrder(Integer.valueOf(i));
-        this.IIIllIlI.persist(localObject);
+        this.articleCategoryDao.persist(localObject);
       }
       else
       {
         ((ArticleCategory)localObject).setName(str);
         ((ArticleCategory)localObject).setOrder(Integer.valueOf(i));
-        ((ArticleCategory)localObject).setParent((ArticleCategory)this.IIIllIlI.find(IIIllllI[0]));
-        this.IIIllIlI.persist(localObject);
+        ((ArticleCategory)localObject).setParent((ArticleCategory)this.articleCategoryDao.find(IIIllllI[0]));
+        this.articleCategoryDao.persist(localObject);
       }
       IIIllllI[i] = ((ArticleCategory)localObject).getId();
     }
-    this.IIIllIlI.flush();
-    this.IIIllIlI.clear();
+    this.articleCategoryDao.flush();
+    this.articleCategoryDao.clear();
     for (i = 0; i < IIlIIIII.length; i++)
     {
       str = "test" + i;
@@ -75,11 +75,11 @@ public class ArticleDaoImplTest
       ((Tag)localObject).setName(str);
       ((Tag)localObject).setOrder(Integer.valueOf(i));
       ((Tag)localObject).setType(Tag.Type.article);
-      this.IIIllIll.persist(localObject);
+      this.tagDao.persist(localObject);
       IIlIIIII[i] = ((Tag)localObject).getId();
     }
-    this.IIIllIll.flush();
-    this.IIIllIll.clear();
+    this.tagDao.flush();
+    this.tagDao.clear();
     for (i = 0; i < IIIlllll.length; i++)
     {
       str = "test" + i;
@@ -90,25 +90,25 @@ public class ArticleDaoImplTest
       ((Article)localObject).setIsTop(Boolean.valueOf(false));
       ((Article)localObject).setHits(Long.valueOf(0L));
       if (i < 20)
-        ((Article)localObject).setArticleCategory((ArticleCategory)this.IIIllIlI.find(IIIllllI[0]));
+        ((Article)localObject).setArticleCategory((ArticleCategory)this.articleCategoryDao.find(IIIllllI[0]));
       else
-        ((Article)localObject).setArticleCategory((ArticleCategory)this.IIIllIlI.find(IIIllllI[1]));
+        ((Article)localObject).setArticleCategory((ArticleCategory)this.articleCategoryDao.find(IIIllllI[1]));
       if (i < 20)
       {
         HashSet localHashSet = new HashSet();
         if (i < 10)
         {
-          localHashSet.add((Tag)this.IIIllIll.find(IIlIIIII[0]));
-          localHashSet.add((Tag)this.IIIllIll.find(IIlIIIII[1]));
+          localHashSet.add((Tag)this.tagDao.find(IIlIIIII[0]));
+          localHashSet.add((Tag)this.tagDao.find(IIlIIIII[1]));
         }
-        localHashSet.add((Tag)this.IIIllIll.find(IIlIIIII[2]));
+        localHashSet.add((Tag)this.tagDao.find(IIlIIIII[2]));
         ((Article)localObject).setTags(localHashSet);
       }
-      this.IIIlllII.persist(localObject);
+      this.articleDao.persist(localObject);
       IIIlllll[i] = ((Article)localObject).getId();
     }
-    this.IIIlllII.flush();
-    this.IIIlllII.clear();
+    this.articleDao.flush();
+    this.articleDao.clear();
     IIIlllIl.info("prepare test data");
   }
 
@@ -116,12 +116,8 @@ public class ArticleDaoImplTest
   public void testFindList()
   {
     ArrayList localArrayList = new ArrayList();
-    localArrayList.add((Tag)this.IIIllIll.find(IIlIIIII[0]));
-    localArrayList.add((Tag)this.IIIllIll.find(IIlIIIII[2]));
-    MatcherAssert.assertThat(Integer.valueOf(this.IIIlllII.findList(null, localArrayList, null, null, null).size()), Matchers.is(Integer.valueOf(80)));
+    localArrayList.add((Tag)this.tagDao.find(IIlIIIII[0]));
+    localArrayList.add((Tag)this.tagDao.find(IIlIIIII[2]));
+    MatcherAssert.assertThat(Integer.valueOf(this.articleDao.findList(null, localArrayList, null, null, null).size()), Matchers.is(Integer.valueOf(80)));
   }
 }
-
-
- * Qualified Name:     net.shopxx.test.ArticleDaoImplTest
-

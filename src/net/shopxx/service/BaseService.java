@@ -41,7 +41,3 @@ public abstract interface BaseService<T, ID extends Serializable>
 
   public abstract void delete(T paramT);
 }
-
-
- * Qualified Name:     net.shopxx.service.BaseService
-

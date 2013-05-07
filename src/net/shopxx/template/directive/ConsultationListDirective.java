@@ -53,7 +53,3 @@ public class ConsultationListDirective extends BaseDirective
     IIIllIlI("consultations", localObject, env, body);
   }
 }
-
-
- * Qualified Name:     net.shopxx.template.directive.ConsultationListDirective
-
