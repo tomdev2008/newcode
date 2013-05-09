@@ -542,7 +542,3 @@ public class ProductController extends BaseController
     return paramBigDecimal.multiply(new BigDecimal(localDouble.toString())).longValue();
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.ProductController
-

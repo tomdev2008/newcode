@@ -29,7 +29,3 @@ public class NavigationDaoImpl extends BaseDaoImpl<Navigation, Long>
     return this.IIIllIlI.createQuery(localCriteriaQuery).setFlushMode(FlushModeType.COMMIT).getResultList();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.NavigationDaoImpl
-

@@ -207,7 +207,3 @@ public class OrderDaoImpl extends BaseDaoImpl<net.shopxx.entity.Order, Long>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.OrderDaoImpl
-

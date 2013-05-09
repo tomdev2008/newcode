@@ -105,7 +105,3 @@ public class ArticleCategoryDaoImpl extends BaseDaoImpl<ArticleCategory, Long>
     paramArticleCategory.setGrade(Integer.valueOf(paramArticleCategory.getTreePaths().size()));
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ArticleCategoryDaoImpl
-

@@ -9,7 +9,3 @@ public class RefundsDaoImpl extends BaseDaoImpl<Refunds, Long>
   implements RefundsDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.RefundsDaoImpl
-

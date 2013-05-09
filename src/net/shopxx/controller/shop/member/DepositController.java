@@ -95,7 +95,3 @@ public class DepositController extends BaseController
     return "shop/member/deposit/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.DepositController
-

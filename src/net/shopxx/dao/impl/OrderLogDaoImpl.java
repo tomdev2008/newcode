@@ -9,7 +9,3 @@ public class OrderLogDaoImpl extends BaseDaoImpl<OrderLog, Long>
   implements OrderLogDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.OrderLogDaoImpl
-

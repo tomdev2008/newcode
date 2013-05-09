@@ -28,7 +28,3 @@ public class SeoDaoImpl extends BaseDaoImpl<Seo, Long>
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.SeoDaoImpl
-

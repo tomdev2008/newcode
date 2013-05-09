@@ -323,7 +323,3 @@ public class MemberController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.MemberController
-

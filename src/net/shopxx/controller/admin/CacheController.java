@@ -46,7 +46,3 @@ public class CacheController extends BaseController
     return "redirect:clear.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.CacheController
-

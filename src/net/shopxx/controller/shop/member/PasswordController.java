@@ -57,7 +57,3 @@ public class PasswordController extends BaseController
     return "redirect:edit.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.PasswordController
-

@@ -43,7 +43,3 @@ public class MemberAttributeDaoImpl extends BaseDaoImpl<MemberAttribute, Long>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.MemberAttributeDaoImpl
-

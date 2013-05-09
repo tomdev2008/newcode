@@ -133,7 +133,3 @@ public class ProfileController extends BaseController
     return (String)"redirect:edit.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.ProfileController
-

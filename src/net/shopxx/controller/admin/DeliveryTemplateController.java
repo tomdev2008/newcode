@@ -67,7 +67,3 @@ public class DeliveryTemplateController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.DeliveryTemplateController
-

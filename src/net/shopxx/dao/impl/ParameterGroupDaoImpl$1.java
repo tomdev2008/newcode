@@ -12,7 +12,3 @@ class ParameterGroupDaoImpl$1
     return (localParameter != null) && (localParameter.getId() != null);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ParameterGroupDaoImpl.1
-

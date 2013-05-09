@@ -31,7 +31,3 @@ class SnDaoImpl$HiloOptimizer
     return FreemarkerUtils.process(this.IIIlllII, null) + (this.IIIlllll + this.IIIllllI++);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.SnDaoImpl.HiloOptimizer
-

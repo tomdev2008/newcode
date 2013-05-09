@@ -106,7 +106,3 @@ public class MemberDaoImpl extends BaseDaoImpl<Member, Long>
     return new Page(localTypedQuery.getResultList(), localLong.longValue(), pageable);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.MemberDaoImpl
-

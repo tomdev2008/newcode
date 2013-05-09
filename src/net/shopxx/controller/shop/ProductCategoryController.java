@@ -21,7 +21,3 @@ public class ProductCategoryController extends BaseController
     return "/shop/product_category/index";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.ProductCategoryController
-

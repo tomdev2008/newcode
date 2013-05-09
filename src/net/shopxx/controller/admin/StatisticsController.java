@@ -67,7 +67,3 @@ public class StatisticsController extends BaseController
     return "redirect:setting.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.StatisticsController
-

@@ -17,7 +17,3 @@ public class LogDaoImpl extends BaseDaoImpl<Log, Long>
     this.IIIllIlI.createQuery(str).setFlushMode(FlushModeType.COMMIT).executeUpdate();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.LogDaoImpl
-

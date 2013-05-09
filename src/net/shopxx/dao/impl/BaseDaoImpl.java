@@ -489,7 +489,3 @@ public abstract class BaseDaoImpl<T, ID extends Serializable>
     paramCriteriaQuery.orderBy(localArrayList);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.BaseDaoImpl
-

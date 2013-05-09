@@ -39,7 +39,3 @@ public class PromotionDaoImpl extends BaseDaoImpl<Promotion, Long>
     return super.IIIllIlI(localCriteriaQuery, null, count, filters, orders);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.PromotionDaoImpl
-

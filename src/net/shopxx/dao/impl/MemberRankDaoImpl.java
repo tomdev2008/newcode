@@ -98,7 +98,3 @@ public class MemberRankDaoImpl extends BaseDaoImpl<MemberRank, Long>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.MemberRankDaoImpl
-

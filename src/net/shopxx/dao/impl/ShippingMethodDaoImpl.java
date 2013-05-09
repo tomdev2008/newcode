@@ -9,7 +9,3 @@ public class ShippingMethodDaoImpl extends BaseDaoImpl<ShippingMethod, Long>
   implements ShippingMethodDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ShippingMethodDaoImpl
-

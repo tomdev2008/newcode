@@ -28,7 +28,3 @@ public class DepositDaoImpl extends BaseDaoImpl<Deposit, Long>
     return super.IIIllIlI(localCriteriaQuery, pageable);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.DepositDaoImpl
-

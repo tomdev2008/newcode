@@ -98,7 +98,7 @@ public class Member extends BaseEntity
   private Set<Message> inMessages = new HashSet();
   private Set<Message> outMessages = new HashSet();
 
-  @NotEmpty(groups={BaseEntity.Save.class})
+  @NotEmpty(groups={BaseEntity.class})
   @Pattern(regexp="^[0-9a-z_A-Z\\u4e00-\\u9fa5]+$")
   @Column(nullable=false, updatable=false, unique=true)
   public String getUsername()
@@ -111,7 +111,7 @@ public class Member extends BaseEntity
     this.username = username;
   }
 
-  @NotEmpty(groups={BaseEntity.Save.class})
+  @NotEmpty(groups={BaseEntity.class})
   @Pattern(regexp="^[^\\s&\"<>]+$")
   @Column(nullable=false)
   public String getPassword()
@@ -138,7 +138,7 @@ public class Member extends BaseEntity
     this.email = email;
   }
 
-  @NotNull(groups={BaseEntity.Save.class})
+  @NotNull(groups={BaseEntity.class})
   @Min(0L)
   @Column(nullable=false)
   public Long getPoint()
@@ -162,7 +162,7 @@ public class Member extends BaseEntity
     this.amount = amount;
   }
 
-  @NotNull(groups={BaseEntity.Save.class})
+  @NotNull(groups={BaseEntity.class})
   @Min(0L)
   @Digits(integer=12, fraction=3)
   @Column(nullable=false, precision=27, scale=12)
@@ -613,7 +613,7 @@ public class Member extends BaseEntity
   {
     if (memberAttribute != null)
     {
-      if (memberAttribute.getType() == MemberAttributeType.name)
+      if (memberAttribute == MemberAttributeType.name)
         return getName();
       if (memberAttribute.getType() == MemberAttributeType.gender)
         return getGender();
@@ -684,7 +684,7 @@ public class Member extends BaseEntity
         attributeValue = null;
       if ((memberAttribute.getType() == MemberAttributeType.name) && (((attributeValue instanceof String)) || (attributeValue == null)))
         setName((String)attributeValue);
-      else if ((memberAttribute.getType() == MemberAttributeType.gender) && (((attributeValue instanceof Member.Gender)) || (attributeValue == null)))
+      else if ((memberAttribute.getType() == MemberAttributeType.gender) && (((attributeValue instanceof MemberGender)) || (attributeValue == null)))
         setGender((Member.Gender)attributeValue);
       else if ((memberAttribute.getType() == MemberAttributeType.birth) && (((attributeValue instanceof Date)) || (attributeValue == null)))
         setBirth((Date)attributeValue);

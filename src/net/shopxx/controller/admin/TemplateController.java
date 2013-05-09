@@ -52,7 +52,3 @@ public class TemplateController extends BaseController
     return "/admin/template/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.TemplateController
-

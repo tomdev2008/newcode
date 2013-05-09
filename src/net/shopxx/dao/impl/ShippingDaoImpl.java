@@ -27,7 +27,3 @@ public class ShippingDaoImpl extends BaseDaoImpl<Shipping, Long>
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ShippingDaoImpl
-

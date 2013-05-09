@@ -223,7 +223,3 @@ public class RegisterController extends BaseController
     return (Message)(Message)(Message)(Message)(Message)Message.success("shop.register.success", new Object[0]);
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.RegisterController
-

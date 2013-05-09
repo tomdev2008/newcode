@@ -9,7 +9,3 @@ public class ReturnsDaoImpl extends BaseDaoImpl<Returns, Long>
   implements ReturnsDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ReturnsDaoImpl
-

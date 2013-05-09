@@ -315,7 +315,7 @@ public class Article extends BaseEntity
       if (StringUtils.isNotEmpty((String)localObject1))
         localArrayList.add(localObject1);
     }
-    return (String)(String)(String[])localArrayList.toArray(new String[localArrayList.size()]);
+    return (String[])localArrayList.toArray(new String[localArrayList.size()]);
   }
 
   @Transient

@@ -84,7 +84,3 @@ public class NavigationController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.NavigationController
-

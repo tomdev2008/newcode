@@ -37,7 +37,3 @@ public class CouponDaoImpl extends BaseDaoImpl<Coupon, Long>
     return super.IIIllIlI(localCriteriaQuery, pageable);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.CouponDaoImpl
-

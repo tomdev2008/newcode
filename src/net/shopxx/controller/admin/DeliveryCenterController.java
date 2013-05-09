@@ -75,7 +75,3 @@ public class DeliveryCenterController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.DeliveryCenterController
-

@@ -99,7 +99,3 @@ public class SalesController extends BaseController
     return (String)(String)"/admin/sales/view";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.SalesController
-

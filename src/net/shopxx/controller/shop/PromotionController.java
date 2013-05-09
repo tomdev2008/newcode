@@ -27,7 +27,3 @@ public class PromotionController extends BaseController
     return "/shop/promotion/content";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.PromotionController
-

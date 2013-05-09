@@ -2,16 +2,17 @@ package net.shopxx.test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 import javax.annotation.Resource;
+
 import net.shopxx.dao.ArticleCategoryDao;
 import net.shopxx.dao.ArticleDao;
 import net.shopxx.dao.TagDao;
 import net.shopxx.entity.Article;
 import net.shopxx.entity.ArticleCategory;
 import net.shopxx.entity.Tag;
-import net.shopxx.entity.Tag.Type;
+import net.shopxx.entity.Tag.TagType;
+
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -74,7 +75,7 @@ public class ArticleDaoImplTest
       localObject = new Tag();
       ((Tag)localObject).setName(str);
       ((Tag)localObject).setOrder(Integer.valueOf(i));
-      ((Tag)localObject).setType(Tag.Type.article);
+      ((Tag)localObject).setType(TagType.article);
       this.tagDao.persist(localObject);
       IIlIIIII[i] = ((Tag)localObject).getId();
     }

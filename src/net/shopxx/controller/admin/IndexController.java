@@ -91,7 +91,3 @@ public class IndexController extends BaseController
     return (Map<String, Object>)(Map<String, Object>)localObject2;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.IndexController
-

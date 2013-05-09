@@ -21,7 +21,3 @@ public class StoragePluginController extends BaseController
     return "/admin/storage_plugin/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.StoragePluginController
-

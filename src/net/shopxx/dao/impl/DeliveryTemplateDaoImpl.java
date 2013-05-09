@@ -49,7 +49,3 @@ public class DeliveryTemplateDaoImpl extends BaseDaoImpl<DeliveryTemplate, Long>
     return (DeliveryTemplate)super.merge(deliveryTemplate);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.DeliveryTemplateDaoImpl
-

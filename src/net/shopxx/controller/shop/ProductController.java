@@ -140,7 +140,4 @@ public class ProductController extends BaseController
     return Long.valueOf(this.IIIlllIl.viewHits(id));
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.ProductController
-
+d

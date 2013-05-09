@@ -112,7 +112,3 @@ public class ReceiverController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.ReceiverController
-

@@ -50,7 +50,7 @@ public class Attribute extends OrderEntity
     this.propertyIndex = propertyIndex;
   }
 
-  @NotNull(groups={BaseEntity.Save.class})
+  @NotNull(groups={BaseEntity.class})
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(nullable=false, updatable=false)
   public ProductCategory getProductCategory()

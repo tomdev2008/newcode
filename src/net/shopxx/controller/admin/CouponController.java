@@ -133,7 +133,3 @@ public class CouponController extends BaseController
     return new ModelAndView(new ExcelView(str, null, new String[] { "code" }, new String[] { IIIllIlI("admin.coupon.title", new Object[0]) }, null, null, localList, arrayOfString), model);
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.CouponController
-

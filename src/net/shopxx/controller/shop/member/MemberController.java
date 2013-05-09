@@ -61,7 +61,3 @@ public class MemberController extends BaseController
     return "shop/member/index";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.MemberController
-

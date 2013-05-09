@@ -60,7 +60,3 @@ public class CouponCodeController extends BaseController
     return "shop/member/coupon_code/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.CouponCodeController
-

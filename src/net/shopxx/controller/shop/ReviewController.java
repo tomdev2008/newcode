@@ -111,7 +111,3 @@ public class ReviewController extends BaseController
     return Message.success("shop.review.success", new Object[0]);
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.ReviewController
-

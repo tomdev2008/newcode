@@ -9,7 +9,3 @@ public class OrderItemDaoImpl extends BaseDaoImpl<OrderItem, Long>
   implements OrderItemDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.OrderItemDaoImpl
-

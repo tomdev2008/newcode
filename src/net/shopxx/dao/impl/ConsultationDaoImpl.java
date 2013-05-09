@@ -74,7 +74,3 @@ public class ConsultationDaoImpl extends BaseDaoImpl<Consultation, Long>
     return super.IIIllIlI(localCriteriaQuery, null);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ConsultationDaoImpl
-

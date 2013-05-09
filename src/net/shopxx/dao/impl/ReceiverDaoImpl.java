@@ -78,7 +78,3 @@ public class ReceiverDaoImpl extends BaseDaoImpl<Receiver, Long>
     return (Receiver)super.merge(receiver);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ReceiverDaoImpl
-

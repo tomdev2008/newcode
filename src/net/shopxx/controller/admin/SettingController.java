@@ -190,7 +190,3 @@ public class SettingController extends BaseController
     return (String)"redirect:edit.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.SettingController
-

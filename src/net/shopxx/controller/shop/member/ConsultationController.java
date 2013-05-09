@@ -31,7 +31,3 @@ public class ConsultationController extends BaseController
     return "shop/member/consultation/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.ConsultationController
-

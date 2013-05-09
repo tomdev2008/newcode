@@ -80,7 +80,3 @@ public class ShippingMethodController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.ShippingMethodController
-

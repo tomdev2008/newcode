@@ -101,7 +101,3 @@ public class SnDaoImpl
     return l;
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.SnDaoImpl
-

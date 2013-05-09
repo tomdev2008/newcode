@@ -47,7 +47,3 @@ public class LogController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.LogController
-

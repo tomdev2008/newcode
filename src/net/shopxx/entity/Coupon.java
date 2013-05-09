@@ -239,18 +239,19 @@ public class Coupon extends BaseEntity
   @Transient
   public BigDecimal calculatePrice(BigDecimal price)
   {
+	 BigDecimal localBigDecimal = null;
     if ((price != null) && (getPriceOperator() != null) && (getPriceValue() != null))
     {
       Setting localSetting = SettingUtils.get();
-      if (getPriceOperator() == Coupon.Operator.add)
+      if (getPriceOperator() == CouponOperator.add)
         localBigDecimal = price.add(getPriceValue());
-      else if (getPriceOperator() == Coupon.Operator.subtract)
+      else if (getPriceOperator() == CouponOperator.subtract)
         localBigDecimal = price.subtract(getPriceValue());
-      else if (getPriceOperator() == Coupon.Operator.multiply)
+      else if (getPriceOperator() == CouponOperator.multiply)
         localBigDecimal = price.multiply(getPriceValue());
       else
         localBigDecimal = price.divide(getPriceValue());
-      BigDecimal localBigDecimal = localSetting.setScale(localBigDecimal);
+      localBigDecimal = localSetting.setScale(localBigDecimal);
       return localBigDecimal.compareTo(new BigDecimal(0)) > 0 ? localBigDecimal : new BigDecimal(0);
     }
     return price;
@@ -260,6 +261,7 @@ public class Coupon extends BaseEntity
   public void preRemove()
   {
     Set localSet = getPromotions();
+    Object localObject1;
     Object localObject2;
     if (localSet != null)
     {
@@ -270,7 +272,7 @@ public class Coupon extends BaseEntity
         ((Promotion)localObject1).getCoupons().remove(this);
       }
     }
-    Object localObject1 = getOrders();
+    localObject1 = getOrders();
     if (localObject1 != null)
     {
       Iterator localIterator = ((List)localObject1).iterator();

@@ -19,7 +19,3 @@ public class CartDaoImpl extends BaseDaoImpl<Cart, Long>
     this.IIIllIlI.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("expire", DateUtils.addSeconds(new Date(), -604800)).executeUpdate();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.CartDaoImpl
-

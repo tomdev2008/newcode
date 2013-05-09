@@ -9,7 +9,3 @@ public class AdDaoImpl extends BaseDaoImpl<Ad, Long>
   implements AdDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.AdDaoImpl
-

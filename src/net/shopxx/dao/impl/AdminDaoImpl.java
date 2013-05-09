@@ -36,7 +36,3 @@ public class AdminDaoImpl extends BaseDaoImpl<Admin, Long>
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.AdminDaoImpl
-

@@ -9,7 +9,3 @@ public class BrandDaoImpl extends BaseDaoImpl<Brand, Long>
   implements BrandDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.BrandDaoImpl
-

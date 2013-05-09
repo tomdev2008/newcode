@@ -36,7 +36,3 @@ public class SitemapController extends BaseController
     return "redirect:build.jhtml";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.SitemapController
-

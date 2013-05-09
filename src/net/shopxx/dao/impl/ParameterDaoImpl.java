@@ -33,7 +33,3 @@ public class ParameterDaoImpl extends BaseDaoImpl<Parameter, Long>
     return this.IIIllIlI.createQuery(localCriteriaQuery).setFlushMode(FlushModeType.COMMIT).getResultList();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ParameterDaoImpl
-

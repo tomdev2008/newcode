@@ -125,7 +125,3 @@ public class ProductCategoryDaoImpl extends BaseDaoImpl<ProductCategory, Long>
     paramProductCategory.setGrade(Integer.valueOf(paramProductCategory.getTreePaths().size()));
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ProductCategoryDaoImpl
-

@@ -25,7 +25,3 @@ public class PurchaseRankingController extends BaseController
     return "/admin/purchase_ranking/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.PurchaseRankingController
-

@@ -499,7 +499,3 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long>
     paramProduct.setFullName(((StringBuffer)localObject).toString());
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ProductDaoImpl
-

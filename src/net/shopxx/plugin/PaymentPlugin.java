@@ -32,7 +32,7 @@ public abstract class PaymentPlugin
   }
   
   @Resource(name="pluginConfigServiceImpl")
-  private PluginConfigService IIIllIlI;
+  private PluginConfigService pluginConfigService;
 
   public final String getId()
   {
@@ -55,12 +55,12 @@ public abstract class PaymentPlugin
 
   public boolean getIsInstalled()
   {
-    return this.IIIllIlI.pluginIdExists(getId());
+    return this.pluginConfigService.pluginIdExists(getId());
   }
 
   public PluginConfig getPluginConfig()
   {
-    return this.IIIllIlI.findByPluginId(getId());
+    return this.pluginConfigService.findByPluginId(getId());
   }
 
   public boolean getIsEnabled()
@@ -125,7 +125,7 @@ public abstract class PaymentPlugin
 
   public abstract String getNotifyContext(String paramString, HttpServletRequest paramHttpServletRequest);
 
-  protected String IIIllIlI(String paramString)
+  protected String pluginConfigService(String paramString)
   {
     Setting localSetting = SettingUtils.get();
     return localSetting.getSiteUrl() + "/payment/return/" + paramString + ".jhtml";

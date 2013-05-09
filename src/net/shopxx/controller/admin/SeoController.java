@@ -41,7 +41,3 @@ public class SeoController extends BaseController
     return "/admin/seo/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.SeoController
-

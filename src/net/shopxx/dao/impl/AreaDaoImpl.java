@@ -21,7 +21,3 @@ public class AreaDaoImpl extends BaseDaoImpl<Area, Long>
     return localTypedQuery.getResultList();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.AreaDaoImpl
-

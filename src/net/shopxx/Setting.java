@@ -39,10 +39,10 @@ public class Setting implements Serializable {
 	private Integer watermarkAlpha;
 	private String watermarkImage;
 	private WatermarkPosition watermarkPosition;
-	private Integer priceScale;
+	private Integer price;
 	private RoundType priceRoundType;
 	private Boolean isShowMarketPrice;
-	private Double defaultMarketPriceScale;
+	private Double defaultMarketPrice;
 	private Boolean isRegisterEnabled;
 	private Boolean isDuplicateEmail;
 	private String disabledUsername;
@@ -76,7 +76,7 @@ public class Setting implements Serializable {
 	private String currencyUnit;
 	private Integer stockAlertCount;
 	private StockAllocationTime stockAllocationTime;
-	private Double defaultPointScale;
+	private Double defaultPoint;
 	private Boolean isDevelopmentEnabled;
 	private Boolean isReviewEnabled;
 	private Boolean isReviewCheck;
@@ -324,12 +324,12 @@ public class Setting implements Serializable {
 	@NotNull
 	@Min(0L)
 	@Max(3L)
-	public Integer getPriceScale() {
-		return this.priceScale;
+	public Integer getPrice() {
+		return this.price;
 	}
 
-	public void setPriceScale(Integer priceScale) {
-		this.priceScale = priceScale;
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 	@NotNull
@@ -353,12 +353,12 @@ public class Setting implements Serializable {
 	@NotNull
 	@Min(0L)
 	@Digits(integer = 3, fraction = 3)
-	public Double getDefaultMarketPriceScale() {
-		return this.defaultMarketPriceScale;
+	public Double getDefaultMarketPrice() {
+		return this.defaultMarketPrice;
 	}
 
-	public void setDefaultMarketPriceScale(Double defaultMarketPriceScale) {
-		this.defaultMarketPriceScale = defaultMarketPriceScale;
+	public void setDefaultMarketPrice(Double defaultMarketPrice) {
+		this.defaultMarketPrice = defaultMarketPrice;
 	}
 
 	@NotNull
@@ -740,12 +740,12 @@ public class Setting implements Serializable {
 	@NotNull
 	@Min(0L)
 	@Digits(integer = 3, fraction = 3)
-	public Double getDefaultPointScale() {
-		return this.defaultPointScale;
+	public Double getDefaultPoint() {
+		return this.defaultPoint;
 	}
 
-	public void setDefaultPointScale(Double defaultPointScale) {
-		this.defaultPointScale = defaultPointScale;
+	public void setDefaultPoint(Double defaultPoint) {
+		this.defaultPoint = defaultPoint;
 	}
 
 	@NotNull
@@ -920,21 +920,19 @@ public class Setting implements Serializable {
 		return StringUtils.split(this.uploadFileExtension, ",");
 	}
 
-	public BigDecimal setScale(BigDecimal amount) {
+	public BigDecimal set(BigDecimal amount) {
 		if (amount == null)
 			return null;
-		int roundingMode;
 		int roundingMode;
 		if (getPriceRoundType() == RoundType.roundUp) {
 			roundingMode = 0;
 		} else {
-			int roundingMode;
 			if (getPriceRoundType() == RoundType.roundDown)
 				roundingMode = 1;
 			else
 				roundingMode = 4;
 		}
-		return amount.setScale(getPriceScale().intValue(), roundingMode);
+		return amount.setScale(getPrice().intValue(), roundingMode);
 	}
 
 	public static enum AccountLockType {

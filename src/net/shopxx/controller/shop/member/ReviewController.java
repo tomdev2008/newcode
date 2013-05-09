@@ -31,7 +31,3 @@ public class ReviewController extends BaseController
     return "shop/member/review/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.ReviewController
-

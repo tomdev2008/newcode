@@ -165,7 +165,3 @@ public class MessageController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.MessageController
-

@@ -82,7 +82,3 @@ public class BrandController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.BrandController
-

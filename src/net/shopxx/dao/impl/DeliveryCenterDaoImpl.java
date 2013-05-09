@@ -49,7 +49,3 @@ public class DeliveryCenterDaoImpl extends BaseDaoImpl<DeliveryCenter, Long>
     return (DeliveryCenter)super.merge(deliveryCenter);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.DeliveryCenterDaoImpl
-

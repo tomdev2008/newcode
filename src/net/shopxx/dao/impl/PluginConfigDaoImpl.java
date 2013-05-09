@@ -36,7 +36,3 @@ public class PluginConfigDaoImpl extends BaseDaoImpl<PluginConfig, Long>
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.PluginConfigDaoImpl
-

@@ -9,7 +9,3 @@ public class DeliveryCorpDaoImpl extends BaseDaoImpl<DeliveryCorp, Long>
   implements DeliveryCorpDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.DeliveryCorpDaoImpl
-

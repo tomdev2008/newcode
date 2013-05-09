@@ -105,7 +105,3 @@ public class MessageDaoImpl extends BaseDaoImpl<Message, Long>
       }
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.MessageDaoImpl
-

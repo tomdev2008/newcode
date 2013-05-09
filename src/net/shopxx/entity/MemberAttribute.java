@@ -40,7 +40,7 @@ public class MemberAttribute extends OrderEntity
     this.name = name;
   }
 
-  @NotNull(groups={BaseEntity.Save.class})
+  @NotNull(groups={BaseEntity.class})
   @Column(nullable=false, updatable=false)
   public MemberAttributeType getType()
   {

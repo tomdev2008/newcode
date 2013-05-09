@@ -7,21 +7,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("adminPaymentPluginController")
-@RequestMapping({"/admin/payment_plugin"})
-public class PaymentPluginController extends BaseController
-{
+@RequestMapping({ "/admin/payment_plugin" })
+public class PaymentPluginController extends BaseController {
 
-  @Resource(name="pluginServiceImpl")
-  private PluginService IIIlllIl;
+	@Resource(name = "pluginServiceImpl")
+	private PluginService pluginService;
 
-  @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String list(ModelMap model)
-  {
-    model.addAttribute("paymentPlugins", this.IIIlllIl.getPaymentPlugins());
-    return "/admin/payment_plugin/list";
-  }
+	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String list(ModelMap model) {
+		model.addAttribute("paymentPlugins",this.pluginService.getPaymentPlugins());
+		return "/admin/payment_plugin/list";
+	}
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.PaymentPluginController
-

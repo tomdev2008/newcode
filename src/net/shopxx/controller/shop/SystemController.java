@@ -42,7 +42,3 @@ public class SystemController
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.SystemController
-

@@ -338,7 +338,4 @@ public class OrderController extends BaseController
     return (Map<String, Object>)localObject;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.member.OrderController
-
+d

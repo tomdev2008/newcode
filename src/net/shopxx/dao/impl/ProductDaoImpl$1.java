@@ -12,7 +12,3 @@ class ProductDaoImpl$1
     return new CompareToBuilder().append(a1.getSpecification(), a2.getSpecification()).toComparison();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ProductDaoImpl.1
-

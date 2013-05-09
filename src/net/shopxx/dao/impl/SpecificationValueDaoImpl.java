@@ -9,7 +9,3 @@ public class SpecificationValueDaoImpl extends BaseDaoImpl<SpecificationValue, L
   implements SpecificationValueDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.SpecificationValueDaoImpl
-

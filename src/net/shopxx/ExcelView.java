@@ -101,13 +101,13 @@ public class ExcelView extends AbstractExcelView
       {
         localObject2 = ((HSSFRow)localObject1).createCell(j);
         HSSFCellStyle localHSSFCellStyle = workbook.createCellStyle();
-        localHSSFCellStyle.setFillForegroundColor(31);
-        localHSSFCellStyle.setFillPattern(1);
-        localHSSFCellStyle.setAlignment(2);
-        localHSSFCellStyle.setVerticalAlignment(1);
+        localHSSFCellStyle.setFillForegroundColor((short) 31);
+        localHSSFCellStyle.setFillPattern((short) 1);
+        localHSSFCellStyle.setAlignment((short)2);
+        localHSSFCellStyle.setVerticalAlignment((short)1);
         localObject3 = workbook.createFont();
-        ((HSSFFont)localObject3).setFontHeightInPoints(11);
-        ((HSSFFont)localObject3).setBoldweight(700);
+        ((HSSFFont)localObject3).setFontHeightInPoints((short)11);
+        ((HSSFFont)localObject3).setBoldweight((short)700);
         localHSSFCellStyle.setFont((HSSFFont)localObject3);
         ((HSSFCell)localObject2).setCellStyle(localHSSFCellStyle);
         if (j == 0)
@@ -174,7 +174,7 @@ public class ExcelView extends AbstractExcelView
         localObject4 = ((HSSFRow)localObject3).createCell(0);
         localObject5 = workbook.createCellStyle();
         HSSFFont localHSSFFont = workbook.createFont();
-        localHSSFFont.setColor(23);
+        localHSSFFont.setColor((short) 23);
         ((HSSFCellStyle)localObject5).setFont(localHSSFFont);
         ((HSSFCell)localObject4).setCellStyle((HSSFCellStyle)localObject5);
         ((HSSFCell)localObject4).setCellValue((String)localObject1);
@@ -254,7 +254,7 @@ public class ExcelView extends AbstractExcelView
   }
 
   public void setData(Collection<?> data)
-  {data
+  {
     this.data = data;
   }
 

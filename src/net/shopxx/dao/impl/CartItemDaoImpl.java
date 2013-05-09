@@ -10,6 +10,3 @@ public class CartItemDaoImpl extends BaseDaoImpl<CartItem, Long>
 {
 }
 
-
- * Qualified Name:     net.shopxx.dao.impl.CartItemDaoImpl
-

@@ -62,7 +62,3 @@ public class PrintController extends BaseController
     return "/admin/print/delivery";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.PrintController
-

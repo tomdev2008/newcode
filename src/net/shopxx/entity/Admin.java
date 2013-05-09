@@ -39,7 +39,7 @@ public class Admin extends BaseEntity
   private Set<Role> roles = new HashSet();
   private Set<Order> orders = new HashSet();
 
-  @NotEmpty(groups={BaseEntity.Save.class})
+  @NotEmpty(groups={BaseEntity.class})
   @Pattern(regexp="^[0-9a-z_A-Z\\u4e00-\\u9fa5]+$")
   @Length(min=2, max=20)
   @Column(nullable=false, updatable=false, unique=true)
@@ -53,7 +53,7 @@ public class Admin extends BaseEntity
     this.username = username;
   }
 
-  @NotEmpty(groups={BaseEntity.Save.class})
+  @NotEmpty(groups={BaseEntity.class})
   @Pattern(regexp="^[^\\s&\"<>]+$")
   @Length(min=4, max=20)
   @Column(nullable=false)

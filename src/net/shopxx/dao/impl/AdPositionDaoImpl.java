@@ -9,7 +9,3 @@ public class AdPositionDaoImpl extends BaseDaoImpl<AdPosition, Long>
   implements AdPositionDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.AdPositionDaoImpl
-

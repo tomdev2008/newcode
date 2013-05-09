@@ -79,7 +79,3 @@ public class FriendLinkController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.FriendLinkController
-

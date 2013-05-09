@@ -25,7 +25,3 @@ public class SalesRankingController extends BaseController
     return "/admin/sales_ranking/list";
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.SalesRankingController
-

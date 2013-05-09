@@ -87,7 +87,3 @@ public class BaseController
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.BaseController
-

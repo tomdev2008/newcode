@@ -27,7 +27,3 @@ public class PaymentDaoImpl extends BaseDaoImpl<Payment, Long>
     return null;
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.PaymentDaoImpl
-

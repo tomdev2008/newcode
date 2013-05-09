@@ -40,7 +40,3 @@ public class AttributeDaoImpl extends BaseDaoImpl<Attribute, Long>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.AttributeDaoImpl
-

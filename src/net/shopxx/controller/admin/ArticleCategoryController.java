@@ -96,7 +96,3 @@ public class ArticleCategoryController extends BaseController
     return IIIlllII;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.ArticleCategoryController
-

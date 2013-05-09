@@ -49,7 +49,3 @@ public class FileController extends BaseController
     return this.IIIlllIl.browser(path, fileType, orderType);
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.admin.FileController
-

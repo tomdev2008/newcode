@@ -9,7 +9,3 @@ public class PaymentMethodDaoImpl extends BaseDaoImpl<PaymentMethod, Long>
   implements PaymentMethodDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.PaymentMethodDaoImpl
-

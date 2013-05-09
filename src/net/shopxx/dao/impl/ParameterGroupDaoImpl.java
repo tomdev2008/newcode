@@ -74,7 +74,3 @@ public class ParameterGroupDaoImpl extends BaseDaoImpl<ParameterGroup, Long>
     }
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ParameterGroupDaoImpl
-

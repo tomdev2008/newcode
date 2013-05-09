@@ -79,7 +79,3 @@ public class ProductNotifyController extends BaseController
     return localHashMap;
   }
 }
-
-
- * Qualified Name:     net.shopxx.controller.shop.ProductNotifyController
-

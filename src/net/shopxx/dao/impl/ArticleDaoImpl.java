@@ -81,7 +81,3 @@ public class ArticleDaoImpl extends BaseDaoImpl<Article, Long>
     return super.IIIllIlI(localCriteriaQuery, pageable);
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ArticleDaoImpl
-

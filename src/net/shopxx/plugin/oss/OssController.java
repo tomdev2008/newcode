@@ -19,10 +19,10 @@ public class OssController extends BaseController
 {
 
   @Resource(name="ossPlugin")
-  private OssPlugin IIIlllIl;
+  private OssPlugin ossPlugin;
 
   @Resource(name="pluginConfigServiceImpl")
-  private PluginConfigService IIIllllI;
+  private PluginConfigService pluginConfigService;
 
   @RequestMapping(value={"/install"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String install(RedirectAttributes redirectAttributes)
@@ -38,12 +38,12 @@ public class OssController extends BaseController
         return "redirect:/admin/storage_plugin/list.jhtml";
       }
     }
-    if (!this.IIIlllIl.getIsInstalled())
+    if (!this.ossPlugin.getIsInstalled())
     {
       localObject = new PluginConfig();
-      ((PluginConfig)localObject).setPluginId(this.IIIlllIl.getId());
+      ((PluginConfig)localObject).setPluginId(this.ossPlugin.getId());
       ((PluginConfig)localObject).setIsEnabled(Boolean.valueOf(false));
-      this.IIIllllI.save(localObject);
+      this.pluginConfigService.save(localObject);
     }
     IIIllIlI(redirectAttributes, IIIlllII);
     return (String)"redirect:/admin/storage_plugin/list.jhtml";
@@ -52,10 +52,10 @@ public class OssController extends BaseController
   @RequestMapping(value={"/uninstall"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String uninstall(RedirectAttributes redirectAttributes)
   {
-    if (this.IIIlllIl.getIsInstalled())
+    if (this.ossPlugin.getIsInstalled())
     {
-      PluginConfig localPluginConfig = this.IIIlllIl.getPluginConfig();
-      this.IIIllllI.delete(localPluginConfig);
+      PluginConfig localPluginConfig = this.ossPlugin.getPluginConfig();
+      this.pluginConfigService.delete(localPluginConfig);
     }
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:/admin/storage_plugin/list.jhtml";
@@ -64,7 +64,7 @@ public class OssController extends BaseController
   @RequestMapping(value={"/setting"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String setting(ModelMap model)
   {
-    PluginConfig localPluginConfig = this.IIIlllIl.getPluginConfig();
+    PluginConfig localPluginConfig = this.ossPlugin.getPluginConfig();
     model.addAttribute("pluginConfig", localPluginConfig);
     return "/net/shopxx/plugin/oss/setting";
   }
@@ -72,14 +72,14 @@ public class OssController extends BaseController
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(String accessId, String accessKey, String bucketName, String urlPrefix, @RequestParam(defaultValue="false") Boolean isEnabled, Integer order, RedirectAttributes redirectAttributes)
   {
-    PluginConfig localPluginConfig = this.IIIlllIl.getPluginConfig();
+    PluginConfig localPluginConfig = this.ossPlugin.getPluginConfig();
     localPluginConfig.setAttribute("accessId", accessId);
     localPluginConfig.setAttribute("accessKey", accessKey);
     localPluginConfig.setAttribute("bucketName", bucketName);
     localPluginConfig.setAttribute("urlPrefix", StringUtils.removeEnd(urlPrefix, "/"));
     localPluginConfig.setIsEnabled(isEnabled);
     localPluginConfig.setOrder(order);
-    this.IIIllllI.update(localPluginConfig);
+    this.pluginConfigService.update(localPluginConfig);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:/admin/storage_plugin/list.jhtml";
   }

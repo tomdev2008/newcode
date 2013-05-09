@@ -29,7 +29,3 @@ public class TagDaoImpl extends BaseDaoImpl<Tag, Long>
     return this.IIIllIlI.createQuery(localCriteriaQuery).setFlushMode(FlushModeType.COMMIT).getResultList();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.TagDaoImpl
-

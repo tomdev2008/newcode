@@ -9,7 +9,3 @@ public class RoleDaoImpl extends BaseDaoImpl<Role, Long>
   implements RoleDao
 {
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.RoleDaoImpl
-

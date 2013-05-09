@@ -118,7 +118,3 @@ public class ReviewDaoImpl extends BaseDaoImpl<Review, Long>
     return ((Long)this.IIIllIlI.createQuery(str, Long.class).setFlushMode(FlushModeType.COMMIT).setParameter("product", product).setParameter("isShow", Boolean.valueOf(true)).getSingleResult()).longValue();
   }
 }
-
-
- * Qualified Name:     net.shopxx.dao.impl.ReviewDaoImpl
-
