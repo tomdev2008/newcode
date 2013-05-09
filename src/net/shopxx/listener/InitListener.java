@@ -1,12 +1,14 @@
 package net.shopxx.listener;
 
 import java.io.File;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+
 import net.shopxx.service.CacheService;
 import net.shopxx.service.SearchService;
 import net.shopxx.service.StaticService;
-import org.springframework.context.ApplicationContext;
+
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -17,39 +19,39 @@ public class InitListener
   implements ApplicationListener<ContextRefreshedEvent>, ServletContextAware
 {
   private static final String IIIllIlI = "/install_init.conf";
-  private ServletContext IIIllIll;
+  private ServletContext servletContext;
 
   @Resource(name="staticServiceImpl")
-  private StaticService IIIlllII;
+  private StaticService staticService;
 
   @Resource(name="cacheServiceImpl")
-  private CacheService IIIlllIl;
+  private CacheService cacheService;
 
   @Resource(name="searchServiceImpl")
-  private SearchService IIIllllI;
+  private SearchService searchService;
 
   public void setServletContext(ServletContext servletContext)
   {
-    this.IIIllIll = servletContext;
+    this.servletContext = servletContext;
   }
 
   public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent)
   {
-    if ((this.IIIllIll != null) && (contextRefreshedEvent.getApplicationContext().getParent() == null))
+    if ((this.servletContext != null) && (contextRefreshedEvent.getApplicationContext().getParent() == null))
     {
-      File localFile = new File(this.IIIllIll.getRealPath("/install_init.conf"));
+      File localFile = new File(this.servletContext.getRealPath("/install_init.conf"));
       if (localFile.exists())
       {
-        this.IIIlllIl.clear();
-        this.IIIlllII.buildAll();
-        this.IIIllllI.purge();
-        this.IIIllllI.index();
+        this.cacheService.clear();
+        this.staticService.buildAll();
+        this.searchService.purge();
+        this.searchService.index();
         localFile.delete();
       }
       else
       {
-        this.IIIlllII.buildIndex();
-        this.IIIlllII.buildOther();
+        this.staticService.buildIndex();
+        this.staticService.buildOther();
       }
     }
   }

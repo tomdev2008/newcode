@@ -17,7 +17,7 @@ public class AdPositionController extends BaseController
 {
 
   @Resource(name="adPositionServiceImpl")
-  private AdPositionService IIIlllIl;
+  private AdPositionService adPositionService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
@@ -31,7 +31,7 @@ public class AdPositionController extends BaseController
     if (!IIIllIlI(adPosition, new Class[0]))
       return "/admin/common/error";
     adPosition.setAds(null);
-    this.IIIlllIl.save(adPosition);
+    this.adPositionService.save(adPosition);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -39,7 +39,7 @@ public class AdPositionController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("adPosition", this.IIIlllIl.find(id));
+    model.addAttribute("adPosition", this.adPositionService.find(id));
     return "/admin/ad_position/edit";
   }
 
@@ -48,7 +48,7 @@ public class AdPositionController extends BaseController
   {
     if (!IIIllIlI(adPosition, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(adPosition, new String[] { "ads" });
+    this.adPositionService.update(adPosition, new String[] { "ads" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -56,7 +56,7 @@ public class AdPositionController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.adPositionService.findPage(pageable));
     return "/admin/ad_position/list";
   }
 
@@ -64,7 +64,7 @@ public class AdPositionController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.adPositionService.delete(ids);
     return IIIlllII;
   }
 }

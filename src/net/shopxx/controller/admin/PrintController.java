@@ -16,47 +16,47 @@ public class PrintController extends BaseController
 {
 
   @Resource(name="orderServiceImpl")
-  private OrderService IIIlllIl;
+  private OrderService orderService;
 
   @Resource(name="deliveryTemplateServiceImpl")
-  private DeliveryTemplateService IIIllllI;
+  private DeliveryTemplateService deliveryTemplateService;
 
   @Resource(name="deliveryCenterServiceImpl")
-  private DeliveryCenterService IIIlllll;
+  private DeliveryCenterService deliveryCenterService;
 
   @RequestMapping(value={"/order"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String order(Long id, ModelMap model)
   {
-    model.addAttribute("order", this.IIIlllIl.find(id));
+    model.addAttribute("order", this.orderService.find(id));
     return "/admin/print/order";
   }
 
   @RequestMapping(value={"/product"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String product(Long id, ModelMap model)
   {
-    model.addAttribute("order", this.IIIlllIl.find(id));
+    model.addAttribute("order", this.orderService.find(id));
     return "/admin/print/product";
   }
 
   @RequestMapping(value={"/shipping"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String shipping(Long id, ModelMap model)
   {
-    model.addAttribute("order", this.IIIlllIl.find(id));
+    model.addAttribute("order", this.orderService.find(id));
     return "/admin/print/shipping";
   }
 
   @RequestMapping(value={"/delivery"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String delivery(Long orderId, Long deliveryTemplateId, Long deliveryCenterId, ModelMap model)
   {
-    DeliveryTemplate localDeliveryTemplate = (DeliveryTemplate)this.IIIllllI.find(deliveryTemplateId);
-    DeliveryCenter localDeliveryCenter = (DeliveryCenter)this.IIIlllll.find(deliveryCenterId);
+    DeliveryTemplate localDeliveryTemplate = (DeliveryTemplate)this.deliveryTemplateService.find(deliveryTemplateId);
+    DeliveryCenter localDeliveryCenter = (DeliveryCenter)this.deliveryCenterService.find(deliveryCenterId);
     if (localDeliveryTemplate == null)
-      localDeliveryTemplate = this.IIIllllI.findDefault();
+      localDeliveryTemplate = this.deliveryTemplateService.findDefault();
     if (localDeliveryCenter == null)
-      localDeliveryCenter = this.IIIlllll.findDefault();
-    model.addAttribute("deliveryTemplates", this.IIIllllI.findAll());
-    model.addAttribute("deliveryCenters", this.IIIlllll.findAll());
-    model.addAttribute("order", this.IIIlllIl.find(orderId));
+      localDeliveryCenter = this.deliveryCenterService.findDefault();
+    model.addAttribute("deliveryTemplates", this.deliveryTemplateService.findAll());
+    model.addAttribute("deliveryCenters", this.deliveryCenterService.findAll());
+    model.addAttribute("order", this.orderService.find(orderId));
     model.addAttribute("deliveryTemplate", localDeliveryTemplate);
     model.addAttribute("deliveryCenter", localDeliveryCenter);
     return "/admin/print/delivery";

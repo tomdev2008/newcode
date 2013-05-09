@@ -1,9 +1,10 @@
 package net.shopxx.controller.admin;
 
-import freemarker.template.Configuration;
 import javax.annotation.Resource;
-import net.shopxx.Template.Type;
+
+import net.shopxx.Template.TemplateType;
 import net.shopxx.service.TemplateService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,18 +18,18 @@ public class TemplateController extends BaseController
 {
 
   @Resource(name="freeMarkerConfigurer")
-  private FreeMarkerConfigurer IIIlllIl;
+  private FreeMarkerConfigurer freeMarkerConfigurer;
 
   @Resource(name="templateServiceImpl")
-  private TemplateService IIIllllI;
+  private TemplateService templateService;
 
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(String id, ModelMap model)
   {
     if (StringUtils.isEmpty(id))
       return "/admin/common/error";
-    model.addAttribute("template", this.IIIllllI.get(id));
-    model.addAttribute("content", this.IIIllllI.read(id));
+    model.addAttribute("template", this.templateService.get(id));
+    model.addAttribute("content", this.templateService.read(id));
     return "/admin/template/edit";
   }
 
@@ -37,18 +38,18 @@ public class TemplateController extends BaseController
   {
     if ((StringUtils.isEmpty(id)) || (content == null))
       return "/admin/common/error";
-    this.IIIllllI.write(id, content);
-    this.IIIlllIl.getConfiguration().clearTemplateCache();
+    this.templateService.write(id, content);
+    this.freeMarkerConfigurer.getConfiguration().clearTemplateCache();
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
 
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String list(Template.Type type, ModelMap model)
+  public String list(TemplateType type, ModelMap model)
   {
     model.addAttribute("type", type);
-    model.addAttribute("types", Template.Type.values());
-    model.addAttribute("templates", this.IIIllllI.getList(type));
+    model.addAttribute("types", TemplateType.values());
+    model.addAttribute("templates", this.templateService.getList(type));
     return "/admin/template/list";
   }
 }

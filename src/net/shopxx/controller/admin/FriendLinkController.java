@@ -1,11 +1,13 @@
 package net.shopxx.controller.admin;
 
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.FriendLink;
-import net.shopxx.entity.FriendLink.Type;
+import net.shopxx.entity.FriendLink.FriendLinkType;
 import net.shopxx.service.FriendLinkService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,12 +21,12 @@ public class FriendLinkController extends BaseController
 {
 
   @Resource(name="friendLinkServiceImpl")
-  private FriendLinkService IIIlllIl;
+  private FriendLinkService friendLinkService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("types", FriendLink.Type.values());
+    model.addAttribute("types", FriendLinkType.values());
     return "/admin/friend_link/add";
   }
 
@@ -33,11 +35,11 @@ public class FriendLinkController extends BaseController
   {
     if (!IIIllIlI(friendLink, new Class[0]))
       return "/admin/common/error";
-    if (friendLink.getType() == FriendLink.Type.text)
+    if (friendLink.getType() == FriendLinkType.text)
       friendLink.setLogo(null);
     else if (StringUtils.isEmpty(friendLink.getLogo()))
       return "/admin/common/error";
-    this.IIIlllIl.save(friendLink);
+    this.friendLinkService.save(friendLink);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -45,8 +47,8 @@ public class FriendLinkController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("types", FriendLink.Type.values());
-    model.addAttribute("friendLink", this.IIIlllIl.find(id));
+    model.addAttribute("types", FriendLinkType.values());
+    model.addAttribute("friendLink", this.friendLinkService.find(id));
     return "/admin/friend_link/edit";
   }
 
@@ -55,11 +57,11 @@ public class FriendLinkController extends BaseController
   {
     if (!IIIllIlI(friendLink, new Class[0]))
       return "/admin/common/error";
-    if (friendLink.getType() == FriendLink.Type.text)
+    if (friendLink.getType() == FriendLinkType.text)
       friendLink.setLogo(null);
     else if (StringUtils.isEmpty(friendLink.getLogo()))
       return "/admin/common/error";
-    this.IIIlllIl.update(friendLink);
+    this.friendLinkService.update(friendLink);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -67,7 +69,7 @@ public class FriendLinkController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.friendLinkService.findPage(pageable));
     return "/admin/friend_link/list";
   }
 
@@ -75,7 +77,7 @@ public class FriendLinkController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.friendLinkService.delete(ids);
     return IIIlllII;
   }
 }

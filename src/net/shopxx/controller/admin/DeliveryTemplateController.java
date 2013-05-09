@@ -17,7 +17,7 @@ public class DeliveryTemplateController extends BaseController
 {
 
   @Resource(name="deliveryTemplateServiceImpl")
-  private DeliveryTemplateService IIIlllIl;
+  private DeliveryTemplateService deliveryTemplateService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(Pageable pageable)
@@ -30,7 +30,7 @@ public class DeliveryTemplateController extends BaseController
   {
     if (!IIIllIlI(deliveryTemplate, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.save(deliveryTemplate);
+    this.deliveryTemplateService.save(deliveryTemplate);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -38,7 +38,7 @@ public class DeliveryTemplateController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String eidt(Long id, Model model)
   {
-    model.addAttribute("deliveryTemplate", this.IIIlllIl.find(id));
+    model.addAttribute("deliveryTemplate", this.deliveryTemplateService.find(id));
     return "/admin/delivery_template/edit";
   }
 
@@ -47,7 +47,7 @@ public class DeliveryTemplateController extends BaseController
   {
     if (!IIIllIlI(deliveryTemplate, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(deliveryTemplate);
+    this.deliveryTemplateService.update(deliveryTemplate);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -55,7 +55,7 @@ public class DeliveryTemplateController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, Model model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.deliveryTemplateService.findPage(pageable));
     return "/admin/delivery_template/list";
   }
 
@@ -63,7 +63,7 @@ public class DeliveryTemplateController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.deliveryTemplateService.delete(ids);
     return IIIlllII;
   }
 }

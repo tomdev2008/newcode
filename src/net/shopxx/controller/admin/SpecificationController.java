@@ -1,15 +1,16 @@
 package net.shopxx.controller.admin;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Specification;
-import net.shopxx.entity.Specification.Type;
+import net.shopxx.entity.Specification.SpecificationType;
 import net.shopxx.entity.SpecificationValue;
 import net.shopxx.service.SpecificationService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +23,12 @@ public class SpecificationController extends BaseController
 {
 
   @Resource(name="specificationServiceImpl")
-  private SpecificationService IIIlllIl;
+  private SpecificationService specificationService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("types", Specification.Type.values());
+    model.addAttribute("types", SpecificationType.values());
     return "/admin/specification/add";
   }
 
@@ -44,7 +45,7 @@ public class SpecificationController extends BaseController
       }
       else
       {
-        if (specification.getType() == Specification.Type.text)
+        if (specification.getType() == SpecificationType.text)
           localSpecificationValue.setImage(null);
         localSpecificationValue.setSpecification(specification);
       }
@@ -52,7 +53,7 @@ public class SpecificationController extends BaseController
     if (!IIIllIlI(specification, new Class[0]))
       return "/admin/common/error";
     specification.setProducts(null);
-    this.IIIlllIl.save(specification);
+    this.specificationService.save(specification);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -60,8 +61,8 @@ public class SpecificationController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("types", Specification.Type.values());
-    model.addAttribute("specification", this.IIIlllIl.find(id));
+    model.addAttribute("types", SpecificationType.values());
+    model.addAttribute("specification", this.specificationService.find(id));
     return "/admin/specification/edit";
   }
 
@@ -78,14 +79,14 @@ public class SpecificationController extends BaseController
       }
       else
       {
-        if (specification.getType() == Specification.Type.text)
+        if (specification.getType() == SpecificationType.text)
           localSpecificationValue.setImage(null);
         localSpecificationValue.setSpecification(specification);
       }
     }
     if (!IIIllIlI(specification, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(specification, new String[] { "products" });
+    this.specificationService.update(specification, new String[] { "products" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -93,7 +94,7 @@ public class SpecificationController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.specificationService.findPage(pageable));
     return "/admin/specification/list";
   }
 
@@ -105,11 +106,11 @@ public class SpecificationController extends BaseController
     {
       for (Long localLong : ids)
       {
-        Specification localSpecification = (Specification)this.IIIlllIl.find(localLong);
+        Specification localSpecification = (Specification)this.specificationService.find(localLong);
         if ((localSpecification != null) && (localSpecification.getProducts() != null) && (!localSpecification.getProducts().isEmpty()))
           return Message.error("admin.specification.deleteExistProductNotAllowed", new Object[] { localSpecification.getName() });
       }
-      this.IIIlllIl.delete(ids);
+      this.specificationService.delete(ids);
     }
     return IIIlllII;
   }

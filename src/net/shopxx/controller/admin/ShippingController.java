@@ -15,19 +15,19 @@ public class ShippingController extends BaseController
 {
 
   @Resource(name="shippingServiceImpl")
-  private ShippingService IIIlllIl;
+  private ShippingService shippingService;
 
   @RequestMapping(value={"/view"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String view(Long id, ModelMap model)
   {
-    model.addAttribute("shipping", this.IIIlllIl.find(id));
+    model.addAttribute("shipping", this.shippingService.find(id));
     return "/admin/shipping/view";
   }
 
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.shippingService.findPage(pageable));
     return "/admin/shipping/list";
   }
 
@@ -35,7 +35,7 @@ public class ShippingController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.shippingService.delete(ids);
     return IIIlllII;
   }
 }

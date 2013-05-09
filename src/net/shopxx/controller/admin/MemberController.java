@@ -4,19 +4,20 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import net.shopxx.CommonAttributes;
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.Setting;
 import net.shopxx.entity.Area;
-import net.shopxx.entity.BaseEntity.Save;
+import net.shopxx.entity.BaseEntity;
 import net.shopxx.entity.Member;
-import net.shopxx.entity.Member.Gender;
+import net.shopxx.entity.Member.MemberGender;
 import net.shopxx.entity.MemberAttribute;
-import net.shopxx.entity.MemberAttribute.Type;
+import net.shopxx.entity.MemberAttribute.MemberAttributeType;
 import net.shopxx.entity.MemberRank;
 import net.shopxx.service.AdminService;
 import net.shopxx.service.AreaService;
@@ -24,6 +25,7 @@ import net.shopxx.service.MemberAttributeService;
 import net.shopxx.service.MemberRankService;
 import net.shopxx.service.MemberService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -40,13 +42,13 @@ public class MemberController extends BaseController
 {
 
   @Resource(name="memberServiceImpl")
-  private MemberService IIIlllIl;
+  private MemberService memberService;
 
   @Resource(name="memberRankServiceImpl")
-  private MemberRankService IIIllllI;
+  private MemberRankService memberRankService;
 
   @Resource(name="memberAttributeServiceImpl")
-  private MemberAttributeService IIIlllll;
+  private MemberAttributeService memberAttributeService;
 
   @Resource(name="areaServiceImpl")
   private AreaService IIlIIIII;
@@ -60,7 +62,7 @@ public class MemberController extends BaseController
   {
     if (StringUtils.isEmpty(username))
       return false;
-    return (!this.IIIlllIl.usernameDisabled(username)) && (!this.IIIlllIl.usernameExists(username));
+    return (!this.memberService.usernameDisabled(username)) && (!this.memberService.usernameExists(username));
   }
 
   @RequestMapping(value={"/check_email"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
@@ -69,49 +71,49 @@ public class MemberController extends BaseController
   {
     if (StringUtils.isEmpty(email))
       return false;
-    return this.IIIlllIl.emailUnique(previousEmail, email);
+    return this.memberService.emailUnique(previousEmail, email);
   }
 
   @RequestMapping(value={"/view"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String view(Long id, ModelMap model)
   {
-    model.addAttribute("genders", Member.Gender.values());
-    model.addAttribute("memberAttributes", this.IIIlllll.findList());
-    model.addAttribute("member", this.IIIlllIl.find(id));
+    model.addAttribute("genders", MemberGender.values());
+    model.addAttribute("memberAttributes", this.memberAttributeService.findList());
+    model.addAttribute("member", this.memberService.find(id));
     return "/admin/member/view";
   }
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("genders", Member.Gender.values());
-    model.addAttribute("memberRanks", this.IIIllllI.findAll());
-    model.addAttribute("memberAttributes", this.IIIlllll.findList());
+    model.addAttribute("genders", MemberGender.values());
+    model.addAttribute("memberRanks", this.memberRankService.findAll());
+    model.addAttribute("memberAttributes", this.memberAttributeService.findList());
     return "/admin/member/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(Member member, Long memberRankId, HttpServletRequest request, RedirectAttributes redirectAttributes)
   {
-    member.setMemberRank((MemberRank)this.IIIllllI.find(memberRankId));
-    if (!IIIllIlI(member, new Class[] { BaseEntity.Save.class }))
+    member.setMemberRank((MemberRank)this.memberRankService.find(memberRankId));
+    if (!IIIllIlI(member, new Class[] { BaseEntity.class }))
       return "/admin/common/error";
     Setting localSetting = SettingUtils.get();
     if ((member.getUsername().length() < localSetting.getUsernameMinLength().intValue()) || (member.getUsername().length() > localSetting.getUsernameMaxLength().intValue()))
       return "/admin/common/error";
     if ((member.getPassword().length() < localSetting.getPasswordMinLength().intValue()) || (member.getPassword().length() > localSetting.getPasswordMaxLength().intValue()))
       return "/admin/common/error";
-    if ((this.IIIlllIl.usernameDisabled(member.getUsername())) || (this.IIIlllIl.usernameExists(member.getUsername())))
+    if ((this.memberService.usernameDisabled(member.getUsername())) || (this.memberService.usernameExists(member.getUsername())))
       return "/admin/common/error";
-    if ((!localSetting.getIsDuplicateEmail().booleanValue()) && (this.IIIlllIl.emailExists(member.getEmail())))
+    if ((!localSetting.getIsDuplicateEmail().booleanValue()) && (this.memberService.emailExists(member.getEmail())))
       return "/admin/common/error";
     member.removeAttributeValue();
-    Iterator localIterator = this.IIIlllll.findList().iterator();
+    Iterator localIterator = this.memberAttributeService.findList().iterator();
     while (localIterator.hasNext())
     {
       MemberAttribute localMemberAttribute = (MemberAttribute)localIterator.next();
       String str = request.getParameter("memberAttribute_" + localMemberAttribute.getId());
-      if ((localMemberAttribute.getType() == MemberAttribute.Type.name) || (localMemberAttribute.getType() == MemberAttribute.Type.address) || (localMemberAttribute.getType() == MemberAttribute.Type.zipCode) || (localMemberAttribute.getType() == MemberAttribute.Type.phone) || (localMemberAttribute.getType() == MemberAttribute.Type.mobile) || (localMemberAttribute.getType() == MemberAttribute.Type.text) || (localMemberAttribute.getType() == MemberAttribute.Type.select))
+      if ((localMemberAttribute.getType() == MemberAttributeType.name) || (localMemberAttribute.getType() == MemberAttributeType.address) || (localMemberAttribute.getType() == MemberAttributeType.zipCode) || (localMemberAttribute.getType() == MemberAttributeType.phone) || (localMemberAttribute.getType() == MemberAttributeType.mobile) || (localMemberAttribute.getType() == MemberAttributeType.text) || (localMemberAttribute.getType() == MemberAttributeType.select))
       {
         if ((localMemberAttribute.getIsRequired().booleanValue()) && (StringUtils.isEmpty(str)))
           return "/admin/common/error";
@@ -119,22 +121,22 @@ public class MemberController extends BaseController
       }
       else
       {
-        Member.Gender localGender;
-        if (localMemberAttribute.getType() == MemberAttribute.Type.gender)
+        MemberGender localGender;
+        if (localMemberAttribute.getType() == MemberAttributeType.gender)
         {
-          localGender = StringUtils.isNotEmpty(str) ? Member.Gender.valueOf(str) : null;
+          localGender = StringUtils.isNotEmpty(str) ? MemberGender.valueOf(str) : null;
           if ((localMemberAttribute.getIsRequired().booleanValue()) && (localGender == null))
             return "/admin/common/error";
           member.setGender(localGender);
         }
-        else if (localMemberAttribute.getType() == MemberAttribute.Type.birth)
+        else if (localMemberAttribute.getType() == MemberAttributeType.birth)
         {
           try
           {
             localGender = StringUtils.isNotEmpty(str) ? DateUtils.parseDate(str, CommonAttributes.DATE_PATTERNS) : null;
             if ((localMemberAttribute.getIsRequired().booleanValue()) && (localGender == null))
-              return "/admin/common/error";
-            member.setBirth(localGender);
+							member.setBirth(localGender);
+            return "/admin/common/error";
           }
           catch (ParseException localParseException1)
           {
@@ -144,7 +146,7 @@ public class MemberController extends BaseController
         else
         {
           Object localObject1;
-          if (localMemberAttribute.getType() == MemberAttribute.Type.area)
+          if (localMemberAttribute.getType() == MemberAttributeType.area)
           {
             localObject1 = StringUtils.isNotEmpty(str) ? (Area)this.IIlIIIII.find(Long.valueOf(str)) : null;
             if (localObject1 != null)
@@ -154,7 +156,7 @@ public class MemberController extends BaseController
           }
           else
           {
-            if (localMemberAttribute.getType() != MemberAttribute.Type.checkbox)
+            if (localMemberAttribute.getType() != MemberAttributeType.checkbox)
               continue;
             localObject1 = request.getParameterValues("memberAttribute_" + localMemberAttribute.getId());
             Object localObject2 = localObject1 != null ? Arrays.asList(localObject1) : null;
@@ -187,7 +189,7 @@ public class MemberController extends BaseController
     member.setProductNotifies(null);
     member.setInMessages(null);
     member.setOutMessages(null);
-    this.IIIlllIl.save(member, this.IIlIIIIl.getCurrent());
+    this.memberService.save(member, this.IIlIIIIl.getCurrent());
     IIIllIlI(redirectAttributes, IIIlllII);
     return (String)"redirect:list.jhtml";
   }
@@ -195,34 +197,34 @@ public class MemberController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("genders", Member.Gender.values());
-    model.addAttribute("memberRanks", this.IIIllllI.findAll());
-    model.addAttribute("memberAttributes", this.IIIlllll.findList());
-    model.addAttribute("member", this.IIIlllIl.find(id));
+    model.addAttribute("genders", MemberGender.values());
+    model.addAttribute("memberRanks", this.memberRankService.findAll());
+    model.addAttribute("memberAttributes", this.memberAttributeService.findList());
+    model.addAttribute("member", this.memberService.find(id));
     return "/admin/member/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(Member member, Long memberRankId, Integer modifyPoint, BigDecimal modifyBalance, String depositMemo, HttpServletRequest request, RedirectAttributes redirectAttributes)
   {
-    member.setMemberRank((MemberRank)this.IIIllllI.find(memberRankId));
+    member.setMemberRank((MemberRank)this.memberRankService.find(memberRankId));
     if (!IIIllIlI(member, new Class[0]))
       return "/admin/common/error";
     Setting localSetting = SettingUtils.get();
     if ((member.getPassword() != null) && ((member.getPassword().length() < localSetting.getPasswordMinLength().intValue()) || (member.getPassword().length() > localSetting.getPasswordMaxLength().intValue())))
       return "/admin/common/error";
-    Member localMember = (Member)this.IIIlllIl.find(member.getId());
+    Member localMember = (Member)this.memberService.find(member.getId());
     if (localMember == null)
       return "/admin/common/error";
-    if ((!localSetting.getIsDuplicateEmail().booleanValue()) && (!this.IIIlllIl.emailUnique(localMember.getEmail(), member.getEmail())))
+    if ((!localSetting.getIsDuplicateEmail().booleanValue()) && (!this.memberService.emailUnique(localMember.getEmail(), member.getEmail())))
       return "/admin/common/error";
     member.removeAttributeValue();
-    Iterator localIterator = this.IIIlllll.findList().iterator();
+    Iterator localIterator = this.memberAttributeService.findList().iterator();
     while (localIterator.hasNext())
     {
       MemberAttribute localMemberAttribute = (MemberAttribute)localIterator.next();
       String str = request.getParameter("memberAttribute_" + localMemberAttribute.getId());
-      if ((localMemberAttribute.getType() == MemberAttribute.Type.name) || (localMemberAttribute.getType() == MemberAttribute.Type.address) || (localMemberAttribute.getType() == MemberAttribute.Type.zipCode) || (localMemberAttribute.getType() == MemberAttribute.Type.phone) || (localMemberAttribute.getType() == MemberAttribute.Type.mobile) || (localMemberAttribute.getType() == MemberAttribute.Type.text) || (localMemberAttribute.getType() == MemberAttribute.Type.select))
+      if ((localMemberAttribute.getType() == MemberAttributeType.name) || (localMemberAttribute.getType() == MemberAttributeType.address) || (localMemberAttribute.getType() == MemberAttributeType.zipCode) || (localMemberAttribute.getType() == MemberAttributeType.phone) || (localMemberAttribute.getType() == MemberAttributeType.mobile) || (localMemberAttribute.getType() == MemberAttributeType.text) || (localMemberAttribute.getType() == MemberAttributeType.select))
       {
         if ((localMemberAttribute.getIsRequired().booleanValue()) && (StringUtils.isEmpty(str)))
           return "/admin/common/error";
@@ -230,15 +232,15 @@ public class MemberController extends BaseController
       }
       else
       {
-        Member.Gender localGender;
-        if (localMemberAttribute.getType() == MemberAttribute.Type.gender)
+        MemberGender localGender;
+        if (localMemberAttribute.getType() == MemberAttributeType.gender)
         {
-          localGender = StringUtils.isNotEmpty(str) ? Member.Gender.valueOf(str) : null;
+          localGender = StringUtils.isNotEmpty(str) ? MemberGender.valueOf(str) : null;
           if ((localMemberAttribute.getIsRequired().booleanValue()) && (localGender == null))
             return "/admin/common/error";
           member.setGender(localGender);
         }
-        else if (localMemberAttribute.getType() == MemberAttribute.Type.birth)
+        else if (localMemberAttribute.getType() == MemberAttributeType.birth)
         {
           try
           {
@@ -255,7 +257,7 @@ public class MemberController extends BaseController
         else
         {
           Object localObject1;
-          if (localMemberAttribute.getType() == MemberAttribute.Type.area)
+          if (localMemberAttribute.getType() == MemberAttributeType.area)
           {
             localObject1 = StringUtils.isNotEmpty(str) ? (Area)this.IIlIIIII.find(Long.valueOf(str)) : null;
             if (localObject1 != null)
@@ -265,7 +267,7 @@ public class MemberController extends BaseController
           }
           else
           {
-            if (localMemberAttribute.getType() != MemberAttribute.Type.checkbox)
+            if (localMemberAttribute.getType() != MemberAttributeType.checkbox)
               continue;
             localObject1 = request.getParameterValues("memberAttribute_" + localMemberAttribute.getId());
             Object localObject2 = localObject1 != null ? Arrays.asList(localObject1) : null;
@@ -292,7 +294,7 @@ public class MemberController extends BaseController
       member.setLockedDate(localMember.getLockedDate());
     }
     BeanUtils.copyProperties(member, localMember, new String[] { "username", "point", "amount", "balance", "registerIp", "loginIp", "loginDate", "safeKey", "cart", "orders", "deposits", "payments", "couponCodes", "receivers", "reviews", "consultations", "favoriteProducts", "productNotifies", "inMessages", "outMessages" });
-    this.IIIlllIl.update(localMember, modifyPoint, modifyBalance, depositMemo, this.IIlIIIIl.getCurrent());
+    this.memberService.update(localMember, modifyPoint, modifyBalance, depositMemo, this.IIlIIIIl.getCurrent());
     IIIllIlI(redirectAttributes, IIIlllII);
     return (String)"redirect:list.jhtml";
   }
@@ -300,9 +302,9 @@ public class MemberController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("memberRanks", this.IIIllllI.findAll());
-    model.addAttribute("memberAttributes", this.IIIlllll.findAll());
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("memberRanks", this.memberRankService.findAll());
+    model.addAttribute("memberAttributes", this.memberAttributeService.findAll());
+    model.addAttribute("page", this.memberService.findPage(pageable));
     return "/admin/member/list";
   }
 
@@ -314,11 +316,11 @@ public class MemberController extends BaseController
     {
       for (Long localLong : ids)
       {
-        Member localMember = (Member)this.IIIlllIl.find(localLong);
+        Member localMember = (Member)this.memberService.find(localLong);
         if ((localMember != null) && (localMember.getBalance().compareTo(new BigDecimal(0)) > 0))
           return Message.error("admin.member.deleteExistDepositNotAllowed", new Object[] { localMember.getUsername() });
       }
-      this.IIIlllIl.delete(ids);
+      this.memberService.delete(ids);
     }
     return IIIlllII;
   }

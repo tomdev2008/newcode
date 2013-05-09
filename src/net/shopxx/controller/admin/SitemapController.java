@@ -15,15 +15,15 @@ public class SitemapController extends BaseController
 {
 
   @Resource(name="templateServiceImpl")
-  private TemplateService IIIlllIl;
+  private TemplateService templateService;
 
   @Resource(name="staticServiceImpl")
-  private StaticService IIIllllI;
+  private StaticService staticService;
 
   @RequestMapping(value={"/build"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String build(ModelMap model)
   {
-    Template localTemplate = this.IIIlllIl.get("sitemapIndex");
+    Template localTemplate = this.templateService.get("sitemapIndex");
     model.addAttribute("sitemapIndexPath", localTemplate.getStaticPath());
     return "/admin/sitemap/build";
   }
@@ -31,7 +31,7 @@ public class SitemapController extends BaseController
   @RequestMapping(value={"/build"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String build(RedirectAttributes redirectAttributes)
   {
-    this.IIIllllI.buildSitemap();
+    this.staticService.buildSitemap();
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:build.jhtml";
   }

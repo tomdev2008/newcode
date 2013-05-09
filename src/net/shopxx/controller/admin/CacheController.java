@@ -13,7 +13,7 @@ public class CacheController extends BaseController
 {
 
   @Resource(name="cacheServiceImpl")
-  private CacheService IIIlllIl;
+  private CacheService cacheService;
 
   @RequestMapping(value={"/clear"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String clear(ModelMap model)
@@ -33,15 +33,15 @@ public class CacheController extends BaseController
     model.addAttribute("totalMemory", localLong1);
     model.addAttribute("maxMemory", localLong2);
     model.addAttribute("freeMemory", localLong3);
-    model.addAttribute("cacheSize", Integer.valueOf(this.IIIlllIl.getCacheSize()));
-    model.addAttribute("diskStorePath", this.IIIlllIl.getDiskStorePath());
+    model.addAttribute("cacheSize", Integer.valueOf(this.cacheService.getCacheSize()));
+    model.addAttribute("diskStorePath", this.cacheService.getDiskStorePath());
     return "/admin/cache/clear";
   }
 
   @RequestMapping(value={"/clear"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String clear(RedirectAttributes redirectAttributes)
   {
-    this.IIIlllIl.clear();
+    this.cacheService.clear();
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:clear.jhtml";
   }

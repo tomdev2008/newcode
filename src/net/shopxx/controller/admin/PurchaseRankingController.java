@@ -14,14 +14,14 @@ public class PurchaseRankingController extends BaseController
 {
 
   @Resource(name="memberServiceImpl")
-  private MemberService IIIlllIl;
+  private MemberService memberService;
 
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Date beginDate, Date endDate, Pageable pageable, Model model)
   {
     model.addAttribute("beginDate", beginDate);
     model.addAttribute("endDate", endDate);
-    model.addAttribute("page", this.IIIlllIl.findPurchasePage(beginDate, endDate, pageable));
+    model.addAttribute("page", this.memberService.findPurchasePage(beginDate, endDate, pageable));
     return "/admin/purchase_ranking/list";
   }
 }

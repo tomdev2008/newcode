@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map<Ljava.lang.Long;Ljava.lang.String;>;
+
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import net.shopxx.entity.Area;
 import net.shopxx.service.AreaService;
 import net.shopxx.service.CaptchaService;
@@ -21,6 +21,7 @@ import net.shopxx.service.MemberService;
 import net.shopxx.service.MessageService;
 import net.shopxx.service.OrderService;
 import net.shopxx.service.ProductService;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;

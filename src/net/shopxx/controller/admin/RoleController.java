@@ -18,7 +18,7 @@ public class RoleController extends BaseController
 {
 
   @Resource(name="roleServiceImpl")
-  private RoleService IIIlllIl;
+  private RoleService roleService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add()
@@ -33,7 +33,7 @@ public class RoleController extends BaseController
       return "/admin/common/error";
     role.setIsSystem(Boolean.valueOf(false));
     role.setAdmins(null);
-    this.IIIlllIl.save(role);
+    this.roleService.save(role);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -41,7 +41,7 @@ public class RoleController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("role", this.IIIlllIl.find(id));
+    model.addAttribute("role", this.roleService.find(id));
     return "/admin/role/edit";
   }
 
@@ -50,10 +50,10 @@ public class RoleController extends BaseController
   {
     if (!IIIllIlI(role, new Class[0]))
       return "/admin/common/error";
-    Role localRole = (Role)this.IIIlllIl.find(role.getId());
+    Role localRole = (Role)this.roleService.find(role.getId());
     if ((localRole == null) || (localRole.getIsSystem().booleanValue()))
       return "/admin/common/error";
-    this.IIIlllIl.update(role, new String[] { "isSystem", "admins" });
+    this.roleService.update(role, new String[] { "isSystem", "admins" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -61,7 +61,7 @@ public class RoleController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.roleService.findPage(pageable));
     return "/admin/role/list";
   }
 
@@ -73,11 +73,11 @@ public class RoleController extends BaseController
     {
       for (Long localLong : ids)
       {
-        Role localRole = (Role)this.IIIlllIl.find(localLong);
+        Role localRole = (Role)this.roleService.find(localLong);
         if ((localRole != null) && ((localRole.getIsSystem().booleanValue()) || ((localRole.getAdmins() != null) && (!localRole.getAdmins().isEmpty()))))
           return Message.error("admin.role.deleteExistNotAllowed", new Object[] { localRole.getName() });
       }
-      this.IIIlllIl.delete(ids);
+      this.roleService.delete(ids);
     }
     return IIIlllII;
   }

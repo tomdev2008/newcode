@@ -17,19 +17,19 @@ public class AreaController extends BaseController
 {
 
   @Resource(name="areaServiceImpl")
-  private AreaService IIIlllIl;
+  private AreaService areaService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(Long parentId, ModelMap model)
   {
-    model.addAttribute("parent", this.IIIlllIl.find(parentId));
+    model.addAttribute("parent", this.areaService.find(parentId));
     return "/admin/area/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(Area area, Long parentId, RedirectAttributes redirectAttributes)
   {
-    area.setParent((Area)this.IIIlllIl.find(parentId));
+    area.setParent((Area)this.areaService.find(parentId));
     if (!IIIllIlI(area, new Class[0]))
       return "/admin/common/error";
     area.setFullName(null);
@@ -39,7 +39,7 @@ public class AreaController extends BaseController
     area.setReceivers(null);
     area.setOrders(null);
     area.setDeliveryCenters(null);
-    this.IIIlllIl.save(area);
+    this.areaService.save(area);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -47,7 +47,7 @@ public class AreaController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("area", this.IIIlllIl.find(id));
+    model.addAttribute("area", this.areaService.find(id));
     return "/admin/area/edit";
   }
 
@@ -56,7 +56,7 @@ public class AreaController extends BaseController
   {
     if (!IIIllIlI(area, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(area, new String[] { "fullName", "treePath", "parent", "children", "members", "receivers", "orders", "deliveryCenters" });
+    this.areaService.update(area, new String[] { "fullName", "treePath", "parent", "children", "members", "receivers", "orders", "deliveryCenters" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -64,7 +64,7 @@ public class AreaController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Long parentId, ModelMap model)
   {
-    Area localArea = (Area)this.IIIlllIl.find(parentId);
+    Area localArea = (Area)this.areaService.find(parentId);
     if (localArea != null)
     {
       model.addAttribute("parent", localArea);
@@ -72,7 +72,7 @@ public class AreaController extends BaseController
     }
     else
     {
-      model.addAttribute("areas", this.IIIlllIl.findRoots());
+      model.addAttribute("areas", this.areaService.findRoots());
     }
     return "/admin/area/list";
   }
@@ -81,7 +81,7 @@ public class AreaController extends BaseController
   @ResponseBody
   public Message delete(Long id)
   {
-    this.IIIlllIl.delete(id);
+    this.areaService.delete(id);
     return IIIlllII;
   }
 }

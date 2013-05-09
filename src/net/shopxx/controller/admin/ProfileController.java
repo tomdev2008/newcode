@@ -17,7 +17,7 @@ public class ProfileController extends BaseController
 {
 
   @Resource(name="adminServiceImpl")
-  private AdminService IIIlllIl;
+  private AdminService adminService;
 
   @RequestMapping(value={"/check_current_password"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   @ResponseBody
@@ -25,14 +25,14 @@ public class ProfileController extends BaseController
   {
     if (StringUtils.isEmpty(currentPassword))
       return false;
-    Admin localAdmin = this.IIIlllIl.getCurrent();
+    Admin localAdmin = this.adminService.getCurrent();
     return StringUtils.equals(DigestUtils.md5Hex(currentPassword), localAdmin.getPassword());
   }
 
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(ModelMap model)
   {
-    model.addAttribute("admin", this.IIIlllIl.getCurrent());
+    model.addAttribute("admin", this.adminService.getCurrent());
     return "/admin/profile/edit";
   }
 
@@ -41,7 +41,7 @@ public class ProfileController extends BaseController
   {
     if (!IIIllIlI(Admin.class, "email", email, new Class[0]))
       return "/admin/common/error";
-    Admin localAdmin = this.IIIlllIl.getCurrent();
+    Admin localAdmin = this.adminService.getCurrent();
     if ((StringUtils.isNotEmpty(currentPassword)) && (StringUtils.isNotEmpty(password)))
     {
       if (!IIIllIlI(Admin.class, "password", password, new Class[0]))
@@ -51,7 +51,7 @@ public class ProfileController extends BaseController
       localAdmin.setPassword(DigestUtils.md5Hex(password));
     }
     localAdmin.setEmail(email);
-    this.IIIlllIl.update(localAdmin);
+    this.adminService.update(localAdmin);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:edit.jhtml";
   }

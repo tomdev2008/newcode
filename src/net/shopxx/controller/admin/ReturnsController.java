@@ -15,19 +15,19 @@ public class ReturnsController extends BaseController
 {
 
   @Resource(name="returnsServiceImpl")
-  private ReturnsService IIIlllIl;
+  private ReturnsService returnsService;
 
   @RequestMapping(value={"/view"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String view(Long id, ModelMap model)
   {
-    model.addAttribute("returns", this.IIIlllIl.find(id));
+    model.addAttribute("returns", this.returnsService.find(id));
     return "/admin/returns/view";
   }
 
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.returnsService.findPage(pageable));
     return "/admin/returns/list";
   }
 
@@ -35,7 +35,7 @@ public class ReturnsController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.returnsService.delete(ids);
     return IIIlllII;
   }
 }

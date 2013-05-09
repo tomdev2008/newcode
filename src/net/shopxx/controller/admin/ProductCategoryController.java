@@ -20,24 +20,24 @@ public class ProductCategoryController extends BaseController
 {
 
   @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIIlllIl;
+  private ProductCategoryService productCategoryService;
 
   @Resource(name="brandServiceImpl")
-  private BrandService IIIllllI;
+  private BrandService brandService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("productCategoryTree", this.IIIlllIl.findTree());
-    model.addAttribute("brands", this.IIIllllI.findAll());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
+    model.addAttribute("brands", this.brandService.findAll());
     return "/admin/product_category/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(ProductCategory productCategory, Long parentId, Long[] brandIds, RedirectAttributes redirectAttributes)
   {
-    productCategory.setParent((ProductCategory)this.IIIlllIl.find(parentId));
-    productCategory.setBrands(new HashSet(this.IIIllllI.findList(brandIds)));
+    productCategory.setParent((ProductCategory)this.productCategoryService.find(parentId));
+    productCategory.setBrands(new HashSet(this.brandService.findList(brandIds)));
     if (!IIIllIlI(productCategory, new Class[0]))
       return "/admin/common/error";
     productCategory.setTreePath(null);
@@ -47,7 +47,7 @@ public class ProductCategoryController extends BaseController
     productCategory.setParameterGroups(null);
     productCategory.setAttributes(null);
     productCategory.setPromotions(null);
-    this.IIIlllIl.save(productCategory);
+    this.productCategoryService.save(productCategory);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -55,19 +55,19 @@ public class ProductCategoryController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    ProductCategory localProductCategory = (ProductCategory)this.IIIlllIl.find(id);
-    model.addAttribute("productCategoryTree", this.IIIlllIl.findTree());
-    model.addAttribute("brands", this.IIIllllI.findAll());
+    ProductCategory localProductCategory = (ProductCategory)this.productCategoryService.find(id);
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
+    model.addAttribute("brands", this.brandService.findAll());
     model.addAttribute("productCategory", localProductCategory);
-    model.addAttribute("children", this.IIIlllIl.findChildren(localProductCategory));
+    model.addAttribute("children", this.productCategoryService.findChildren(localProductCategory));
     return "/admin/product_category/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(ProductCategory productCategory, Long parentId, Long[] brandIds, RedirectAttributes redirectAttributes)
   {
-    productCategory.setParent((ProductCategory)this.IIIlllIl.find(parentId));
-    productCategory.setBrands(new HashSet(this.IIIllllI.findList(brandIds)));
+    productCategory.setParent((ProductCategory)this.productCategoryService.find(parentId));
+    productCategory.setBrands(new HashSet(this.brandService.findList(brandIds)));
     if (!IIIllIlI(productCategory, new Class[0]))
       return "/admin/common/error";
     if (productCategory.getParent() != null)
@@ -75,11 +75,11 @@ public class ProductCategoryController extends BaseController
       ProductCategory localProductCategory = productCategory.getParent();
       if (localProductCategory.equals(productCategory))
         return "/admin/common/error";
-      List localList = this.IIIlllIl.findChildren(localProductCategory);
+      List localList = this.productCategoryService.findChildren(localProductCategory);
       if ((localList != null) && (localList.contains(localProductCategory)))
         return "/admin/common/error";
     }
-    this.IIIlllIl.update(productCategory, new String[] { "treePath", "grade", "children", "products", "parameterGroups", "attributes", "promotions" });
+    this.productCategoryService.update(productCategory, new String[] { "treePath", "grade", "children", "products", "parameterGroups", "attributes", "promotions" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -87,7 +87,7 @@ public class ProductCategoryController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(ModelMap model)
   {
-    model.addAttribute("productCategoryTree", this.IIIlllIl.findTree());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
     return "/admin/product_category/list";
   }
 
@@ -95,7 +95,7 @@ public class ProductCategoryController extends BaseController
   @ResponseBody
   public Message delete(Long id)
   {
-    ProductCategory localProductCategory = (ProductCategory)this.IIIlllIl.find(id);
+    ProductCategory localProductCategory = (ProductCategory)this.productCategoryService.find(id);
     if (localProductCategory == null)
       return IIIllIll;
     Set localSet1 = localProductCategory.getChildren();
@@ -104,7 +104,7 @@ public class ProductCategoryController extends BaseController
     Set localSet2 = localProductCategory.getProducts();
     if ((localSet2 != null) && (!localSet2.isEmpty()))
       return Message.error("admin.productCategory.deleteExistProductNotAllowed", new Object[0]);
-    this.IIIlllIl.delete(id);
+    this.productCategoryService.delete(id);
     return IIIlllII;
   }
 }

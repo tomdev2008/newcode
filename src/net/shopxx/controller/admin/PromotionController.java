@@ -2,26 +2,27 @@ package net.shopxx.controller.admin;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.GiftItem;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.Promotion;
-import net.shopxx.entity.Promotion.Operator;
+import net.shopxx.entity.Promotion.PromotionOperator;
 import net.shopxx.service.BrandService;
 import net.shopxx.service.CouponService;
 import net.shopxx.service.MemberRankService;
 import net.shopxx.service.ProductCategoryService;
 import net.shopxx.service.ProductService;
 import net.shopxx.service.PromotionService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,22 +36,22 @@ public class PromotionController extends BaseController
 {
 
   @Resource(name="promotionServiceImpl")
-  private PromotionService IIIlllIl;
+  private PromotionService promotionService;
 
   @Resource(name="memberRankServiceImpl")
-  private MemberRankService IIIllllI;
+  private MemberRankService memberRankService;
 
   @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIIlllll;
+  private ProductCategoryService productCategoryService;
 
   @Resource(name="productServiceImpl")
-  private ProductService IIlIIIII;
+  private ProductService productService;
 
   @Resource(name="brandServiceImpl")
-  private BrandService IIlIIIIl;
+  private BrandService brandService;
 
   @Resource(name="couponServiceImpl")
-  private CouponService IIlIIIlI;
+  private CouponService couponService;
 
   @RequestMapping(value={"/product_select"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   @ResponseBody
@@ -59,7 +60,7 @@ public class PromotionController extends BaseController
     ArrayList localArrayList = new ArrayList();
     if (StringUtils.isNotEmpty(q))
     {
-      List localList = this.IIlIIIII.search(q, Boolean.valueOf(false), Integer.valueOf(20));
+      List localList = this.productService.search(q, Boolean.valueOf(false), Integer.valueOf(20));
       Iterator localIterator = localList.iterator();
       while (localIterator.hasNext())
       {
@@ -82,7 +83,7 @@ public class PromotionController extends BaseController
     ArrayList localArrayList = new ArrayList();
     if (StringUtils.isNotEmpty(q))
     {
-      List localList = this.IIlIIIII.search(q, Boolean.valueOf(true), Integer.valueOf(20));
+      List localList = this.productService.search(q, Boolean.valueOf(true), Integer.valueOf(20));
       Iterator localIterator = localList.iterator();
       while (localIterator.hasNext())
       {
@@ -101,22 +102,23 @@ public class PromotionController extends BaseController
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("operators", Promotion.Operator.values());
-    model.addAttribute("memberRanks", this.IIIllllI.findAll());
-    model.addAttribute("productCategories", this.IIIlllll.findAll());
-    model.addAttribute("brands", this.IIlIIIIl.findAll());
-    model.addAttribute("coupons", this.IIlIIIlI.findAll());
+    model.addAttribute("operators", PromotionOperator.values());
+    model.addAttribute("memberRanks", this.memberRankService.findAll());
+    model.addAttribute("productCategories", this.productCategoryService.findAll());
+    model.addAttribute("brands", this.brandService.findAll());
+    model.addAttribute("coupons", this.couponService.findAll());
     return "/admin/promotion/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(Promotion promotion, Long[] memberRankIds, Long[] productCategoryIds, Long[] brandIds, Long[] couponIds, Long[] productIds, RedirectAttributes redirectAttributes)
   {
-    promotion.setMemberRanks(new HashSet(this.IIIllllI.findList(memberRankIds)));
-    promotion.setProductCategories(new HashSet(this.IIIlllll.findList(productCategoryIds)));
-    promotion.setBrands(new HashSet(this.IIlIIIIl.findList(brandIds)));
-    promotion.setCoupons(new HashSet(this.IIlIIIlI.findList(couponIds)));
-    Object localObject2 = this.IIlIIIII.findList(productIds).iterator();
+	  Object localObject1 = null;
+    promotion.setMemberRanks(new HashSet(this.memberRankService.findList(memberRankIds)));
+    promotion.setProductCategories(new HashSet(this.productCategoryService.findList(productCategoryIds)));
+    promotion.setBrands(new HashSet(this.brandService.findList(brandIds)));
+    promotion.setCoupons(new HashSet(this.couponService.findList(couponIds)));
+    Object localObject2 = this.productService.findList(productIds).iterator();
     while (((Iterator)localObject2).hasNext())
     {
       localObject1 = (Product)((Iterator)localObject2).next();
@@ -124,7 +126,7 @@ public class PromotionController extends BaseController
         continue;
       promotion.getProducts().add(localObject1);
     }
-    Object localObject1 = promotion.getGiftItems().iterator();
+    localObject1 = promotion.getGiftItems().iterator();
     while (((Iterator)localObject1).hasNext())
     {
       localObject2 = (GiftItem)((Iterator)localObject1).next();
@@ -134,7 +136,7 @@ public class PromotionController extends BaseController
       }
       else
       {
-        ((GiftItem)localObject2).setGift((Product)this.IIlIIIII.find(((GiftItem)localObject2).getGift().getId()));
+        ((GiftItem)localObject2).setGift((Product)this.productService.find(((GiftItem)localObject2).getGift().getId()));
         ((GiftItem)localObject2).setPromotion(promotion);
       }
     }
@@ -144,11 +146,11 @@ public class PromotionController extends BaseController
       return "/admin/common/error";
     if ((promotion.getStartPrice() != null) && (promotion.getEndPrice() != null) && (promotion.getStartPrice().compareTo(promotion.getEndPrice()) > 0))
       return "/admin/common/error";
-    if ((promotion.getPriceOperator() == Promotion.Operator.divide) && (promotion.getPriceValue() != null) && (promotion.getPriceValue().compareTo(new BigDecimal(0)) == 0))
+    if ((promotion.getPriceOperator() == PromotionOperator.divide) && (promotion.getPriceValue() != null) && (promotion.getPriceValue().compareTo(new BigDecimal(0)) == 0))
       return "/admin/common/error";
-    if ((promotion.getPointOperator() == Promotion.Operator.divide) && (promotion.getPointValue() != null) && (promotion.getPointValue().compareTo(new BigDecimal(0)) == 0))
+    if ((promotion.getPointOperator() == PromotionOperator.divide) && (promotion.getPointValue() != null) && (promotion.getPointValue().compareTo(new BigDecimal(0)) == 0))
       return "/admin/common/error";
-    this.IIIlllIl.save(promotion);
+    this.promotionService.save(promotion);
     IIIllIlI(redirectAttributes, IIIlllII);
     return (String)(String)"redirect:list.jhtml";
   }
@@ -156,23 +158,24 @@ public class PromotionController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("promotion", this.IIIlllIl.find(id));
-    model.addAttribute("operators", Promotion.Operator.values());
-    model.addAttribute("memberRanks", this.IIIllllI.findAll());
-    model.addAttribute("productCategories", this.IIIlllll.findAll());
-    model.addAttribute("brands", this.IIlIIIIl.findAll());
-    model.addAttribute("coupons", this.IIlIIIlI.findAll());
+    model.addAttribute("promotion", this.promotionService.find(id));
+    model.addAttribute("operators", PromotionOperator.values());
+    model.addAttribute("memberRanks", this.memberRankService.findAll());
+    model.addAttribute("productCategories", this.productCategoryService.findAll());
+    model.addAttribute("brands", this.brandService.findAll());
+    model.addAttribute("coupons", this.couponService.findAll());
     return "/admin/promotion/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(Promotion promotion, Long[] memberRankIds, Long[] productCategoryIds, Long[] brandIds, Long[] couponIds, Long[] productIds, RedirectAttributes redirectAttributes)
   {
-    promotion.setMemberRanks(new HashSet(this.IIIllllI.findList(memberRankIds)));
-    promotion.setProductCategories(new HashSet(this.IIIlllll.findList(productCategoryIds)));
-    promotion.setBrands(new HashSet(this.IIlIIIIl.findList(brandIds)));
-    promotion.setCoupons(new HashSet(this.IIlIIIlI.findList(couponIds)));
-    Object localObject2 = this.IIlIIIII.findList(productIds).iterator();
+	  Object localObject1 = null;
+    promotion.setMemberRanks(new HashSet(this.memberRankService.findList(memberRankIds)));
+    promotion.setProductCategories(new HashSet(this.productCategoryService.findList(productCategoryIds)));
+    promotion.setBrands(new HashSet(this.brandService.findList(brandIds)));
+    promotion.setCoupons(new HashSet(this.couponService.findList(couponIds)));
+    Object localObject2 = this.productService.findList(productIds).iterator();
     while (((Iterator)localObject2).hasNext())
     {
       localObject1 = (Product)((Iterator)localObject2).next();
@@ -180,7 +183,7 @@ public class PromotionController extends BaseController
         continue;
       promotion.getProducts().add(localObject1);
     }
-    Object localObject1 = promotion.getGiftItems().iterator();
+    localObject1 = promotion.getGiftItems().iterator();
     while (((Iterator)localObject1).hasNext())
     {
       localObject2 = (GiftItem)((Iterator)localObject1).next();
@@ -190,7 +193,7 @@ public class PromotionController extends BaseController
       }
       else
       {
-        ((GiftItem)localObject2).setGift((Product)this.IIlIIIII.find(((GiftItem)localObject2).getGift().getId()));
+        ((GiftItem)localObject2).setGift((Product)this.productService.find(((GiftItem)localObject2).getGift().getId()));
         ((GiftItem)localObject2).setPromotion(promotion);
       }
     }
@@ -198,11 +201,11 @@ public class PromotionController extends BaseController
       return "/admin/common/error";
     if ((promotion.getBeginDate() != null) && (promotion.getEndDate() != null) && (promotion.getBeginDate().after(promotion.getEndDate())))
       return "/admin/common/error";
-    if ((promotion.getPriceOperator() == Promotion.Operator.divide) && (promotion.getPriceValue() != null) && (promotion.getPriceValue().compareTo(new BigDecimal(0)) == 0))
+    if ((promotion.getPriceOperator() == PromotionOperator.divide) && (promotion.getPriceValue() != null) && (promotion.getPriceValue().compareTo(new BigDecimal(0)) == 0))
       return "/admin/common/error";
-    if ((promotion.getPointOperator() == Promotion.Operator.divide) && (promotion.getPointValue() != null) && (promotion.getPointValue().compareTo(new BigDecimal(0)) == 0))
+    if ((promotion.getPointOperator() == PromotionOperator.divide) && (promotion.getPointValue() != null) && (promotion.getPointValue().compareTo(new BigDecimal(0)) == 0))
       return "/admin/common/error";
-    this.IIIlllIl.update(promotion);
+    this.promotionService.update(promotion);
     IIIllIlI(redirectAttributes, IIIlllII);
     return (String)(String)"redirect:list.jhtml";
   }
@@ -210,7 +213,7 @@ public class PromotionController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.promotionService.findPage(pageable));
     return "/admin/promotion/list";
   }
 
@@ -218,7 +221,7 @@ public class PromotionController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.promotionService.delete(ids);
     return IIIlllII;
   }
 }

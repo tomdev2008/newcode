@@ -19,27 +19,27 @@ public class ShippingMethodController extends BaseController
 {
 
   @Resource(name="shippingMethodServiceImpl")
-  private ShippingMethodService IIIlllIl;
+  private ShippingMethodService shippingMethodService;
 
   @Resource(name="deliveryCorpServiceImpl")
-  private DeliveryCorpService IIIllllI;
+  private DeliveryCorpService deliveryCorpService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("deliveryCorps", this.IIIllllI.findAll());
+    model.addAttribute("deliveryCorps", this.deliveryCorpService.findAll());
     return "/admin/shipping_method/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, RedirectAttributes redirectAttributes)
   {
-    shippingMethod.setDefaultDeliveryCorp((DeliveryCorp)this.IIIllllI.find(defaultDeliveryCorpId));
+    shippingMethod.setDefaultDeliveryCorp((DeliveryCorp)this.deliveryCorpService.find(defaultDeliveryCorpId));
     if (!IIIllIlI(shippingMethod, new Class[0]))
       return "/admin/common/error";
     shippingMethod.setPaymentMethods(null);
     shippingMethod.setOrders(null);
-    this.IIIlllIl.save(shippingMethod);
+    this.shippingMethodService.save(shippingMethod);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -47,18 +47,18 @@ public class ShippingMethodController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("deliveryCorps", this.IIIllllI.findAll());
-    model.addAttribute("shippingMethod", this.IIIlllIl.find(id));
+    model.addAttribute("deliveryCorps", this.deliveryCorpService.findAll());
+    model.addAttribute("shippingMethod", this.shippingMethodService.find(id));
     return "/admin/shipping_method/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, RedirectAttributes redirectAttributes)
   {
-    shippingMethod.setDefaultDeliveryCorp((DeliveryCorp)this.IIIllllI.find(defaultDeliveryCorpId));
+    shippingMethod.setDefaultDeliveryCorp((DeliveryCorp)this.deliveryCorpService.find(defaultDeliveryCorpId));
     if (!IIIllIlI(shippingMethod, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(shippingMethod, new String[] { "paymentMethods", "orders" });
+    this.shippingMethodService.update(shippingMethod, new String[] { "paymentMethods", "orders" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -66,7 +66,7 @@ public class ShippingMethodController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.shippingMethodService.findPage(pageable));
     return "/admin/shipping_method/list";
   }
 
@@ -74,9 +74,9 @@ public class ShippingMethodController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    if (ids.length >= this.IIIlllIl.count())
+    if (ids.length >= this.shippingMethodService.count())
       return Message.error("admin.common.deleteAllNotAllowed", new Object[0]);
-    this.IIIlllIl.delete(ids);
+    this.shippingMethodService.delete(ids);
     return IIIlllII;
   }
 }

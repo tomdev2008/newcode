@@ -22,7 +22,7 @@ public class StatisticsController extends BaseController
 {
 
   @Resource(name="cacheServiceImpl")
-  private CacheService IIIlllIl;
+  private CacheService cacheService;
 
   @RequestMapping(value={"/view"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String view()
@@ -62,7 +62,7 @@ public class StatisticsController extends BaseController
       }
     localSetting.setIsCnzzEnabled(isEnabled);
     SettingUtils.set(localSetting);
-    this.IIIlllIl.clear();
+    this.cacheService.clear();
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:setting.jhtml";
   }

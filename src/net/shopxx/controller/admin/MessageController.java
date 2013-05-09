@@ -20,22 +20,22 @@ public class MessageController extends BaseController
 {
 
   @Resource(name="messageServiceImpl")
-  MessageService IIIlllIl;
+  MessageService messageService;
 
   @Resource(name="memberServiceImpl")
-  MemberService IIIllllI;
+  MemberService memberService;
 
   @RequestMapping(value={"/check_username"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   @ResponseBody
   public boolean checkUsername(String username)
   {
-    return this.IIIllllI.usernameExists(username);
+    return this.memberService.usernameExists(username);
   }
 
   @RequestMapping(value={"/send"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String send(Long draftMessageId, Model model)
   {
-    net.shopxx.entity.Message localMessage = (net.shopxx.entity.Message)this.IIIlllIl.find(draftMessageId);
+    net.shopxx.entity.Message localMessage = (net.shopxx.entity.Message)this.messageService.find(draftMessageId);
     if ((localMessage != null) && (localMessage.getIsDraft().booleanValue()) && (localMessage.getSender() == null))
       model.addAttribute("draftMessage", localMessage);
     return "admin/message/send";
@@ -46,13 +46,13 @@ public class MessageController extends BaseController
   {
     if (!IIIllIlI(net.shopxx.entity.Message.class, "content", content, new Class[0]))
       return "/admin/common/error";
-    net.shopxx.entity.Message localMessage1 = (net.shopxx.entity.Message)this.IIIlllIl.find(draftMessageId);
+    net.shopxx.entity.Message localMessage1 = (net.shopxx.entity.Message)this.messageService.find(draftMessageId);
     if ((localMessage1 != null) && (localMessage1.getIsDraft().booleanValue()) && (localMessage1.getSender() == null))
-      this.IIIlllIl.delete(localMessage1);
+      this.messageService.delete(localMessage1);
     Member localMember = null;
     if (StringUtils.isNotEmpty(username))
     {
-      localMember = this.IIIllllI.findByUsername(username);
+      localMember = this.memberService.findByUsername(username);
       if (localMember == null)
         return "/admin/common/error";
     }
@@ -69,7 +69,7 @@ public class MessageController extends BaseController
     localMessage2.setReceiver(localMember);
     localMessage2.setForMessage(null);
     localMessage2.setReplyMessages(null);
-    this.IIIlllIl.save(localMessage2);
+    this.messageService.save(localMessage2);
     if (isDraft.booleanValue())
     {
       IIIllIlI(redirectAttributes, net.shopxx.Message.success("admin.message.saveDraftSuccess", new Object[0]));
@@ -82,7 +82,7 @@ public class MessageController extends BaseController
   @RequestMapping(value={"/view"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String view(Long id, Model model)
   {
-    net.shopxx.entity.Message localMessage = (net.shopxx.entity.Message)this.IIIlllIl.find(id);
+    net.shopxx.entity.Message localMessage = (net.shopxx.entity.Message)this.messageService.find(id);
     if ((localMessage == null) || (localMessage.getIsDraft().booleanValue()) || (localMessage.getForMessage() != null))
       return "/admin/common/error";
     if (((localMessage.getSender() != null) && (localMessage.getReceiver() != null)) || ((localMessage.getReceiver() == null) && (localMessage.getReceiverDelete().booleanValue())) || ((localMessage.getSender() == null) && (localMessage.getSenderDelete().booleanValue())))
@@ -91,7 +91,7 @@ public class MessageController extends BaseController
       localMessage.setReceiverRead(Boolean.valueOf(true));
     else
       localMessage.setSenderRead(Boolean.valueOf(true));
-    this.IIIlllIl.update(localMessage);
+    this.messageService.update(localMessage);
     model.addAttribute("adminMessage", localMessage);
     return "/admin/message/view";
   }
@@ -101,7 +101,7 @@ public class MessageController extends BaseController
   {
     if (!IIIllIlI(net.shopxx.entity.Message.class, "content", content, new Class[0]))
       return "/admin/common/error";
-    net.shopxx.entity.Message localMessage1 = (net.shopxx.entity.Message)this.IIIlllIl.find(id);
+    net.shopxx.entity.Message localMessage1 = (net.shopxx.entity.Message)this.messageService.find(id);
     if ((localMessage1 == null) || (localMessage1.getIsDraft().booleanValue()) || (localMessage1.getForMessage() != null))
       return "/admin/common/error";
     if (((localMessage1.getSender() != null) && (localMessage1.getReceiver() != null)) || ((localMessage1.getReceiver() == null) && (localMessage1.getReceiverDelete().booleanValue())) || ((localMessage1.getSender() == null) && (localMessage1.getSenderDelete().booleanValue())))
@@ -120,7 +120,7 @@ public class MessageController extends BaseController
     if (((localMessage1.getReceiver() == null) && (!localMessage1.getSenderDelete().booleanValue())) || ((localMessage1.getSender() == null) && (!localMessage1.getReceiverDelete().booleanValue())))
       localMessage2.setForMessage(localMessage1);
     localMessage2.setReplyMessages(null);
-    this.IIIlllIl.save(localMessage2);
+    this.messageService.save(localMessage2);
     if (localMessage1.getSender() == null)
     {
       localMessage1.setSenderRead(Boolean.valueOf(true));
@@ -131,7 +131,7 @@ public class MessageController extends BaseController
       localMessage1.setSenderRead(Boolean.valueOf(false));
       localMessage1.setReceiverRead(Boolean.valueOf(true));
     }
-    this.IIIlllIl.update(localMessage1);
+    this.messageService.update(localMessage1);
     if (((localMessage1.getReceiver() == null) && (!localMessage1.getSenderDelete().booleanValue())) || ((localMessage1.getSender() == null) && (!localMessage1.getReceiverDelete().booleanValue())))
     {
       IIIllIlI(redirectAttributes, IIIlllII);
@@ -144,14 +144,14 @@ public class MessageController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, Model model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(null, pageable));
+    model.addAttribute("page", this.messageService.findPage(null, pageable));
     return "/admin/message/list";
   }
 
   @RequestMapping(value={"/draft"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String draft(Pageable pageable, Model model)
   {
-    model.addAttribute("page", this.IIIlllIl.findDraftPage(null, pageable));
+    model.addAttribute("page", this.messageService.findDraftPage(null, pageable));
     return "/admin/message/draft";
   }
 
@@ -161,7 +161,7 @@ public class MessageController extends BaseController
   {
     if (ids != null)
       for (Long localLong : ids)
-        this.IIIlllIl.delete(localLong, null);
+        this.messageService.delete(localLong, null);
     return IIIlllII;
   }
 }

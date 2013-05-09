@@ -19,23 +19,23 @@ public class ReviewController extends BaseController
 {
 
   @Resource(name="reviewServiceImpl")
-  private ReviewService IIIlllIl;
+  private ReviewService reviewService;
 
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("review", this.IIIlllIl.find(id));
+    model.addAttribute("review", this.reviewService.find(id));
     return "/admin/review/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(Long id, @RequestParam(defaultValue="false") Boolean isShow, RedirectAttributes redirectAttributes)
   {
-    Review localReview = (Review)this.IIIlllIl.find(id);
+    Review localReview = (Review)this.reviewService.find(id);
     if (localReview == null)
       return "/admin/common/error";
     localReview.setIsShow(isShow);
-    this.IIIlllIl.update(localReview);
+    this.reviewService.update(localReview);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -45,7 +45,7 @@ public class ReviewController extends BaseController
   {
     model.addAttribute("type", type);
     model.addAttribute("types", Review.Type.values());
-    model.addAttribute("page", this.IIIlllIl.findPage(null, null, type, null, pageable));
+    model.addAttribute("page", this.reviewService.findPage(null, null, type, null, pageable));
     return "/admin/review/list";
   }
 
@@ -53,7 +53,7 @@ public class ReviewController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.reviewService.delete(ids);
     return IIIlllII;
   }
 }

@@ -15,12 +15,12 @@ public class SeoController extends BaseController
 {
 
   @Resource(name="seoServiceImpl")
-  private SeoService IIIlllIl;
+  private SeoService seoService;
 
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("seo", this.IIIlllIl.find(id));
+    model.addAttribute("seo", this.seoService.find(id));
     return "/admin/seo/edit";
   }
 
@@ -29,7 +29,7 @@ public class SeoController extends BaseController
   {
     if (!IIIllIlI(seo, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(seo, new String[] { "type" });
+    this.seoService.update(seo, new String[] { "type" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -37,7 +37,7 @@ public class SeoController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.seoService.findPage(pageable));
     return "/admin/seo/list";
   }
 }

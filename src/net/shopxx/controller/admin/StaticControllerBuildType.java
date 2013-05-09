@@ -1,6 +1,6 @@
 package net.shopxx.controller.admin;
 
-public enum StaticController$BuildType
+public enum StaticControllerBuildType
 {
   index, article, product, other;
 }

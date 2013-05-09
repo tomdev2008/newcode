@@ -22,7 +22,7 @@ public class DeliveryCenterController extends BaseController
   private DeliveryCenterService IIIlllIl;
 
   @Resource(name="areaServiceImpl")
-  private AreaService IIIllllI;
+  private AreaService areaService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add()
@@ -33,7 +33,7 @@ public class DeliveryCenterController extends BaseController
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(DeliveryCenter deliveryCenter, Long areaId, Model model, RedirectAttributes redirectAttributes)
   {
-    deliveryCenter.setArea((Area)this.IIIllllI.find(areaId));
+    deliveryCenter.setArea((Area)this.areaService.find(areaId));
     if (!IIIllIlI(deliveryCenter, new Class[0]))
       return "/admin/common/error";
     deliveryCenter.setAreaName(null);
@@ -52,7 +52,7 @@ public class DeliveryCenterController extends BaseController
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(DeliveryCenter deliveryCenter, Long areaId, RedirectAttributes redirectAttributes)
   {
-    deliveryCenter.setArea((Area)this.IIIllllI.find(areaId));
+    deliveryCenter.setArea((Area)this.areaService.find(areaId));
     if (!IIIllIlI(deliveryCenter, new Class[0]))
       return "/admin/common/error";
     this.IIIlllIl.update(deliveryCenter, new String[] { "areaName" });

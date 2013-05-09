@@ -19,12 +19,12 @@ public class ConsultationController extends BaseController
 {
 
   @Resource(name="consultationServiceImpl")
-  private ConsultationService IIIlllIl;
+  private ConsultationService consultationService;
 
   @RequestMapping(value={"/reply"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String reply(Long id, ModelMap model)
   {
-    model.addAttribute("consultation", this.IIIlllIl.find(id));
+    model.addAttribute("consultation", this.consultationService.find(id));
     return "/admin/consultation/reply";
   }
 
@@ -33,13 +33,13 @@ public class ConsultationController extends BaseController
   {
     if (!IIIllIlI(Consultation.class, "content", content, new Class[0]))
       return "/admin/common/error";
-    Consultation localConsultation1 = (Consultation)this.IIIlllIl.find(id);
+    Consultation localConsultation1 = (Consultation)this.consultationService.find(id);
     if (localConsultation1 == null)
       return "/admin/common/error";
     Consultation localConsultation2 = new Consultation();
     localConsultation2.setContent(content);
     localConsultation2.setIp(request.getRemoteAddr());
-    this.IIIlllIl.reply(localConsultation1, localConsultation2);
+    this.consultationService.reply(localConsultation1, localConsultation2);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:reply.jhtml?id=" + id;
   }
@@ -47,20 +47,20 @@ public class ConsultationController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("consultation", this.IIIlllIl.find(id));
+    model.addAttribute("consultation", this.consultationService.find(id));
     return "/admin/consultation/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(Long id, @RequestParam(defaultValue="false") Boolean isShow, RedirectAttributes redirectAttributes)
   {
-    Consultation localConsultation = (Consultation)this.IIIlllIl.find(id);
+    Consultation localConsultation = (Consultation)this.consultationService.find(id);
     if (localConsultation == null)
       return "/admin/common/error";
     if (isShow != localConsultation.getIsShow())
     {
       localConsultation.setIsShow(isShow);
-      this.IIIlllIl.update(localConsultation);
+      this.consultationService.update(localConsultation);
     }
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
@@ -69,7 +69,7 @@ public class ConsultationController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(null, null, null, pageable));
+    model.addAttribute("page", this.consultationService.findPage(null, null, null, pageable));
     return "/admin/consultation/list";
   }
 
@@ -77,10 +77,10 @@ public class ConsultationController extends BaseController
   @ResponseBody
   public Message deleteReply(Long id)
   {
-    Consultation localConsultation = (Consultation)this.IIIlllIl.find(id);
+    Consultation localConsultation = (Consultation)this.consultationService.find(id);
     if ((localConsultation == null) || (localConsultation.getForConsultation() == null))
       return IIIllIll;
-    this.IIIlllIl.delete(localConsultation);
+    this.consultationService.delete(localConsultation);
     return IIIlllII;
   }
 
@@ -89,7 +89,7 @@ public class ConsultationController extends BaseController
   public Message delete(Long[] ids)
   {
     if (ids != null)
-      this.IIIlllIl.delete(ids);
+      this.consultationService.delete(ids);
     return IIIlllII;
   }
 }

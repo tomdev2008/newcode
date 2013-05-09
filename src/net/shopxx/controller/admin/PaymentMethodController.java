@@ -1,13 +1,16 @@
 package net.shopxx.controller.admin;
 
 import java.util.HashSet;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.PaymentMethod;
-import net.shopxx.entity.PaymentMethod.Type;
+import net.shopxx.entity.PaymentMethod.PaymentMethodType;
 import net.shopxx.service.PaymentMethodService;
 import net.shopxx.service.ShippingMethodService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,27 +23,27 @@ public class PaymentMethodController extends BaseController
 {
 
   @Resource(name="paymentMethodServiceImpl")
-  private PaymentMethodService IIIlllIl;
+  private PaymentMethodService paymentMethodService;
 
   @Resource(name="shippingMethodServiceImpl")
-  private ShippingMethodService IIIllllI;
+  private ShippingMethodService shippingMethodService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("types", PaymentMethod.Type.values());
-    model.addAttribute("shippingMethods", this.IIIllllI.findAll());
+    model.addAttribute("types", PaymentMethodType.values());
+    model.addAttribute("shippingMethods", this.shippingMethodService.findAll());
     return "/admin/payment_method/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(PaymentMethod paymentMethod, Long[] shippingMethodIds, RedirectAttributes redirectAttributes)
   {
-    paymentMethod.setShippingMethods(new HashSet(this.IIIllllI.findList(shippingMethodIds)));
+    paymentMethod.setShippingMethods(new HashSet(this.shippingMethodService.findList(shippingMethodIds)));
     if (!IIIllIlI(paymentMethod, new Class[0]))
       return "/admin/common/error";
     paymentMethod.setOrders(null);
-    this.IIIlllIl.save(paymentMethod);
+    this.paymentMethodService.save(paymentMethod);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -48,19 +51,19 @@ public class PaymentMethodController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("types", PaymentMethod.Type.values());
-    model.addAttribute("shippingMethods", this.IIIllllI.findAll());
-    model.addAttribute("paymentMethod", this.IIIlllIl.find(id));
+    model.addAttribute("types", PaymentMethodType.values());
+    model.addAttribute("shippingMethods", this.shippingMethodService.findAll());
+    model.addAttribute("paymentMethod", this.paymentMethodService.find(id));
     return "/admin/payment_method/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(PaymentMethod paymentMethod, Long[] shippingMethodIds, RedirectAttributes redirectAttributes)
   {
-    paymentMethod.setShippingMethods(new HashSet(this.IIIllllI.findList(shippingMethodIds)));
+    paymentMethod.setShippingMethods(new HashSet(this.shippingMethodService.findList(shippingMethodIds)));
     if (!IIIllIlI(paymentMethod, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(paymentMethod, new String[] { "orders" });
+    this.paymentMethodService.update(paymentMethod, new String[] { "orders" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -68,7 +71,7 @@ public class PaymentMethodController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.paymentMethodService.findPage(pageable));
     return "/admin/payment_method/list";
   }
 
@@ -76,9 +79,9 @@ public class PaymentMethodController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    if (ids.length >= this.IIIlllIl.count())
+    if (ids.length >= this.paymentMethodService.count())
       return Message.error("admin.common.deleteAllNotAllowed", new Object[0]);
-    this.IIIlllIl.delete(ids);
+    this.paymentMethodService.delete(ids);
     return IIIlllII;
   }
 }

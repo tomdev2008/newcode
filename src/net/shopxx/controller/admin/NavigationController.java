@@ -1,13 +1,15 @@
 package net.shopxx.controller.admin;
 
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Navigation;
-import net.shopxx.entity.Navigation.Position;
+import net.shopxx.entity.Navigation.NavigationPosition;
 import net.shopxx.service.ArticleCategoryService;
 import net.shopxx.service.NavigationService;
 import net.shopxx.service.ProductCategoryService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,20 +22,20 @@ public class NavigationController extends BaseController
 {
 
   @Resource(name="navigationServiceImpl")
-  private NavigationService IIIlllIl;
+  private NavigationService navigationService;
 
   @Resource(name="articleCategoryServiceImpl")
-  private ArticleCategoryService IIIllllI;
+  private ArticleCategoryService articleCategoryService;
 
   @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIIlllll;
+  private ProductCategoryService productCategoryService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("positions", Navigation.Position.values());
-    model.addAttribute("articleCategoryTree", this.IIIllllI.findTree());
-    model.addAttribute("productCategoryTree", this.IIIlllll.findTree());
+    model.addAttribute("positions", NavigationPosition.values());
+    model.addAttribute("articleCategoryTree", this.articleCategoryService.findTree());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
     return "/admin/navigation/add";
   }
 
@@ -42,7 +44,7 @@ public class NavigationController extends BaseController
   {
     if (!IIIllIlI(navigation, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.save(navigation);
+    this.navigationService.save(navigation);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -50,10 +52,10 @@ public class NavigationController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("positions", Navigation.Position.values());
-    model.addAttribute("articleCategoryTree", this.IIIllllI.findTree());
-    model.addAttribute("productCategoryTree", this.IIIlllll.findTree());
-    model.addAttribute("navigation", this.IIIlllIl.find(id));
+    model.addAttribute("positions", NavigationPosition.values());
+    model.addAttribute("articleCategoryTree", this.articleCategoryService.findTree());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
+    model.addAttribute("navigation", this.navigationService.find(id));
     return "/admin/navigation/edit";
   }
 
@@ -62,7 +64,7 @@ public class NavigationController extends BaseController
   {
     if (!IIIllIlI(navigation, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(navigation);
+    this.navigationService.update(navigation);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -70,9 +72,9 @@ public class NavigationController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("topNavigations", this.IIIlllIl.findList(Navigation.Position.top));
-    model.addAttribute("middleNavigations", this.IIIlllIl.findList(Navigation.Position.middle));
-    model.addAttribute("bottomNavigations", this.IIIlllIl.findList(Navigation.Position.bottom));
+    model.addAttribute("topNavigations", this.navigationService.findList(NavigationPosition.top));
+    model.addAttribute("middleNavigations", this.navigationService.findList(NavigationPosition.middle));
+    model.addAttribute("bottomNavigations", this.navigationService.findList(NavigationPosition.bottom));
     return "/admin/navigation/list";
   }
 
@@ -80,7 +82,7 @@ public class NavigationController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.navigationService.delete(ids);
     return IIIlllII;
   }
 }

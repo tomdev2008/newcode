@@ -19,13 +19,13 @@ public class SalesController extends BaseController
   private static final int IIIlllIl = 12;
 
   @Resource(name="orderServiceImpl")
-  private OrderService IIIllllI;
+  private OrderService orderService;
 
   @RequestMapping(value={"/view"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String view(SalesController.Type type, Date beginDate, Date endDate, Model model)
+  public String view(SalesControllerType type, Date beginDate, Date endDate, Model model)
   {
     if (type == null)
-      type = SalesController.Type.month;
+      type = SalesControllerType.month;
     if (beginDate == null)
       beginDate = DateUtils.addMonths(new Date(), -11);
     if (endDate == null)
@@ -47,7 +47,7 @@ public class SalesController extends BaseController
       Date localDate2;
       Object localObject1;
       Object localObject2;
-      if (type == SalesController.Type.year)
+      if (type == SalesControllerType.year)
       {
         localCalendar3.set(2, localCalendar3.getActualMinimum(2));
         localCalendar3.set(5, localCalendar3.getActualMinimum(5));
@@ -61,8 +61,8 @@ public class SalesController extends BaseController
         localCalendar3.set(12, localCalendar3.getActualMaximum(12));
         localCalendar3.set(13, localCalendar3.getActualMaximum(13));
         localDate2 = localCalendar3.getTime();
-        localObject1 = this.IIIllllI.getSalesAmount(localDate1, localDate2);
-        localObject2 = this.IIIllllI.getSalesVolume(localDate1, localDate2);
+        localObject1 = this.orderService.getSalesAmount(localDate1, localDate2);
+        localObject2 = this.orderService.getSalesVolume(localDate1, localDate2);
         localLinkedHashMap1.put(localDate1, localObject1 != null ? localObject1 : BigDecimal.ZERO);
         localLinkedHashMap2.put(localDate1, Integer.valueOf(localObject2 != null ? ((Integer)localObject2).intValue() : 0));
       }
@@ -83,14 +83,14 @@ public class SalesController extends BaseController
           localCalendar3.set(12, localCalendar3.getActualMaximum(12));
           localCalendar3.set(13, localCalendar3.getActualMaximum(13));
           localObject1 = localCalendar3.getTime();
-          localObject2 = this.IIIllllI.getSalesAmount(localDate2, (Date)localObject1);
-          Integer localInteger = this.IIIllllI.getSalesVolume(localDate2, (Date)localObject1);
+          localObject2 = this.orderService.getSalesAmount(localDate2, (Date)localObject1);
+          Integer localInteger = this.orderService.getSalesVolume(localDate2, (Date)localObject1);
           localLinkedHashMap1.put(localDate2, localObject2 != null ? localObject2 : BigDecimal.ZERO);
           localLinkedHashMap2.put(localDate2, Integer.valueOf(localInteger != null ? localInteger.intValue() : 0));
         }
       }
     }
-    model.addAttribute("types", SalesController.Type.values());
+    model.addAttribute("types", SalesControllerType.values());
     model.addAttribute("type", type);
     model.addAttribute("beginDate", beginDate);
     model.addAttribute("endDate", endDate);

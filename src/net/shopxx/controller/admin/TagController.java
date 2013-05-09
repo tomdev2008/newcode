@@ -1,12 +1,14 @@
 package net.shopxx.controller.admin;
 
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
-import net.shopxx.entity.BaseEntity.Save;
+import net.shopxx.entity.BaseEntity;
 import net.shopxx.entity.Tag;
-import net.shopxx.entity.Tag.Type;
+import net.shopxx.entity.Tag.TagType;
 import net.shopxx.service.TagService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,23 +21,23 @@ public class TagController extends BaseController
 {
 
   @Resource(name="tagServiceImpl")
-  private TagService IIIlllIl;
+  private TagService tagService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("types", Tag.Type.values());
+    model.addAttribute("types", TagType.values());
     return "/admin/tag/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(Tag tag, RedirectAttributes redirectAttributes)
   {
-    if (!IIIllIlI(tag, new Class[] { BaseEntity.Save.class }))
+    if (!IIIllIlI(tag, new Class[] { BaseEntity.class }))
       return "/admin/common/error";
     tag.setArticles(null);
     tag.setProducts(null);
-    this.IIIlllIl.save(tag);
+    this.tagService.save(tag);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -43,8 +45,8 @@ public class TagController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("types", Tag.Type.values());
-    model.addAttribute("tag", this.IIIlllIl.find(id));
+    model.addAttribute("types", TagType.values());
+    model.addAttribute("tag", this.tagService.find(id));
     return "/admin/tag/edit";
   }
 
@@ -53,7 +55,7 @@ public class TagController extends BaseController
   {
     if (!IIIllIlI(tag, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(tag, new String[] { "type", "articles", "products" });
+    this.tagService.update(tag, new String[] { "type", "articles", "products" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -61,7 +63,7 @@ public class TagController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.tagService.findPage(pageable));
     return "/admin/tag/list";
   }
 
@@ -69,7 +71,7 @@ public class TagController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.tagService.delete(ids);
     return IIIlllII;
   }
 }

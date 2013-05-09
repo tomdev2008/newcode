@@ -1,16 +1,17 @@
 package net.shopxx.controller.admin;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Attribute;
-import net.shopxx.entity.BaseEntity.Save;
+import net.shopxx.entity.BaseEntity;
 import net.shopxx.entity.ProductCategory;
 import net.shopxx.service.AttributeService;
 import net.shopxx.service.ProductCategoryService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,15 +25,15 @@ public class AttributeController extends BaseController
 {
 
   @Resource(name="attributeServiceImpl")
-  private AttributeService IIIlllIl;
+  private AttributeService attributeService;
 
   @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIIllllI;
+  private ProductCategoryService productCategoryService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("productCategoryTree", this.IIIllllI.findTree());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
     model.addAttribute("attributeValuePropertyCount", Integer.valueOf(20));
     return "/admin/attribute/add";
   }
@@ -48,8 +49,8 @@ public class AttributeController extends BaseController
         continue;
       localIterator.remove();
     }
-    attribute.setProductCategory((ProductCategory)this.IIIllllI.find(productCategoryId));
-    if (!IIIllIlI(attribute, new Class[] { BaseEntity.Save.class }))
+    attribute.setProductCategory((ProductCategory)this.productCategoryService.find(productCategoryId));
+    if (!IIIllIlI(attribute, new Class[] { BaseEntity.class }))
       return "/admin/common/error";
     if (attribute.getProductCategory().getAttributes().size() >= 20)
     {
@@ -58,7 +59,7 @@ public class AttributeController extends BaseController
     else
     {
       attribute.setPropertyIndex(null);
-      this.IIIlllIl.save(attribute);
+      this.attributeService.save(attribute);
       IIIllIlI(redirectAttributes, IIIlllII);
     }
     return "redirect:list.jhtml";
@@ -67,9 +68,9 @@ public class AttributeController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("productCategoryTree", this.IIIllllI.findTree());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
     model.addAttribute("attributeValuePropertyCount", Integer.valueOf(20));
-    model.addAttribute("attribute", this.IIIlllIl.find(id));
+    model.addAttribute("attribute", this.attributeService.find(id));
     return "/admin/attribute/edit";
   }
 
@@ -86,7 +87,7 @@ public class AttributeController extends BaseController
     }
     if (!IIIllIlI(attribute, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(attribute, new String[] { "propertyIndex", "productCategory" });
+    this.attributeService.update(attribute, new String[] { "propertyIndex", "productCategory" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -94,7 +95,7 @@ public class AttributeController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.attributeService.findPage(pageable));
     return "/admin/attribute/list";
   }
 
@@ -102,7 +103,7 @@ public class AttributeController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.attributeService.delete(ids);
     return IIIlllII;
   }
 }

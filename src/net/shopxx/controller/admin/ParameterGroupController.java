@@ -1,8 +1,9 @@
 package net.shopxx.controller.admin;
 
 import java.util.Iterator;
-import java.util.List;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Parameter;
@@ -10,6 +11,7 @@ import net.shopxx.entity.ParameterGroup;
 import net.shopxx.entity.ProductCategory;
 import net.shopxx.service.ParameterGroupService;
 import net.shopxx.service.ProductCategoryService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +24,15 @@ public class ParameterGroupController extends BaseController
 {
 
   @Resource(name="parameterGroupServiceImpl")
-  private ParameterGroupService IIIlllIl;
+  private ParameterGroupService parameterGroupService;
 
   @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIIllllI;
+  private ProductCategoryService productCategoryService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("productCategoryTree", this.IIIllllI.findTree());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
     return "/admin/parameter_group/add";
   }
 
@@ -46,10 +48,10 @@ public class ParameterGroupController extends BaseController
       else
         localParameter.setParameterGroup(parameterGroup);
     }
-    parameterGroup.setProductCategory((ProductCategory)this.IIIllllI.find(productCategoryId));
+    parameterGroup.setProductCategory((ProductCategory)this.productCategoryService.find(productCategoryId));
     if (!IIIllIlI(parameterGroup, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.save(parameterGroup);
+    this.parameterGroupService.save(parameterGroup);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -57,8 +59,8 @@ public class ParameterGroupController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("parameterGroup", this.IIIlllIl.find(id));
-    model.addAttribute("productCategoryTree", this.IIIllllI.findTree());
+    model.addAttribute("parameterGroup", this.parameterGroupService.find(id));
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
     return "/admin/parameter_group/edit";
   }
 
@@ -74,10 +76,10 @@ public class ParameterGroupController extends BaseController
       else
         localParameter.setParameterGroup(parameterGroup);
     }
-    parameterGroup.setProductCategory((ProductCategory)this.IIIllllI.find(productCategoryId));
+    parameterGroup.setProductCategory((ProductCategory)this.productCategoryService.find(productCategoryId));
     if (!IIIllIlI(parameterGroup, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(parameterGroup);
+    this.parameterGroupService.update(parameterGroup);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -85,7 +87,7 @@ public class ParameterGroupController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.parameterGroupService.findPage(pageable));
     return "/admin/parameter_group/list";
   }
 
@@ -93,7 +95,7 @@ public class ParameterGroupController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.parameterGroupService.delete(ids);
     return IIIlllII;
   }
 }

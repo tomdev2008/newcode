@@ -12,12 +12,12 @@ public class StoragePluginController extends BaseController
 {
 
   @Resource(name="pluginServiceImpl")
-  private PluginService IIIlllIl;
+  private PluginService pluginService;
 
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(ModelMap model)
   {
-    model.addAttribute("storagePlugins", this.IIIlllIl.getStoragePlugins());
+    model.addAttribute("storagePlugins", this.pluginService.getStoragePlugins());
     return "/admin/storage_plugin/list";
   }
 }

@@ -17,7 +17,7 @@ public class DeliveryCorpController extends BaseController
 {
 
   @Resource(name="deliveryCorpServiceImpl")
-  private DeliveryCorpService IIIlllIl;
+  private DeliveryCorpService deliveryCorpService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add()
@@ -31,7 +31,7 @@ public class DeliveryCorpController extends BaseController
     if (!IIIllIlI(deliveryCorp, new Class[0]))
       return "/admin/common/error";
     deliveryCorp.setShippingMethods(null);
-    this.IIIlllIl.save(deliveryCorp);
+    this.deliveryCorpService.save(deliveryCorp);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -39,7 +39,7 @@ public class DeliveryCorpController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("deliveryCorp", this.IIIlllIl.find(id));
+    model.addAttribute("deliveryCorp", this.deliveryCorpService.find(id));
     return "/admin/delivery_corp/edit";
   }
 
@@ -48,7 +48,7 @@ public class DeliveryCorpController extends BaseController
   {
     if (!IIIllIlI(deliveryCorp, new Class[0]))
       return "/admin/common/error";
-    this.IIIlllIl.update(deliveryCorp, new String[] { "shippingMethods" });
+    this.deliveryCorpService.update(deliveryCorp, new String[] { "shippingMethods" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -56,7 +56,7 @@ public class DeliveryCorpController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.deliveryCorpService.findPage(pageable));
     return "/admin/delivery_corp/list";
   }
 
@@ -64,7 +64,7 @@ public class DeliveryCorpController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.deliveryCorpService.delete(ids);
     return IIIlllII;
   }
 }

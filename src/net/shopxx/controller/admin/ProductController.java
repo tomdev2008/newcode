@@ -8,11 +8,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import net.shopxx.FileInfo.FileType;
+
+import net.shopxx.FileInfo;
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.Setting;
@@ -23,13 +24,12 @@ import net.shopxx.entity.MemberRank;
 import net.shopxx.entity.Parameter;
 import net.shopxx.entity.ParameterGroup;
 import net.shopxx.entity.Product;
-import net.shopxx.entity.Product.OrderType;
 import net.shopxx.entity.ProductCategory;
 import net.shopxx.entity.ProductImage;
 import net.shopxx.entity.Promotion;
 import net.shopxx.entity.Specification;
 import net.shopxx.entity.SpecificationValue;
-import net.shopxx.entity.Tag.Type;
+import net.shopxx.entity.Tag.TagType;
 import net.shopxx.service.BrandService;
 import net.shopxx.service.FileService;
 import net.shopxx.service.GoodsService;
@@ -42,13 +42,13 @@ import net.shopxx.service.SpecificationService;
 import net.shopxx.service.SpecificationValueService;
 import net.shopxx.service.TagService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("adminProductController")
@@ -57,37 +57,37 @@ public class ProductController extends BaseController
 {
 
   @Resource(name="productServiceImpl")
-  private ProductService IIIlllIl;
+  private ProductService productService;
 
   @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIIllllI;
+  private ProductCategoryService productCategoryService;
 
   @Resource(name="goodsServiceImpl")
-  private GoodsService IIIlllll;
+  private GoodsService goodsService;
 
   @Resource(name="brandServiceImpl")
-  private BrandService IIlIIIII;
+  private BrandService brandService;
 
   @Resource(name="promotionServiceImpl")
-  private PromotionService IIlIIIIl;
+  private PromotionService promotionService;
 
   @Resource(name="tagServiceImpl")
-  private TagService IIlIIIlI;
+  private TagService tagService;
 
   @Resource(name="memberRankServiceImpl")
-  private MemberRankService IIlIIIll;
+  private MemberRankService memberRankService;
 
   @Resource(name="productImageServiceImpl")
-  private ProductImageService IIlIIlII;
+  private ProductImageService productImageService;
 
   @Resource(name="specificationServiceImpl")
-  private SpecificationService IIlIIlIl;
+  private SpecificationService specificationService;
 
   @Resource(name="specificationValueServiceImpl")
-  private SpecificationValueService IIlIIllI;
+  private SpecificationValueService specificationValueService;
 
   @Resource(name="fileServiceImpl")
-  private FileService IIlIIlll;
+  private FileService fileService;
 
   @RequestMapping(value={"/check_sn"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   @ResponseBody
@@ -95,14 +95,14 @@ public class ProductController extends BaseController
   {
     if (StringUtils.isEmpty(sn))
       return false;
-    return this.IIIlllIl.snUnique(previousSn, sn);
+    return this.productService.snUnique(previousSn, sn);
   }
 
   @RequestMapping(value={"/parameter_groups"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   @ResponseBody
   public Set<ParameterGroup> parameterGroups(Long id)
   {
-    ProductCategory localProductCategory = (ProductCategory)this.IIIllllI.find(id);
+    ProductCategory localProductCategory = (ProductCategory)this.productCategoryService.find(id);
     return localProductCategory.getParameterGroups();
   }
 
@@ -110,18 +110,18 @@ public class ProductController extends BaseController
   @ResponseBody
   public Set<Attribute> attributes(Long id)
   {
-    ProductCategory localProductCategory = (ProductCategory)this.IIIllllI.find(id);
+    ProductCategory localProductCategory = (ProductCategory)this.productCategoryService.find(id);
     return localProductCategory.getAttributes();
   }
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("productCategoryTree", this.IIIllllI.findTree());
-    model.addAttribute("brands", this.IIlIIIII.findAll());
-    model.addAttribute("tags", this.IIlIIIlI.findList(Tag.Type.product));
-    model.addAttribute("memberRanks", this.IIlIIIll.findAll());
-    model.addAttribute("specifications", this.IIlIIlIl.findAll());
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
+    model.addAttribute("brands", this.brandService.findAll());
+    model.addAttribute("tags", this.tagService.findList(TagType.product));
+    model.addAttribute("memberRanks", this.memberRankService.findAll());
+    model.addAttribute("specifications", this.specificationService.findAll());
     return "/admin/product/add";
   }
 
@@ -138,18 +138,18 @@ public class ProductController extends BaseController
       }
       else
       {
-        if ((((ProductImage)localObject3).getFile() == null) || (((ProductImage)localObject3).getFile().isEmpty()) || (this.IIlIIlll.isValid(FileInfo.FileType.image, ((ProductImage)localObject3).getFile())))
+        if ((((ProductImage)localObject3).getFile() == null) || (((ProductImage)localObject3).getFile().isEmpty()) || (this.fileService.isValid(FileInfo.FileType.image, ((ProductImage)localObject3).getFile())))
           continue;
         IIIllIlI(redirectAttributes, Message.error("admin.upload.invalid", new Object[0]));
         return "redirect:add.jhtml";
       }
     }
-    product.setProductCategory((ProductCategory)this.IIIllllI.find(productCategoryId));
-    product.setBrand((Brand)this.IIlIIIII.find(brandId));
-    product.setTags(new HashSet(this.IIlIIIlI.findList(tagIds)));
+    product.setProductCategory((ProductCategory)this.productCategoryService.find(productCategoryId));
+    product.setBrand((Brand)this.brandService.find(brandId));
+    product.setTags(new HashSet(this.tagService.findList(tagIds)));
     if (!IIIllIlI(product, new Class[0]))
       return "/admin/common/error";
-    if ((StringUtils.isNotEmpty(product.getSn())) && (this.IIIlllIl.snExists(product.getSn())))
+    if ((StringUtils.isNotEmpty(product.getSn())) && (this.productService.snExists(product.getSn())))
       return "/admin/common/error";
     if (product.getMarketPrice() == null)
     {
@@ -184,7 +184,7 @@ public class ProductController extends BaseController
     product.setOrderItems(null);
     product.setGiftItems(null);
     product.setProductNotifies(null);
-    Object localObject3 = this.IIlIIIll.findAll().iterator();
+    Object localObject3 = this.memberRankService.findAll().iterator();
     Object localObject4;
     while (((Iterator)localObject3).hasNext())
     {
@@ -199,7 +199,7 @@ public class ProductController extends BaseController
     while (((Iterator)localObject3).hasNext())
     {
       localObject2 = (ProductImage)((Iterator)localObject3).next();
-      this.IIlIIlII.build((ProductImage)localObject2);
+      this.productImageService.build((ProductImage)localObject2);
     }
     Collections.sort(product.getProductImages());
     if ((product.getImage() == null) && (product.getThumbnail() != null))
@@ -237,7 +237,7 @@ public class ProductController extends BaseController
     {
       for (int i = 0; i < specificationIds.length; i++)
       {
-        localObject5 = (Specification)this.IIlIIlIl.find(specificationIds[i]);
+        localObject5 = (Specification)this.specificationService.find(specificationIds[i]);
         localObject6 = request.getParameterValues("specification_" + ((Specification)localObject5).getId());
         if ((localObject6 == null) || (localObject6.length <= 0))
           continue;
@@ -289,7 +289,7 @@ public class ProductController extends BaseController
               ((List)localObject3).add(localProduct);
             }
           Product localProduct = (Product)((List)localObject3).get(j);
-          SpecificationValue localSpecificationValue = (SpecificationValue)this.IIlIIllI.find(Long.valueOf(localObject6[j]));
+          SpecificationValue localSpecificationValue = (SpecificationValue)this.specificationValueService.find(Long.valueOf(localObject6[j]));
           localProduct.getSpecifications().add(localObject5);
           localProduct.getSpecificationValues().add(localSpecificationValue);
         }
@@ -304,7 +304,7 @@ public class ProductController extends BaseController
     }
     ((Goods)localObject2).getProducts().clear();
     ((Goods)localObject2).getProducts().addAll((Collection)localObject3);
-    this.IIIlllll.save(localObject2);
+    this.goodsService.save(localObject2);
     IIIllIlI(redirectAttributes, IIIlllII);
     return (String)(String)(String)(String)(String)(String)"redirect:list.jhtml";
   }
@@ -312,12 +312,12 @@ public class ProductController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("productCategoryTree", this.IIIllllI.findTree());
-    model.addAttribute("brands", this.IIlIIIII.findAll());
-    model.addAttribute("tags", this.IIlIIIlI.findList(Tag.Type.product));
-    model.addAttribute("memberRanks", this.IIlIIIll.findAll());
-    model.addAttribute("specifications", this.IIlIIlIl.findAll());
-    model.addAttribute("product", this.IIIlllIl.find(id));
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
+    model.addAttribute("brands", this.brandService.findAll());
+    model.addAttribute("tags", this.tagService.findList(TagType.product));
+    model.addAttribute("memberRanks", this.memberRankService.findAll());
+    model.addAttribute("specifications", this.specificationService.findAll());
+    model.addAttribute("product", this.productService.find(id));
     return "/admin/product/edit";
   }
 
@@ -335,21 +335,21 @@ public class ProductController extends BaseController
       }
       else
       {
-        if ((((ProductImage)localObject2).getFile() == null) || (((ProductImage)localObject2).getFile().isEmpty()) || (this.IIlIIlll.isValid(FileInfo.FileType.image, ((ProductImage)localObject2).getFile())))
+        if ((((ProductImage)localObject2).getFile() == null) || (((ProductImage)localObject2).getFile().isEmpty()) || (this.fileService.isValid(FileInfo.FileType.image, ((ProductImage)localObject2).getFile())))
           continue;
         IIIllIlI(redirectAttributes, Message.error("admin.upload.invalid", new Object[0]));
         return "redirect:edit.jhtml?id=" + product.getId();
       }
     }
-    product.setProductCategory((ProductCategory)this.IIIllllI.find(productCategoryId));
-    product.setBrand((Brand)this.IIlIIIII.find(brandId));
-    product.setTags(new HashSet(this.IIlIIIlI.findList(tagIds)));
+    product.setProductCategory((ProductCategory)this.productCategoryService.find(productCategoryId));
+    product.setBrand((Brand)this.brandService.find(brandId));
+    product.setTags(new HashSet(this.tagService.findList(tagIds)));
     if (!IIIllIlI(product, new Class[0]))
       return "/admin/common/error";
-    localObject1 = (Product)this.IIIlllIl.find(product.getId());
+    localObject1 = (Product)this.productService.find(product.getId());
     if (localObject1 == null)
       return "/admin/common/error";
-    if ((StringUtils.isNotEmpty(product.getSn())) && (!this.IIIlllIl.snUnique(((Product)localObject1).getSn(), product.getSn())))
+    if ((StringUtils.isNotEmpty(product.getSn())) && (!this.productService.snUnique(((Product)localObject1).getSn(), product.getSn())))
       return "/admin/common/error";
     if (product.getMarketPrice() == null)
     {
@@ -361,7 +361,7 @@ public class ProductController extends BaseController
       long l = IIIllIll(product.getPrice());
       product.setPoint(Long.valueOf(l));
     }
-    Object localObject4 = this.IIlIIIll.findAll().iterator();
+    Object localObject4 = this.memberRankService.findAll().iterator();
     Object localObject5;
     while (((Iterator)localObject4).hasNext())
     {
@@ -376,7 +376,7 @@ public class ProductController extends BaseController
     while (((Iterator)localObject4).hasNext())
     {
       localObject3 = (ProductImage)((Iterator)localObject4).next();
-      this.IIlIIlII.build((ProductImage)localObject3);
+      this.productImageService.build((ProductImage)localObject3);
     }
     Collections.sort(product.getProductImages());
     if ((product.getImage() == null) && (product.getThumbnail() != null))
@@ -414,7 +414,7 @@ public class ProductController extends BaseController
     {
       for (int i = 0; i < specificationIds.length; i++)
       {
-        localObject6 = (Specification)this.IIlIIlIl.find(specificationIds[i]);
+        localObject6 = (Specification)this.specificationService.find(specificationIds[i]);
         localObject7 = request.getParameterValues("specification_" + ((Specification)localObject6).getId());
         if ((localObject7 == null) || (localObject7.length <= 0))
           continue;
@@ -430,7 +430,7 @@ public class ProductController extends BaseController
             }
             else if ((specificationProductIds != null) && (j < specificationProductIds.length))
             {
-              localProduct = (Product)this.IIIlllIl.find(specificationProductIds[j]);
+              localProduct = (Product)this.productService.find(specificationProductIds[j]);
               if (localProduct.getGoods() != localObject3)
                 return "/admin/common/error";
               localProduct.setSpecifications(new HashSet());
@@ -475,7 +475,7 @@ public class ProductController extends BaseController
               ((List)localObject4).add(localProduct);
             }
           Product localProduct = (Product)((List)localObject4).get(j);
-          SpecificationValue localSpecificationValue = (SpecificationValue)this.IIlIIllI.find(Long.valueOf(localObject7[j]));
+          SpecificationValue localSpecificationValue = (SpecificationValue)this.specificationValueService.find(Long.valueOf(localObject7[j]));
           localProduct.getSpecifications().add(localObject6);
           localProduct.getSpecificationValues().add(localSpecificationValue);
         }
@@ -490,7 +490,7 @@ public class ProductController extends BaseController
     }
     ((Goods)localObject3).getProducts().clear();
     ((Goods)localObject3).getProducts().addAll((Collection)localObject4);
-    this.IIIlllll.update(localObject3);
+    this.goodsService.update(localObject3);
     IIIllIlI(redirectAttributes, IIIlllII);
     return (String)(String)(String)(String)(String)(String)(String)"redirect:list.jhtml";
   }
@@ -498,14 +498,14 @@ public class ProductController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Long productCategoryId, Long brandId, Long promotionId, Long tagId, Boolean isMarketable, Boolean isList, Boolean isTop, Boolean isGift, Boolean isOutOfStock, Boolean isStockAlert, Pageable pageable, ModelMap model)
   {
-    ProductCategory localProductCategory = (ProductCategory)this.IIIllllI.find(productCategoryId);
-    Brand localBrand = (Brand)this.IIlIIIII.find(brandId);
-    Promotion localPromotion = (Promotion)this.IIlIIIIl.find(promotionId);
-    List localList = this.IIlIIIlI.findList(new Long[] { tagId });
-    model.addAttribute("productCategoryTree", this.IIIllllI.findTree());
-    model.addAttribute("brands", this.IIlIIIII.findAll());
-    model.addAttribute("promotions", this.IIlIIIIl.findAll());
-    model.addAttribute("tags", this.IIlIIIlI.findList(Tag.Type.product));
+    ProductCategory localProductCategory = (ProductCategory)this.productCategoryService.find(productCategoryId);
+    Brand localBrand = (Brand)this.brandService.find(brandId);
+    Promotion localPromotion = (Promotion)this.promotionService.find(promotionId);
+    List localList = this.tagService.findList(new Long[] { tagId });
+    model.addAttribute("productCategoryTree", this.productCategoryService.findTree());
+    model.addAttribute("brands", this.brandService.findAll());
+    model.addAttribute("promotions", this.promotionService.findAll());
+    model.addAttribute("tags", this.tagService.findList(TagType.product));
     model.addAttribute("productCategoryId", productCategoryId);
     model.addAttribute("brandId", brandId);
     model.addAttribute("promotionId", promotionId);
@@ -516,7 +516,7 @@ public class ProductController extends BaseController
     model.addAttribute("isGift", isGift);
     model.addAttribute("isOutOfStock", isOutOfStock);
     model.addAttribute("isStockAlert", isStockAlert);
-    model.addAttribute("page", this.IIIlllIl.findPage(localProductCategory, localBrand, localPromotion, localList, null, null, null, isMarketable, isList, isTop, isGift, isOutOfStock, isStockAlert, Product.OrderType.dateDesc, pageable));
+    model.addAttribute("page", this.productService.findPage(localProductCategory, localBrand, localPromotion, localList, null, null, null, isMarketable, isList, isTop, isGift, isOutOfStock, isStockAlert, Product.OrderType.dateDesc, pageable));
     return "/admin/product/list";
   }
 
@@ -524,7 +524,7 @@ public class ProductController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.productService.delete(ids);
     return IIIlllII;
   }
 

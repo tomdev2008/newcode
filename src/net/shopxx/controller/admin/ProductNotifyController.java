@@ -15,13 +15,13 @@ public class ProductNotifyController extends BaseController
 {
 
   @Resource(name="productNotifyServiceImpl")
-  private ProductNotifyService IIIlllIl;
+  private ProductNotifyService productNotifyService;
 
   @RequestMapping(value={"/send"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   @ResponseBody
   public Message send(Long[] ids)
   {
-    int i = this.IIIlllIl.send(ids);
+    int i = this.productNotifyService.send(ids);
     return Message.success("admin.productNotify.sentSuccess", new Object[] { Integer.valueOf(i) });
   }
 
@@ -31,7 +31,7 @@ public class ProductNotifyController extends BaseController
     model.addAttribute("isMarketable", isMarketable);
     model.addAttribute("isOutOfStock", isOutOfStock);
     model.addAttribute("hasSent", hasSent);
-    model.addAttribute("page", this.IIIlllIl.findPage(null, isMarketable, isOutOfStock, hasSent, pageable));
+    model.addAttribute("page", this.productNotifyService.findPage(null, isMarketable, isOutOfStock, hasSent, pageable));
     return "/admin/product_notify/list";
   }
 
@@ -39,7 +39,7 @@ public class ProductNotifyController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.productNotifyService.delete(ids);
     return IIIlllII;
   }
 }

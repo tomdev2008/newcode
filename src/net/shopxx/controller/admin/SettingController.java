@@ -1,28 +1,22 @@
 package net.shopxx.controller.admin;
 
-import com.sun.mail.smtp.SMTPSendFailedException;
-import com.sun.mail.smtp.SMTPSenderFailedException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.util.Properties;
+
 import javax.mail.MessagingException;
-import net.shopxx.FileInfo.FileType;
+
+import net.shopxx.FileInfo.FileInfoFileType;
 import net.shopxx.Message;
 import net.shopxx.Setting;
-import net.shopxx.Setting.AccountLockType;
-import net.shopxx.Setting.CaptchaType;
-import net.shopxx.Setting.ConsultationAuthority;
-import net.shopxx.Setting.ReviewAuthority;
-import net.shopxx.Setting.RoundType;
-import net.shopxx.Setting.StockAllocationTime;
-import net.shopxx.Setting.WatermarkPosition;
 import net.shopxx.service.CacheService;
 import net.shopxx.service.FileService;
 import net.shopxx.service.MailService;
 import net.shopxx.service.StaticService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.ClassPathResource;
@@ -36,22 +30,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sun.mail.smtp.SMTPSendFailedException;
+import com.sun.mail.smtp.SMTPSenderFailedException;
+
 @Controller("adminstingController")
 @RequestMapping({"/admin/setting"})
 public class SettingController extends BaseController
 {
 
   @javax.annotation.Resource(name="fileServiceImpl")
-  private FileService IIIlllIl;
+  private FileService fileService;
 
   @javax.annotation.Resource(name="mailServiceImpl")
-  private MailService IIIllllI;
+  private MailService mailService;
 
   @javax.annotation.Resource(name="cacheServiceImpl")
-  private CacheService IIIlllll;
+  private CacheService cacheService;
 
   @javax.annotation.Resource(name="staticServiceImpl")
-  private StaticService IIlIIIII;
+  private StaticService staticService;
 
   @RequestMapping(value={"/mail_test"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   @ResponseBody
@@ -66,7 +63,7 @@ public class SettingController extends BaseController
     {
       if ((!IIIllIlI(Setting.class, "smtpFromMail", smtpFromMail, new Class[0])) || (!IIIllIlI(Setting.class, "smtpHost", smtpHost, new Class[0])) || (!IIIllIlI(Setting.class, "smtpPort", smtpPort, new Class[0])) || (!IIIllIlI(Setting.class, "smtpUsername", smtpUsername, new Class[0])))
         return IIIllIll;
-      this.IIIllllI.sendTestMail(smtpFromMail, smtpHost, smtpPort, smtpUsername, smtpPassword, toMail);
+      this.mailService.sendTestMail(smtpFromMail, smtpHost, smtpPort, smtpUsername, smtpPassword, toMail);
     }
     catch (MailSendException localMailSendException)
     {
@@ -124,6 +121,7 @@ public class SettingController extends BaseController
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(Setting setting, MultipartFile watermarkImageFile, RedirectAttributes redirectAttributes)
   {
+	  Object localObject1 = null;
     if (!IIIllIlI(setting, new Class[0]))
       return "/admin/common/error";
     if ((setting.getUsernameMinLength().intValue() > setting.getUsernameMaxLength().intValue()) || (setting.getPasswordMinLength().intValue() > setting.getPasswordMinLength().intValue()))
@@ -133,12 +131,12 @@ public class SettingController extends BaseController
       setting.setSmtpPassword(localSetting.getSmtpPassword());
     if ((watermarkImageFile != null) && (!watermarkImageFile.isEmpty()))
     {
-      if (!this.IIIlllIl.isValid(FileInfo.FileType.image, watermarkImageFile))
+      if (!this.fileService.isValid(FileInfoFileType.image, watermarkImageFile))
       {
         IIIllIlI(redirectAttributes, Message.error("admin.upload.invalid", new Object[0]));
         return "redirect:edit.jhtml";
       }
-      localObject1 = this.IIIlllIl.uploadLocal(FileInfo.FileType.image, watermarkImageFile);
+      localObject1 = this.fileService.uploadLocal(FileInfoFileType.image, watermarkImageFile);
       setting.setWatermarkImage((String)localObject1);
     }
     else
@@ -148,10 +146,10 @@ public class SettingController extends BaseController
     setting.setCnzzSiteId(localSetting.getCnzzSiteId());
     setting.setCnzzPassword(localSetting.getCnzzPassword());
     SettingUtils.set(setting);
-    this.IIIlllll.clear();
-    this.IIlIIIII.buildIndex();
-    this.IIlIIIII.buildOther();
-    Object localObject1 = null;
+    this.cacheService.clear();
+    this.staticService.buildIndex();
+    this.staticService.buildOther();
+    
     label416: 
     try
     {

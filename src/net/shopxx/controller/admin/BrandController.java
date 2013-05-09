@@ -1,11 +1,13 @@
 package net.shopxx.controller.admin;
 
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Brand;
-import net.shopxx.entity.Brand.Type;
+import net.shopxx.entity.Brand.BrandType;
 import net.shopxx.service.BrandService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,12 +21,12 @@ public class BrandController extends BaseController
 {
 
   @Resource(name="brandServiceImpl")
-  private BrandService IIIlllIl;
+  private BrandService brandService;
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("types", Brand.Type.values());
+    model.addAttribute("types", BrandType.values());
     return "/admin/brand/add";
   }
 
@@ -33,14 +35,14 @@ public class BrandController extends BaseController
   {
     if (!IIIllIlI(brand, new Class[0]))
       return "/admin/common/error";
-    if (brand.getType() == Brand.Type.text)
+    if (brand.getType() == BrandType.text)
       brand.setLogo(null);
     else if (StringUtils.isEmpty(brand.getLogo()))
       return "/admin/common/error";
     brand.setProducts(null);
     brand.setProductCategories(null);
     brand.setPromotions(null);
-    this.IIIlllIl.save(brand);
+    this.brandService.save(brand);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -48,8 +50,8 @@ public class BrandController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("types", Brand.Type.values());
-    model.addAttribute("brand", this.IIIlllIl.find(id));
+    model.addAttribute("types", BrandType.values());
+    model.addAttribute("brand", this.brandService.find(id));
     return "/admin/brand/edit";
   }
 
@@ -58,11 +60,11 @@ public class BrandController extends BaseController
   {
     if (!IIIllIlI(brand, new Class[0]))
       return "/admin/common/error";
-    if (brand.getType() == Brand.Type.text)
+    if (brand.getType() == BrandType.text)
       brand.setLogo(null);
     else if (StringUtils.isEmpty(brand.getLogo()))
       return "/admin/common/error";
-    this.IIIlllIl.update(brand, new String[] { "products", "productCategories", "promotions" });
+    this.brandService.update(brand, new String[] { "products", "productCategories", "promotions" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -70,7 +72,7 @@ public class BrandController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.brandService.findPage(pageable));
     return "/admin/brand/list";
   }
 
@@ -78,7 +80,7 @@ public class BrandController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    this.IIIlllIl.delete(ids);
+    this.brandService.delete(ids);
     return IIIlllII;
   }
 }

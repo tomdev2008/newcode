@@ -1,13 +1,16 @@
 package net.shopxx.controller.admin;
 
 import java.util.HashSet;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Admin;
-import net.shopxx.entity.BaseEntity.Save;
+import net.shopxx.entity.BaseEntity;
 import net.shopxx.service.AdminService;
 import net.shopxx.service.RoleService;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -22,10 +25,10 @@ public class AdminController extends BaseController
 {
 
   @Resource(name="adminServiceImpl")
-  private AdminService IIIlllIl;
+  private AdminService adminService;
 
   @Resource(name="roleServiceImpl")
-  private RoleService IIIllllI;
+  private RoleService roleService;
 
   @RequestMapping(value={"/check_username"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   @ResponseBody
@@ -33,23 +36,23 @@ public class AdminController extends BaseController
   {
     if (StringUtils.isEmpty(username))
       return false;
-    return !this.IIIlllIl.usernameExists(username);
+    return !this.adminService.usernameExists(username);
   }
 
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String add(ModelMap model)
   {
-    model.addAttribute("roles", this.IIIllllI.findAll());
+    model.addAttribute("roles", this.roleService.findAll());
     return "/admin/admin/add";
   }
 
   @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String save(Admin admin, Long[] roleIds, RedirectAttributes redirectAttributes)
   {
-    admin.setRoles(new HashSet(this.IIIllllI.findList(roleIds)));
-    if (!IIIllIlI(admin, new Class[] { BaseEntity.Save.class }))
+    admin.setRoles(new HashSet(this.roleService.findList(roleIds)));
+    if (!IIIllIlI(admin, new Class[] { BaseEntity.class }))
       return "/admin/common/error";
-    if (this.IIIlllIl.usernameExists(admin.getUsername()))
+    if (this.adminService.usernameExists(admin.getUsername()))
       return "/admin/common/error";
     admin.setPassword(DigestUtils.md5Hex(admin.getPassword()));
     admin.setIsLocked(Boolean.valueOf(false));
@@ -58,7 +61,7 @@ public class AdminController extends BaseController
     admin.setLoginDate(null);
     admin.setLoginIp(null);
     admin.setOrders(null);
-    this.IIIlllIl.save(admin);
+    this.adminService.save(admin);
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -66,18 +69,18 @@ public class AdminController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(Long id, ModelMap model)
   {
-    model.addAttribute("roles", this.IIIllllI.findAll());
-    model.addAttribute("admin", this.IIIlllIl.find(id));
+    model.addAttribute("roles", this.roleService.findAll());
+    model.addAttribute("admin", this.adminService.find(id));
     return "/admin/admin/edit";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public String update(Admin admin, Long[] roleIds, RedirectAttributes redirectAttributes)
   {
-    admin.setRoles(new HashSet(this.IIIllllI.findList(roleIds)));
+    admin.setRoles(new HashSet(this.roleService.findList(roleIds)));
     if (!IIIllIlI(admin, new Class[0]))
       return "/admin/common/error";
-    Admin localAdmin = (Admin)this.IIIlllIl.find(admin.getId());
+    Admin localAdmin = (Admin)this.adminService.find(admin.getId());
     if (localAdmin == null)
       return "/admin/common/error";
     if (StringUtils.isNotEmpty(admin.getPassword()))
@@ -95,7 +98,7 @@ public class AdminController extends BaseController
       admin.setLoginFailureCount(localAdmin.getLoginFailureCount());
       admin.setLockedDate(localAdmin.getLockedDate());
     }
-    this.IIIlllIl.update(admin, new String[] { "username", "loginDate", "loginIp", "orders" });
+    this.adminService.update(admin, new String[] { "username", "loginDate", "loginIp", "orders" });
     IIIllIlI(redirectAttributes, IIIlllII);
     return "redirect:list.jhtml";
   }
@@ -103,7 +106,7 @@ public class AdminController extends BaseController
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String list(Pageable pageable, ModelMap model)
   {
-    model.addAttribute("page", this.IIIlllIl.findPage(pageable));
+    model.addAttribute("page", this.adminService.findPage(pageable));
     return "/admin/admin/list";
   }
 
@@ -111,9 +114,9 @@ public class AdminController extends BaseController
   @ResponseBody
   public Message delete(Long[] ids)
   {
-    if (ids.length >= this.IIIlllIl.count())
+    if (ids.length >= this.adminService.count())
       return Message.error("admin.common.deleteAllNotAllowed", new Object[0]);
-    this.IIIlllIl.delete(ids);
+    this.adminService.delete(ids);
     return IIIlllII;
   }
 }
