@@ -1,11 +1,13 @@
 package net.shopxx.dao.impl;
 
 import java.util.List;
-import javax.persistence.EntityManager;
+
 import javax.persistence.FlushModeType;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
+
 import net.shopxx.dao.AreaDao;
 import net.shopxx.entity.Area;
+
 import org.springframework.stereotype.Repository;
 
 @Repository("areaDaoImpl")
@@ -15,7 +17,7 @@ public class AreaDaoImpl extends BaseDaoImpl<Area, Long>
   public List<Area> findRoots(Integer count)
   {
     String str = "select area from Area area where area.parent is null order by area.order asc";
-    TypedQuery localTypedQuery = this.IIIllIlI.createQuery(str, Area.class).setFlushMode(FlushModeType.COMMIT);
+	Query localTypedQuery = this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT);
     if (count != null)
       localTypedQuery.setMaxResults(count.intValue());
     return localTypedQuery.getResultList();

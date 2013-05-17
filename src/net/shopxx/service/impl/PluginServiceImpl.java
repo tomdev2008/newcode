@@ -44,7 +44,10 @@ public class PluginServiceImpl
   public List<PaymentPlugin> getPaymentPlugins(boolean isEnabled)
   {
     ArrayList localArrayList = new ArrayList();
-    CollectionUtils.select(this.IIIllIlI, new PluginServiceImpl.1(this, isEnabled), localArrayList);
+    CollectionUtils.select(this.IIIllIlI, new PluginServiceImpl(){
+    	    PaymentPlugin localPaymentPlugin = (PaymentPlugin)object;
+    	    return localPaymentPlugin.getIsEnabled() == this.IIIllIll;
+    }, localArrayList);
     Collections.sort(localArrayList);
     return localArrayList;
   }

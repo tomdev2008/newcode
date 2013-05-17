@@ -13,8 +13,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.stereotype.Component;
 
-public abstract class PaymentPlugin
-  implements Comparable<PaymentPlugin>
+public abstract class PaymentPlugin implements Comparable<PaymentPlugin>
 {
   public static final String PAYMENT_NAME_ATTRIBUTE_NAME = "paymentName";
   public static final String FEE_TYPE_ATTRIBUTE_NAME = "feeType";

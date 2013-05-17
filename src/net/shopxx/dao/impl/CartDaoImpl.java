@@ -1,11 +1,12 @@
 package net.shopxx.dao.impl;
 
 import java.util.Date;
-import javax.persistence.EntityManager;
+
 import javax.persistence.FlushModeType;
-import javax.persistence.Query;
+
 import net.shopxx.dao.CartDao;
 import net.shopxx.entity.Cart;
+
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,6 @@ public class CartDaoImpl extends BaseDaoImpl<Cart, Long>
   public void evictExpired()
   {
     String str = "delete from Cart cart where cart.modifyDate <= :expire";
-    this.IIIllIlI.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("expire", DateUtils.addSeconds(new Date(), -604800)).executeUpdate();
+    this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("expire", DateUtils.addSeconds(new Date(), -604800)).executeUpdate();
   }
 }
