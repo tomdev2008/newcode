@@ -5,11 +5,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import net.shopxx.plugin.PaymentPlugin;
 import net.shopxx.plugin.StoragePlugin;
 import net.shopxx.service.PluginService;
+
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.springframework.stereotype.Service;
 
 @Service("pluginServiceImpl")
@@ -18,7 +22,7 @@ public class PluginServiceImpl
 {
 
   @Resource
-  private List<PaymentPlugin> IIIllIlI = new ArrayList();
+  private List<PaymentPlugin> paymentPlugin = new ArrayList();
 
   @Resource
   private List<StoragePlugin> IIIllIll = new ArrayList();
@@ -31,8 +35,8 @@ public class PluginServiceImpl
 
   public List<PaymentPlugin> getPaymentPlugins()
   {
-    Collections.sort(this.IIIllIlI);
-    return this.IIIllIlI;
+    Collections.sort(this.paymentPlugin);
+    return this.paymentPlugin;
   }
 
   public List<StoragePlugin> getStoragePlugins()
@@ -43,8 +47,9 @@ public class PluginServiceImpl
 
   public List<PaymentPlugin> getPaymentPlugins(boolean isEnabled)
   {
+	  CollectionUtils v = new CollectionUtils();
     ArrayList localArrayList = new ArrayList();
-    CollectionUtils.select(this.IIIllIlI, new PluginServiceImpl(){
+    CollectionUtils.select(this.paymentPlugin, new Predicate(){
     	    PaymentPlugin localPaymentPlugin = (PaymentPlugin)object;
     	    return localPaymentPlugin.getIsEnabled() == this.IIIllIll;
     }, localArrayList);
@@ -69,4 +74,5 @@ public class PluginServiceImpl
   {
     return (StoragePlugin)this.IIIlllIl.get(id);
   }
+
 }

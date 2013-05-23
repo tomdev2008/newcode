@@ -2,12 +2,15 @@ package net.shopxx.plugin;
 
 import java.math.BigDecimal;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import net.shopxx.Setting;
 import net.shopxx.entity.PluginConfig;
 import net.shopxx.service.PluginConfigService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

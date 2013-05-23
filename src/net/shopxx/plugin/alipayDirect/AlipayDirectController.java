@@ -1,11 +1,14 @@
 package net.shopxx.plugin.alipayDirect;
 
 import java.math.BigDecimal;
+
 import javax.annotation.Resource;
+
 import net.shopxx.controller.admin.BaseController;
 import net.shopxx.entity.PluginConfig;
-import net.shopxx.plugin.PaymentPlugin.FeeType;
+import net.shopxx.plugin.PaymentPlugin.PaymentPluginFeeType;
 import net.shopxx.service.PluginConfigService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,13 +56,13 @@ public class AlipayDirectController extends BaseController
   public String setting(ModelMap model)
   {
     PluginConfig localPluginConfig = this.IIIlllIl.getPluginConfig();
-    model.addAttribute("feeTypes", PaymentPlugin.FeeType.values());
+    model.addAttribute("feeTypes", PaymentPluginFeeType.values());
     model.addAttribute("pluginConfig", localPluginConfig);
     return "/net/shopxx/plugin/alipayDirect/setting";
   }
 
   @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public String update(String paymentName, String partner, String key, PaymentPlugin.FeeType feeType, BigDecimal fee, String logo, String description, @RequestParam(defaultValue="false") Boolean isEnabled, Integer order, RedirectAttributes redirectAttributes)
+  public String update(String paymentName, String partner, String key, PaymentPluginFeeType feeType, BigDecimal fee, String logo, String description, @RequestParam(defaultValue="false") Boolean isEnabled, Integer order, RedirectAttributes redirectAttributes)
   {
     PluginConfig localPluginConfig = this.IIIlllIl.getPluginConfig();
     localPluginConfig.setAttribute("paymentName", paymentName);

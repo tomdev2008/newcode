@@ -3,9 +3,11 @@ package net.shopxx.plugin.alipayDirect;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import net.shopxx.plugin.PaymentPlugin;
-import net.shopxx.plugin.PaymentPlugin.Method;
+
 import org.springframework.stereotype.Component;
 
 @Component("alipayDirectPlugin")
@@ -13,7 +15,7 @@ public class AlipayDirectPlugin extends PaymentPlugin
 {
   public String getName()
   {
-    return "鏀粯瀹濆嵆鏃朵氦鏄�;
+    return "支付宝";
   }
 
   public String getVersion()
@@ -51,9 +53,9 @@ public class AlipayDirectPlugin extends PaymentPlugin
     return "https://mapi.alipay.com/gateway.do";
   }
 
-  public PaymentPlugin.Method getMethod()
+  public PaymentPluginMethod getMethod()
   {
-    return PaymentPlugin.Method.get;
+    return PaymentPluginMethod.get;
   }
 
   public Integer getTimeout()
