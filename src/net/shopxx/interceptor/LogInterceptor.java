@@ -25,17 +25,17 @@ public class LogInterceptor extends HandlerInterceptorAdapter
   private String[] IIIlllII = IIIllIlI;
 
   @Resource(name="logConfigServiceImpl")
-  private LogConfigService IIIlllIl;
+  private LogConfigService logConfigService;
 
   @Resource(name="logServiceImpl")
-  private LogService IIIllllI;
+  private LogService logService;
 
   @Resource(name="adminServiceImpl")
-  private AdminService IIIlllll;
+  private AdminService adminService;
 
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
   {
-    List localList = this.IIIlllIl.getAll();
+    List localList = this.logConfigService.getAll();
     if (localList != null)
     {
       String str1 = request.getServletPath();
@@ -45,7 +45,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter
         LogConfig localLogConfig = (LogConfig)localIterator1.next();
         if (!IIIllIll.match(localLogConfig.getUrlPattern(), str1))
           continue;
-        String str2 = this.IIIlllll.getCurrentUsername();
+        String str2 = this.adminService.getCurrentUsername();
         String str3 = localLogConfig.getOperation();
         String str4 = str2;
         String str5 = (String)request.getAttribute(Log.LOG_CONTENT_ATTRIBUTE_NAME);
@@ -75,7 +75,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter
         ((Log)localObject).setContent(str5);
         ((Log)localObject).setParameter(localStringBuffer.toString());
         ((Log)localObject).setIp(str6);
-        this.IIIllllI.save(localObject);
+        this.logService.save(localObject);
         break;
       }
     }

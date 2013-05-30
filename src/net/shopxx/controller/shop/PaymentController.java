@@ -2,23 +2,25 @@ package net.shopxx.controller.shop;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import net.shopxx.entity.Member;
 import net.shopxx.entity.Order;
-import net.shopxx.entity.Order.PaymentStatus;
+import net.shopxx.entity.Order.OrderPaymentStatus;
 import net.shopxx.entity.Payment;
-import net.shopxx.entity.Payment.Status;
-import net.shopxx.entity.Payment.Type;
-import net.shopxx.entity.PaymentMethod;
-import net.shopxx.entity.PaymentMethod.Type;
-import net.shopxx.entity.Sn.Type;
+import net.shopxx.entity.Payment.PaymentStatus;
+import net.shopxx.entity.Payment.PaymentType;
+import net.shopxx.entity.PaymentMethod.PaymentMethodType;
+import net.shopxx.entity.Sn.SnType;
 import net.shopxx.plugin.PaymentPlugin;
 import net.shopxx.service.MemberService;
 import net.shopxx.service.OrderService;
 import net.shopxx.service.PaymentService;
 import net.shopxx.service.PluginService;
 import net.shopxx.service.SnService;
+
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -54,9 +56,9 @@ public class PaymentController extends BaseController
     Member localMember = this.IIIllllI.getCurrent();
     if ((localMember == null) || (localOrder.getMember() != localMember) || (localOrder.isExpired()))
       return "/shop/common/error";
-    if ((localOrder.getPaymentMethod() == null) || (localOrder.getPaymentMethod().getType() == PaymentMethod.Type.offline))
+    if ((localOrder.getPaymentMethod() == null) || (localOrder.getPaymentMethod().getType() == PaymentMethodType.offline))
       return "/shop/common/error";
-    if ((localOrder.getPaymentStatus() != Order.PaymentStatus.unpaid) && (localOrder.getPaymentStatus() != Order.PaymentStatus.partialPayment))
+    if ((localOrder.getPaymentStatus() != OrderPaymentStatus.unpaid) && (localOrder.getPaymentStatus() != OrderPaymentStatus.partialPayment))
       return "/shop/common/error";
     if (localOrder.getAmountPayable().compareTo(new BigDecimal(0)) <= 0)
       return "/shop/common/error";
@@ -66,9 +68,9 @@ public class PaymentController extends BaseController
     BigDecimal localBigDecimal1 = localPaymentPlugin.getFee(localOrder.getAmountPayable());
     BigDecimal localBigDecimal2 = localOrder.getAmountPayable().add(localBigDecimal1);
     Payment localPayment = new Payment();
-    localPayment.setSn(this.IIlIIIIl.generate(Sn.Type.payment));
-    localPayment.setType(Payment.Type.online);
-    localPayment.setStatus(Payment.Status.wait);
+    localPayment.setSn(this.IIlIIIIl.generate(SnType.payment));
+    localPayment.setType(PaymentType.online);
+    localPayment.setStatus(PaymentStatus.wait);
     localPayment.setPaymentMethod(localOrder.getPaymentMethodName() + "-" + localPaymentPlugin.getPaymentName());
     localPayment.setFee(localBigDecimal1);
     localPayment.setAmount(localBigDecimal2);
@@ -89,7 +91,7 @@ public class PaymentController extends BaseController
     Payment localPayment = this.IIlIIIII.findBySn(sn);
     if (localPayment == null)
       return "/shop/common/error";
-    if (localPayment.getStatus() == Payment.Status.wait)
+    if (localPayment.getStatus() == PaymentStatus.wait)
     {
       PaymentPlugin localPaymentPlugin = this.IIIlllll.getPaymentPlugin(localPayment.getPaymentPluginId());
       if ((localPaymentPlugin != null) && (localPaymentPlugin.verify(sn, request)))
@@ -113,13 +115,13 @@ public class PaymentController extends BaseController
             }
           }
         }
-        localPayment.setStatus(Payment.Status.success);
+        localPayment.setStatus(PaymentStatus.success);
         localPayment.setAmount(localBigDecimal1);
         localPayment.setPaymentDate(new Date());
       }
       else
       {
-        localPayment.setStatus(Payment.Status.failure);
+        localPayment.setStatus(PaymentStatus.failure);
         localPayment.setPaymentDate(new Date());
       }
       this.IIlIIIII.update(localPayment);
@@ -137,7 +139,7 @@ public class PaymentController extends BaseController
       PaymentPlugin localPaymentPlugin = this.IIIlllll.getPaymentPlugin(localPayment.getPaymentPluginId());
       if (localPaymentPlugin != null)
       {
-        if ((localPayment.getStatus() == Payment.Status.wait) && (localPaymentPlugin.verify(sn, request)))
+        if ((localPayment.getStatus() == PaymentStatus.wait) && (localPaymentPlugin.verify(sn, request)))
         {
           BigDecimal localBigDecimal1 = localPaymentPlugin.getAmount(sn, request);
           if (localBigDecimal1.compareTo(localPayment.getAmount()) >= 0)
@@ -158,7 +160,7 @@ public class PaymentController extends BaseController
               }
             }
           }
-          localPayment.setStatus(Payment.Status.success);
+          localPayment.setStatus(PaymentStatus.success);
           localPayment.setAmount(localBigDecimal1);
           localPayment.setPaymentDate(new Date());
           this.IIlIIIII.update(localPayment);

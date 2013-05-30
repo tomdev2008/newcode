@@ -1,26 +1,26 @@
 package net.shopxx.controller.shop;
 
 import java.awt.image.BufferedImage;
-import java.math.BigInteger;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map<Ljava.lang.Long;Ljava.lang.String;>;
+
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import net.shopxx.Setting;
 import net.shopxx.entity.Area;
 import net.shopxx.service.AreaService;
 import net.shopxx.service.CaptchaService;
 import net.shopxx.service.RSAService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;

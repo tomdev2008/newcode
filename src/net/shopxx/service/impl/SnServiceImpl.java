@@ -10,16 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("snServiceImpl")
-public class SnServiceImpl
-  implements SnService
-{
+public class SnServiceImpl implements SnService {
 
-  @Resource(name="snDaoImpl")
-  private SnDao IIIllIlI;
+	@Resource(name = "snDaoImpl")
+	private SnDao snDao;
 
-  @Transactional
-  public String generate(SnType type)
-  {
-    return this.IIIllIlI.generate(type);
-  }
+	@Transactional
+	public String generate(SnType type) {
+		return this.snDao.generate(type);
+	}
 }

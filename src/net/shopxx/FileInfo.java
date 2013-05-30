@@ -2,69 +2,58 @@ package net.shopxx;
 
 import java.util.Date;
 
-public class FileInfo
-{
-	public enum FileInfoOrderType
-	{
-	  name, size, type;
+public class FileInfo {
+	public enum FileInfoOrderType {
+		name, size, type;
 	}
-	public enum FileInfoFileType
-	{
-	  image, flash, media, file;
+
+	public enum FileInfoFileType {
+		image, flash, media, file;
 	}
-  private String name;
-  private String url;
-  private Boolean isDirectory;
-  private Long size;
-  private Date lastModified;
 
-  public String getName()
-  {
-    return this.name;
-  }
+	private String name;
+	private String url;
+	private Boolean isDirectory;
+	private Long size;
+	private Date lastModified;
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	public String getName() {
+		return this.name;
+	}
 
-  public String getUrl()
-  {
-    return this.url;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setUrl(String url)
-  {
-    this.url = url;
-  }
+	public String getUrl() {
+		return this.url;
+	}
 
-  public Boolean getIsDirectory()
-  {
-    return this.isDirectory;
-  }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-  public void setIsDirectory(Boolean isDirectory)
-  {
-    this.isDirectory = isDirectory;
-  }
+	public Boolean getIsDirectory() {
+		return this.isDirectory;
+	}
 
-  public Long getSize()
-  {
-    return this.size;
-  }
+	public void setIsDirectory(Boolean isDirectory) {
+		this.isDirectory = isDirectory;
+	}
 
-  public void setSize(Long size)
-  {
-    this.size = size;
-  }
+	public Long getSize() {
+		return this.size;
+	}
 
-  public Date getLastModified()
-  {
-    return this.lastModified;
-  }
+	public void setSize(Long size) {
+		this.size = size;
+	}
 
-  public void setLastModified(Date lastModified)
-  {
-    this.lastModified = lastModified;
-  }
+	public Date getLastModified() {
+		return this.lastModified;
+	}
+
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
+	}
 }

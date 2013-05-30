@@ -2,17 +2,19 @@ package net.shopxx.controller.shop;
 
 import java.util.Date;
 import java.util.UUID;
+
 import javax.annotation.Resource;
+
 import net.shopxx.Message;
 import net.shopxx.Setting;
-import net.shopxx.Setting.CaptchaType;
-import net.shopxx.entity.BaseEntity.Save;
+import net.shopxx.entity.BaseEntity;
 import net.shopxx.entity.Member;
 import net.shopxx.entity.SafeKey;
 import net.shopxx.service.CaptchaService;
 import net.shopxx.service.MailService;
 import net.shopxx.service.MemberService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -95,7 +97,7 @@ public class PasswordController extends BaseController
     Member localMember = this.IIIllllI.findByUsername(username);
     if (localMember == null)
       return IIIllIll;
-    if (!IIIllIlI(Member.class, "password", newPassword, new Class[] { BaseEntity.Save.class }))
+    if (!IIIllIlI(Member.class, "password", newPassword, new Class[] { BaseEntity.class }))
       return Message.warn("shop.password.invalidPassword", new Object[0]);
     Setting localSetting = SettingUtils.get();
     if ((newPassword.length() < localSetting.getPasswordMinLength().intValue()) || (newPassword.length() > localSetting.getPasswordMaxLength().intValue()))

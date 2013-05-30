@@ -6,13 +6,15 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
-import net.shopxx.Setting.WatermarkPosition;
+
+import net.shopxx.Setting;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.im4java.core.CompositeCmd;
@@ -25,7 +27,11 @@ import org.springframework.util.Assert;
 
 public final class ImageUtils
 {
-  private static ImageUtils.Type IIIllIlI = ImageUtils.Type.auto;
+	 enum ImageUtilsType
+	 {
+	   auto, jdk, graphicsMagick, imageMagick;
+	 }
+  private static ImageUtilsType IIIllIlI = ImageUtilsType.auto;
   private static String IIIllIll;
   private static String IIIlllII;
   private static final Color IIIlllIl = Color.white;
@@ -90,7 +96,7 @@ public final class ImageUtils
         if (IIIllIll != null)
           ((IdentifyCmd)localObject2).setSearchPath(IIIllIll);
         ((IdentifyCmd)localObject2).run((Operation)localObject1, new Object[0]);
-        IIIllIlI = ImageUtils.Type.graphicsMagick;
+        IIIllIlI = ImageUtilsType.graphicsMagick;
       }
       catch (Throwable localThrowable1)
       {

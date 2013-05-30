@@ -23,99 +23,122 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 @Repository("couponCodeDaoImpl")
-public class CouponCodeDaoImpl extends BaseDaoImpl<CouponCode, Long>
-  implements CouponCodeDao
-{
-  public boolean codeExists(String code)
-  {
-    if (code == null)
-      return false;
-    String str = "select count(*) from CouponCode couponCode where lower(couponCode.code) = lower(:code)";
-    Long localLong = (Long)this.IIIllIlI.createQuery(str, Long.class).setFlushMode(FlushModeType.COMMIT).setParameter("code", code).getSingleResult();
-    return localLong.longValue() > 0L;
-  }
+public class CouponCodeDaoImpl extends BaseDaoImpl<CouponCode, Long> implements
+		CouponCodeDao {
+	public boolean codeExists(String code) {
+		if (code == null)
+			return false;
+		String str = "select count(*) from CouponCode couponCode where lower(couponCode.code) = lower(:code)";
+		Long localLong = (Long) this.entityManager.createQuery(str, Long.class)
+				.setFlushMode(FlushModeType.COMMIT).setParameter("code", code)
+				.getSingleResult();
+		return localLong.longValue() > 0L;
+	}
 
-  public CouponCode findByCode(String code)
-  {
-    if (code == null)
-      return null;
-    try
-    {
-      String str = "select couponCode from CouponCode couponCode where lower(couponCode.code) = lower(:code)";
-      return (CouponCode)this.IIIllIlI.createQuery(str, CouponCode.class).setFlushMode(FlushModeType.COMMIT).setParameter("code", code).getSingleResult();
-    }
-    catch (NoResultException localNoResultException1)
-    {
-    }
-    return null;
-  }
+	public CouponCode findByCode(String code) {
+		if (code == null)
+			return null;
+		try {
+			String str = "select couponCode from CouponCode couponCode where lower(couponCode.code) = lower(:code)";
+			return (CouponCode) this.entityManager
+					.createQuery(str, CouponCode.class)
+					.setFlushMode(FlushModeType.COMMIT)
+					.setParameter("code", code).getSingleResult();
+		} catch (NoResultException localNoResultException1) {
+		}
+		return null;
+	}
 
-  public CouponCode build(Coupon coupon, Member member)
-  {
-    Assert.notNull(coupon);
-    CouponCode localCouponCode = new CouponCode();
-    String str = UUID.randomUUID().toString().toUpperCase();
-    localCouponCode.setCode(coupon.getPrefix() + str.substring(0, 8) + str.substring(9, 13) + str.substring(14, 18) + str.substring(19, 23) + str.substring(24));
-    localCouponCode.setIsUsed(Boolean.valueOf(false));
-    localCouponCode.setCoupon(coupon);
-    localCouponCode.setMember(member);
-    super.persist(localCouponCode);
-    return localCouponCode;
-  }
+	public CouponCode build(Coupon coupon, Member member) {
+		Assert.notNull(coupon);
+		CouponCode localCouponCode = new CouponCode();
+		String str = UUID.randomUUID().toString().toUpperCase();
+		localCouponCode.setCode(coupon.getPrefix() + str.substring(0, 8)
+				+ str.substring(9, 13) + str.substring(14, 18)
+				+ str.substring(19, 23) + str.substring(24));
+		localCouponCode.setIsUsed(Boolean.valueOf(false));
+		localCouponCode.setCoupon(coupon);
+		localCouponCode.setMember(member);
+		super.persist(localCouponCode);
+		return localCouponCode;
+	}
 
-  public List<CouponCode> build(Coupon coupon, Member member, Integer count)
-  {
-    Assert.notNull(coupon);
-    Assert.notNull(count);
-    ArrayList localArrayList = new ArrayList();
-    for (int i = 0; i < count.intValue(); i++)
-    {
-      CouponCode localCouponCode = build(coupon, member);
-      localArrayList.add(localCouponCode);
-      if (i % 20 != 0)
-        continue;
-      super.flush();
-      super.clear();
-    }
-    return localArrayList;
-  }
+	public List<CouponCode> build(Coupon coupon, Member member, Integer count) {
+		Assert.notNull(coupon);
+		Assert.notNull(count);
+		ArrayList localArrayList = new ArrayList();
+		for (int i = 0; i < count.intValue(); i++) {
+			CouponCode localCouponCode = build(coupon, member);
+			localArrayList.add(localCouponCode);
+			if (i % 20 != 0)
+				continue;
+			super.flush();
+			super.clear();
+		}
+		return localArrayList;
+	}
 
-  public Page<CouponCode> findPage(Member member, Pageable pageable)
-  {
-    CriteriaBuilder localCriteriaBuilder = this.IIIllIlI.getCriteriaBuilder();
-    CriteriaQuery localCriteriaQuery = localCriteriaBuilder.createQuery(CouponCode.class);
-    Root localRoot = localCriteriaQuery.from(CouponCode.class);
-    localCriteriaQuery.select(localRoot);
-    if (member != null)
-      localCriteriaQuery.where(localCriteriaBuilder.equal(localRoot.get("member"), member));
-    return super.IIIllIlI(localCriteriaQuery, pageable);
-  }
+	public Page<CouponCode> findPage(Member member, Pageable pageable) {
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
+				.getCriteriaBuilder();
+		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+				.createQuery(CouponCode.class);
+		Root localRoot = localCriteriaQuery.from(CouponCode.class);
+		localCriteriaQuery.select(localRoot);
+		if (member != null)
+			localCriteriaQuery.where(localCriteriaBuilder.equal(
+					localRoot.get("member"), member));
+		return super.entityManager(localCriteriaQuery, pageable);
+	}
 
-  public Long count(Coupon coupon, Member member, Boolean hasBegun, Boolean hasExpired, Boolean isUsed)
-  {
-    CriteriaBuilder localCriteriaBuilder = this.IIIllIlI.getCriteriaBuilder();
-    CriteriaQuery localCriteriaQuery = localCriteriaBuilder.createQuery(CouponCode.class);
-    Root localRoot = localCriteriaQuery.from(CouponCode.class);
-    localCriteriaQuery.select(localRoot);
-    Predicate localPredicate = localCriteriaBuilder.conjunction();
-    Path localPath = localRoot.get("coupon");
-    if (coupon != null)
-      localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.equal(localPath, coupon));
-    if (member != null)
-      localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.equal(localRoot.get("member"), member));
-    if (hasBegun != null)
-      if (hasBegun.booleanValue())
-        localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localPath.get("beginDate").isNull(), localCriteriaBuilder.lessThanOrEqualTo(localPath.get("beginDate"), new Date())));
-      else
-        localPredicate = localCriteriaBuilder.and(new Predicate[] { localPredicate, localPath.get("beginDate").isNotNull(), localCriteriaBuilder.greaterThan(localPath.get("beginDate"), new Date()) });
-    if (hasExpired != null)
-      if (hasExpired.booleanValue())
-        localPredicate = localCriteriaBuilder.and(new Predicate[] { localPredicate, localPath.get("endDate").isNotNull(), localCriteriaBuilder.lessThan(localPath.get("endDate"), new Date()) });
-      else
-        localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localPath.get("endDate").isNull(), localCriteriaBuilder.greaterThanOrEqualTo(localPath.get("endDate"), new Date())));
-    if (isUsed != null)
-      localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.equal(localRoot.get("isUsed"), isUsed));
-    localCriteriaQuery.where(localPredicate);
-    return super.IIIllIlI(localCriteriaQuery, null);
-  }
+	public Long count(Coupon coupon, Member member, Boolean hasBegun,
+			Boolean hasExpired, Boolean isUsed) {
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
+				.getCriteriaBuilder();
+		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+				.createQuery(CouponCode.class);
+		Root localRoot = localCriteriaQuery.from(CouponCode.class);
+		localCriteriaQuery.select(localRoot);
+		Predicate localPredicate = localCriteriaBuilder.conjunction();
+		Path localPath = localRoot.get("coupon");
+		if (coupon != null)
+			localPredicate = localCriteriaBuilder.and(localPredicate,
+					localCriteriaBuilder.equal(localPath, coupon));
+		if (member != null)
+			localPredicate = localCriteriaBuilder
+					.and(localPredicate, localCriteriaBuilder.equal(
+							localRoot.get("member"), member));
+		if (hasBegun != null)
+			if (hasBegun.booleanValue())
+				localPredicate = localCriteriaBuilder.and(localPredicate,
+						localCriteriaBuilder.or(localPath.get("beginDate")
+								.isNull(), localCriteriaBuilder
+								.lessThanOrEqualTo(localPath.get("beginDate"),
+										new Date())));
+			else
+				localPredicate = localCriteriaBuilder.and(new Predicate[] {
+						localPredicate,
+						localPath.get("beginDate").isNotNull(),
+						localCriteriaBuilder.greaterThan(
+								localPath.get("beginDate"), new Date()) });
+		if (hasExpired != null)
+			if (hasExpired.booleanValue())
+				localPredicate = localCriteriaBuilder.and(new Predicate[] {
+						localPredicate,
+						localPath.get("endDate").isNotNull(),
+						localCriteriaBuilder.lessThan(localPath.get("endDate"),
+								new Date()) });
+			else
+				localPredicate = localCriteriaBuilder.and(localPredicate,
+						localCriteriaBuilder.or(localPath.get("endDate")
+								.isNull(), localCriteriaBuilder
+								.greaterThanOrEqualTo(localPath.get("endDate"),
+										new Date())));
+		if (isUsed != null)
+			localPredicate = localCriteriaBuilder
+					.and(localPredicate, localCriteriaBuilder.equal(
+							localRoot.get("isUsed"), isUsed));
+		localCriteriaQuery.where(localPredicate);
+		return super.entityManager(localCriteriaQuery, null);
+	}
 }

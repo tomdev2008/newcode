@@ -6,84 +6,68 @@ import java.util.List;
 
 import net.shopxx.Order.OrderDirection;
 
-public class Page<T>
-  implements Serializable
-{
-  private static final long serialVersionUID = -2053800594583879853L;
-  private final List<T> IIIllIlI = new ArrayList();
-  private final long IIIllIll;
-  private final Pageable IIIlllII;
+public class Page<T> implements Serializable {
+	private static final long serialVersionUID = -2053800594583879853L;
+	private final List<T> content = new ArrayList<T>();
+	private final long total;
+	private final Pageable pageable;
 
-  public Page()
-  {
-    this.IIIllIll = 0L;
-    this.IIIlllII = new Pageable();
-  }
+	public Page() {
+		this.total = 0L;
+		this.pageable = new Pageable();
+	}
 
-  public Page(List<T> content, long total, Pageable pageable)
-  {
-    this.IIIllIlI.addAll(content);
-    this.IIIllIll = total;
-    this.IIIlllII = pageable;
-  }
+	public Page(List<T> content, long total, Pageable pageable) {
+		this.content.addAll(content);
+		this.total = total;
+		this.pageable = pageable;
+	}
 
-  public int getPageNumber()
-  {
-    return this.IIIlllII.getPageNumber();
-  }
+	public int getPageNumber() {
+		return this.pageable.getPageNumber();
+	}
 
-  public int getPageSize()
-  {
-    return this.IIIlllII.getPageSize();
-  }
+	public int getPageSize() {
+		return this.pageable.getPageSize();
+	}
 
-  public String getSearchProperty()
-  {
-    return this.IIIlllII.getSearchProperty();
-  }
+	public String getSearchProperty() {
+		return this.pageable.getSearchProperty();
+	}
 
-  public String getSearchValue()
-  {
-    return this.IIIlllII.getSearchValue();
-  }
+	public String getSearchValue() {
+		return this.pageable.getSearchValue();
+	}
 
-  public String getOrderProperty()
-  {
-    return this.IIIlllII.getOrderProperty();
-  }
+	public String getOrderProperty() {
+		return this.pageable.getOrderProperty();
+	}
 
-  public OrderDirection getOrderDirection()
-  {
-    return this.IIIlllII.getOrderDirection();
-  }
+	public OrderDirection getOrderDirection() {
+		return this.pageable.getOrderDirection();
+	}
 
-  public List<Order> getOrders()
-  {
-    return this.IIIlllII.getOrders();
-  }
+	public List<Order> getOrders() {
+		return this.pageable.getOrders();
+	}
 
-  public List<Filter> getFilters()
-  {
-    return this.IIIlllII.getFilters();
-  }
+	public List<Filter> getFilters() {
+		return this.pageable.getFilters();
+	}
 
-  public int getTotalPages()
-  {
-    return (int)Math.ceil(getTotal() / getPageSize());
-  }
+	public int getTotalPages() {
+		return (int) Math.ceil(getTotal() / getPageSize());
+	}
 
-  public List<T> getContent()
-  {
-    return this.IIIllIlI;
-  }
+	public List<T> getContent() {
+		return this.content;
+	}
 
-  public long getTotal()
-  {
-    return this.IIIllIll;
-  }
+	public long getTotal() {
+		return this.total;
+	}
 
-  public Pageable getPageable()
-  {
-    return this.IIIlllII;
-  }
+	public Pageable getPageable() {
+		return this.pageable;
+	}
 }

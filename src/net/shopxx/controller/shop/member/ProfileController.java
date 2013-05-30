@@ -4,20 +4,23 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import net.shopxx.CommonAttributes;
 import net.shopxx.Setting;
 import net.shopxx.controller.shop.BaseController;
 import net.shopxx.entity.Area;
 import net.shopxx.entity.Member;
-import net.shopxx.entity.Member.Gender;
+import net.shopxx.entity.Member.MemberGender;
 import net.shopxx.entity.MemberAttribute;
-import net.shopxx.entity.MemberAttribute.Type;
+import net.shopxx.entity.MemberAttribute.MemberAttributeType;
 import net.shopxx.service.AreaService;
 import net.shopxx.service.MemberAttributeService;
 import net.shopxx.service.MemberService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Controller;
@@ -53,7 +56,7 @@ public class ProfileController extends BaseController
   @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public String edit(ModelMap model)
   {
-    model.addAttribute("genders", Member.Gender.values());
+    model.addAttribute("genders", MemberGender.values());
     model.addAttribute("memberAttributes", this.IIIllllI.findList());
     return "shop/member/profile/edit";
   }
@@ -74,7 +77,7 @@ public class ProfileController extends BaseController
     {
       MemberAttribute localMemberAttribute = (MemberAttribute)localIterator.next();
       String str = request.getParameter("memberAttribute_" + localMemberAttribute.getId());
-      if ((localMemberAttribute.getType() == MemberAttribute.Type.name) || (localMemberAttribute.getType() == MemberAttribute.Type.address) || (localMemberAttribute.getType() == MemberAttribute.Type.zipCode) || (localMemberAttribute.getType() == MemberAttribute.Type.phone) || (localMemberAttribute.getType() == MemberAttribute.Type.mobile) || (localMemberAttribute.getType() == MemberAttribute.Type.text) || (localMemberAttribute.getType() == MemberAttribute.Type.select))
+      if ((localMemberAttribute.getType() == MemberAttributeType.name) || (localMemberAttribute.getType() == MemberAttributeType.address) || (localMemberAttribute.getType() == MemberAttributeType.zipCode) || (localMemberAttribute.getType() == MemberAttributeType.phone) || (localMemberAttribute.getType() == MemberAttributeType.mobile) || (localMemberAttribute.getType() == MemberAttributeType.text) || (localMemberAttribute.getType() == MemberAttributeType.select))
       {
         if ((localMemberAttribute.getIsRequired().booleanValue()) && (StringUtils.isEmpty(str)))
           return "/shop/common/error";
@@ -82,15 +85,15 @@ public class ProfileController extends BaseController
       }
       else
       {
-        Member.Gender localGender;
-        if (localMemberAttribute.getType() == MemberAttribute.Type.gender)
+        MemberGender localGender;
+        if (localMemberAttribute.getType() == MemberAttributeType.gender)
         {
-          localGender = StringUtils.isNotEmpty(str) ? Member.Gender.valueOf(str) : null;
+          localGender = StringUtils.isNotEmpty(str) ? MemberGender.valueOf(str) : null;
           if ((localMemberAttribute.getIsRequired().booleanValue()) && (localGender == null))
             return "/shop/common/error";
           localMember.setGender(localGender);
         }
-        else if (localMemberAttribute.getType() == MemberAttribute.Type.birth)
+        else if (localMemberAttribute.getType() == MemberAttributeType.birth)
         {
           try
           {
@@ -117,7 +120,7 @@ public class ProfileController extends BaseController
           }
           else
           {
-            if (localMemberAttribute.getType() != MemberAttribute.Type.checkbox)
+            if (localMemberAttribute.getType() != MemberAttributeType.checkbox)
               continue;
             localObject1 = request.getParameterValues("memberAttribute_" + localMemberAttribute.getId());
             Object localObject2 = localObject1 != null ? Arrays.asList(localObject1) : null;

@@ -7,12 +7,10 @@ import net.shopxx.service.ParameterGroupService;
 import org.springframework.stereotype.Service;
 
 @Service("parameterGroupServiceImpl")
-public class ParameterGroupServiceImpl extends BaseServiceImpl<ParameterGroup, Long>
-  implements ParameterGroupService
-{
-  @Resource(name="parameterGroupDaoImpl")
-  public void setBaseDao(ParameterGroupDao parameterGroupDao)
-  {
-    super.setBaseDao(parameterGroupDao);
-  }
+public class ParameterGroupServiceImpl extends
+		BaseServiceImpl<ParameterGroup, Long> implements ParameterGroupService {
+	@Resource(name = "parameterGroupDaoImpl")
+	public void setBaseDao(ParameterGroupDao parameterGroupDao) {
+		super.setBaseDao(parameterGroupDao);
+	}
 }

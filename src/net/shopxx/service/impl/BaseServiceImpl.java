@@ -25,17 +25,17 @@ public class BaseServiceImpl<T, ID extends Serializable>
   implements BaseService<T, ID>
 {
   private static final String[] IIIllIlI = { "id", "createDate", "modifyDate" };
-  private BaseDao<T, ID> IIIllIll;
+  private BaseDao<T, ID> baseDao;
 
   public void setBaseDao(BaseDao<T, ID> baseDao)
   {
-    this.IIIllIll = baseDao;
+    this.baseDao = baseDao;
   }
 
   @Transactional(readOnly=true)
   public T find(ID id)
   {
-    return this.IIIllIll.find(id);
+    return this.baseDao.find(id);
   }
 
   @Transactional(readOnly=true)
@@ -68,13 +68,13 @@ public class BaseServiceImpl<T, ID extends Serializable>
   @Transactional(readOnly=true)
   public List<T> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders)
   {
-    return this.IIIllIll.findList(first, count, filters, orders);
+    return this.baseDao.findList(first, count, filters, orders);
   }
 
   @Transactional(readOnly=true)
   public Page<T> findPage(Pageable pageable)
   {
-    return this.IIIllIll.findPage(pageable);
+    return this.baseDao.findPage(pageable);
   }
 
   @Transactional(readOnly=true)
@@ -86,40 +86,40 @@ public class BaseServiceImpl<T, ID extends Serializable>
   @Transactional(readOnly=true)
   public long count(Filter[] filters)
   {
-    return this.IIIllIll.count(filters);
+    return this.baseDao.count(filters);
   }
 
   @Transactional(readOnly=true)
   public boolean exists(ID id)
   {
-    return this.IIIllIll.find(id) != null;
+    return this.baseDao.find(id) != null;
   }
 
   @Transactional(readOnly=true)
   public boolean exists(Filter[] filters)
   {
-    return this.IIIllIll.count(filters) > 0L;
+    return this.baseDao.count(filters) > 0L;
   }
 
   @Transactional
   public void save(T entity)
   {
-    this.IIIllIll.persist(entity);
+    this.baseDao.persist(entity);
   }
 
   @Transactional
   public T update(T entity)
   {
-    return this.IIIllIll.merge(entity);
+    return this.baseDao.merge(entity);
   }
 
   @Transactional
   public T update(T entity, String[] ignoreProperties)
   {
     Assert.notNull(entity);
-    if (this.IIIllIll.isManaged(entity))
+    if (this.baseDao.isManaged(entity))
       throw new IllegalArgumentException("Entity must not be managed");
-    Object localObject = this.IIIllIll.find(this.IIIllIll.getIdentifier(entity));
+    Object localObject = this.baseDao.find(this.baseDao.getIdentifier(entity));
     if (localObject != null)
     {
       IIIllIlI(entity, localObject, (String[])ArrayUtils.addAll(ignoreProperties, IIIllIlI));
@@ -131,7 +131,7 @@ public class BaseServiceImpl<T, ID extends Serializable>
   @Transactional
   public void delete(ID id)
   {
-    delete(this.IIIllIll.find(id));
+    delete(this.baseDao.find(id));
   }
 
   @Transactional
@@ -139,13 +139,13 @@ public class BaseServiceImpl<T, ID extends Serializable>
   {
     if (ids != null)
       for (Serializable localSerializable : ids)
-        delete(this.IIIllIll.find(localSerializable));
+        delete(this.baseDao.find(localSerializable));
   }
 
   @Transactional
   public void delete(T entity)
   {
-    this.IIIllIll.remove(entity);
+    this.baseDao.remove(entity);
   }
 
   private void IIIllIlI(Object paramObject1, Object paramObject2, String[] paramArrayOfString)

@@ -1,20 +1,21 @@
 package net.shopxx.dao.impl;
 
-import net.shopxx.entity.Sn.Type;
+import net.shopxx.entity.Sn;
+import net.shopxx.entity.Sn.SnType;
 import net.shopxx.util.FreemarkerUtils;
 
-class SnDaoImpl$HiloOptimizer
+class SnDaoImplHiloOptimizer
 {
-  private Sn.Type IIIllIll;
+  private SnType snType;
   private String IIIlllII;
   private int IIIlllIl;
   private int IIIllllI;
   private long IIIlllll;
   private long IIlIIIII;
 
-  public SnDaoImpl$HiloOptimizer(SnDaoImpl paramSnDaoImpl, Sn.Type type, String prefix, int maxLo)
+  public SnDaoImplHiloOptimizer(SnDaoImpl paramSnDaoImpl, SnType type, String prefix, int maxLo)
   {
-    this.IIIllIll = type;
+    this.snType = type;
     this.IIIlllII = (prefix != null ? prefix.replace("{", "${") : "");
     this.IIIlllIl = maxLo;
     this.IIIllllI = (maxLo + 1);
@@ -24,7 +25,7 @@ class SnDaoImpl$HiloOptimizer
   {
     if (this.IIIllllI > this.IIIlllIl)
     {
-      this.IIlIIIII = SnDaoImpl.IIIllIlI(this.IIIllIlI, this.IIIllIll);
+      this.IIlIIIII = SnDaoImpl.IIIllIlI(this.IIIllIlI, this.snType);
       this.IIIllllI = (this.IIlIIIII == 0L ? 1 : 0);
       this.IIIlllll = (this.IIlIIIII * (this.IIIlllIl + 1));
     }

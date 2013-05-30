@@ -16,7 +16,7 @@ public class ReceiverServiceImpl extends BaseServiceImpl<Receiver, Long>
 {
 
   @Resource(name="receiverDaoImpl")
-  private ReceiverDao IIIllIlI;
+  private ReceiverDao receiverDao;
 
   @Resource(name="receiverDaoImpl")
   public void setBaseDao(ReceiverDao receiverDao)
@@ -27,12 +27,12 @@ public class ReceiverServiceImpl extends BaseServiceImpl<Receiver, Long>
   @Transactional(readOnly=true)
   public Receiver findDefault(Member member)
   {
-    return this.IIIllIlI.findDefault(member);
+    return this.receiverDao.findDefault(member);
   }
 
   @Transactional(readOnly=true)
   public Page<Receiver> findPage(Member member, Pageable pageable)
   {
-    return this.IIIllIlI.findPage(member, pageable);
+    return this.receiverDao.findPage(member, pageable);
   }
 }

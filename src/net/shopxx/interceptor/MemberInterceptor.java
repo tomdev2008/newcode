@@ -25,7 +25,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter
   private String IIIlllll;
 
   @Resource(name="memberServiceImpl")
-  private MemberService IIlIIIII;
+  private MemberService memberService;
 
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
   {
@@ -58,7 +58,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter
     {
       String str = modelAndView.getViewName();
       if (!StringUtils.startsWith(str, "redirect:"))
-        modelAndView.addObject("member", this.IIlIIIII.getCurrent());
+        modelAndView.addObject("member", this.memberService.getCurrent());
     }
   }
 

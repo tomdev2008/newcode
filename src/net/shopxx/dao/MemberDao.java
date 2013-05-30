@@ -16,5 +16,5 @@ public abstract interface MemberDao extends BaseDao<Member, Long>
 
   public abstract List<Member> findListByEmail(String paramString);
 
-  public abstract Page<Object> findPurchasePage(Date paramDate1, Date paramDate2, Pageable paramPageable);
+  public abstract Page<Member> findPurchasePage(Date paramDate1, Date paramDate2, Pageable paramPageable);
 }

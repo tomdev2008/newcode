@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.ServletContext;
+
 import net.shopxx.Template;
-import net.shopxx.Template.Type;
+import net.shopxx.Template.TemplateType;
 import net.shopxx.service.TemplateService;
+
 import org.apache.commons.io.FileUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -23,14 +26,14 @@ import org.springframework.web.context.ServletContextAware;
 public class TemplateServiceImpl
   implements TemplateService, ServletContextAware
 {
-  private ServletContext IIIllIlI;
+  private ServletContext servletContext;
 
   @Value("${template.loader_path}")
   private String[] IIIllIll;
 
   public void setServletContext(ServletContext servletContext)
   {
-    this.IIIllIlI = servletContext;
+    this.servletContext = servletContext;
   }
 
   @Cacheable({"template"})
@@ -46,7 +49,7 @@ public class TemplateServiceImpl
       while (localIterator.hasNext())
       {
         Element localElement = (Element)localIterator.next();
-        Template localTemplate = IIIllIlI(localElement);
+        Template localTemplate = servletContext(localElement);
         localArrayList.add(localTemplate);
       }
       return localArrayList;
@@ -59,7 +62,7 @@ public class TemplateServiceImpl
   }
 
   @Cacheable({"template"})
-  public List<Template> getList(Template.Type type)
+  public List<Template> getList(TemplateType type)
   {
     if (type != null)
       try
@@ -72,7 +75,7 @@ public class TemplateServiceImpl
         while (localIterator.hasNext())
         {
           Element localElement = (Element)localIterator.next();
-          Template localTemplate = IIIllIlI(localElement);
+          Template localTemplate = servletContext(localElement);
           localArrayList.add(localTemplate);
         }
         return localArrayList;
@@ -93,7 +96,7 @@ public class TemplateServiceImpl
       File localFile = new ClassPathResource("/shopxx.xml").getFile();
       Document localDocument = new SAXReader().read(localFile);
       Element localElement = (Element)localDocument.selectSingleNode("/shopxx/template[@id='" + id + "']");
-      Template localTemplate = IIIllIlI(localElement);
+      Template localTemplate = servletContext(localElement);
       return localTemplate;
     }
     catch (Exception localException1)
@@ -111,7 +114,7 @@ public class TemplateServiceImpl
 
   public String read(Template template)
   {
-    String str1 = this.IIIllIlI.getRealPath(this.IIIllIll[0] + template.getTemplatePath());
+    String str1 = this.servletContext.getRealPath(this.IIIllIll[0] + template.getTemplatePath());
     File localFile = new File(str1);
     String str2 = null;
     try
@@ -133,7 +136,7 @@ public class TemplateServiceImpl
 
   public void write(Template template, String content)
   {
-    String str = this.IIIllIlI.getRealPath(this.IIIllIll[0] + template.getTemplatePath());
+    String str = this.servletContext.getRealPath(this.IIIllIll[0] + template.getTemplatePath());
     File localFile = new File(str);
     try
     {
@@ -145,7 +148,7 @@ public class TemplateServiceImpl
     }
   }
 
-  private Template IIIllIlI(Element paramElement)
+  private Template servletContext(Element paramElement)
   {
     String str1 = paramElement.attributeValue("id");
     String str2 = paramElement.attributeValue("type");
@@ -155,7 +158,7 @@ public class TemplateServiceImpl
     String str6 = paramElement.attributeValue("description");
     Template localTemplate = new Template();
     localTemplate.setId(str1);
-    localTemplate.setType(Template.Type.valueOf(str2));
+    localTemplate.setType(TemplateType.valueOf(str2));
     localTemplate.setName(str3);
     localTemplate.setTemplatePath(str4);
     localTemplate.setStaticPath(str5);

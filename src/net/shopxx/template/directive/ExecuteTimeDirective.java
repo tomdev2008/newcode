@@ -10,18 +10,18 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 @Component("executeTimeDirective")
-public class ExecuteTimeDirective extends BaseDirective
-{
-  private static final String IIIllIlI = "executeTime";
+public class ExecuteTimeDirective extends BaseDirective {
+	private static final String IIIllIlI = "executeTime";
 
-  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
-  {
-    RequestAttributes localRequestAttributes = RequestContextHolder.currentRequestAttributes();
-    if (localRequestAttributes != null)
-    {
-      Long localLong = (Long)localRequestAttributes.getAttribute(ExecuteTimeInterceptor.EXECUTE_TIME_ATTRIBUTE_NAME, 0);
-      if (localLong != null)
-        IIIllIlI("executeTime", localLong, env, body);
-    }
-  }
+	public void execute(Environment env, Map params, TemplateModel[] loopVars,
+			TemplateDirectiveBody body) {
+		RequestAttributes localRequestAttributes = RequestContextHolder
+				.currentRequestAttributes();
+		if (localRequestAttributes != null) {
+			Long localLong = (Long) localRequestAttributes.getAttribute(
+					ExecuteTimeInterceptor.EXECUTE_TIME_ATTRIBUTE_NAME, 0);
+			if (localLong != null)
+				IIIllIlI("executeTime", localLong, env, body);
+		}
+	}
 }

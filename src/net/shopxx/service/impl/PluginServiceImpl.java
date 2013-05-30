@@ -25,13 +25,13 @@ public class PluginServiceImpl
   private List<PaymentPlugin> paymentPlugin = new ArrayList();
 
   @Resource
-  private List<StoragePlugin> IIIllIll = new ArrayList();
+  private List<StoragePlugin> storagePlugins = new ArrayList();
 
   @Resource
-  private Map<String, PaymentPlugin> IIIlllII = new HashMap();
+  private Map<String, PaymentPlugin> paymentPluginMap = new HashMap();
 
   @Resource
-  private Map<String, StoragePlugin> IIIlllIl = new HashMap();
+  private Map<String, StoragePlugin> storagePluginMap = new HashMap();
 
   public List<PaymentPlugin> getPaymentPlugins()
   {
@@ -41,8 +41,8 @@ public class PluginServiceImpl
 
   public List<StoragePlugin> getStoragePlugins()
   {
-    Collections.sort(this.IIIllIll);
-    return this.IIIllIll;
+    Collections.sort(this.storagePlugins);
+    return this.storagePlugins;
   }
 
   public List<PaymentPlugin> getPaymentPlugins(boolean isEnabled)
@@ -51,7 +51,7 @@ public class PluginServiceImpl
     ArrayList localArrayList = new ArrayList();
     CollectionUtils.select(this.paymentPlugin, new Predicate(){
     	    PaymentPlugin localPaymentPlugin = (PaymentPlugin)object;
-    	    return localPaymentPlugin.getIsEnabled() == this.IIIllIll;
+    	    return localPaymentPlugin.getIsEnabled() == this.storagePlugins;
     }, localArrayList);
     Collections.sort(localArrayList);
     return localArrayList;
@@ -60,19 +60,19 @@ public class PluginServiceImpl
   public List<StoragePlugin> getStoragePlugins(boolean isEnabled)
   {
     ArrayList localArrayList = new ArrayList();
-    CollectionUtils.select(this.IIIllIll, new PluginServiceImpl.2(this, isEnabled), localArrayList);
+    CollectionUtils.select(this.storagePlugins, new PluginServiceImpl.2(this, isEnabled), localArrayList);
     Collections.sort(localArrayList);
     return localArrayList;
   }
 
   public PaymentPlugin getPaymentPlugin(String id)
   {
-    return (PaymentPlugin)this.IIIlllII.get(id);
+    return (PaymentPlugin)this.paymentPluginMap.get(id);
   }
 
   public StoragePlugin getStoragePlugin(String id)
   {
-    return (StoragePlugin)this.IIIlllIl.get(id);
+		return (StoragePlugin) this.storagePluginMap.get(id);
   }
 
 }

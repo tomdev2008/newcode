@@ -15,39 +15,39 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 @Component("adPositionDirective")
-public class AdPositionDirective extends BaseDirective
-{
-  private static final String IIIllIlI = "adPosition";
+public class AdPositionDirective extends BaseDirective {
+	private static final String IIIllIlI = "adPosition";
 
-  @Resource(name="freeMarkerConfigurer")
-  private FreeMarkerConfigurer IIIllIll;
+	@Resource(name = "freeMarkerConfigurer")
+	private FreeMarkerConfigurer IIIllIll;
 
-  @Resource(name="adPositionServiceImpl")
-  private AdPositionService IIIlllII;
+	@Resource(name = "adPositionServiceImpl")
+	private AdPositionService IIIlllII;
 
-  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
-  {
-    Long localLong = IIIllIlI(params);
-    boolean bool = IIIllIlI(env, params);
-    String str = IIIllIll(env, params);
-    AdPosition localAdPosition;
-    if (bool)
-      localAdPosition = this.IIIlllII.find(localLong, str);
-    else
-      localAdPosition = (AdPosition)this.IIIlllII.find(localLong);
-    if (body != null)
-      IIIllIlI("adPosition", localAdPosition, env, body);
-    else if ((localAdPosition != null) && (localAdPosition.getTemplate() != null))
-      try
-      {
-        HashMap localHashMap = new HashMap();
-        localHashMap.put("adPosition", localAdPosition);
-        Writer localWriter = env.getOut();
-        new Template("adTemplate", new StringReader(localAdPosition.getTemplate()), this.IIIllIll.getConfiguration()).process(localHashMap, localWriter);
-      }
-      catch (Exception localException1)
-      {
-        localException1.printStackTrace();
-      }
-  }
+	public void execute(Environment env, Map params, TemplateModel[] loopVars,
+			TemplateDirectiveBody body) {
+		Long localLong = IIIllIlI(params);
+		boolean bool = IIIllIlI(env, params);
+		String str = IIIllIll(env, params);
+		AdPosition localAdPosition;
+		if (bool)
+			localAdPosition = this.IIIlllII.find(localLong, str);
+		else
+			localAdPosition = (AdPosition) this.IIIlllII.find(localLong);
+		if (body != null)
+			IIIllIlI("adPosition", localAdPosition, env, body);
+		else if ((localAdPosition != null)
+				&& (localAdPosition.getTemplate() != null))
+			try {
+				HashMap localHashMap = new HashMap();
+				localHashMap.put("adPosition", localAdPosition);
+				Writer localWriter = env.getOut();
+				new Template("adTemplate", new StringReader(
+						localAdPosition.getTemplate()),
+						this.IIIllIll.getConfiguration()).process(localHashMap,
+						localWriter);
+			} catch (Exception localException1) {
+				localException1.printStackTrace();
+			}
+	}
 }

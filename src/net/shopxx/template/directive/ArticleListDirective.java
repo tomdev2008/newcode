@@ -16,27 +16,26 @@ import net.shopxx.util.FreemarkerUtils;
 import org.springframework.stereotype.Component;
 
 @Component("articleListDirective")
-public class ArticleListDirective extends BaseDirective
-{
-  private static final String IIIllIlI = "articleCategoryId";
-  private static final String IIIllIll = "tagIds";
-  private static final String IIIlllII = "articles";
+public class ArticleListDirective extends BaseDirective {
+	private static final String IIIllIlI = "articleCategoryId";
+	private static final String IIIllIll = "tagIds";
+	private static final String IIIlllII = "articles";
 
-  @Resource(name="articleServiceImpl")
-  private ArticleService IIIlllIl;
+	@Resource(name = "articleServiceImpl")
+	private ArticleService articleService;
 
-  @Resource(name="articleCategoryServiceImpl")
-  private ArticleCategoryService IIIllllI;
+	@Resource(name = "articleCategoryServiceImpl")
+	private ArticleCategoryService articleCategoryService;
 
-  @Resource(name="tagServiceImpl")
-  private TagService IIIlllll;
+	@Resource(name = "tagServiceImpl")
+	private TagService tagService;
 
-  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
   {
     Long localLong = (Long)FreemarkerUtils.getParameter("articleCategoryId", Long.class, params);
     Long[] arrayOfLong = (Long[])FreemarkerUtils.getParameter("tagIds", [Ljava.lang.Long.class, params);
-    ArticleCategory localArticleCategory = (ArticleCategory)this.IIIllllI.find(localLong);
-    List localList1 = this.IIIlllll.findList(arrayOfLong);
+    ArticleCategory localArticleCategory = (ArticleCategory)this.articleCategoryService.find(localLong);
+    List localList1 = this.tagService.findList(arrayOfLong);
     Object localObject;
     if (((localLong != null) && (localArticleCategory == null)) || ((arrayOfLong != null) && (localList1.isEmpty())))
     {
@@ -50,9 +49,9 @@ public class ArticleListDirective extends BaseDirective
       List localList2 = IIIllIlI(params, Article.class, new String[0]);
       List localList3 = IIIllIlI(params, new String[0]);
       if (bool)
-        localObject = this.IIIlllIl.findList(localArticleCategory, localList1, localInteger, localList2, localList3, str);
+        localObject = this.articleService.findList(localArticleCategory, localList1, localInteger, localList2, localList3, str);
       else
-        localObject = this.IIIlllIl.findList(localArticleCategory, localList1, localInteger, localList2, localList3);
+        localObject = this.articleService.findList(localArticleCategory, localList1, localInteger, localList2, localList3);
     }
     IIIllIlI("articles", localObject, env, body);
   }

@@ -10,23 +10,22 @@ import net.shopxx.service.ArticleCategoryService;
 import org.springframework.stereotype.Component;
 
 @Component("articleCategoryRootListDirective")
-public class ArticleCategoryRootListDirective extends BaseDirective
-{
-  private static final String IIIllIlI = "articleCategories";
+public class ArticleCategoryRootListDirective extends BaseDirective {
+	private static final String IIIllIlI = "articleCategories";
 
-  @Resource(name="articleCategoryServiceImpl")
-  private ArticleCategoryService IIIllIll;
+	@Resource(name = "articleCategoryServiceImpl")
+	private ArticleCategoryService IIIllIll;
 
-  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
-  {
-    boolean bool = IIIllIlI(env, params);
-    String str = IIIllIll(env, params);
-    Integer localInteger = IIIllIll(params);
-    List localList;
-    if (bool)
-      localList = this.IIIllIll.findRoots(localInteger, str);
-    else
-      localList = this.IIIllIll.findRoots(localInteger);
-    IIIllIlI("articleCategories", localList, env, body);
-  }
+	public void execute(Environment env, Map params, TemplateModel[] loopVars,
+			TemplateDirectiveBody body) {
+		boolean bool = IIIllIlI(env, params);
+		String str = IIIllIll(env, params);
+		Integer localInteger = IIIllIll(params);
+		List localList;
+		if (bool)
+			localList = this.IIIllIll.findRoots(localInteger, str);
+		else
+			localList = this.IIIllIll.findRoots(localInteger);
+		IIIllIlI("articleCategories", localList, env, body);
+	}
 }

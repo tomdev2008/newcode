@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service("parameterServiceImpl")
 public class ParameterServiceImpl extends BaseServiceImpl<Parameter, Long>
-  implements ParameterService
-{
-  @Resource(name="parameterDaoImpl")
-  public void setBaseDao(ParameterDao parameterDao)
-  {
-    super.setBaseDao(parameterDao);
-  }
+		implements ParameterService {
+	@Resource(name = "parameterDaoImpl")
+	public void setBaseDao(ParameterDao parameterDao) {
+		super.setBaseDao(parameterDao);
+	}
 }

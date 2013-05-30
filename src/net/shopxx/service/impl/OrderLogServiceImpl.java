@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service("orderLogServiceImpl")
 public class OrderLogServiceImpl extends BaseServiceImpl<OrderLog, Long>
-  implements OrderLogService
-{
-  @Resource(name="orderLogDaoImpl")
-  public void setBaseDao(OrderLogDao orderLogDao)
-  {
-    super.setBaseDao(orderLogDao);
-  }
+		implements OrderLogService {
+	@Resource(name = "orderLogDaoImpl")
+	public void setBaseDao(OrderLogDao orderLogDao) {
+		super.setBaseDao(orderLogDao);
+	}
 }

@@ -33,22 +33,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileServiceImpl
   implements FileService, ServletContextAware
 {
-  private ServletContext IIIllIlI;
+  private ServletContext servletContext;
 
   @Resource(name="taskExecutor")
-  private TaskExecutor IIIllIll;
+  private TaskExecutor taskExecutor;
 
   @Resource(name="pluginServiceImpl")
-  private PluginService IIIlllII;
+  private PluginService pluginService;
 
   public void setServletContext(ServletContext servletContext)
   {
-    this.IIIllIlI = servletContext;
+    this.servletContext = servletContext;
   }
 
-  private void IIIllIlI(StoragePlugin paramStoragePlugin, String paramString1, File paramFile, String paramString2)
+  private void servletContext(StoragePlugin paramStoragePlugin, String paramString1, File paramFile, String paramString2)
   {
-    this.IIIllIll.execute(new FileServiceImpl.1(this, paramFile, paramStoragePlugin, paramString1, paramString2));
+    this.taskExecutor.execute(new FileServiceImpl.1(this, paramFile, paramStoragePlugin, paramString1, paramString2));
   }
 
   public boolean isValid(FileInfo.FileType fileType, MultipartFile multipartFile)
@@ -92,7 +92,7 @@ public class FileServiceImpl
       localHashMap.put("uuid", UUID.randomUUID().toString());
       String str2 = FreemarkerUtils.process(str1, localHashMap);
       String str3 = str2 + UUID.randomUUID() + "." + FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-      Iterator localIterator = this.IIIlllII.getStoragePlugins(true).iterator();
+      Iterator localIterator = this.pluginService.getStoragePlugins(true).iterator();
       if (localIterator.hasNext())
       {
         StoragePlugin localStoragePlugin = (StoragePlugin)localIterator.next();
@@ -101,7 +101,7 @@ public class FileServiceImpl
           localFile.getParentFile().mkdirs();
         multipartFile.transferTo(localFile);
         if (async)
-          IIIllIlI(localStoragePlugin, str3, localFile, multipartFile.getContentType());
+          servletContext(localStoragePlugin, str3, localFile, multipartFile.getContentType());
         else
           try
           {
@@ -146,7 +146,7 @@ public class FileServiceImpl
       localHashMap.put("uuid", UUID.randomUUID().toString());
       String str2 = FreemarkerUtils.process(str1, localHashMap);
       String str3 = str2 + UUID.randomUUID() + "." + FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-      File localFile = new File(this.IIIllIlI.getRealPath(str3));
+      File localFile = new File(this.servletContext.getRealPath(str3));
       if (!localFile.getParentFile().exists())
         localFile.getParentFile().mkdirs();
       multipartFile.transferTo(localFile);
@@ -187,7 +187,7 @@ public class FileServiceImpl
     Object localObject = new ArrayList();
     if (str2.indexOf("..") >= 0)
       return localObject;
-    Iterator localIterator = this.IIIlllII.getStoragePlugins(true).iterator();
+    Iterator localIterator = this.pluginService.getStoragePlugins(true).iterator();
     if (localIterator.hasNext())
     {
       StoragePlugin localStoragePlugin = (StoragePlugin)localIterator.next();
@@ -201,4 +201,6 @@ public class FileServiceImpl
       Collections.sort((List)localObject, new FileServiceImpl.NameComparator(this, null));
     return (List<FileInfo>)localObject;
   }
+  
 }
+

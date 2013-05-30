@@ -30,37 +30,36 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateModel;
 
 @Component("productListDirective")
-public class ProductListDirective extends BaseDirective
-{
-  private static final String IIIllIlI = "productCategoryId";
-  private static final String IIIllIll = "brandId";
-  private static final String IIIlllII = "promotionId";
-  private static final String IIIlllIl = "tagIds";
-  private static final String IIIllllI = "attributeValue";
-  private static final String IIIlllll = "startPrice";
-  private static final String IIlIIIII = "endPrice";
-  private static final String IIlIIIIl = "orderType";
-  private static final String IIlIIIlI = "products";
+public class ProductListDirective extends BaseDirective {
+	private static final String IIIllIlI = "productCategoryId";
+	private static final String IIIllIll = "brandId";
+	private static final String IIIlllII = "promotionId";
+	private static final String IIIlllIl = "tagIds";
+	private static final String IIIllllI = "attributeValue";
+	private static final String IIIlllll = "startPrice";
+	private static final String IIlIIIII = "endPrice";
+	private static final String IIlIIIIl = "orderType";
+	private static final String IIlIIIlI = "products";
 
-  @Resource(name="productServiceImpl")
-  private ProductService IIlIIIll;
+	@Resource(name = "productServiceImpl")
+	private ProductService IIlIIIll;
 
-  @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIlIIlII;
+	@Resource(name = "productCategoryServiceImpl")
+	private ProductCategoryService IIlIIlII;
 
-  @Resource(name="brandServiceImpl")
-  private BrandService IIlIIlIl;
+	@Resource(name = "brandServiceImpl")
+	private BrandService IIlIIlIl;
 
-  @Resource(name="promotionServiceImpl")
-  private PromotionService IIlIIllI;
+	@Resource(name = "promotionServiceImpl")
+	private PromotionService IIlIIllI;
 
-  @Resource(name="attributeServiceImpl")
-  private AttributeService IIlIIlll;
+	@Resource(name = "attributeServiceImpl")
+	private AttributeService IIlIIlll;
 
-  @Resource(name="tagServiceImpl")
-  private TagService IIlIlIII;
+	@Resource(name = "tagServiceImpl")
+	private TagService IIlIlIII;
 
-  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
   {
     Long localLong1 = (Long)FreemarkerUtils.getParameter("productCategoryId", Long.class, params);
     Long localLong2 = (Long)FreemarkerUtils.getParameter("brandId", Long.class, params);

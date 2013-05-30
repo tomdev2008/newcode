@@ -12,33 +12,33 @@ import net.shopxx.util.FreemarkerUtils;
 import org.springframework.stereotype.Component;
 
 @Component("articleCategoryChildrenListDirective")
-public class ArticleCategoryChildrenListDirective extends BaseDirective
-{
-  private static final String IIIllIlI = "articleCategoryId";
-  private static final String IIIllIll = "articleCategories";
+public class ArticleCategoryChildrenListDirective extends BaseDirective {
+	private static final String IIIllIlI = "articleCategoryId";
+	private static final String IIIllIll = "articleCategories";
 
-  @Resource(name="articleCategoryServiceImpl")
-  private ArticleCategoryService IIIlllII;
+	@Resource(name = "articleCategoryServiceImpl")
+	private ArticleCategoryService IIIlllII;
 
-  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
-  {
-    Long localLong = (Long)FreemarkerUtils.getParameter("articleCategoryId", Long.class, params);
-    ArticleCategory localArticleCategory = (ArticleCategory)this.IIIlllII.find(localLong);
-    Object localObject;
-    if ((localLong != null) && (localArticleCategory == null))
-    {
-      localObject = new ArrayList();
-    }
-    else
-    {
-      boolean bool = IIIllIlI(env, params);
-      String str = IIIllIll(env, params);
-      Integer localInteger = IIIllIll(params);
-      if (bool)
-        localObject = this.IIIlllII.findChildren(localArticleCategory, localInteger, str);
-      else
-        localObject = this.IIIlllII.findChildren(localArticleCategory, localInteger);
-    }
-    IIIllIlI("articleCategories", localObject, env, body);
-  }
+	public void execute(Environment env, Map params, TemplateModel[] loopVars,
+			TemplateDirectiveBody body) {
+		Long localLong = (Long) FreemarkerUtils.getParameter(
+				"articleCategoryId", Long.class, params);
+		ArticleCategory localArticleCategory = (ArticleCategory) this.IIIlllII
+				.find(localLong);
+		Object localObject;
+		if ((localLong != null) && (localArticleCategory == null)) {
+			localObject = new ArrayList();
+		} else {
+			boolean bool = IIIllIlI(env, params);
+			String str = IIIllIll(env, params);
+			Integer localInteger = IIIllIll(params);
+			if (bool)
+				localObject = this.IIIlllII.findChildren(localArticleCategory,
+						localInteger, str);
+			else
+				localObject = this.IIIlllII.findChildren(localArticleCategory,
+						localInteger);
+		}
+		IIIllIlI("articleCategories", localObject, env, body);
+	}
 }

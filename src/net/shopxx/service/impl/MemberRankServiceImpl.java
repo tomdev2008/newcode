@@ -11,55 +11,49 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("memberRankServiceImpl")
 public class MemberRankServiceImpl extends BaseServiceImpl<MemberRank, Long>
-  implements MemberRankService
-{
+		implements MemberRankService {
 
-  @Resource(name="memberRankDaoImpl")
-  private MemberRankDao IIIllIlI;
+	@Resource(name = "memberRankDaoImpl")
+	private MemberRankDao memberRankDao;
 
-  @Resource(name="memberRankDaoImpl")
-  public void setBaseDao(MemberRankDao memberRankDao)
-  {
-    super.setBaseDao(memberRankDao);
-  }
+	@Resource(name = "memberRankDaoImpl")
+	public void setBaseDao(MemberRankDao memberRankDao) {
+		super.setBaseDao(memberRankDao);
+	}
 
-  @Transactional(readOnly=true)
-  public boolean nameExists(String name)
-  {
-    return this.IIIllIlI.nameExists(name);
-  }
+	@Transactional(readOnly = true)
+	public boolean nameExists(String name) {
+		return this.memberRankDao.nameExists(name);
+	}
 
-  @Transactional(readOnly=true)
-  public boolean nameUnique(String previousName, String currentName)
-  {
-    if (StringUtils.equalsIgnoreCase(previousName, currentName))
-      return true;
-    return !this.IIIllIlI.nameExists(currentName);
-  }
+	@Transactional(readOnly = true)
+	public boolean nameUnique(String previousName, String currentName) {
+		if (StringUtils.equalsIgnoreCase(previousName, currentName))
+			return true;
+		return !this.memberRankDao.nameExists(currentName);
+	}
 
-  @Transactional(readOnly=true)
-  public boolean amountExists(BigDecimal amount)
-  {
-    return this.IIIllIlI.amountExists(amount);
-  }
+	@Transactional(readOnly = true)
+	public boolean amountExists(BigDecimal amount) {
+		return this.memberRankDao.amountExists(amount);
+	}
 
-  @Transactional(readOnly=true)
-  public boolean amountUnique(BigDecimal previousAmount, BigDecimal currentAmount)
-  {
-    if ((previousAmount != null) && (previousAmount.compareTo(currentAmount) == 0))
-      return true;
-    return !this.IIIllIlI.amountExists(currentAmount);
-  }
+	@Transactional(readOnly = true)
+	public boolean amountUnique(BigDecimal previousAmount,
+			BigDecimal currentAmount) {
+		if ((previousAmount != null)
+				&& (previousAmount.compareTo(currentAmount) == 0))
+			return true;
+		return !this.memberRankDao.amountExists(currentAmount);
+	}
 
-  @Transactional(readOnly=true)
-  public MemberRank findDefault()
-  {
-    return this.IIIllIlI.findDefault();
-  }
+	@Transactional(readOnly = true)
+	public MemberRank findDefault() {
+		return this.memberRankDao.findDefault();
+	}
 
-  @Transactional(readOnly=true)
-  public MemberRank findByAmount(BigDecimal amount)
-  {
-    return this.IIIllIlI.findByAmount(amount);
-  }
+	@Transactional(readOnly = true)
+	public MemberRank findByAmount(BigDecimal amount) {
+		return this.memberRankDao.findByAmount(amount);
+	}
 }

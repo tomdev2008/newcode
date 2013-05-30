@@ -9,21 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("paymentServiceImpl")
 public class PaymentServiceImpl extends BaseServiceImpl<Payment, Long>
-  implements PaymentService
-{
+		implements PaymentService {
 
-  @Resource(name="paymentDaoImpl")
-  private PaymentDao IIIllIlI;
+	@Resource(name = "paymentDaoImpl")
+	private PaymentDao paymentDao;
 
-  @Resource(name="paymentDaoImpl")
-  public void setBaseDao(PaymentDao paymentDao)
-  {
-    super.setBaseDao(paymentDao);
-  }
+	@Resource(name = "paymentDaoImpl")
+	public void setBaseDao(PaymentDao paymentDao) {
+		super.setBaseDao(paymentDao);
+	}
 
-  @Transactional(readOnly=true)
-  public Payment findBySn(String sn)
-  {
-    return this.IIIllIlI.findBySn(sn);
-  }
+	@Transactional(readOnly = true)
+	public Payment findBySn(String sn) {
+		return this.paymentDao.findBySn(sn);
+	}
 }

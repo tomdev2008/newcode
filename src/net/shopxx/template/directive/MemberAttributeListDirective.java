@@ -10,22 +10,21 @@ import net.shopxx.service.MemberAttributeService;
 import org.springframework.stereotype.Component;
 
 @Component("memberAttributeListDirective")
-public class MemberAttributeListDirective extends BaseDirective
-{
-  private static final String IIIllIlI = "memberAttributes";
+public class MemberAttributeListDirective extends BaseDirective {
+	private static final String IIIllIlI = "memberAttributes";
 
-  @Resource(name="memberAttributeServiceImpl")
-  private MemberAttributeService IIIllIll;
+	@Resource(name = "memberAttributeServiceImpl")
+	private MemberAttributeService IIIllIll;
 
-  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
-  {
-    boolean bool = IIIllIlI(env, params);
-    String str = IIIllIll(env, params);
-    List localList;
-    if (bool)
-      localList = this.IIIllIll.findList(str);
-    else
-      localList = this.IIIllIll.findList();
-    IIIllIlI("memberAttributes", localList, env, body);
-  }
+	public void execute(Environment env, Map params, TemplateModel[] loopVars,
+			TemplateDirectiveBody body) {
+		boolean bool = IIIllIlI(env, params);
+		String str = IIIllIll(env, params);
+		List localList;
+		if (bool)
+			localList = this.IIIllIll.findList(str);
+		else
+			localList = this.IIIllIll.findList();
+		IIIllIlI("memberAttributes", localList, env, body);
+	}
 }

@@ -28,6 +28,7 @@ import net.shopxx.Order.OrderDirection;
 import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.dao.BaseDao;
+import net.shopxx.entity.Order;
 import net.shopxx.entity.OrderEntity;
 
 import org.apache.commons.lang.StringUtils;
@@ -56,11 +57,12 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 
 	public List<T> findList(Integer first, Integer count, List<Filter> filters,
 			List<net.shopxx.Order> orders) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager.getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
+				.getCriteriaBuilder();
+		CriteriaQuery<T> localCriteriaQuery = localCriteriaBuilder
 				.createQuery(this.entityClass);
 		localCriteriaQuery.select(localCriteriaQuery.from(this.entityClass));
-		return entityManager(localCriteriaQuery, first, count, filters, orders);
+		return this.entityManager(localCriteriaQuery, first, count, filters, orders);
 	}
 
 	public Page<T> findPage(Pageable pageable) {
@@ -71,7 +73,8 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 	}
 
 	public long count(Filter[] filters) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager.getCriteriaBuilder();
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
+				.getCriteriaBuilder();
 		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
 				.createQuery(this.entityClass);
 		localCriteriaQuery.select(localCriteriaQuery.from(this.entityClass));
@@ -101,7 +104,8 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 
 	public ID getIdentifier(T entity) {
 		Assert.notNull(entity);
-		return (Serializable) this.entityManager.getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(entity);
+		return (Serializable) this.entityManager.getEntityManagerFactory()
+				.getPersistenceUnitUtil().getIdentifier(entity);
 	}
 
 	public boolean isManaged(T entity) {
@@ -127,7 +131,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 
 	protected List<T> entityManager(CriteriaQuery<T> paramCriteriaQuery,
 			Integer paramInteger1, Integer paramInteger2,
-			List<Filter> paramList, List<net.shopxx.Order> paramList1) {
+			List<Filter> paramList, List<Order> paramList1) {
 		Assert.notNull(paramCriteriaQuery);
 		Assert.notNull(paramCriteriaQuery.getSelection());
 		Assert.notEmpty(paramCriteriaQuery.getRoots());
@@ -145,7 +149,8 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 				paramCriteriaQuery
 						.orderBy(new javax.persistence.criteria.Order[] { localCriteriaBuilder
 								.desc(localRoot.get("createDate")) });
-		TypedQuery localTypedQuery = this.entityManager.createQuery(paramCriteriaQuery).setFlushMode(FlushModeType.COMMIT);
+		TypedQuery localTypedQuery = this.entityManager.createQuery(
+				paramCriteriaQuery).setFlushMode(FlushModeType.COMMIT);
 		if (paramInteger1 != null)
 			localTypedQuery.setFirstResult(paramInteger1.intValue());
 		if (paramInteger2 != null)

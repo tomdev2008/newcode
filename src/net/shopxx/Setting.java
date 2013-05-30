@@ -920,7 +920,7 @@ public class Setting implements Serializable {
 		return StringUtils.split(this.uploadFileExtension, ",");
 	}
 
-	public BigDecimal set(BigDecimal amount) {
+	public BigDecimal setScale(BigDecimal amount) {
 		if (amount == null)
 			return null;
 		int roundingMode;

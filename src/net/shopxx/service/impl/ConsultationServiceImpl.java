@@ -23,10 +23,10 @@ public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
 {
 
   @Resource(name="consultationDaoImpl")
-  private ConsultationDao IIIllIlI;
+  private ConsultationDao consultationDao;
 
   @Resource(name="staticServiceImpl")
-  private StaticService IIIllIll;
+  private StaticService staticService;
 
   @Resource(name="consultationDaoImpl")
   public void setBaseDao(ConsultationDao consultationDao)
@@ -37,26 +37,26 @@ public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
   @Transactional(readOnly=true)
   public List<Consultation> findList(Member member, Product product, Boolean isShow, Integer count, List<Filter> filters, List<Order> orders)
   {
-    return this.IIIllIlI.findList(member, product, isShow, count, filters, orders);
+    return this.consultationDao.findList(member, product, isShow, count, filters, orders);
   }
 
   @Transactional(readOnly=true)
   @Cacheable({"consultation"})
   public List<Consultation> findList(Member member, Product product, Boolean isShow, Integer count, List<Filter> filters, List<Order> orders, String cacheRegion)
   {
-    return this.IIIllIlI.findList(member, product, isShow, count, filters, orders);
+    return this.consultationDao.findList(member, product, isShow, count, filters, orders);
   }
 
   @Transactional(readOnly=true)
   public Page<Consultation> findPage(Member member, Product product, Boolean isShow, Pageable pageable)
   {
-    return this.IIIllIlI.findPage(member, product, isShow, pageable);
+    return this.consultationDao.findPage(member, product, isShow, pageable);
   }
 
   @Transactional(readOnly=true)
   public Long count(Member member, Product product, Boolean isShow)
   {
-    return this.IIIllIlI.count(member, product, isShow);
+    return this.consultationDao.count(member, product, isShow);
   }
 
   @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
@@ -65,16 +65,16 @@ public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
     if ((consultation == null) || (replyConsultation == null))
       return;
     consultation.setIsShow(Boolean.valueOf(true));
-    this.IIIllIlI.merge(consultation);
+    this.consultationDao.merge(consultation);
     replyConsultation.setIsShow(Boolean.valueOf(true));
     replyConsultation.setProduct(consultation.getProduct());
     replyConsultation.setForConsultation(consultation);
-    this.IIIllIlI.persist(replyConsultation);
+    this.consultationDao.persist(replyConsultation);
     Product localProduct = consultation.getProduct();
     if (localProduct != null)
     {
-      this.IIIllIlI.flush();
-      this.IIIllIll.build(localProduct);
+      this.consultationDao.flush();
+      this.staticService.build(localProduct);
     }
   }
 
@@ -86,8 +86,8 @@ public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
     Product localProduct = consultation.getProduct();
     if (localProduct != null)
     {
-      this.IIIllIlI.flush();
-      this.IIIllIll.build(localProduct);
+      this.consultationDao.flush();
+      this.staticService.build(localProduct);
     }
   }
 
@@ -99,8 +99,8 @@ public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
     Product localProduct = localConsultation.getProduct();
     if (localProduct != null)
     {
-      this.IIIllIlI.flush();
-      this.IIIllIll.build(localProduct);
+      this.consultationDao.flush();
+      this.staticService.build(localProduct);
     }
     return localConsultation;
   }
@@ -136,8 +136,8 @@ public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
       Product localProduct = consultation.getProduct();
       if (localProduct != null)
       {
-        this.IIIllIlI.flush();
-        this.IIIllIll.build(localProduct);
+        this.consultationDao.flush();
+        this.staticService.build(localProduct);
       }
     }
   }

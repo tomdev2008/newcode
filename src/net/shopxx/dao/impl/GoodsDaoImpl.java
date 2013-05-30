@@ -3,19 +3,18 @@ package net.shopxx.dao.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
-import javax.persistence.Query;
+
 import net.shopxx.dao.GoodsDao;
 import net.shopxx.dao.ProductDao;
 import net.shopxx.dao.SnDao;
 import net.shopxx.entity.Goods;
 import net.shopxx.entity.Product;
-import net.shopxx.entity.Sn.Type;
+import net.shopxx.entity.Sn.SnType;
 import net.shopxx.entity.SpecificationValue;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -26,21 +25,21 @@ public class GoodsDaoImpl extends BaseDaoImpl<Goods, Long>
 {
 
   @Resource(name="productDaoImpl")
-  private ProductDao IIIllIll;
+  private ProductDao productDao;
 
   @Resource(name="snDaoImpl")
-  private SnDao IIIlllII;
+  private SnDao snDao;
 
   public void persist(Goods goods)
   {
     Assert.notNull(goods);
     if (goods.getProducts() != null)
     {
-      Iterator localIterator = goods.getProducts().iterator();
+      Iterator<Product> localIterator = goods.getProducts().iterator();
       while (localIterator.hasNext())
       {
-        Product localProduct = (Product)localIterator.next();
-        IIIllIlI(localProduct);
+        Product localProduct = localIterator.next();
+        entityManager(localProduct);
       }
     }
     super.persist(goods);
@@ -51,39 +50,39 @@ public class GoodsDaoImpl extends BaseDaoImpl<Goods, Long>
     Assert.notNull(goods);
     if (goods.getProducts() != null)
     {
-      Iterator localIterator = goods.getProducts().iterator();
+      Iterator<Product> localIterator = goods.getProducts().iterator();
       while (localIterator.hasNext())
       {
-        Product localProduct = (Product)localIterator.next();
+        Product localProduct = localIterator.next();
         if (localProduct.getId() != null)
         {
           String str;
           if (!localProduct.getIsGift().booleanValue())
           {
             str = "delete from GiftItem giftItem where giftItem.gift = :product";
-            this.IIIllIlI.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("product", localProduct).executeUpdate();
+            this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("product", localProduct).executeUpdate();
           }
           if ((!localProduct.getIsMarketable().booleanValue()) || (localProduct.getIsGift().booleanValue()))
           {
             str = "delete from CartItem cartItem where cartItem.product = :product";
-            this.IIIllIlI.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("product", localProduct).executeUpdate();
+            this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("product", localProduct).executeUpdate();
           }
         }
-        IIIllIlI(localProduct);
+        entityManager(localProduct);
       }
     }
     return (Goods)super.merge(goods);
   }
 
-  private void IIIllIlI(Product paramProduct)
+	private void entityManager(Product paramProduct)
   {
     if (paramProduct == null)
       return;
     if (StringUtils.isEmpty(paramProduct.getSn()))
     {
       do
-        localObject = this.IIIlllII.generate(Sn.Type.product);
-      while (this.IIIllIll.snExists((String)localObject));
+        localObject = this.snDao.generate(SnType.product);
+      while (this.productDao.snExists((String)localObject));
       paramProduct.setSn((String)localObject);
     }
     Object localObject = new StringBuffer(paramProduct.getName());

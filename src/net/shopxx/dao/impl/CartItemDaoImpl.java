@@ -5,8 +5,6 @@ import net.shopxx.entity.CartItem;
 import org.springframework.stereotype.Repository;
 
 @Repository("cartItemDaoImpl")
-public class CartItemDaoImpl extends BaseDaoImpl<CartItem, Long>
-  implements CartItemDao
-{
+public class CartItemDaoImpl extends BaseDaoImpl<CartItem, Long> implements
+		CartItemDao {
 }
-

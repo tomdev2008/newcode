@@ -11,43 +11,37 @@ import org.springframework.web.servlet.LocaleResolver;
 
 @Component("springUtils")
 @Lazy(false)
-public final class SpringUtils
-  implements DisposableBean, ApplicationContextAware
-{
-  private static ApplicationContext IIIllIlI;
+public final class SpringUtils implements DisposableBean,
+		ApplicationContextAware {
+	private static ApplicationContext applicationContext;
 
-  public void setApplicationContext(ApplicationContext applicationContext)
-  {
-    IIIllIlI = applicationContext;
-  }
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		applicationContext = applicationContext;
+	}
 
-  public void destroy()
-  {
-    IIIllIlI = null;
-  }
+	public void destroy() {
+		applicationContext = null;
+	}
 
-  public static ApplicationContext getApplicationContext()
-  {
-    return IIIllIlI;
-  }
+	public static ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
 
-  public static Object getBean(String name)
-  {
-    Assert.hasText(name);
-    return IIIllIlI.getBean(name);
-  }
+	public static Object getBean(String name) {
+		Assert.hasText(name);
+		return applicationContext.getBean(name);
+	}
 
-  public static <T> T getBean(String name, Class<T> type)
-  {
-    Assert.hasText(name);
-    Assert.notNull(type);
-    return IIIllIlI.getBean(name, type);
-  }
+	public static <T> T getBean(String name, Class<T> type) {
+		Assert.hasText(name);
+		Assert.notNull(type);
+		return applicationContext.getBean(name, type);
+	}
 
-  public static String getMessage(String code, Object[] args)
-  {
-    LocaleResolver localLocaleResolver = (LocaleResolver)getBean("localeResolver", LocaleResolver.class);
-    Locale localLocale = localLocaleResolver.resolveLocale(null);
-    return IIIllIlI.getMessage(code, args, localLocale);
-  }
+	public static String getMessage(String code, Object[] args) {
+		LocaleResolver localLocaleResolver = (LocaleResolver) getBean(
+				"localeResolver", LocaleResolver.class);
+		Locale localLocale = localLocaleResolver.resolveLocale(null);
+		return applicationContext.getMessage(code, args, localLocale);
+	}
 }

@@ -8,22 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("deliveryTemplateServiceImpl")
-public class DeliveryTemplateServiceImpl extends BaseServiceImpl<DeliveryTemplate, Long>
-  implements DeliveryTemplateService
-{
+public class DeliveryTemplateServiceImpl extends
+		BaseServiceImpl<DeliveryTemplate, Long> implements
+		DeliveryTemplateService {
 
-  @Resource(name="deliveryTemplateDaoImpl")
-  private DeliveryTemplateDao IIIllIlI;
+	@Resource(name = "deliveryTemplateDaoImpl")
+	private DeliveryTemplateDao deliveryTemplateDao;
 
-  @Resource(name="deliveryTemplateDaoImpl")
-  public void setBaseDao(DeliveryTemplateDao deliveryTemplateDao)
-  {
-    super.setBaseDao(deliveryTemplateDao);
-  }
+	@Resource(name = "deliveryTemplateDaoImpl")
+	public void setBaseDao(DeliveryTemplateDao deliveryTemplateDao) {
+		super.setBaseDao(deliveryTemplateDao);
+	}
 
-  @Transactional(readOnly=true)
-  public DeliveryTemplate findDefault()
-  {
-    return this.IIIllIlI.findDefault();
-  }
+	@Transactional(readOnly = true)
+	public DeliveryTemplate findDefault() {
+		return this.deliveryTemplateDao.findDefault();
+	}
 }

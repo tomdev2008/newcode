@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,15 +27,17 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
 import net.shopxx.Setting;
 import net.shopxx.util.SettingUtils;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "xx_order")
 public class Order extends BaseEntity {
-	public enum OrderOrderStatus {
+	public enum OrderStatus {
 		unconfirmed, confirmed, completed, cancelled;
 	}
 
@@ -49,7 +52,7 @@ public class Order extends BaseEntity {
 	private static final long serialVersionUID = 8370942500343156156L;
 	private static final String IIIllIlI = " ";
 	private String sn;
-	private OrderOrderStatus orderStatus;
+	private OrderStatus orderStatus;
 	private OrderPaymentStatus paymentStatus;
 	private OrderShippingStatus shippingStatus;
 	private BigDecimal fee;
@@ -97,11 +100,11 @@ public class Order extends BaseEntity {
 	}
 
 	@Column(nullable = false)
-	public OrderOrderStatus getOrderStatus() {
+	public OrderStatus getOrderStatus() {
 		return this.orderStatus;
 	}
 
-	public void setOrderStatus(OrderOrderStatus orderStatus) {
+	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 

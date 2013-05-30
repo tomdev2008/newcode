@@ -8,21 +8,22 @@ import net.shopxx.Filter;
 import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.entity.Member;
-import net.shopxx.entity.Order.OrderOrderStatus;
+import net.shopxx.entity.Order;
 import net.shopxx.entity.Order.OrderPaymentStatus;
 import net.shopxx.entity.Order.OrderShippingStatus;
+import net.shopxx.entity.Order.OrderStatus;
 
-public abstract interface OrderDao extends BaseDao<net.shopxx.entity.Order, Long>
+public abstract interface OrderDao extends BaseDao<Order, Long>
 {
-  public abstract net.shopxx.entity.Order findBySn(String paramString);
+  public abstract Order findBySn(String paramString);
 
-  public abstract List<net.shopxx.entity.Order> findList(Member paramMember, Integer paramInteger, List<Filter> paramList, List<net.shopxx.Order> paramList1);
+  public abstract List<Order> findList(Member paramMember, Integer paramInteger, List<Filter> paramList, List<Order> paramList1);
 
-  public abstract Page<net.shopxx.entity.Order> findPage(Member paramMember, Pageable paramPageable);
+  public abstract Page<Order> findPage(Member paramMember, Pageable paramPageable);
 
-  public abstract Page<net.shopxx.entity.Order> findPage(OrderOrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean, Pageable paramPageable);
+  public abstract Page<Order> findPage(OrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean, Pageable paramPageable);
 
-  public abstract Long count(OrderOrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean);
+  public abstract Long count(OrderStatus paramOrderStatus, OrderPaymentStatus paramPaymentStatus, OrderShippingStatus paramShippingStatus, Boolean paramBoolean);
 
   public abstract Long waitingPaymentCount(Member paramMember);
 

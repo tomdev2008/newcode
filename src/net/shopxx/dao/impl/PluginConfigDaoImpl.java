@@ -17,7 +17,7 @@ public class PluginConfigDaoImpl extends BaseDaoImpl<PluginConfig, Long>
     if (pluginId == null)
       return false;
     String str = "select count(*) from PluginConfig pluginConfig where pluginConfig.pluginId = :pluginId";
-    Long localLong = (Long)this.IIIllIlI.createQuery(str, Long.class).setFlushMode(FlushModeType.COMMIT).setParameter("pluginId", pluginId).getSingleResult();
+    Long localLong = (Long)this.entityManager.createQuery(str, Long.class).setFlushMode(FlushModeType.COMMIT).setParameter("pluginId", pluginId).getSingleResult();
     return localLong.longValue() > 0L;
   }
 

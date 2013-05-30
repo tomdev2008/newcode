@@ -2,7 +2,9 @@ package net.shopxx.dao;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.LockModeType;
+
 import net.shopxx.Filter;
 import net.shopxx.Order;
 import net.shopxx.Page;

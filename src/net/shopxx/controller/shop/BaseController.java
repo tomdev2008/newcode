@@ -26,7 +26,7 @@ public class BaseController
   private static final String IIIlllIl = "constraintViolations";
 
   @Resource(name="validator")
-  private Validator IIIllllI;
+  private Validator validator;
 
   @InitBinder
   protected void IIIllIlI(WebDataBinder paramWebDataBinder)
@@ -37,7 +37,7 @@ public class BaseController
 
   protected boolean IIIllIlI(Object paramObject, Class<?>[] paramArrayOfClass)
   {
-    Set localSet = this.IIIllllI.validate(paramObject, paramArrayOfClass);
+    Set localSet = this.validator.validate(paramObject, paramArrayOfClass);
     if (localSet.isEmpty())
       return true;
     RequestAttributes localRequestAttributes = RequestContextHolder.currentRequestAttributes();
@@ -47,7 +47,7 @@ public class BaseController
 
   protected boolean IIIllIlI(Class<?> paramClass, String paramString, Object paramObject, Class<?>[] paramArrayOfClass)
   {
-    Set localSet = this.IIIllllI.validateValue(paramClass, paramString, paramObject, paramArrayOfClass);
+    Set localSet = this.validator.validateValue(paramClass, paramString, paramObject, paramArrayOfClass);
     if (localSet.isEmpty())
       return true;
     RequestAttributes localRequestAttributes = RequestContextHolder.currentRequestAttributes();
@@ -57,12 +57,12 @@ public class BaseController
 
   protected String IIIllIlI(BigDecimal paramBigDecimal, boolean paramBoolean1, boolean paramBoolean2)
   {
-    Setting localSetting = SettingUtils.get();
-    String str = localSetting.setScale(paramBigDecimal).toString();
+    Setting setting = SettingUtils.get();
+    String str = setting.setScale(paramBigDecimal).toString();
     if (paramBoolean1)
-      str = localSetting.getCurrencySign() + str;
+      str = setting.getCurrencySign() + str;
     if (paramBoolean2)
-      str = str + localSetting.getCurrencyUnit();
+      str = str + setting.getCurrencyUnit();
     return str;
   }
 

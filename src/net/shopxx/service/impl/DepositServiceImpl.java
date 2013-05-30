@@ -12,21 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("depositServiceImpl")
 public class DepositServiceImpl extends BaseServiceImpl<Deposit, Long>
-  implements DepositService
-{
+		implements DepositService {
 
-  @Resource(name="depositDaoImpl")
-  private DepositDao IIIllIlI;
+	@Resource(name = "depositDaoImpl")
+	private DepositDao depositDao;
 
-  @Resource(name="depositDaoImpl")
-  public void setBaseDao(DepositDao depositDao)
-  {
-    super.setBaseDao(depositDao);
-  }
+	@Resource(name = "depositDaoImpl")
+	public void setBaseDao(DepositDao depositDao) {
+		super.setBaseDao(depositDao);
+	}
 
-  @Transactional(readOnly=true)
-  public Page<Deposit> findPage(Member member, Pageable pageable)
-  {
-    return this.IIIllIlI.findPage(member, pageable);
-  }
+	@Transactional(readOnly = true)
+	public Page<Deposit> findPage(Member member, Pageable pageable) {
+		return this.depositDao.findPage(member, pageable);
+	}
 }

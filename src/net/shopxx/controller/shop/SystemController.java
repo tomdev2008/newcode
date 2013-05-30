@@ -9,10 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("shopSystemController")
-@RequestMapping({"/system"})
-public class SystemController
-{
-  @RequestMapping(value={"/info"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+@RequestMapping({ "/system" })
+public class SystemController {
+	@RequestMapping(value={"/info"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public void info(HttpServletRequest request, HttpServletResponse response)
   {
     String str = " 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ().+/;=-";

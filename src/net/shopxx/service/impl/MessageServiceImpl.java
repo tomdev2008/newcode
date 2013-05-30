@@ -16,7 +16,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message, Long>
 {
 
   @Resource(name="messageDaoImpl")
-  private MessageDao IIIllIlI;
+  private MessageDao messageDao;
 
   @Resource(name="messageDaoImpl")
   public void setBaseDao(MessageDao messageDao)
@@ -27,23 +27,23 @@ public class MessageServiceImpl extends BaseServiceImpl<Message, Long>
   @Transactional(readOnly=true)
   public Page<Message> findPage(Member member, Pageable pageable)
   {
-    return this.IIIllIlI.findPage(member, pageable);
+    return this.messageDao.findPage(member, pageable);
   }
 
   @Transactional(readOnly=true)
   public Page<Message> findDraftPage(Member sender, Pageable pageable)
   {
-    return this.IIIllIlI.findDraftPage(sender, pageable);
+    return this.messageDao.findDraftPage(sender, pageable);
   }
 
   @Transactional(readOnly=true)
   public Long count(Member member, Boolean read)
   {
-    return this.IIIllIlI.count(member, read);
+    return this.messageDao.count(member, read);
   }
 
   public void delete(Long id, Member member)
   {
-    this.IIIllIlI.remove(id, member);
+    this.messageDao.remove(id, member);
   }
 }

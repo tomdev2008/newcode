@@ -25,100 +25,100 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:/applicationContext.xml", "classpath*:/applicationContext-mvc.xml"})
+@ContextConfiguration(locations = { "classpath*:/applicationContext.xml",
+		"classpath*:/applicationContext-mvc.xml" })
 @Transactional
-public class ArticleDaoImplTest
-{
+public class ArticleDaoImplTest {
 
-  @Resource(name="articleCategoryDaoImpl")
-  private ArticleCategoryDao articleCategoryDao;
+	@Resource(name = "articleCategoryDaoImpl")
+	private ArticleCategoryDao articleCategoryDao;
 
-  @Resource(name="tagDaoImpl")
-  private TagDao tagDao;
+	@Resource(name = "tagDaoImpl")
+	private TagDao tagDao;
 
-  @Resource(name="articleDaoImpl")
-  private ArticleDao articleDao;
-  private static final Logger IIIlllIl = LoggerFactory.getLogger(ArticleDaoImplTest.class);
-  private static Long[] IIIllllI = new Long[100];
-  private static Long[] IIIlllll = new Long[100];
-  private static Long[] IIlIIIII = new Long[20];
+	@Resource(name = "articleDaoImpl")
+	private ArticleDao articleDao;
+	private static final Logger IIIlllIl = LoggerFactory
+			.getLogger(ArticleDaoImplTest.class);
+	private static Long[] IIIllllI = new Long[100];
+	private static Long[] IIIlllll = new Long[100];
+	private static Long[] IIlIIIII = new Long[20];
 
-  @Before
-  public void prepareTestData()
-  {
-    String str;
-    Object localObject;
-    for (int i = 0; i < IIIllllI.length; i++)
-    {
-      str = "test" + i;
-      localObject = new ArticleCategory();
-      if (i < 20)
-      {
-        ((ArticleCategory)localObject).setName(str);
-        ((ArticleCategory)localObject).setOrder(Integer.valueOf(i));
-        this.articleCategoryDao.persist(localObject);
-      }
-      else
-      {
-        ((ArticleCategory)localObject).setName(str);
-        ((ArticleCategory)localObject).setOrder(Integer.valueOf(i));
-        ((ArticleCategory)localObject).setParent((ArticleCategory)this.articleCategoryDao.find(IIIllllI[0]));
-        this.articleCategoryDao.persist(localObject);
-      }
-      IIIllllI[i] = ((ArticleCategory)localObject).getId();
-    }
-    this.articleCategoryDao.flush();
-    this.articleCategoryDao.clear();
-    for (i = 0; i < IIlIIIII.length; i++)
-    {
-      str = "test" + i;
-      localObject = new Tag();
-      ((Tag)localObject).setName(str);
-      ((Tag)localObject).setOrder(Integer.valueOf(i));
-      ((Tag)localObject).setType(TagType.article);
-      this.tagDao.persist(localObject);
-      IIlIIIII[i] = ((Tag)localObject).getId();
-    }
-    this.tagDao.flush();
-    this.tagDao.clear();
-    for (i = 0; i < IIIlllll.length; i++)
-    {
-      str = "test" + i;
-      localObject = new Article();
-      ((Article)localObject).setTitle(str);
-      ((Article)localObject).setContent(str);
-      ((Article)localObject).setIsPublication(Boolean.valueOf(true));
-      ((Article)localObject).setIsTop(Boolean.valueOf(false));
-      ((Article)localObject).setHits(Long.valueOf(0L));
-      if (i < 20)
-        ((Article)localObject).setArticleCategory((ArticleCategory)this.articleCategoryDao.find(IIIllllI[0]));
-      else
-        ((Article)localObject).setArticleCategory((ArticleCategory)this.articleCategoryDao.find(IIIllllI[1]));
-      if (i < 20)
-      {
-        HashSet localHashSet = new HashSet();
-        if (i < 10)
-        {
-          localHashSet.add((Tag)this.tagDao.find(IIlIIIII[0]));
-          localHashSet.add((Tag)this.tagDao.find(IIlIIIII[1]));
-        }
-        localHashSet.add((Tag)this.tagDao.find(IIlIIIII[2]));
-        ((Article)localObject).setTags(localHashSet);
-      }
-      this.articleDao.persist(localObject);
-      IIIlllll[i] = ((Article)localObject).getId();
-    }
-    this.articleDao.flush();
-    this.articleDao.clear();
-    IIIlllIl.info("prepare test data");
-  }
+	@Before
+	public void prepareTestData() {
+		String str;
+		Object localObject;
+		for (int i = 0; i < IIIllllI.length; i++) {
+			str = "test" + i;
+			localObject = new ArticleCategory();
+			if (i < 20) {
+				((ArticleCategory) localObject).setName(str);
+				((ArticleCategory) localObject).setOrder(Integer.valueOf(i));
+				this.articleCategoryDao.persist(localObject);
+			} else {
+				((ArticleCategory) localObject).setName(str);
+				((ArticleCategory) localObject).setOrder(Integer.valueOf(i));
+				((ArticleCategory) localObject)
+						.setParent((ArticleCategory) this.articleCategoryDao
+								.find(IIIllllI[0]));
+				this.articleCategoryDao.persist(localObject);
+			}
+			IIIllllI[i] = ((ArticleCategory) localObject).getId();
+		}
+		this.articleCategoryDao.flush();
+		this.articleCategoryDao.clear();
+		for (i = 0; i < IIlIIIII.length; i++) {
+			str = "test" + i;
+			localObject = new Tag();
+			((Tag) localObject).setName(str);
+			((Tag) localObject).setOrder(Integer.valueOf(i));
+			((Tag) localObject).setType(TagType.article);
+			this.tagDao.persist(localObject);
+			IIlIIIII[i] = ((Tag) localObject).getId();
+		}
+		this.tagDao.flush();
+		this.tagDao.clear();
+		for (i = 0; i < IIIlllll.length; i++) {
+			str = "test" + i;
+			localObject = new Article();
+			((Article) localObject).setTitle(str);
+			((Article) localObject).setContent(str);
+			((Article) localObject).setIsPublication(Boolean.valueOf(true));
+			((Article) localObject).setIsTop(Boolean.valueOf(false));
+			((Article) localObject).setHits(Long.valueOf(0L));
+			if (i < 20)
+				((Article) localObject)
+						.setArticleCategory((ArticleCategory) this.articleCategoryDao
+								.find(IIIllllI[0]));
+			else
+				((Article) localObject)
+						.setArticleCategory((ArticleCategory) this.articleCategoryDao
+								.find(IIIllllI[1]));
+			if (i < 20) {
+				HashSet localHashSet = new HashSet();
+				if (i < 10) {
+					localHashSet.add((Tag) this.tagDao.find(IIlIIIII[0]));
+					localHashSet.add((Tag) this.tagDao.find(IIlIIIII[1]));
+				}
+				localHashSet.add((Tag) this.tagDao.find(IIlIIIII[2]));
+				((Article) localObject).setTags(localHashSet);
+			}
+			this.articleDao.persist(localObject);
+			IIIlllll[i] = ((Article) localObject).getId();
+		}
+		this.articleDao.flush();
+		this.articleDao.clear();
+		IIIlllIl.info("prepare test data");
+	}
 
-  @Test
-  public void testFindList()
-  {
-    ArrayList localArrayList = new ArrayList();
-    localArrayList.add((Tag)this.tagDao.find(IIlIIIII[0]));
-    localArrayList.add((Tag)this.tagDao.find(IIlIIIII[2]));
-    MatcherAssert.assertThat(Integer.valueOf(this.articleDao.findList(null, localArrayList, null, null, null).size()), Matchers.is(Integer.valueOf(80)));
-  }
+	@Test
+	public void testFindList() {
+		ArrayList localArrayList = new ArrayList();
+		localArrayList.add((Tag) this.tagDao.find(IIlIIIII[0]));
+		localArrayList.add((Tag) this.tagDao.find(IIlIIIII[2]));
+		MatcherAssert.assertThat(
+				Integer.valueOf(this.articleDao.findList(null, localArrayList,
+						null, null, null).size()),
+				Matchers.is(Integer.valueOf(80)));
+	}
 }
