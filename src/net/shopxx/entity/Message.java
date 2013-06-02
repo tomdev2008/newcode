@@ -14,158 +14,133 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_message")
-public class Message extends BaseEntity
-{
-  private static final long serialVersionUID = -5035343536762850722L;
-  private String title;
-  private String content;
-  private String ip;
-  private Boolean isDraft;
-  private Boolean senderRead;
-  private Boolean receiverRead;
-  private Boolean senderDelete;
-  private Boolean receiverDelete;
-  private Member sender;
-  private Member receiver;
-  private Message forMessage;
-  private Set<Message> replyMessages = new HashSet();
+@Table(name = "xx_message")
+public class Message extends BaseEntity {
+	private static final long serialVersionUID = -5035343536762850722L;
+	private String title;
+	private String content;
+	private String ip;
+	private Boolean isDraft;
+	private Boolean senderRead;
+	private Boolean receiverRead;
+	private Boolean senderDelete;
+	private Boolean receiverDelete;
+	private Member sender;
+	private Member receiver;
+	private Message forMessage;
+	private Set<Message> replyMessages = new HashSet<Message>();
 
-  @Column(nullable=false, updatable=false)
-  public String getTitle()
-  {
-    return this.title;
-  }
+	@Column(nullable = false, updatable = false)
+	public String getTitle() {
+		return this.title;
+	}
 
-  public void setTitle(String title)
-  {
-    this.title = title;
-  }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-  @NotEmpty
-  @Length(max=1000)
-  @Column(nullable=false, updatable=false, length=1000)
-  public String getContent()
-  {
-    return this.content;
-  }
+	@NotEmpty
+	@Length(max = 1000)
+	@Column(nullable = false, updatable = false, length = 1000)
+	public String getContent() {
+		return this.content;
+	}
 
-  public void setContent(String content)
-  {
-    this.content = content;
-  }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-  @Column(nullable=false, updatable=false)
-  public String getIp()
-  {
-    return this.ip;
-  }
+	@Column(nullable = false, updatable = false)
+	public String getIp() {
+		return this.ip;
+	}
 
-  public void setIp(String ip)
-  {
-    this.ip = ip;
-  }
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 
-  @Column(nullable=false, updatable=false)
-  public Boolean getIsDraft()
-  {
-    return this.isDraft;
-  }
+	@Column(nullable = false, updatable = false)
+	public Boolean getIsDraft() {
+		return this.isDraft;
+	}
 
-  public void setIsDraft(Boolean isDraft)
-  {
-    this.isDraft = isDraft;
-  }
+	public void setIsDraft(Boolean isDraft) {
+		this.isDraft = isDraft;
+	}
 
-  @Column(nullable=false)
-  public Boolean getSenderRead()
-  {
-    return this.senderRead;
-  }
+	@Column(nullable = false)
+	public Boolean getSenderRead() {
+		return this.senderRead;
+	}
 
-  public void setSenderRead(Boolean senderRead)
-  {
-    this.senderRead = senderRead;
-  }
+	public void setSenderRead(Boolean senderRead) {
+		this.senderRead = senderRead;
+	}
 
-  @Column(nullable=false)
-  public Boolean getReceiverRead()
-  {
-    return this.receiverRead;
-  }
+	@Column(nullable = false)
+	public Boolean getReceiverRead() {
+		return this.receiverRead;
+	}
 
-  public void setReceiverRead(Boolean receiverRead)
-  {
-    this.receiverRead = receiverRead;
-  }
+	public void setReceiverRead(Boolean receiverRead) {
+		this.receiverRead = receiverRead;
+	}
 
-  @Column(nullable=false)
-  public Boolean getSenderDelete()
-  {
-    return this.senderDelete;
-  }
+	@Column(nullable = false)
+	public Boolean getSenderDelete() {
+		return this.senderDelete;
+	}
 
-  public void setSenderDelete(Boolean senderDelete)
-  {
-    this.senderDelete = senderDelete;
-  }
+	public void setSenderDelete(Boolean senderDelete) {
+		this.senderDelete = senderDelete;
+	}
 
-  @Column(nullable=false)
-  public Boolean getReceiverDelete()
-  {
-    return this.receiverDelete;
-  }
+	@Column(nullable = false)
+	public Boolean getReceiverDelete() {
+		return this.receiverDelete;
+	}
 
-  public void setReceiverDelete(Boolean receiverDelete)
-  {
-    this.receiverDelete = receiverDelete;
-  }
+	public void setReceiverDelete(Boolean receiverDelete) {
+		this.receiverDelete = receiverDelete;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(updatable=false)
-  public Member getSender()
-  {
-    return this.sender;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(updatable = false)
+	public Member getSender() {
+		return this.sender;
+	}
 
-  public void setSender(Member sender)
-  {
-    this.sender = sender;
-  }
+	public void setSender(Member sender) {
+		this.sender = sender;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(updatable=false)
-  public Member getReceiver()
-  {
-    return this.receiver;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(updatable = false)
+	public Member getReceiver() {
+		return this.receiver;
+	}
 
-  public void setReceiver(Member receiver)
-  {
-    this.receiver = receiver;
-  }
+	public void setReceiver(Member receiver) {
+		this.receiver = receiver;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(updatable=false)
-  public Message getForMessage()
-  {
-    return this.forMessage;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(updatable = false)
+	public Message getForMessage() {
+		return this.forMessage;
+	}
 
-  public void setForMessage(Message forMessage)
-  {
-    this.forMessage = forMessage;
-  }
+	public void setForMessage(Message forMessage) {
+		this.forMessage = forMessage;
+	}
 
-  @OneToMany(mappedBy="forMessage", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
-  @OrderBy("createDate asc")
-  public Set<Message> getReplyMessages()
-  {
-    return this.replyMessages;
-  }
+	@OneToMany(mappedBy = "forMessage", fetch = FetchType.LAZY, cascade = { javax.persistence.CascadeType.REMOVE })
+	@OrderBy("createDate asc")
+	public Set<Message> getReplyMessages() {
+		return this.replyMessages;
+	}
 
-  public void setReplyMessages(Set<Message> replyMessages)
-  {
-    this.replyMessages = replyMessages;
-  }
+	public void setReplyMessages(Set<Message> replyMessages) {
+		this.replyMessages = replyMessages;
+	}
 }

@@ -58,10 +58,10 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long>
   private static final Pattern IIIllIll = Pattern.compile("\\d*");
 
   @Resource(name="goodsDaoImpl")
-  private GoodsDao IIIlllII;
+  private GoodsDao goodsDao;
 
   @Resource(name="snDaoImpl")
-  private SnDao IIIlllIl;
+  private SnDao snDao;
 
   public boolean snExists(String sn)
   {
@@ -462,7 +462,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long>
       {
         localGoods.getProducts().remove(product);
         if (localGoods.getProducts().isEmpty())
-          this.IIIlllII.remove(localGoods);
+          this.goodsDao.remove(localGoods);
       }
     }
     super.remove(product);
@@ -475,7 +475,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long>
     if (StringUtils.isEmpty(paramProduct.getSn()))
     {
       do
-        localObject = this.IIIlllIl.generate(Sn.Type.product);
+        localObject = this.snDao.generate(Sn.Type.product);
       while (snExists((String)localObject));
       paramProduct.setSn((String)localObject);
     }

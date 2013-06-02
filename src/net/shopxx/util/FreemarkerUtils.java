@@ -22,7 +22,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-public final class FreemarkerUtils
+public final class FreemarkerUtils extends ConvertUtilsBean
 {
   private static final ConvertUtilsBean IIIllIlI = new FreemarkerUtils.1();
 

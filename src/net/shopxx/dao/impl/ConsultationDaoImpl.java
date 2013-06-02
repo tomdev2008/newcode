@@ -22,7 +22,7 @@ public class ConsultationDaoImpl extends BaseDaoImpl<Consultation, Long>
 	public List<Consultation> findList(Member member, Product product,
 			Boolean isShow, Integer count, List<Filter> filters,
 			List<Order> orders) {
-		CriteriaBuilder localCriteriaBuilder = this.IIIllIlI
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
 				.getCriteriaBuilder();
 		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
 				.createQuery(Consultation.class);
@@ -44,12 +44,13 @@ public class ConsultationDaoImpl extends BaseDaoImpl<Consultation, Long>
 					.and(localPredicate, localCriteriaBuilder.equal(
 							localRoot.get("isShow"), isShow));
 		localCriteriaQuery.where(localPredicate);
-		return super.IIIllIlI(localCriteriaQuery, null, count, filters, orders);
+		return super.entityManager(localCriteriaQuery, null, count, filters,
+				orders);
 	}
 
 	public Page<Consultation> findPage(Member member, Product product,
 			Boolean isShow, Pageable pageable) {
-		CriteriaBuilder localCriteriaBuilder = this.IIIllIlI
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
 				.getCriteriaBuilder();
 		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
 				.createQuery(Consultation.class);
@@ -71,11 +72,11 @@ public class ConsultationDaoImpl extends BaseDaoImpl<Consultation, Long>
 					.and(localPredicate, localCriteriaBuilder.equal(
 							localRoot.get("isShow"), isShow));
 		localCriteriaQuery.where(localPredicate);
-		return super.IIIllIlI(localCriteriaQuery, pageable);
+		return super.entityManager(localCriteriaQuery, pageable);
 	}
 
 	public Long count(Member member, Product product, Boolean isShow) {
-		CriteriaBuilder localCriteriaBuilder = this.IIIllIlI
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
 				.getCriteriaBuilder();
 		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
 				.createQuery(Consultation.class);
@@ -97,6 +98,6 @@ public class ConsultationDaoImpl extends BaseDaoImpl<Consultation, Long>
 					.and(localPredicate, localCriteriaBuilder.equal(
 							localRoot.get("isShow"), isShow));
 		localCriteriaQuery.where(localPredicate);
-		return super.IIIllIlI(localCriteriaQuery, null);
+		return super.entityManager(localCriteriaQuery, null);
 	}
 }

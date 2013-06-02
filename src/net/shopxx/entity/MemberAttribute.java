@@ -12,90 +12,78 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_member_attribute")
-public class MemberAttribute extends OrderEntity
-{
-  private static final long serialVersionUID = 4513705276569738136L;
-  public enum MemberAttributeType
-  {
-    name, gender, birth, area, address, zipCode, phone, mobile, text, select, checkbox;
-  }
-  private String name;
-  private MemberAttributeType type;
-  private Boolean isEnabled;
-  private Boolean isRequired;
-  private Integer propertyIndex;
-  private List<String> options = new ArrayList();
+@Table(name = "xx_member_attribute")
+public class MemberAttribute extends OrderEntity {
+	private static final long serialVersionUID = 4513705276569738136L;
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	public enum MemberAttributeType {
+		name, gender, birth, area, address, zipCode, phone, mobile, text, select, checkbox;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	private String name;
+	private MemberAttributeType type;
+	private Boolean isEnabled;
+	private Boolean isRequired;
+	private Integer propertyIndex;
+	private List<String> options = new ArrayList<String>();
 
-  @NotNull(groups={BaseEntity.class})
-  @Column(nullable=false, updatable=false)
-  public MemberAttributeType getType()
-  {
-    return this.type;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setType(MemberAttributeType type)
-  {
-    this.type = type;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @NotNull
-  @Column(nullable=false)
-  public Boolean getIsEnabled()
-  {
-    return this.isEnabled;
-  }
+	@NotNull(groups = { BaseEntity.class })
+	@Column(nullable = false, updatable = false)
+	public MemberAttributeType getType() {
+		return this.type;
+	}
 
-  public void setIsEnabled(Boolean isEnabled)
-  {
-    this.isEnabled = isEnabled;
-  }
+	public void setType(MemberAttributeType type) {
+		this.type = type;
+	}
 
-  @NotNull
-  @Column(nullable=false)
-  public Boolean getIsRequired()
-  {
-    return this.isRequired;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public Boolean getIsEnabled() {
+		return this.isEnabled;
+	}
 
-  public void setIsRequired(Boolean isRequired)
-  {
-    this.isRequired = isRequired;
-  }
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
 
-  @Column(updatable=false)
-  public Integer getPropertyIndex()
-  {
-    return this.propertyIndex;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public Boolean getIsRequired() {
+		return this.isRequired;
+	}
 
-  public void setPropertyIndex(Integer propertyIndex)
-  {
-    this.propertyIndex = propertyIndex;
-  }
+	public void setIsRequired(Boolean isRequired) {
+		this.isRequired = isRequired;
+	}
 
-  @ElementCollection
-  @CollectionTable(name="xx_member_attribute_option")
-  public List<String> getOptions()
-  {
-    return this.options;
-  }
+	@Column(updatable = false)
+	public Integer getPropertyIndex() {
+		return this.propertyIndex;
+	}
 
-  public void setOptions(List<String> options)
-  {
-    this.options = options;
-  }
+	public void setPropertyIndex(Integer propertyIndex) {
+		this.propertyIndex = propertyIndex;
+	}
+
+	@ElementCollection
+	@CollectionTable(name = "xx_member_attribute_option")
+	public List<String> getOptions() {
+		return this.options;
+	}
+
+	public void setOptions(List<String> options) {
+		this.options = options;
+	}
 }

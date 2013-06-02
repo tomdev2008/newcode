@@ -20,59 +20,55 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 @Repository("goodsDaoImpl")
-public class GoodsDaoImpl extends BaseDaoImpl<Goods, Long>
-  implements GoodsDao
-{
+public class GoodsDaoImpl extends BaseDaoImpl<Goods, Long> implements GoodsDao {
 
-  @Resource(name="productDaoImpl")
-  private ProductDao productDao;
+	@Resource(name = "productDaoImpl")
+	private ProductDao productDao;
 
-  @Resource(name="snDaoImpl")
-  private SnDao snDao;
+	@Resource(name = "snDaoImpl")
+	private SnDao snDao;
 
-  public void persist(Goods goods)
-  {
-    Assert.notNull(goods);
-    if (goods.getProducts() != null)
-    {
-      Iterator<Product> localIterator = goods.getProducts().iterator();
-      while (localIterator.hasNext())
-      {
-        Product localProduct = localIterator.next();
-        entityManager(localProduct);
-      }
-    }
-    super.persist(goods);
-  }
+	public void persist(Goods goods) {
+		Assert.notNull(goods);
+		if (goods.getProducts() != null) {
+			Iterator<Product> localIterator = goods.getProducts().iterator();
+			while (localIterator.hasNext()) {
+				Product localProduct = localIterator.next();
+				entityManager(localProduct);
+			}
+		}
+		super.persist(goods);
+	}
 
-  public Goods merge(Goods goods)
-  {
-    Assert.notNull(goods);
-    if (goods.getProducts() != null)
-    {
-      Iterator<Product> localIterator = goods.getProducts().iterator();
-      while (localIterator.hasNext())
-      {
-        Product localProduct = localIterator.next();
-        if (localProduct.getId() != null)
-        {
-          String str;
-          if (!localProduct.getIsGift().booleanValue())
-          {
-            str = "delete from GiftItem giftItem where giftItem.gift = :product";
-            this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("product", localProduct).executeUpdate();
-          }
-          if ((!localProduct.getIsMarketable().booleanValue()) || (localProduct.getIsGift().booleanValue()))
-          {
-            str = "delete from CartItem cartItem where cartItem.product = :product";
-            this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT).setParameter("product", localProduct).executeUpdate();
-          }
-        }
-        entityManager(localProduct);
-      }
-    }
-    return (Goods)super.merge(goods);
-  }
+	public Goods merge(Goods goods) {
+		Assert.notNull(goods);
+		if (goods.getProducts() != null) {
+			Iterator<Product> localIterator = goods.getProducts().iterator();
+			while (localIterator.hasNext()) {
+				Product localProduct = localIterator.next();
+				if (localProduct.getId() != null) {
+					String str;
+					if (!localProduct.getIsGift().booleanValue()) {
+						str = "delete from GiftItem giftItem where giftItem.gift = :product";
+						this.entityManager.createQuery(str)
+								.setFlushMode(FlushModeType.COMMIT)
+								.setParameter("product", localProduct)
+								.executeUpdate();
+					}
+					if ((!localProduct.getIsMarketable().booleanValue())
+							|| (localProduct.getIsGift().booleanValue())) {
+						str = "delete from CartItem cartItem where cartItem.product = :product";
+						this.entityManager.createQuery(str)
+								.setFlushMode(FlushModeType.COMMIT)
+								.setParameter("product", localProduct)
+								.executeUpdate();
+					}
+				}
+				entityManager(localProduct);
+			}
+		}
+		return (Goods) super.merge(goods);
+	}
 
 	private void entityManager(Product paramProduct)
   {

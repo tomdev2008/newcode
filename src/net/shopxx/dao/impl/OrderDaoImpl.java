@@ -20,13 +20,15 @@ import net.shopxx.Pageable;
 import net.shopxx.dao.OrderDao;
 import net.shopxx.entity.Member;
 import net.shopxx.entity.Order;
+import net.shopxx.entity.Order.OrderPaymentStatus;
+import net.shopxx.entity.Order.OrderShippingStatus;
 import net.shopxx.entity.OrderItem;
 import net.shopxx.entity.Product;
 
 import org.springframework.stereotype.Repository;
 
 @Repository("orderDaoImpl")
-public class OrderDaoImpl extends BaseDaoImpl<net.shopxx.entity.Order, Long>
+public class OrderDaoImpl extends BaseDaoImpl<Order, Long>
   implements OrderDao
 {
   public net.shopxx.entity.Order findBySn(String sn)
@@ -68,7 +70,7 @@ public class OrderDaoImpl extends BaseDaoImpl<net.shopxx.entity.Order, Long>
     return super.entityManager(localCriteriaQuery, pageable);
   }
 
-  public Page<net.shopxx.entity.Order> findPage(Order.OrderStatus orderStatus, Order.PaymentStatus paymentStatus, Order.ShippingStatus shippingStatus, Boolean hasExpired, Pageable pageable)
+  public Page<net.shopxx.entity.Order> findPage(Order.OrderStatus orderStatus, OrderPaymentStatus paymentStatus, OrderShippingStatus shippingStatus, Boolean hasExpired, Pageable pageable)
   {
     CriteriaBuilder localCriteriaBuilder = this.entityManager.getCriteriaBuilder();
     CriteriaQuery localCriteriaQuery = localCriteriaBuilder.createQuery(net.shopxx.entity.Order.class);
@@ -90,7 +92,7 @@ public class OrderDaoImpl extends BaseDaoImpl<net.shopxx.entity.Order, Long>
     return super.entityManager(localCriteriaQuery, pageable);
   }
 
-  public Long count(Order.OrderStatus orderStatus, Order.PaymentStatus paymentStatus, Order.ShippingStatus shippingStatus, Boolean hasExpired)
+  public Long count(Order.OrderStatus orderStatus, OrderPaymentStatus paymentStatus, OrderShippingStatus shippingStatus, Boolean hasExpired)
   {
     CriteriaBuilder localCriteriaBuilder = this.entityManager.getCriteriaBuilder();
     CriteriaQuery localCriteriaQuery = localCriteriaBuilder.createQuery(net.shopxx.entity.Order.class);
@@ -120,7 +122,7 @@ public class OrderDaoImpl extends BaseDaoImpl<net.shopxx.entity.Order, Long>
     localCriteriaQuery.select(localRoot);
     Predicate localPredicate = localCriteriaBuilder.conjunction();
     localPredicate = localCriteriaBuilder.and(new Predicate[] { localPredicate, localCriteriaBuilder.notEqual(localRoot.get("orderStatus"), Order.OrderStatus.completed), localCriteriaBuilder.notEqual(localRoot.get("orderStatus"), Order.OrderStatus.cancelled) });
-    localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localCriteriaBuilder.equal(localRoot.get("paymentStatus"), Order.PaymentStatus.unpaid), localCriteriaBuilder.equal(localRoot.get("paymentStatus"), Order.PaymentStatus.partialPayment)));
+    localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localCriteriaBuilder.equal(localRoot.get("paymentStatus"), OrderPaymentStatus.unpaid), localCriteriaBuilder.equal(localRoot.get("paymentStatus"), OrderPaymentStatus.partialPayment)));
     localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localRoot.get("expire").isNull(), localCriteriaBuilder.greaterThanOrEqualTo(localRoot.get("expire"), new Date())));
     if (member != null)
       localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.equal(localRoot.get("member"), member));
@@ -135,7 +137,7 @@ public class OrderDaoImpl extends BaseDaoImpl<net.shopxx.entity.Order, Long>
     Root localRoot = localCriteriaQuery.from(net.shopxx.entity.Order.class);
     localCriteriaQuery.select(localRoot);
     Predicate localPredicate = localCriteriaBuilder.conjunction();
-    localPredicate = localCriteriaBuilder.and(new Predicate[] { localPredicate, localCriteriaBuilder.notEqual(localRoot.get("orderStatus"), Order.OrderStatus.completed), localCriteriaBuilder.notEqual(localRoot.get("orderStatus"), Order.OrderStatus.cancelled), localCriteriaBuilder.equal(localRoot.get("paymentStatus"), Order.PaymentStatus.paid), localCriteriaBuilder.equal(localRoot.get("shippingStatus"), Order.ShippingStatus.unshipped) });
+    localPredicate = localCriteriaBuilder.and(new Predicate[] { localPredicate, localCriteriaBuilder.notEqual(localRoot.get("orderStatus"), Order.OrderStatus.completed), localCriteriaBuilder.notEqual(localRoot.get("orderStatus"), Order.OrderStatus.cancelled), localCriteriaBuilder.equal(localRoot.get("paymentStatus"), OrderPaymentStatus.paid), localCriteriaBuilder.equal(localRoot.get("shippingStatus"), Order.ShippingStatus.unshipped) });
     localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localRoot.get("expire").isNull(), localCriteriaBuilder.greaterThanOrEqualTo(localRoot.get("expire"), new Date())));
     if (member != null)
       localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.equal(localRoot.get("member"), member));

@@ -14,114 +14,97 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_tag")
-public class Tag extends OrderEntity
-{
-  private static final long serialVersionUID = -2735037966597250149L;
-  public enum TagType
-  {
-    article, product;
-  }
+@Table(name = "xx_tag")
+public class Tag extends OrderEntity {
+	private static final long serialVersionUID = -2735037966597250149L;
 
-  private String name;
-  private TagType type;
-  private String icon;
-  private String memo;
-  private Set<Article> articles = new HashSet();
-  private Set<Product> products = new HashSet();
+	public enum TagType {
+		article, product;
+	}
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	private String name;
+	private TagType type;
+	private String icon;
+	private String memo;
+	private Set<Article> articles = new HashSet<Article>();
+	private Set<Product> products = new HashSet<Product>();
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  @NotNull(groups={BaseEntity.Save.class})
-  @Column(nullable=false, updatable=false)
-  public TagType getType()
-  {
-    return this.type;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setType(TagType type)
-  {
-    this.type = type;
-  }
+	@NotNull(groups = { BaseEntity.class })
+	@Column(nullable = false, updatable = false)
+	public TagType getType() {
+		return this.type;
+	}
 
-  @Length(max=200)
-  public String getIcon()
-  {
-    return this.icon;
-  }
+	public void setType(TagType type) {
+		this.type = type;
+	}
 
-  public void setIcon(String icon)
-  {
-    this.icon = icon;
-  }
+	@Length(max = 200)
+	public String getIcon() {
+		return this.icon;
+	}
 
-  @Length(max=200)
-  public String getMemo()
-  {
-    return this.memo;
-  }
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 
-  public void setMemo(String memo)
-  {
-    this.memo = memo;
-  }
+	@Length(max = 200)
+	public String getMemo() {
+		return this.memo;
+	}
 
-  @ManyToMany(mappedBy="tags", fetch=FetchType.LAZY)
-  public Set<Article> getArticles()
-  {
-    return this.articles;
-  }
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 
-  public void setArticles(Set<Article> articles)
-  {
-    this.articles = articles;
-  }
+	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+	public Set<Article> getArticles() {
+		return this.articles;
+	}
 
-  @ManyToMany(mappedBy="tags", fetch=FetchType.LAZY)
-  public Set<Product> getProducts()
-  {
-    return this.products;
-  }
+	public void setArticles(Set<Article> articles) {
+		this.articles = articles;
+	}
 
-  public void setProducts(Set<Product> products)
-  {
-    this.products = products;
-  }
+	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+	public Set<Product> getProducts() {
+		return this.products;
+	}
 
-  @PreRemove
-  public void preRemove()
-  {
-    Set localSet = getArticles();
-    Object localObject2;
-    if (localSet != null)
-    {
-      localObject2 = localSet.iterator();
-      while (((Iterator)localObject2).hasNext())
-      {
-        localObject1 = (Article)((Iterator)localObject2).next();
-        ((Article)localObject1).getTags().remove(this);
-      }
-    }
-    Object localObject1 = getProducts();
-    if (localObject1 != null)
-    {
-      Iterator localIterator = ((Set)localObject1).iterator();
-      while (localIterator.hasNext())
-      {
-        localObject2 = (Product)localIterator.next();
-        ((Product)localObject2).getTags().remove(this);
-      }
-    }
-  }
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	@PreRemove
+	public void preRemove() {
+		Set<Article> localSet = getArticles();
+		Article article;
+		if (localSet != null) {
+			Iterator<Article> articleIterator = localSet.iterator();
+			while (articleIterator.hasNext()) {
+				article = articleIterator.next();
+				article.getTags().remove(this);
+			}
+		}
+		Set<Product> productSet = getProducts();
+		Product product;
+		if (productSet != null) {
+			Iterator<Product> localIterator = productSet.iterator();
+			while (localIterator.hasNext()) {
+				product = localIterator.next();
+				product.getTags().remove(this);
+			}
+		}
+	}
 }

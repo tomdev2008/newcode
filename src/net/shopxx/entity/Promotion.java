@@ -1,12 +1,12 @@
 package net.shopxx.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,327 +20,294 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
-@Table(name="xx_promotion")
-public class Promotion extends OrderEntity
-{
-  private static final long serialVersionUID = 3536993535267962279L;
-  public enum PromotionOperator
-  {
-    add, subtract, multiply, divide;
-  }
-  private static final String IIIllIlI = "/promotion/content";
-  private static final String IIIllIll = ".jhtml";
-  private String name;
-  private String title;
-  private Date beginDate;
-  private Date endDate;
-  private BigDecimal startPrice;
-  private BigDecimal endPrice;
-  private PromotionOperator priceOperator;
-  private BigDecimal priceValue;
-  private PromotionOperator pointOperator;
-  private BigDecimal pointValue;
-  private Boolean isFreeShipping;
-  private Boolean isCouponAllowed;
-  private String introduction;
-  private Set<MemberRank> memberRanks = new HashSet();
-  private Set<ProductCategory> productCategories = new HashSet();
-  private Set<Product> products = new HashSet();
-  private Set<Brand> brands = new HashSet();
-  private Set<Coupon> coupons = new HashSet();
-  private List<GiftItem> giftItems = new ArrayList();
+@Table(name = "xx_promotion")
+public class Promotion extends OrderEntity {
+	private static final long serialVersionUID = 3536993535267962279L;
 
-  @JsonProperty
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	public enum PromotionOperator {
+		add, subtract, multiply, divide;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	private static final String IIIllIlI = "/promotion/content";
+	private static final String IIIllIll = ".jhtml";
+	private String name;
+	private String title;
+	private Date beginDate;
+	private Date endDate;
+	private BigDecimal startPrice;
+	private BigDecimal endPrice;
+	private PromotionOperator priceOperator;
+	private BigDecimal priceValue;
+	private PromotionOperator pointOperator;
+	private BigDecimal pointValue;
+	private Boolean isFreeShipping;
+	private Boolean isCouponAllowed;
+	private String introduction;
+	private Set<MemberRank> memberRanks = new HashSet<MemberRank>();
+	private Set<ProductCategory> productCategories = new HashSet<ProductCategory>();
+	private Set<Product> products = new HashSet<Product>();
+	private Set<Brand> brands = new HashSet<Brand>();
+	private Set<Coupon> coupons = new HashSet<Coupon>();
+	private List<GiftItem> giftItems = new ArrayList<GiftItem>();
 
-  @JsonProperty
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getTitle()
-  {
-    return this.title;
-  }
+	@JsonProperty
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setTitle(String title)
-  {
-    this.title = title;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @JsonProperty
-  public Date getBeginDate()
-  {
-    return this.beginDate;
-  }
+	@JsonProperty
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getTitle() {
+		return this.title;
+	}
 
-  public void setBeginDate(Date beginDate)
-  {
-    this.beginDate = beginDate;
-  }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-  @JsonProperty
-  public Date getEndDate()
-  {
-    return this.endDate;
-  }
+	@JsonProperty
+	public Date getBeginDate() {
+		return this.beginDate;
+	}
 
-  public void setEndDate(Date endDate)
-  {
-    this.endDate = endDate;
-  }
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
 
-  @JsonProperty
-  @Min(0L)
-  @Digits(integer=12, fraction=3)
-  @Column(precision=21, scale=6)
-  public BigDecimal getStartPrice()
-  {
-    return this.startPrice;
-  }
+	@JsonProperty
+	public Date getEndDate() {
+		return this.endDate;
+	}
 
-  public void setStartPrice(BigDecimal startPrice)
-  {
-    this.startPrice = startPrice;
-  }
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 
-  @JsonProperty
-  @Min(0L)
-  @Digits(integer=12, fraction=3)
-  @Column(precision=21, scale=6)
-  public BigDecimal getEndPrice()
-  {
-    return this.endPrice;
-  }
+	@JsonProperty
+	@Min(0L)
+	@Digits(integer = 12, fraction = 3)
+	@Column(precision = 21, scale = 6)
+	public BigDecimal getStartPrice() {
+		return this.startPrice;
+	}
 
-  public void setEndPrice(BigDecimal endPrice)
-  {
-    this.endPrice = endPrice;
-  }
+	public void setStartPrice(BigDecimal startPrice) {
+		this.startPrice = startPrice;
+	}
 
-  @NotNull
-  @Column(nullable=false)
-  public PromotionOperator getPriceOperator()
-  {
-    return this.priceOperator;
-  }
+	@JsonProperty
+	@Min(0L)
+	@Digits(integer = 12, fraction = 3)
+	@Column(precision = 21, scale = 6)
+	public BigDecimal getEndPrice() {
+		return this.endPrice;
+	}
 
-  public void setPriceOperator(PromotionOperator priceOperator)
-  {
-    this.priceOperator = priceOperator;
-  }
+	public void setEndPrice(BigDecimal endPrice) {
+		this.endPrice = endPrice;
+	}
 
-  @Digits(integer=12, fraction=3)
-  @Column(precision=21, scale=6)
-  public BigDecimal getPriceValue()
-  {
-    return this.priceValue;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public PromotionOperator getPriceOperator() {
+		return this.priceOperator;
+	}
 
-  public void setPriceValue(BigDecimal priceValue)
-  {
-    this.priceValue = priceValue;
-  }
+	public void setPriceOperator(PromotionOperator priceOperator) {
+		this.priceOperator = priceOperator;
+	}
 
-  @NotNull
-  @Column(nullable=false)
-  public PromotionOperator getPointOperator()
-  {
-    return this.pointOperator;
-  }
+	@Digits(integer = 12, fraction = 3)
+	@Column(precision = 21, scale = 6)
+	public BigDecimal getPriceValue() {
+		return this.priceValue;
+	}
 
-  public void setPointOperator(PromotionOperator pointOperator)
-  {
-    this.pointOperator = pointOperator;
-  }
+	public void setPriceValue(BigDecimal priceValue) {
+		this.priceValue = priceValue;
+	}
 
-  public BigDecimal getPointValue()
-  {
-    return this.pointValue;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public PromotionOperator getPointOperator() {
+		return this.pointOperator;
+	}
 
-  public void setPointValue(BigDecimal pointValue)
-  {
-    this.pointValue = pointValue;
-  }
+	public void setPointOperator(PromotionOperator pointOperator) {
+		this.pointOperator = pointOperator;
+	}
 
-  @NotNull
-  @Column(nullable=false)
-  public Boolean getIsFreeShipping()
-  {
-    return this.isFreeShipping;
-  }
+	public BigDecimal getPointValue() {
+		return this.pointValue;
+	}
 
-  public void setIsFreeShipping(Boolean isFreeShipping)
-  {
-    this.isFreeShipping = isFreeShipping;
-  }
+	public void setPointValue(BigDecimal pointValue) {
+		this.pointValue = pointValue;
+	}
 
-  @JsonProperty
-  @NotNull
-  @Column(nullable=false)
-  public Boolean getIsCouponAllowed()
-  {
-    return this.isCouponAllowed;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public Boolean getIsFreeShipping() {
+		return this.isFreeShipping;
+	}
 
-  public void setIsCouponAllowed(Boolean isCouponAllowed)
-  {
-    this.isCouponAllowed = isCouponAllowed;
-  }
+	public void setIsFreeShipping(Boolean isFreeShipping) {
+		this.isFreeShipping = isFreeShipping;
+	}
 
-  @Lob
-  public String getIntroduction()
-  {
-    return this.introduction;
-  }
+	@JsonProperty
+	@NotNull
+	@Column(nullable = false)
+	public Boolean getIsCouponAllowed() {
+		return this.isCouponAllowed;
+	}
 
-  public void setIntroduction(String introduction)
-  {
-    this.introduction = introduction;
-  }
+	public void setIsCouponAllowed(Boolean isCouponAllowed) {
+		this.isCouponAllowed = isCouponAllowed;
+	}
 
-  @ManyToMany(fetch=FetchType.LAZY)
-  @JoinTable(name="xx_promotion_member_rank")
-  public Set<MemberRank> getMemberRanks()
-  {
-    return this.memberRanks;
-  }
+	@Lob
+	public String getIntroduction() {
+		return this.introduction;
+	}
 
-  public void setMemberRanks(Set<MemberRank> memberRanks)
-  {
-    this.memberRanks = memberRanks;
-  }
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
 
-  @ManyToMany(fetch=FetchType.LAZY)
-  @JoinTable(name="xx_promotion_product_category")
-  public Set<ProductCategory> getProductCategories()
-  {
-    return this.productCategories;
-  }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_promotion_member_rank")
+	public Set<MemberRank> getMemberRanks() {
+		return this.memberRanks;
+	}
 
-  public void setProductCategories(Set<ProductCategory> productCategories)
-  {
-    this.productCategories = productCategories;
-  }
+	public void setMemberRanks(Set<MemberRank> memberRanks) {
+		this.memberRanks = memberRanks;
+	}
 
-  @ManyToMany(fetch=FetchType.LAZY)
-  @JoinTable(name="xx_promotion_product")
-  public Set<Product> getProducts()
-  {
-    return this.products;
-  }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_promotion_product_category")
+	public Set<ProductCategory> getProductCategories() {
+		return this.productCategories;
+	}
 
-  public void setProducts(Set<Product> products)
-  {
-    this.products = products;
-  }
+	public void setProductCategories(Set<ProductCategory> productCategories) {
+		this.productCategories = productCategories;
+	}
 
-  @ManyToMany(fetch=FetchType.LAZY)
-  @JoinTable(name="xx_promotion_brand")
-  public Set<Brand> getBrands()
-  {
-    return this.brands;
-  }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_promotion_product")
+	public Set<Product> getProducts() {
+		return this.products;
+	}
 
-  public void setBrands(Set<Brand> brands)
-  {
-    this.brands = brands;
-  }
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 
-  @ManyToMany(fetch=FetchType.LAZY)
-  @JoinTable(name="xx_promotion_coupon")
-  public Set<Coupon> getCoupons()
-  {
-    return this.coupons;
-  }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_promotion_brand")
+	public Set<Brand> getBrands() {
+		return this.brands;
+	}
 
-  public void setCoupons(Set<Coupon> coupons)
-  {
-    this.coupons = coupons;
-  }
+	public void setBrands(Set<Brand> brands) {
+		this.brands = brands;
+	}
 
-  @Valid
-  @OneToMany(mappedBy="promotion", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.ALL}, orphanRemoval=true)
-  public List<GiftItem> getGiftItems()
-  {
-    return this.giftItems;
-  }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_promotion_coupon")
+	public Set<Coupon> getCoupons() {
+		return this.coupons;
+	}
 
-  public void setGiftItems(List<GiftItem> giftItems)
-  {
-    this.giftItems = giftItems;
-  }
+	public void setCoupons(Set<Coupon> coupons) {
+		this.coupons = coupons;
+	}
 
-  @Transient
-  public boolean hasBegun()
-  {
-    return (getBeginDate() == null) || (new Date().after(getBeginDate()));
-  }
+	@Valid
+	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY, cascade = { javax.persistence.CascadeType.ALL }, orphanRemoval = true)
+	public List<GiftItem> getGiftItems() {
+		return this.giftItems;
+	}
 
-  @Transient
-  public boolean hasEnded()
-  {
-    return (getEndDate() != null) && (new Date().after(getEndDate()));
-  }
+	public void setGiftItems(List<GiftItem> giftItems) {
+		this.giftItems = giftItems;
+	}
 
-  @Transient
-  public String getPath()
-  {
-    if (getId() != null)
-      return "/promotion/content/" + getId() + ".jhtml";
-    return null;
-  }
+	@Transient
+	public boolean hasBegun() {
+		return (getBeginDate() == null) || (new Date().after(getBeginDate()));
+	}
 
-  @Transient
-  public BigDecimal calculatePrice(BigDecimal price)
-  {
-    if ((price != null) && (getPriceOperator() != null) && (getPriceValue() != null))
-    {
-      BigDecimal localBigDecimal;
-      if (getPriceOperator() == PromotionOperator.add)
-        localBigDecimal = price.add(getPriceValue());
-      else if (getPriceOperator() == PromotionOperator.subtract)
-        localBigDecimal = price.subtract(getPriceValue());
-      else if (getPriceOperator() == PromotionOperator.multiply)
-        localBigDecimal = price.multiply(getPriceValue());
-      else
-        localBigDecimal = price.divide(getPriceValue());
-      return localBigDecimal.compareTo(new BigDecimal(0)) > 0 ? localBigDecimal : new BigDecimal(0);
-    }
-    return price;
-  }
+	@Transient
+	public boolean hasEnded() {
+		return (getEndDate() != null) && (new Date().after(getEndDate()));
+	}
 
-  @Transient
-  public Integer calculatePoint(Integer point)
-  {
-    if ((point != null) && (getPointOperator() != null) && (getPointValue() != null))
-    {
-      BigDecimal localBigDecimal;
-      if (getPointOperator() == PromotionOperator.add)
-        localBigDecimal = new BigDecimal(point.intValue()).add(getPointValue());
-      else if (getPointOperator() == PromotionOperator.subtract)
-        localBigDecimal = new BigDecimal(point.intValue()).subtract(getPointValue());
-      else if (getPointOperator() == PromotionOperator.multiply)
-        localBigDecimal = new BigDecimal(point.intValue()).multiply(getPointValue());
-      else
-        localBigDecimal = new BigDecimal(point.intValue()).divide(getPointValue());
-      return Integer.valueOf(localBigDecimal.compareTo(new BigDecimal(0)) > 0 ? localBigDecimal.intValue() : 0);
-    }
-    return point;
-  }
+	@Transient
+	public String getPath() {
+		if (getId() != null)
+			return "/promotion/content/" + getId() + ".jhtml";
+		return null;
+	}
+
+	@Transient
+	public BigDecimal calculatePrice(BigDecimal price) {
+		if ((price != null) && (getPriceOperator() != null)
+				&& (getPriceValue() != null)) {
+			BigDecimal localBigDecimal;
+			if (getPriceOperator() == PromotionOperator.add)
+				localBigDecimal = price.add(getPriceValue());
+			else if (getPriceOperator() == PromotionOperator.subtract)
+				localBigDecimal = price.subtract(getPriceValue());
+			else if (getPriceOperator() == PromotionOperator.multiply)
+				localBigDecimal = price.multiply(getPriceValue());
+			else
+				localBigDecimal = price.divide(getPriceValue());
+			return localBigDecimal.compareTo(new BigDecimal(0)) > 0 ? localBigDecimal
+					: new BigDecimal(0);
+		}
+		return price;
+	}
+
+	@Transient
+	public Integer calculatePoint(Integer point) {
+		if ((point != null) && (getPointOperator() != null)
+				&& (getPointValue() != null)) {
+			BigDecimal localBigDecimal;
+			if (getPointOperator() == PromotionOperator.add)
+				localBigDecimal = new BigDecimal(point.intValue())
+						.add(getPointValue());
+			else if (getPointOperator() == PromotionOperator.subtract)
+				localBigDecimal = new BigDecimal(point.intValue())
+						.subtract(getPointValue());
+			else if (getPointOperator() == PromotionOperator.multiply)
+				localBigDecimal = new BigDecimal(point.intValue())
+						.multiply(getPointValue());
+			else
+				localBigDecimal = new BigDecimal(point.intValue())
+						.divide(getPointValue());
+			return Integer
+					.valueOf(localBigDecimal.compareTo(new BigDecimal(0)) > 0 ? localBigDecimal
+							.intValue() : 0);
+		}
+		return point;
+	}
 }

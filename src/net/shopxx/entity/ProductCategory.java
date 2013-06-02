@@ -21,208 +21,176 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_product_category")
-public class ProductCategory extends OrderEntity
-{
-  private static final long serialVersionUID = 5095521437302782717L;
-  public static final String TREE_PATH_SEPARATOR = ",";
-  private static final String IIIllIlI = "/product/list";
-  private static final String IIIllIll = ".jhtml";
-  private String name;
-  private String seoTitle;
-  private String seoKeywords;
-  private String seoDescription;
-  private String treePath;
-  private Integer grade;
-  private ProductCategory parent;
-  private Set<ProductCategory> children = new HashSet();
-  private Set<Product> products = new HashSet();
-  private Set<Brand> brands = new HashSet();
-  private Set<ParameterGroup> parameterGroups = new HashSet();
-  private Set<Attribute> attributes = new HashSet();
-  private Set<Promotion> promotions = new HashSet();
+@Table(name = "xx_product_category")
+public class ProductCategory extends OrderEntity {
+	private static final long serialVersionUID = 5095521437302782717L;
+	public static final String TREE_PATH_SEPARATOR = ",";
+	private static final String IIIllIlI = "/product/list";
+	private static final String IIIllIll = ".jhtml";
+	private String name;
+	private String seoTitle;
+	private String seoKeywords;
+	private String seoDescription;
+	private String treePath;
+	private Integer grade;
+	private ProductCategory parent;
+	private Set<ProductCategory> children = new HashSet<ProductCategory>();
+	private Set<Product> products = new HashSet<Product>();
+	private Set<Brand> brands = new HashSet<Brand>();
+	private Set<ParameterGroup> parameterGroups = new HashSet<ParameterGroup>();
+	private Set<Attribute> attributes = new HashSet<Attribute>();
+	private Set<Promotion> promotions = new HashSet<Promotion>();
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Length(max=200)
-  public String getSeoTitle()
-  {
-    return this.seoTitle;
-  }
+	@Length(max = 200)
+	public String getSeoTitle() {
+		return this.seoTitle;
+	}
 
-  public void setSeoTitle(String seoTitle)
-  {
-    this.seoTitle = seoTitle;
-  }
+	public void setSeoTitle(String seoTitle) {
+		this.seoTitle = seoTitle;
+	}
 
-  @Length(max=200)
-  public String getSeoKeywords()
-  {
-    return this.seoKeywords;
-  }
+	@Length(max = 200)
+	public String getSeoKeywords() {
+		return this.seoKeywords;
+	}
 
-  public void setSeoKeywords(String seoKeywords)
-  {
-    this.seoKeywords = seoKeywords;
-  }
+	public void setSeoKeywords(String seoKeywords) {
+		this.seoKeywords = seoKeywords;
+	}
 
-  @Length(max=200)
-  public String getSeoDescription()
-  {
-    return this.seoDescription;
-  }
+	@Length(max = 200)
+	public String getSeoDescription() {
+		return this.seoDescription;
+	}
 
-  public void setSeoDescription(String seoDescription)
-  {
-    this.seoDescription = seoDescription;
-  }
+	public void setSeoDescription(String seoDescription) {
+		this.seoDescription = seoDescription;
+	}
 
-  @Column(nullable=false)
-  public String getTreePath()
-  {
-    return this.treePath;
-  }
+	@Column(nullable = false)
+	public String getTreePath() {
+		return this.treePath;
+	}
 
-  public void setTreePath(String treePath)
-  {
-    this.treePath = treePath;
-  }
+	public void setTreePath(String treePath) {
+		this.treePath = treePath;
+	}
 
-  @Column(nullable=false)
-  public Integer getGrade()
-  {
-    return this.grade;
-  }
+	@Column(nullable = false)
+	public Integer getGrade() {
+		return this.grade;
+	}
 
-  public void setGrade(Integer grade)
-  {
-    this.grade = grade;
-  }
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  public ProductCategory getParent()
-  {
-    return this.parent;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	public ProductCategory getParent() {
+		return this.parent;
+	}
 
-  public void setParent(ProductCategory parent)
-  {
-    this.parent = parent;
-  }
+	public void setParent(ProductCategory parent) {
+		this.parent = parent;
+	}
 
-  @OneToMany(mappedBy="parent", fetch=FetchType.LAZY)
-  @OrderBy("order asc")
-  public Set<ProductCategory> getChildren()
-  {
-    return this.children;
-  }
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+	@OrderBy("order asc")
+	public Set<ProductCategory> getChildren() {
+		return this.children;
+	}
 
-  public void setChildren(Set<ProductCategory> children)
-  {
-    this.children = children;
-  }
+	public void setChildren(Set<ProductCategory> children) {
+		this.children = children;
+	}
 
-  @OneToMany(mappedBy="productCategory", fetch=FetchType.LAZY)
-  public Set<Product> getProducts()
-  {
-    return this.products;
-  }
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
+	public Set<Product> getProducts() {
+		return this.products;
+	}
 
-  public void setProducts(Set<Product> products)
-  {
-    this.products = products;
-  }
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 
-  @ManyToMany(fetch=FetchType.LAZY)
-  @JoinTable(name="xx_product_category_brand")
-  @OrderBy("order asc")
-  public Set<Brand> getBrands()
-  {
-    return this.brands;
-  }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_product_category_brand")
+	@OrderBy("order asc")
+	public Set<Brand> getBrands() {
+		return this.brands;
+	}
 
-  public void setBrands(Set<Brand> brands)
-  {
-    this.brands = brands;
-  }
+	public void setBrands(Set<Brand> brands) {
+		this.brands = brands;
+	}
 
-  @OneToMany(mappedBy="productCategory", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
-  @OrderBy("order asc")
-  public Set<ParameterGroup> getParameterGroups()
-  {
-    return this.parameterGroups;
-  }
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY, cascade = { javax.persistence.CascadeType.REMOVE })
+	@OrderBy("order asc")
+	public Set<ParameterGroup> getParameterGroups() {
+		return this.parameterGroups;
+	}
 
-  public void setParameterGroups(Set<ParameterGroup> parameterGroups)
-  {
-    this.parameterGroups = parameterGroups;
-  }
+	public void setParameterGroups(Set<ParameterGroup> parameterGroups) {
+		this.parameterGroups = parameterGroups;
+	}
 
-  @OneToMany(mappedBy="productCategory", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.REMOVE})
-  @OrderBy("order asc")
-  public Set<Attribute> getAttributes()
-  {
-    return this.attributes;
-  }
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY, cascade = { javax.persistence.CascadeType.REMOVE })
+	@OrderBy("order asc")
+	public Set<Attribute> getAttributes() {
+		return this.attributes;
+	}
 
-  public void setAttributes(Set<Attribute> attributes)
-  {
-    this.attributes = attributes;
-  }
+	public void setAttributes(Set<Attribute> attributes) {
+		this.attributes = attributes;
+	}
 
-  @ManyToMany(mappedBy="productCategories", fetch=FetchType.LAZY)
-  public Set<Promotion> getPromotions()
-  {
-    return this.promotions;
-  }
+	@ManyToMany(mappedBy = "productCategories", fetch = FetchType.LAZY)
+	public Set<Promotion> getPromotions() {
+		return this.promotions;
+	}
 
-  public void setPromotions(Set<Promotion> promotions)
-  {
-    this.promotions = promotions;
-  }
+	public void setPromotions(Set<Promotion> promotions) {
+		this.promotions = promotions;
+	}
 
-  @Transient
-  public List<Long> getTreePaths()
-  {
-    ArrayList localArrayList = new ArrayList();
-    String[] arrayOfString1 = StringUtils.split(getTreePath(), ",");
-    if (arrayOfString1 != null)
-      for (String str : arrayOfString1)
-        localArrayList.add(Long.valueOf(str));
-    return localArrayList;
-  }
+	@Transient
+	public List<Long> getTreePaths() {
+		List<Long> localArrayList = new ArrayList<Long>();
+		String[] arrayOfString1 = StringUtils.split(getTreePath(), ",");
+		if (arrayOfString1 != null)
+			for (String str : arrayOfString1)
+				localArrayList.add(Long.valueOf(str));
+		return localArrayList;
+	}
 
-  @Transient
-  public String getPath()
-  {
-    if (getId() != null)
-      return "/product/list/" + getId() + ".jhtml";
-    return null;
-  }
+	@Transient
+	public String getPath() {
+		if (getId() != null)
+			return "/product/list/" + getId() + ".jhtml";
+		return null;
+	}
 
-  @PreRemove
-  public void preRemove()
-  {
-    Set localSet = getPromotions();
-    if (localSet != null)
-    {
-      Iterator localIterator = localSet.iterator();
-      while (localIterator.hasNext())
-      {
-        Promotion localPromotion = (Promotion)localIterator.next();
-        localPromotion.getProductCategories().remove(this);
-      }
-    }
-  }
+	@PreRemove
+	public void preRemove() {
+		Set<Promotion> localSet = getPromotions();
+		if (localSet != null) {
+			Iterator<Promotion> localIterator = localSet.iterator();
+			while (localIterator.hasNext()) {
+				Promotion localPromotion = (Promotion) localIterator.next();
+				localPromotion.getProductCategories().remove(this);
+			}
+		}
+	}
 }

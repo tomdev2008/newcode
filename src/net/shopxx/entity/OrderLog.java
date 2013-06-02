@@ -8,78 +8,67 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="xx_order_log")
-public class OrderLog extends BaseEntity
-{
-  private static final long serialVersionUID = -2704154761295319939L;
-  public enum OrderLogType
-  {
-    create, modify, confirm, payment, refunds, shipping, returns, complete, cancel, other;
-  }
-  private OrderLogType type;
-  private String operator;
-  private String content;
-  private Order order;
+@Table(name = "xx_order_log")
+public class OrderLog extends BaseEntity {
+	private static final long serialVersionUID = -2704154761295319939L;
 
-  public OrderLog()
-  {
-  }
+	public enum OrderLogType {
+		create, modify, confirm, payment, refunds, shipping, returns, complete, cancel, other;
+	}
 
-  public OrderLog(OrderLogType type, String operator)
-  {
-    this.type = type;
-    this.operator = operator;
-  }
+	private OrderLogType type;
+	private String operator;
+	private String content;
+	private Order order;
 
-  public OrderLog(OrderLogType type, String operator, String content)
-  {
-    this.type = type;
-    this.operator = operator;
-    this.content = content;
-  }
+	public OrderLog() {
+	}
 
-  @Column(nullable=false, updatable=false)
-  public OrderLogType getType()
-  {
-    return this.type;
-  }
+	public OrderLog(OrderLogType type, String operator) {
+		this.type = type;
+		this.operator = operator;
+	}
 
-  public void setType(OrderLogType type)
-  {
-    this.type = type;
-  }
+	public OrderLog(OrderLogType type, String operator, String content) {
+		this.type = type;
+		this.operator = operator;
+		this.content = content;
+	}
 
-  @Column(updatable=false)
-  public String getOperator()
-  {
-    return this.operator;
-  }
+	@Column(nullable = false, updatable = false)
+	public OrderLogType getType() {
+		return this.type;
+	}
 
-  public void setOperator(String operator)
-  {
-    this.operator = operator;
-  }
+	public void setType(OrderLogType type) {
+		this.type = type;
+	}
 
-  @Column(updatable=false)
-  public String getContent()
-  {
-    return this.content;
-  }
+	@Column(updatable = false)
+	public String getOperator() {
+		return this.operator;
+	}
 
-  public void setContent(String content)
-  {
-    this.content = content;
-  }
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(name="orders", nullable=false, updatable=false)
-  public Order getOrder()
-  {
-    return this.order;
-  }
+	@Column(updatable = false)
+	public String getContent() {
+		return this.content;
+	}
 
-  public void setOrder(Order order)
-  {
-    this.order = order;
-  }
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "orders", nullable = false, updatable = false)
+	public Order getOrder() {
+		return this.order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 }

@@ -13,142 +13,122 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name="xx_refunds")
-public class Refunds extends BaseEntity
-{
-  private static final long serialVersionUID = 354885216604823632L;
-  public enum RefundsType
-  {
-    online, offline, deposit;
-  }
-  private String sn;
-  private RefundsType type;
-  private String paymentMethod;
-  private String bank;
-  private String account;
-  private BigDecimal amount;
-  private String payee;
-  private String operator;
-  private String memo;
-  private Order order;
+@Table(name = "xx_refunds")
+public class Refunds extends BaseEntity {
+	private static final long serialVersionUID = 354885216604823632L;
 
-  @Column(nullable=false, updatable=false, unique=true)
-  public String getSn()
-  {
-    return this.sn;
-  }
+	public enum RefundsType {
+		online, offline, deposit;
+	}
 
-  public void setSn(String sn)
-  {
-    this.sn = sn;
-  }
+	private String sn;
+	private RefundsType type;
+	private String paymentMethod;
+	private String bank;
+	private String account;
+	private BigDecimal amount;
+	private String payee;
+	private String operator;
+	private String memo;
+	private Order order;
 
-  @NotNull
-  @Column(nullable=false, updatable=false)
-  public RefundsType getType()
-  {
-    return this.type;
-  }
+	@Column(nullable = false, updatable = false, unique = true)
+	public String getSn() {
+		return this.sn;
+	}
 
-  public void setType(RefundsType type)
-  {
-    this.type = type;
-  }
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
 
-  @Column(updatable=false)
-  public String getPaymentMethod()
-  {
-    return this.paymentMethod;
-  }
+	@NotNull
+	@Column(nullable = false, updatable = false)
+	public RefundsType getType() {
+		return this.type;
+	}
 
-  public void setPaymentMethod(String paymentMethod)
-  {
-    this.paymentMethod = paymentMethod;
-  }
+	public void setType(RefundsType type) {
+		this.type = type;
+	}
 
-  @Length(max=200)
-  @Column(updatable=false)
-  public String getBank()
-  {
-    return this.bank;
-  }
+	@Column(updatable = false)
+	public String getPaymentMethod() {
+		return this.paymentMethod;
+	}
 
-  public void setBank(String bank)
-  {
-    this.bank = bank;
-  }
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
-  @Length(max=200)
-  @Column(updatable=false)
-  public String getAccount()
-  {
-    return this.account;
-  }
+	@Length(max = 200)
+	@Column(updatable = false)
+	public String getBank() {
+		return this.bank;
+	}
 
-  public void setAccount(String account)
-  {
-    this.account = account;
-  }
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
 
-  @NotNull
-  @Min(0L)
-  @Digits(integer=12, fraction=3)
-  @Column(nullable=false, updatable=false, precision=21, scale=6)
-  public BigDecimal getAmount()
-  {
-    return this.amount;
-  }
+	@Length(max = 200)
+	@Column(updatable = false)
+	public String getAccount() {
+		return this.account;
+	}
 
-  public void setAmount(BigDecimal amount)
-  {
-    this.amount = amount;
-  }
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
-  @Length(max=200)
-  @Column(updatable=false)
-  public String getPayee()
-  {
-    return this.payee;
-  }
+	@NotNull
+	@Min(0L)
+	@Digits(integer = 12, fraction = 3)
+	@Column(nullable = false, updatable = false, precision = 21, scale = 6)
+	public BigDecimal getAmount() {
+		return this.amount;
+	}
 
-  public void setPayee(String payee)
-  {
-    this.payee = payee;
-  }
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
 
-  @Column(nullable=false, updatable=false)
-  public String getOperator()
-  {
-    return this.operator;
-  }
+	@Length(max = 200)
+	@Column(updatable = false)
+	public String getPayee() {
+		return this.payee;
+	}
 
-  public void setOperator(String operator)
-  {
-    this.operator = operator;
-  }
+	public void setPayee(String payee) {
+		this.payee = payee;
+	}
 
-  @Length(max=200)
-  @Column(updatable=false)
-  public String getMemo()
-  {
-    return this.memo;
-  }
+	@Column(nullable = false, updatable = false)
+	public String getOperator() {
+		return this.operator;
+	}
 
-  public void setMemo(String memo)
-  {
-    this.memo = memo;
-  }
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
 
-  @NotNull
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(name="orders", nullable=false, updatable=false)
-  public Order getOrder()
-  {
-    return this.order;
-  }
+	@Length(max = 200)
+	@Column(updatable = false)
+	public String getMemo() {
+		return this.memo;
+	}
 
-  public void setOrder(Order order)
-  {
-    this.order = order;
-  }
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "orders", nullable = false, updatable = false)
+	public Order getOrder() {
+		return this.order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 }

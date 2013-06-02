@@ -20,237 +20,203 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_shipping")
-public class Shipping extends BaseEntity
-{
-  private static final long serialVersionUID = -261737051893669935L;
-  private String sn;
-  private String shippingMethod;
-  private String deliveryCorp;
-  private String deliveryCorpUrl;
-  private String deliveryCorpCode;
-  private String trackingNo;
-  private BigDecimal freight;
-  private String consignee;
-  private String area;
-  private String address;
-  private String zipCode;
-  private String phone;
-  private String operator;
-  private String memo;
-  private Order order;
-  private List<ShippingItem> shippingItems = new ArrayList();
+@Table(name = "xx_shipping")
+public class Shipping extends BaseEntity {
+	private static final long serialVersionUID = -261737051893669935L;
+	private String sn;
+	private String shippingMethod;
+	private String deliveryCorp;
+	private String deliveryCorpUrl;
+	private String deliveryCorpCode;
+	private String trackingNo;
+	private BigDecimal freight;
+	private String consignee;
+	private String area;
+	private String address;
+	private String zipCode;
+	private String phone;
+	private String operator;
+	private String memo;
+	private Order order;
+	private List<ShippingItem> shippingItems = new ArrayList<ShippingItem>();
 
-  @Column(nullable=false, updatable=false, unique=true)
-  public String getSn()
-  {
-    return this.sn;
-  }
+	@Column(nullable = false, updatable = false, unique = true)
+	public String getSn() {
+		return this.sn;
+	}
 
-  public void setSn(String sn)
-  {
-    this.sn = sn;
-  }
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
 
-  @NotEmpty
-  @Column(nullable=false, updatable=false)
-  public String getShippingMethod()
-  {
-    return this.shippingMethod;
-  }
+	@NotEmpty
+	@Column(nullable = false, updatable = false)
+	public String getShippingMethod() {
+		return this.shippingMethod;
+	}
 
-  public void setShippingMethod(String shippingMethod)
-  {
-    this.shippingMethod = shippingMethod;
-  }
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
 
-  @NotEmpty
-  @Column(nullable=false, updatable=false)
-  public String getDeliveryCorp()
-  {
-    return this.deliveryCorp;
-  }
+	@NotEmpty
+	@Column(nullable = false, updatable = false)
+	public String getDeliveryCorp() {
+		return this.deliveryCorp;
+	}
 
-  public void setDeliveryCorp(String deliveryCorp)
-  {
-    this.deliveryCorp = deliveryCorp;
-  }
+	public void setDeliveryCorp(String deliveryCorp) {
+		this.deliveryCorp = deliveryCorp;
+	}
 
-  public String getDeliveryCorpUrl()
-  {
-    return this.deliveryCorpUrl;
-  }
+	public String getDeliveryCorpUrl() {
+		return this.deliveryCorpUrl;
+	}
 
-  @Column(updatable=false)
-  public void setDeliveryCorpUrl(String deliveryCorpUrl)
-  {
-    this.deliveryCorpUrl = deliveryCorpUrl;
-  }
+	@Column(updatable = false)
+	public void setDeliveryCorpUrl(String deliveryCorpUrl) {
+		this.deliveryCorpUrl = deliveryCorpUrl;
+	}
 
-  public String getDeliveryCorpCode()
-  {
-    return this.deliveryCorpCode;
-  }
+	public String getDeliveryCorpCode() {
+		return this.deliveryCorpCode;
+	}
 
-  @Column(updatable=false)
-  public void setDeliveryCorpCode(String deliveryCorpCode)
-  {
-    this.deliveryCorpCode = deliveryCorpCode;
-  }
+	@Column(updatable = false)
+	public void setDeliveryCorpCode(String deliveryCorpCode) {
+		this.deliveryCorpCode = deliveryCorpCode;
+	}
 
-  @Length(max=200)
-  @Column(updatable=false)
-  public String getTrackingNo()
-  {
-    return this.trackingNo;
-  }
+	@Length(max = 200)
+	@Column(updatable = false)
+	public String getTrackingNo() {
+		return this.trackingNo;
+	}
 
-  public void setTrackingNo(String trackingNo)
-  {
-    this.trackingNo = trackingNo;
-  }
+	public void setTrackingNo(String trackingNo) {
+		this.trackingNo = trackingNo;
+	}
 
-  @Min(0L)
-  @Digits(integer=12, fraction=3)
-  @Column(updatable=false, precision=21, scale=6)
-  public BigDecimal getFreight()
-  {
-    return this.freight;
-  }
+	@Min(0L)
+	@Digits(integer = 12, fraction = 3)
+	@Column(updatable = false, precision = 21, scale = 6)
+	public BigDecimal getFreight() {
+		return this.freight;
+	}
 
-  public void setFreight(BigDecimal freight)
-  {
-    this.freight = freight;
-  }
+	public void setFreight(BigDecimal freight) {
+		this.freight = freight;
+	}
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false, updatable=false)
-  public String getConsignee()
-  {
-    return this.consignee;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false, updatable = false)
+	public String getConsignee() {
+		return this.consignee;
+	}
 
-  public void setConsignee(String consignee)
-  {
-    this.consignee = consignee;
-  }
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
+	}
 
-  @NotEmpty
-  @Column(nullable=false, updatable=false)
-  public String getArea()
-  {
-    return this.area;
-  }
+	@NotEmpty
+	@Column(nullable = false, updatable = false)
+	public String getArea() {
+		return this.area;
+	}
 
-  public void setArea(String area)
-  {
-    this.area = area;
-  }
+	public void setArea(String area) {
+		this.area = area;
+	}
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false, updatable=false)
-  public String getAddress()
-  {
-    return this.address;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false, updatable = false)
+	public String getAddress() {
+		return this.address;
+	}
 
-  public void setAddress(String address)
-  {
-    this.address = address;
-  }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false, updatable=false)
-  public String getZipCode()
-  {
-    return this.zipCode;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false, updatable = false)
+	public String getZipCode() {
+		return this.zipCode;
+	}
 
-  public void setZipCode(String zipCode)
-  {
-    this.zipCode = zipCode;
-  }
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false, updatable=false)
-  public String getPhone()
-  {
-    return this.phone;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false, updatable = false)
+	public String getPhone() {
+		return this.phone;
+	}
 
-  public void setPhone(String phone)
-  {
-    this.phone = phone;
-  }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-  @Column(nullable=false, updatable=false)
-  public String getOperator()
-  {
-    return this.operator;
-  }
+	@Column(nullable = false, updatable = false)
+	public String getOperator() {
+		return this.operator;
+	}
 
-  public void setOperator(String operator)
-  {
-    this.operator = operator;
-  }
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
 
-  @Length(max=200)
-  @Column(updatable=false)
-  public String getMemo()
-  {
-    return this.memo;
-  }
+	@Length(max = 200)
+	@Column(updatable = false)
+	public String getMemo() {
+		return this.memo;
+	}
 
-  public void setMemo(String memo)
-  {
-    this.memo = memo;
-  }
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 
-  @NotNull
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(name="orders", nullable=false, updatable=false)
-  public Order getOrder()
-  {
-    return this.order;
-  }
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "orders", nullable = false, updatable = false)
+	public Order getOrder() {
+		return this.order;
+	}
 
-  public void setOrder(Order order)
-  {
-    this.order = order;
-  }
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 
-  @Valid
-  @NotEmpty
-  @OneToMany(mappedBy="shipping", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.ALL})
-  public List<ShippingItem> getShippingItems()
-  {
-    return this.shippingItems;
-  }
+	@Valid
+	@NotEmpty
+	@OneToMany(mappedBy = "shipping", fetch = FetchType.LAZY, cascade = { javax.persistence.CascadeType.ALL })
+	public List<ShippingItem> getShippingItems() {
+		return this.shippingItems;
+	}
 
-  public void setShippingItems(List<ShippingItem> shippingItems)
-  {
-    this.shippingItems = shippingItems;
-  }
+	public void setShippingItems(List<ShippingItem> shippingItems) {
+		this.shippingItems = shippingItems;
+	}
 
-  @Transient
-  public int getQuantity()
-  {
-    int i = 0;
-    if (getShippingItems() != null)
-    {
-      Iterator localIterator = getShippingItems().iterator();
-      while (localIterator.hasNext())
-      {
-        ShippingItem localShippingItem = (ShippingItem)localIterator.next();
-        if ((localShippingItem == null) || (localShippingItem.getQuantity() == null))
-          continue;
-        i += localShippingItem.getQuantity().intValue();
-      }
-    }
-    return i;
-  }
+	@Transient
+	public int getQuantity() {
+		int i = 0;
+		if (getShippingItems() != null) {
+			Iterator<ShippingItem> localIterator = getShippingItems().iterator();
+			while (localIterator.hasNext()) {
+				ShippingItem localShippingItem = (ShippingItem) localIterator
+						.next();
+				if ((localShippingItem == null)
+						|| (localShippingItem.getQuantity() == null))
+					continue;
+				i += localShippingItem.getQuantity().intValue();
+			}
+		}
+		return i;
+	}
 }

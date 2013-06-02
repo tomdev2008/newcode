@@ -13,73 +13,62 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_delivery_corp")
-public class DeliveryCorp extends OrderEntity
-{
-  private static final long serialVersionUID = 10595703086045998L;
-  private String name;
-  private String url;
-  private String code;
-  private Set<ShippingMethod> shippingMethods = new HashSet();
+@Table(name = "xx_delivery_corp")
+public class DeliveryCorp extends OrderEntity {
+	private static final long serialVersionUID = 10595703086045998L;
+	private String name;
+	private String url;
+	private String code;
+	private Set<ShippingMethod> shippingMethods = new HashSet<ShippingMethod>();
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Length(max=200)
-  public String getUrl()
-  {
-    return this.url;
-  }
+	@Length(max = 200)
+	public String getUrl() {
+		return this.url;
+	}
 
-  public void setUrl(String url)
-  {
-    this.url = url;
-  }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-  @Length(max=200)
-  public String getCode()
-  {
-    return this.code;
-  }
+	@Length(max = 200)
+	public String getCode() {
+		return this.code;
+	}
 
-  public void setCode(String code)
-  {
-    this.code = code;
-  }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-  @OneToMany(mappedBy="defaultDeliveryCorp", fetch=FetchType.LAZY)
-  public Set<ShippingMethod> getShippingMethods()
-  {
-    return this.shippingMethods;
-  }
+	@OneToMany(mappedBy = "defaultDeliveryCorp", fetch = FetchType.LAZY)
+	public Set<ShippingMethod> getShippingMethods() {
+		return this.shippingMethods;
+	}
 
-  public void setShippingMethods(Set<ShippingMethod> shippingMethods)
-  {
-    this.shippingMethods = shippingMethods;
-  }
+	public void setShippingMethods(Set<ShippingMethod> shippingMethods) {
+		this.shippingMethods = shippingMethods;
+	}
 
-  @PreRemove
-  public void preRemove()
-  {
-    Set localSet = getShippingMethods();
-    if (localSet != null)
-    {
-      Iterator localIterator = localSet.iterator();
-      while (localIterator.hasNext())
-      {
-        ShippingMethod localShippingMethod = (ShippingMethod)localIterator.next();
-        localShippingMethod.setDefaultDeliveryCorp(null);
-      }
-    }
-  }
+	@PreRemove
+	public void preRemove() {
+		Set<ShippingMethod> localSet = getShippingMethods();
+		if (localSet != null) {
+			Iterator<ShippingMethod> localIterator = localSet.iterator();
+			while (localIterator.hasNext()) {
+				ShippingMethod localShippingMethod = (ShippingMethod) localIterator
+						.next();
+				localShippingMethod.setDefaultDeliveryCorp(null);
+			}
+		}
+	}
 }

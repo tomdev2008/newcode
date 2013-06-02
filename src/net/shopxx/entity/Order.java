@@ -81,14 +81,14 @@ public class Order extends BaseEntity {
 	private Admin operator;
 	private Member member;
 	private CouponCode couponCode;
-	private List<Coupon> coupons = new ArrayList();
-	private List<OrderItem> orderItems = new ArrayList();
-	private Set<OrderLog> orderLogs = new HashSet();
-	private Set<Deposit> deposits = new HashSet();
-	private Set<Payment> payments = new HashSet();
-	private Set<Refunds> refunds = new HashSet();
-	private Set<Shipping> shippings = new HashSet();
-	private Set<Returns> returns = new HashSet();
+	private List<Coupon> coupons = new ArrayList<Coupon>();
+	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	private Set<OrderLog> orderLogs = new HashSet<OrderLog>();
+	private Set<Deposit> deposits = new HashSet<Deposit>();
+	private Set<Payment> payments = new HashSet<Payment>();
+	private Set<Refunds> refunds = new HashSet<Refunds>();
+	private Set<Shipping> shippings = new HashSet<Shipping>();
+	private Set<Returns> returns = new HashSet<Returns>();
 
 	@Column(nullable = false, updatable = false, unique = true)
 	public String getSn() {
@@ -466,7 +466,7 @@ public class Order extends BaseEntity {
 	public String getProductName() {
 		StringBuffer localStringBuffer = new StringBuffer();
 		if (getOrderItems() != null) {
-			Iterator localIterator = getOrderItems().iterator();
+			Iterator<OrderItem> localIterator = getOrderItems().iterator();
 			while (localIterator.hasNext()) {
 				OrderItem localOrderItem = (OrderItem) localIterator.next();
 				if ((localOrderItem == null)
@@ -485,7 +485,7 @@ public class Order extends BaseEntity {
 	public int getWeight() {
 		int i = 0;
 		if (getOrderItems() != null) {
-			Iterator localIterator = getOrderItems().iterator();
+			Iterator<OrderItem> localIterator = getOrderItems().iterator();
 			while (localIterator.hasNext()) {
 				OrderItem localOrderItem = (OrderItem) localIterator.next();
 				if (localOrderItem == null)
@@ -500,7 +500,7 @@ public class Order extends BaseEntity {
 	public int getQuantity() {
 		int i = 0;
 		if (getOrderItems() != null) {
-			Iterator localIterator = getOrderItems().iterator();
+			Iterator<OrderItem> localIterator = getOrderItems().iterator();
 			while (localIterator.hasNext()) {
 				OrderItem localOrderItem = (OrderItem) localIterator.next();
 				if ((localOrderItem == null)
@@ -516,7 +516,7 @@ public class Order extends BaseEntity {
 	public int getShippedQuantity() {
 		int i = 0;
 		if (getOrderItems() != null) {
-			Iterator localIterator = getOrderItems().iterator();
+			Iterator<OrderItem> localIterator = getOrderItems().iterator();
 			while (localIterator.hasNext()) {
 				OrderItem localOrderItem = (OrderItem) localIterator.next();
 				if ((localOrderItem == null)
@@ -532,7 +532,7 @@ public class Order extends BaseEntity {
 	public int getReturnQuantity() {
 		int i = 0;
 		if (getOrderItems() != null) {
-			Iterator localIterator = getOrderItems().iterator();
+			Iterator<OrderItem> localIterator = getOrderItems().iterator();
 			while (localIterator.hasNext()) {
 				OrderItem localOrderItem = (OrderItem) localIterator.next();
 				if ((localOrderItem == null)
@@ -548,7 +548,7 @@ public class Order extends BaseEntity {
 	public BigDecimal getPrice() {
 		BigDecimal localBigDecimal = new BigDecimal(0);
 		if (getOrderItems() != null) {
-			Iterator localIterator = getOrderItems().iterator();
+			Iterator<OrderItem> localIterator = getOrderItems().iterator();
 			while (localIterator.hasNext()) {
 				OrderItem localOrderItem = (OrderItem) localIterator.next();
 				if ((localOrderItem == null)
@@ -589,7 +589,7 @@ public class Order extends BaseEntity {
 	@Transient
 	public OrderItem getOrderItem(String sn) {
 		if ((sn != null) && (getOrderItems() != null)) {
-			Iterator localIterator = getOrderItems().iterator();
+			Iterator<OrderItem> localIterator = getOrderItems().iterator();
 			while (localIterator.hasNext()) {
 				OrderItem localOrderItem = (OrderItem) localIterator.next();
 				if ((localOrderItem != null)
@@ -641,9 +641,9 @@ public class Order extends BaseEntity {
 
 	@PreRemove
 	public void preRemove() {
-		Set localSet = getDeposits();
+		Set<Deposit> localSet = getDeposits();
 		if (localSet != null) {
-			Iterator localIterator = localSet.iterator();
+			Iterator<Deposit> localIterator = localSet.iterator();
 			while (localIterator.hasNext()) {
 				Deposit localDeposit = (Deposit) localIterator.next();
 				localDeposit.setOrder(null);

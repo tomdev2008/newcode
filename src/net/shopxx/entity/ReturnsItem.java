@@ -11,61 +11,52 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_returns_item")
-public class ReturnsItem extends BaseEntity
-{
-  private static final long serialVersionUID = -4112374596087084162L;
-  private String sn;
-  private String name;
-  private Integer quantity;
-  private Returns returns;
+@Table(name = "xx_returns_item")
+public class ReturnsItem extends BaseEntity {
+	private static final long serialVersionUID = -4112374596087084162L;
+	private String sn;
+	private String name;
+	private Integer quantity;
+	private Returns returns;
 
-  @NotEmpty
-  @Column(nullable=false, updatable=false)
-  public String getSn()
-  {
-    return this.sn;
-  }
+	@NotEmpty
+	@Column(nullable = false, updatable = false)
+	public String getSn() {
+		return this.sn;
+	}
 
-  public void setSn(String sn)
-  {
-    this.sn = sn;
-  }
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
 
-  @NotEmpty
-  @Column(nullable=false, updatable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	@NotEmpty
+	@Column(nullable = false, updatable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @NotNull
-  @Min(1L)
-  @Column(nullable=false, updatable=false)
-  public Integer getQuantity()
-  {
-    return this.quantity;
-  }
+	@NotNull
+	@Min(1L)
+	@Column(nullable = false, updatable = false)
+	public Integer getQuantity() {
+		return this.quantity;
+	}
 
-  public void setQuantity(Integer quantity)
-  {
-    this.quantity = quantity;
-  }
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(nullable=false, updatable=false)
-  public Returns getReturns()
-  {
-    return this.returns;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false, updatable = false)
+	public Returns getReturns() {
+		return this.returns;
+	}
 
-  public void setReturns(Returns returns)
-  {
-    this.returns = returns;
-  }
+	public void setReturns(Returns returns) {
+		this.returns = returns;
+	}
 }

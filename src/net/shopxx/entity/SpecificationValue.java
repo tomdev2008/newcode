@@ -13,59 +13,50 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_specification_value")
-public class SpecificationValue extends OrderEntity
-{
-  private static final long serialVersionUID = -8624741017444123488L;
-  private String name;
-  private String image;
-  private Specification specification;
-  private Set<Product> products = new HashSet();
+@Table(name = "xx_specification_value")
+public class SpecificationValue extends OrderEntity {
+	private static final long serialVersionUID = -8624741017444123488L;
+	private String name;
+	private String image;
+	private Specification specification;
+	private Set<Product> products = new HashSet<Product>();
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Length(max=200)
-  public String getImage()
-  {
-    return this.image;
-  }
+	@Length(max = 200)
+	public String getImage() {
+		return this.image;
+	}
 
-  public void setImage(String image)
-  {
-    this.image = image;
-  }
+	public void setImage(String image) {
+		this.image = image;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(nullable=false)
-  public Specification getSpecification()
-  {
-    return this.specification;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false)
+	public Specification getSpecification() {
+		return this.specification;
+	}
 
-  public void setSpecification(Specification specification)
-  {
-    this.specification = specification;
-  }
+	public void setSpecification(Specification specification) {
+		this.specification = specification;
+	}
 
-  @ManyToMany(mappedBy="specificationValues", fetch=FetchType.LAZY)
-  public Set<Product> getProducts()
-  {
-    return this.products;
-  }
+	@ManyToMany(mappedBy = "specificationValues", fetch = FetchType.LAZY)
+	public Set<Product> getProducts() {
+		return this.products;
+	}
 
-  public void setProducts(Set<Product> products)
-  {
-    this.products = products;
-  }
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 }

@@ -15,27 +15,45 @@ import net.shopxx.entity.Promotion;
 import org.springframework.stereotype.Repository;
 
 @Repository("promotionDaoImpl")
-public class PromotionDaoImpl extends BaseDaoImpl<Promotion, Long>
-  implements PromotionDao
-{
-  public List<Promotion> findList(Boolean hasBegun, Boolean hasEnded, Integer count, List<Filter> filters, List<Order> orders)
-  {
-    CriteriaBuilder localCriteriaBuilder = this.IIIllIlI.getCriteriaBuilder();
-    CriteriaQuery localCriteriaQuery = localCriteriaBuilder.createQuery(Promotion.class);
-    Root localRoot = localCriteriaQuery.from(Promotion.class);
-    localCriteriaQuery.select(localRoot);
-    Predicate localPredicate = localCriteriaBuilder.conjunction();
-    if (hasBegun != null)
-      if (hasBegun.booleanValue())
-        localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localRoot.get("beginDate").isNull(), localCriteriaBuilder.lessThanOrEqualTo(localRoot.get("beginDate"), new Date())));
-      else
-        localPredicate = localCriteriaBuilder.and(new Predicate[] { localPredicate, localRoot.get("beginDate").isNotNull(), localCriteriaBuilder.greaterThan(localRoot.get("beginDate"), new Date()) });
-    if (hasEnded != null)
-      if (hasEnded.booleanValue())
-        localPredicate = localCriteriaBuilder.and(new Predicate[] { localPredicate, localRoot.get("endDate").isNotNull(), localCriteriaBuilder.lessThan(localRoot.get("endDate"), new Date()) });
-      else
-        localPredicate = localCriteriaBuilder.and(localPredicate, localCriteriaBuilder.or(localRoot.get("endDate").isNull(), localCriteriaBuilder.greaterThanOrEqualTo(localRoot.get("endDate"), new Date())));
-    localCriteriaQuery.where(localPredicate);
-    return super.IIIllIlI(localCriteriaQuery, null, count, filters, orders);
-  }
+public class PromotionDaoImpl extends BaseDaoImpl<Promotion, Long> implements
+		PromotionDao {
+	public List<Promotion> findList(Boolean hasBegun, Boolean hasEnded,
+			Integer count, List<Filter> filters, List<Order> orders) {
+		CriteriaBuilder localCriteriaBuilder = this.entityManager
+				.getCriteriaBuilder();
+		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+				.createQuery(Promotion.class);
+		Root localRoot = localCriteriaQuery.from(Promotion.class);
+		localCriteriaQuery.select(localRoot);
+		Predicate localPredicate = localCriteriaBuilder.conjunction();
+		if (hasBegun != null)
+			if (hasBegun.booleanValue())
+				localPredicate = localCriteriaBuilder.and(localPredicate,
+						localCriteriaBuilder.or(localRoot.get("beginDate")
+								.isNull(), localCriteriaBuilder
+								.lessThanOrEqualTo(localRoot.get("beginDate"),
+										new Date())));
+			else
+				localPredicate = localCriteriaBuilder.and(new Predicate[] {
+						localPredicate,
+						localRoot.get("beginDate").isNotNull(),
+						localCriteriaBuilder.greaterThan(
+								localRoot.get("beginDate"), new Date()) });
+		if (hasEnded != null)
+			if (hasEnded.booleanValue())
+				localPredicate = localCriteriaBuilder.and(new Predicate[] {
+						localPredicate,
+						localRoot.get("endDate").isNotNull(),
+						localCriteriaBuilder.lessThan(localRoot.get("endDate"),
+								new Date()) });
+			else
+				localPredicate = localCriteriaBuilder.and(localPredicate,
+						localCriteriaBuilder.or(localRoot.get("endDate")
+								.isNull(), localCriteriaBuilder
+								.greaterThanOrEqualTo(localRoot.get("endDate"),
+										new Date())));
+		localCriteriaQuery.where(localPredicate);
+		return super.entityManager(localCriteriaQuery, null, count, filters,
+				orders);
+	}
 }

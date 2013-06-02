@@ -19,128 +19,109 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_payment_method")
-public class PaymentMethod extends OrderEntity
-{
-  private static final long serialVersionUID = 6949816500116581199L;
-  public enum PaymentMethodType
-  {
-    online, offline;
-  }
-  private String name;
-  private PaymentMethodType type;
-  private Integer timeout;
-  private String icon;
-  private String description;
-  private String content;
-  private Set<ShippingMethod> shippingMethods = new HashSet();
-  private Set<Order> orders = new HashSet();
+@Table(name = "xx_payment_method")
+public class PaymentMethod extends OrderEntity {
+	private static final long serialVersionUID = 6949816500116581199L;
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	public enum PaymentMethodType {
+		online, offline;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	private String name;
+	private PaymentMethodType type;
+	private Integer timeout;
+	private String icon;
+	private String description;
+	private String content;
+	private Set<ShippingMethod> shippingMethods = new HashSet<ShippingMethod>();
+	private Set<Order> orders = new HashSet<Order>();
 
-  @NotNull
-  @Column(nullable=false)
-  public PaymentMethodType getType()
-  {
-    return this.type;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setType(PaymentMethodType type)
-  {
-    this.type = type;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Min(1L)
-  public Integer getTimeout()
-  {
-    return this.timeout;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public PaymentMethodType getType() {
+		return this.type;
+	}
 
-  public void setTimeout(Integer timeout)
-  {
-    this.timeout = timeout;
-  }
+	public void setType(PaymentMethodType type) {
+		this.type = type;
+	}
 
-  @Length(max=200)
-  public String getIcon()
-  {
-    return this.icon;
-  }
+	@Min(1L)
+	public Integer getTimeout() {
+		return this.timeout;
+	}
 
-  public void setIcon(String icon)
-  {
-    this.icon = icon;
-  }
+	public void setTimeout(Integer timeout) {
+		this.timeout = timeout;
+	}
 
-  @Length(max=200)
-  public String getDescription()
-  {
-    return this.description;
-  }
+	@Length(max = 200)
+	public String getIcon() {
+		return this.icon;
+	}
 
-  public void setDescription(String description)
-  {
-    this.description = description;
-  }
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 
-  @Lob
-  public String getContent()
-  {
-    return this.content;
-  }
+	@Length(max = 200)
+	public String getDescription() {
+		return this.description;
+	}
 
-  public void setContent(String content)
-  {
-    this.content = content;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  @ManyToMany(fetch=FetchType.LAZY)
-  @JoinTable(name="xx_payment_shipping_method")
-  @OrderBy("order asc")
-  public Set<ShippingMethod> getShippingMethods()
-  {
-    return this.shippingMethods;
-  }
+	@Lob
+	public String getContent() {
+		return this.content;
+	}
 
-  public void setShippingMethods(Set<ShippingMethod> shippingMethods)
-  {
-    this.shippingMethods = shippingMethods;
-  }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-  @OneToMany(mappedBy="paymentMethod", fetch=FetchType.LAZY)
-  public Set<Order> getOrders()
-  {
-    return this.orders;
-  }
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_payment_shipping_method")
+	@OrderBy("order asc")
+	public Set<ShippingMethod> getShippingMethods() {
+		return this.shippingMethods;
+	}
 
-  public void setOrders(Set<Order> orders)
-  {
-    this.orders = orders;
-  }
+	public void setShippingMethods(Set<ShippingMethod> shippingMethods) {
+		this.shippingMethods = shippingMethods;
+	}
 
-  @PreRemove
-  public void preRemove()
-  {
-    Set localSet = getOrders();
-    if (localSet != null)
-    {
-      Iterator localIterator = localSet.iterator();
-      while (localIterator.hasNext())
-      {
-        Order localOrder = (Order)localIterator.next();
-        localOrder.setPaymentMethod(null);
-      }
-    }
-  }
+	@OneToMany(mappedBy = "paymentMethod", fetch = FetchType.LAZY)
+	public Set<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+
+	@PreRemove
+	public void preRemove() {
+		Set<Order> localSet = getOrders();
+		if (localSet != null) {
+			Iterator<Order> localIterator = localSet.iterator();
+			while (localIterator.hasNext()) {
+				Order localOrder = (Order) localIterator.next();
+				localOrder.setPaymentMethod(null);
+			}
+		}
+	}
 }

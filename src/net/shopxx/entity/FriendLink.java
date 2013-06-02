@@ -8,65 +8,57 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_friend_link")
-public class FriendLink extends OrderEntity
-{
-  private static final long serialVersionUID = 3019642557500517628L;
-  public enum FriendLinkType
-  {
-    text, image;
-  }
-  private String name;
-  private FriendLinkType type;
-  private String logo;
-  private String url;
+@Table(name = "xx_friend_link")
+public class FriendLink extends OrderEntity {
+	private static final long serialVersionUID = 3019642557500517628L;
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	public enum FriendLinkType {
+		text, image;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	private String name;
+	private FriendLinkType type;
+	private String logo;
+	private String url;
 
-  @NotNull
-  @Column(nullable=false)
-  public FriendLinkType getType()
-  {
-    return this.type;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setType(FriendLinkType type)
-  {
-    this.type = type;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Length(max=200)
-  public String getLogo()
-  {
-    return this.logo;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public FriendLinkType getType() {
+		return this.type;
+	}
 
-  public void setLogo(String logo)
-  {
-    this.logo = logo;
-  }
+	public void setType(FriendLinkType type) {
+		this.type = type;
+	}
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getUrl()
-  {
-    return this.url;
-  }
+	@Length(max = 200)
+	public String getLogo() {
+		return this.logo;
+	}
 
-  public void setUrl(String url)
-  {
-    this.url = url;
-  }
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

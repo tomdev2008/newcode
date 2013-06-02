@@ -84,17 +84,17 @@ public class Member extends BaseEntity {
 	private Area area;
 	private MemberRank memberRank;
 	private Cart cart;
-	private Set<Order> orders = new HashSet();
-	private Set<Deposit> deposits = new HashSet();
-	private Set<Payment> payments = new HashSet();
-	private Set<CouponCode> couponCodes = new HashSet();
-	private Set<Receiver> receivers = new HashSet();
-	private Set<Review> reviews = new HashSet();
-	private Set<Consultation> consultations = new HashSet();
-	private Set<Product> favoriteProducts = new HashSet();
-	private Set<ProductNotify> productNotifies = new HashSet();
-	private Set<Message> inMessages = new HashSet();
-	private Set<Message> outMessages = new HashSet();
+	private Set<Order> orders = new HashSet<Order>();
+	private Set<Deposit> deposits = new HashSet<Deposit>();
+	private Set<Payment> payments = new HashSet<Payment>();
+	private Set<CouponCode> couponCodes = new HashSet<CouponCode>();
+	private Set<Receiver> receivers = new HashSet<Receiver>();
+	private Set<Review> reviews = new HashSet<Review>();
+	private Set<Consultation> consultations = new HashSet<Consultation>();
+	private Set<Product> favoriteProducts = new HashSet<Product>();
+	private Set<ProductNotify> productNotifies = new HashSet<ProductNotify>();
+	private Set<Message> inMessages = new HashSet<Message>();
+	private Set<Message> outMessages = new HashSet<Message>();
 
 	@NotEmpty(groups = { BaseEntity.class })
 	@Pattern(regexp = "^[0-9a-z_A-Z\\u4e00-\\u9fa5]+$")
@@ -564,7 +564,7 @@ public class Member extends BaseEntity {
 					localNoSuchMethodException3.printStackTrace();
 				}
 		}
-		label262: return null;
+		return null;
 	}
 
 	@Transient

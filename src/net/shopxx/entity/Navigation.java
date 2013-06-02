@@ -8,66 +8,58 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_navigation")
-public class Navigation extends OrderEntity
-{
-  private static final long serialVersionUID = -7635757647887646795L;
-  public enum NavigationPosition
-  {
-    top, middle, bottom;
-  }
-  private String name;
-  private NavigationPosition position;
-  private String url;
-  private Boolean isBlankTarget;
+@Table(name = "xx_navigation")
+public class Navigation extends OrderEntity {
+	private static final long serialVersionUID = -7635757647887646795L;
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	public enum NavigationPosition {
+		top, middle, bottom;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	private String name;
+	private NavigationPosition position;
+	private String url;
+	private Boolean isBlankTarget;
 
-  @NotNull
-  @Column(nullable=false)
-  public NavigationPosition getPosition()
-  {
-    return this.position;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setPosition(NavigationPosition position)
-  {
-    this.position = position;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getUrl()
-  {
-    return this.url;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public NavigationPosition getPosition() {
+		return this.position;
+	}
 
-  public void setUrl(String url)
-  {
-    this.url = url;
-  }
+	public void setPosition(NavigationPosition position) {
+		this.position = position;
+	}
 
-  @NotNull
-  @Column(nullable=false)
-  public Boolean getIsBlankTarget()
-  {
-    return this.isBlankTarget;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getUrl() {
+		return this.url;
+	}
 
-  public void setIsBlankTarget(Boolean isBlankTarget)
-  {
-    this.isBlankTarget = isBlankTarget;
-  }
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	@NotNull
+	@Column(nullable = false)
+	public Boolean getIsBlankTarget() {
+		return this.isBlankTarget;
+	}
+
+	public void setIsBlankTarget(Boolean isBlankTarget) {
+		this.isBlankTarget = isBlankTarget;
+	}
 }

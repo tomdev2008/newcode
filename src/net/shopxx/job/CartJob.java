@@ -8,15 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component("cartJob")
 @Lazy(false)
-public class CartJob
-{
+public class CartJob {
 
-  @Resource(name="cartServiceImpl")
-  private CartService IIIllIlI;
+	@Resource(name = "cartServiceImpl")
+	private CartService cartService;
 
-  @Scheduled(cron="${job.cart_evict_expired.cron}")
-  public void evictExpired()
-  {
-    this.IIIllIlI.evictExpired();
-  }
+	@Scheduled(cron = "${job.cart_evict_expired.cron}")
+	public void evictExpired() {
+		this.cartService.evictExpired();
+	}
 }

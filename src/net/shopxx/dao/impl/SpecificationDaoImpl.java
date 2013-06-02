@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository("specificationDaoImpl")
 public class SpecificationDaoImpl extends BaseDaoImpl<Specification, Long>
-  implements SpecificationDao
-{
+		implements SpecificationDao {
 }

@@ -17,240 +17,204 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name="xx_payment")
-public class Payment extends BaseEntity
-{
-  private static final long serialVersionUID = -5052430116564638634L;
-  public enum PaymentStatus
-  {
-    wait, success, failure;
-  }
-  public enum PaymentType
-  {
-    online, offline, deposit;
-  }
-  public static final String TYPE_SEPARATOR = "-";
-  private String sn;
-  private PaymentType type;
-  private PaymentStatus status;
-  private String paymentMethod;
-  private String bank;
-  private String account;
-  private BigDecimal fee;
-  private BigDecimal amount;
-  private String payer;
-  private String operator;
-  private Date paymentDate;
-  private String memo;
-  private String paymentPluginId;
-  private Date expire;
-  private Deposit deposit;
-  private Member member;
-  private Order order;
+@Table(name = "xx_payment")
+public class Payment extends BaseEntity {
+	private static final long serialVersionUID = -5052430116564638634L;
 
-  @Column(nullable=false, updatable=false, unique=true)
-  public String getSn()
-  {
-    return this.sn;
-  }
+	public enum PaymentStatus {
+		wait, success, failure;
+	}
 
-  public void setSn(String sn)
-  {
-    this.sn = sn;
-  }
+	public enum PaymentType {
+		online, offline, deposit;
+	}
 
-  @NotNull
-  @Column(nullable=false, updatable=false)
-  public PaymentType getType()
-  {
-    return this.type;
-  }
+	public static final String TYPE_SEPARATOR = "-";
+	private String sn;
+	private PaymentType type;
+	private PaymentStatus status;
+	private String paymentMethod;
+	private String bank;
+	private String account;
+	private BigDecimal fee;
+	private BigDecimal amount;
+	private String payer;
+	private String operator;
+	private Date paymentDate;
+	private String memo;
+	private String paymentPluginId;
+	private Date expire;
+	private Deposit deposit;
+	private Member member;
+	private Order order;
 
-  public void setType(PaymentType type)
-  {
-    this.type = type;
-  }
+	@Column(nullable = false, updatable = false, unique = true)
+	public String getSn() {
+		return this.sn;
+	}
 
-  @Column(nullable=false)
-  public PaymentStatus getStatus()
-  {
-    return this.status;
-  }
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
 
-  public void setStatus(PaymentStatus status)
-  {
-    this.status = status;
-  }
+	@NotNull
+	@Column(nullable = false, updatable = false)
+	public PaymentType getType() {
+		return this.type;
+	}
 
-  @Column(updatable=false)
-  public String getPaymentMethod()
-  {
-    return this.paymentMethod;
-  }
+	public void setType(PaymentType type) {
+		this.type = type;
+	}
 
-  public void setPaymentMethod(String paymentMethod)
-  {
-    this.paymentMethod = paymentMethod;
-  }
+	@Column(nullable = false)
+	public PaymentStatus getStatus() {
+		return this.status;
+	}
 
-  @Length(max=200)
-  public String getBank()
-  {
-    return this.bank;
-  }
+	public void setStatus(PaymentStatus status) {
+		this.status = status;
+	}
 
-  public void setBank(String bank)
-  {
-    this.bank = bank;
-  }
+	@Column(updatable = false)
+	public String getPaymentMethod() {
+		return this.paymentMethod;
+	}
 
-  @Length(max=200)
-  public String getAccount()
-  {
-    return this.account;
-  }
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
-  public void setAccount(String account)
-  {
-    this.account = account;
-  }
+	@Length(max = 200)
+	public String getBank() {
+		return this.bank;
+	}
 
-  @Column(nullable=false, precision=21, scale=6)
-  public BigDecimal getFee()
-  {
-    return this.fee;
-  }
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
 
-  public void setFee(BigDecimal fee)
-  {
-    this.fee = fee;
-  }
+	@Length(max = 200)
+	public String getAccount() {
+		return this.account;
+	}
 
-  @NotNull
-  @Min(0L)
-  @Digits(integer=12, fraction=3)
-  @Column(nullable=false, precision=21, scale=6)
-  public BigDecimal getAmount()
-  {
-    return this.amount;
-  }
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
-  public void setAmount(BigDecimal amount)
-  {
-    this.amount = amount;
-  }
+	@Column(nullable = false, precision = 21, scale = 6)
+	public BigDecimal getFee() {
+		return this.fee;
+	}
 
-  @Length(max=200)
-  public String getPayer()
-  {
-    return this.payer;
-  }
+	public void setFee(BigDecimal fee) {
+		this.fee = fee;
+	}
 
-  public void setPayer(String payer)
-  {
-    this.payer = payer;
-  }
+	@NotNull
+	@Min(0L)
+	@Digits(integer = 12, fraction = 3)
+	@Column(nullable = false, precision = 21, scale = 6)
+	public BigDecimal getAmount() {
+		return this.amount;
+	}
 
-  @Column(updatable=false)
-  public String getOperator()
-  {
-    return this.operator;
-  }
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
 
-  public void setOperator(String operator)
-  {
-    this.operator = operator;
-  }
+	@Length(max = 200)
+	public String getPayer() {
+		return this.payer;
+	}
 
-  public Date getPaymentDate()
-  {
-    return this.paymentDate;
-  }
+	public void setPayer(String payer) {
+		this.payer = payer;
+	}
 
-  public void setPaymentDate(Date paymentDate)
-  {
-    this.paymentDate = paymentDate;
-  }
+	@Column(updatable = false)
+	public String getOperator() {
+		return this.operator;
+	}
 
-  @Length(max=200)
-  public String getMemo()
-  {
-    return this.memo;
-  }
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
 
-  public void setMemo(String memo)
-  {
-    this.memo = memo;
-  }
+	public Date getPaymentDate() {
+		return this.paymentDate;
+	}
 
-  @JoinColumn(updatable=false)
-  public String getPaymentPluginId()
-  {
-    return this.paymentPluginId;
-  }
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
 
-  public void setPaymentPluginId(String paymentPluginId)
-  {
-    this.paymentPluginId = paymentPluginId;
-  }
+	@Length(max = 200)
+	public String getMemo() {
+		return this.memo;
+	}
 
-  @JoinColumn(updatable=false)
-  public Date getExpire()
-  {
-    return this.expire;
-  }
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 
-  public void setExpire(Date expire)
-  {
-    this.expire = expire;
-  }
+	@JoinColumn(updatable = false)
+	public String getPaymentPluginId() {
+		return this.paymentPluginId;
+	}
 
-  @OneToOne(mappedBy="payment", fetch=FetchType.LAZY)
-  public Deposit getDeposit()
-  {
-    return this.deposit;
-  }
+	public void setPaymentPluginId(String paymentPluginId) {
+		this.paymentPluginId = paymentPluginId;
+	}
 
-  public void setDeposit(Deposit deposit)
-  {
-    this.deposit = deposit;
-  }
+	@JoinColumn(updatable = false)
+	public Date getExpire() {
+		return this.expire;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(updatable=false)
-  public Member getMember()
-  {
-    return this.member;
-  }
+	public void setExpire(Date expire) {
+		this.expire = expire;
+	}
 
-  public void setMember(Member member)
-  {
-    this.member = member;
-  }
+	@OneToOne(mappedBy = "payment", fetch = FetchType.LAZY)
+	public Deposit getDeposit() {
+		return this.deposit;
+	}
 
-  @NotNull
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(name="orders", updatable=false)
-  public Order getOrder()
-  {
-    return this.order;
-  }
+	public void setDeposit(Deposit deposit) {
+		this.deposit = deposit;
+	}
 
-  public void setOrder(Order order)
-  {
-    this.order = order;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(updatable = false)
+	public Member getMember() {
+		return this.member;
+	}
 
-  @Transient
-  public boolean hasExpired()
-  {
-    return (getExpire() != null) && (new Date().after(getExpire()));
-  }
+	public void setMember(Member member) {
+		this.member = member;
+	}
 
-  @PreRemove
-  public void preRemove()
-  {
-    if (getDeposit() != null)
-      getDeposit().setPayment(null);
-  }
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "orders", updatable = false)
+	public Order getOrder() {
+		return this.order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	@Transient
+	public boolean hasExpired() {
+		return (getExpire() != null) && (new Date().after(getExpire()));
+	}
+
+	@PreRemove
+	public void preRemove() {
+		if (getDeposit() != null)
+			getDeposit().setPayment(null);
+	}
 }

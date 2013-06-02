@@ -14,136 +14,117 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_receiver")
-public class Receiver extends BaseEntity
-{
-  private static final long serialVersionUID = 2673602067029665976L;
-  public static final Integer MAX_RECEIVER_COUNT = Integer.valueOf(8);
-  private String consignee;
-  private String areaName;
-  private String address;
-  private String zipCode;
-  private String phone;
-  private Boolean isDefault;
-  private Area area;
-  private Member member;
+@Table(name = "xx_receiver")
+public class Receiver extends BaseEntity {
+	private static final long serialVersionUID = 2673602067029665976L;
+	public static final Integer MAX_RECEIVER_COUNT = Integer.valueOf(8);
+	private String consignee;
+	private String areaName;
+	private String address;
+	private String zipCode;
+	private String phone;
+	private Boolean isDefault;
+	private Area area;
+	private Member member;
 
-  @JsonProperty
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getConsignee()
-  {
-    return this.consignee;
-  }
+	@JsonProperty
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getConsignee() {
+		return this.consignee;
+	}
 
-  public void setConsignee(String consignee)
-  {
-    this.consignee = consignee;
-  }
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
+	}
 
-  @JsonProperty
-  @Column(nullable=false)
-  public String getAreaName()
-  {
-    return this.areaName;
-  }
+	@JsonProperty
+	@Column(nullable = false)
+	public String getAreaName() {
+		return this.areaName;
+	}
 
-  public void setAreaName(String areaName)
-  {
-    this.areaName = areaName;
-  }
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
 
-  @JsonProperty
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getAddress()
-  {
-    return this.address;
-  }
+	@JsonProperty
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getAddress() {
+		return this.address;
+	}
 
-  public void setAddress(String address)
-  {
-    this.address = address;
-  }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-  @JsonProperty
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getZipCode()
-  {
-    return this.zipCode;
-  }
+	@JsonProperty
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getZipCode() {
+		return this.zipCode;
+	}
 
-  public void setZipCode(String zipCode)
-  {
-    this.zipCode = zipCode;
-  }
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
 
-  @JsonProperty
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getPhone()
-  {
-    return this.phone;
-  }
+	@JsonProperty
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getPhone() {
+		return this.phone;
+	}
 
-  public void setPhone(String phone)
-  {
-    this.phone = phone;
-  }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-  @JsonProperty
-  @NotNull
-  @Column(nullable=false)
-  public Boolean getIsDefault()
-  {
-    return this.isDefault;
-  }
+	@JsonProperty
+	@NotNull
+	@Column(nullable = false)
+	public Boolean getIsDefault() {
+		return this.isDefault;
+	}
 
-  public void setIsDefault(Boolean isDefault)
-  {
-    this.isDefault = isDefault;
-  }
+	public void setIsDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+	}
 
-  @NotNull
-  @ManyToOne(fetch=FetchType.LAZY)
-  public Area getArea()
-  {
-    return this.area;
-  }
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	public Area getArea() {
+		return this.area;
+	}
 
-  public void setArea(Area area)
-  {
-    this.area = area;
-  }
+	public void setArea(Area area) {
+		this.area = area;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  @JoinColumn(nullable=false, updatable=false)
-  public Member getMember()
-  {
-    return this.member;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false, updatable = false)
+	public Member getMember() {
+		return this.member;
+	}
 
-  public void setMember(Member member)
-  {
-    this.member = member;
-  }
+	public void setMember(Member member) {
+		this.member = member;
+	}
 
-  @PrePersist
-  public void prePersist()
-  {
-    if (getArea() != null)
-      setAreaName(getArea().getFullName());
-  }
+	@PrePersist
+	public void prePersist() {
+		if (getArea() != null)
+			setAreaName(getArea().getFullName());
+	}
 
-  @PreUpdate
-  public void preUpdate()
-  {
-    if (getArea() != null)
-      setAreaName(getArea().getFullName());
-  }
+	@PreUpdate
+	public void preUpdate() {
+		if (getArea() != null)
+			setAreaName(getArea().getFullName());
+	}
 }

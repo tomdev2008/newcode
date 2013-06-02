@@ -17,78 +17,69 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_specification")
-public class Specification extends OrderEntity
-{
-  private static final long serialVersionUID = -6346775052811140926L;
-  public enum SpecificationType
-  {
-    text, image;
-  }
-  private String name;
-  private SpecificationType type;
-  private String memo;
-  private List<SpecificationValue> specificationValues = new ArrayList();
-  private Set<Product> products = new HashSet();
+@Table(name = "xx_specification")
+public class Specification extends OrderEntity {
+	private static final long serialVersionUID = -6346775052811140926L;
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	public enum SpecificationType {
+		text, image;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	private String name;
+	private SpecificationType type;
+	private String memo;
+	private List<SpecificationValue> specificationValues = new ArrayList<SpecificationValue>();
+	private Set<Product> products = new HashSet<Product>();
 
-  @NotNull
-  @Column(nullable=false)
-  public SpecificationType getType()
-  {
-    return this.type;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setType(SpecificationType type)
-  {
-    this.type = type;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Length(max=200)
-  public String getMemo()
-  {
-    return this.memo;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public SpecificationType getType() {
+		return this.type;
+	}
 
-  public void setMemo(String memo)
-  {
-    this.memo = memo;
-  }
+	public void setType(SpecificationType type) {
+		this.type = type;
+	}
 
-  @Valid
-  @NotEmpty
-  @OneToMany(mappedBy="specification", fetch=FetchType.LAZY, cascade={javax.persistence.CascadeType.ALL}, orphanRemoval=true)
-  @OrderBy("order asc")
-  public List<SpecificationValue> getSpecificationValues()
-  {
-    return this.specificationValues;
-  }
+	@Length(max = 200)
+	public String getMemo() {
+		return this.memo;
+	}
 
-  public void setSpecificationValues(List<SpecificationValue> specificationValues)
-  {
-    this.specificationValues = specificationValues;
-  }
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 
-  @ManyToMany(mappedBy="specifications", fetch=FetchType.LAZY)
-  public Set<Product> getProducts()
-  {
-    return this.products;
-  }
+	@Valid
+	@NotEmpty
+	@OneToMany(mappedBy = "specification", fetch = FetchType.LAZY, cascade = { javax.persistence.CascadeType.ALL }, orphanRemoval = true)
+	@OrderBy("order asc")
+	public List<SpecificationValue> getSpecificationValues() {
+		return this.specificationValues;
+	}
 
-  public void setProducts(Set<Product> products)
-  {
-    this.products = products;
-  }
+	public void setSpecificationValues(
+			List<SpecificationValue> specificationValues) {
+		this.specificationValues = specificationValues;
+	}
+
+	@ManyToMany(mappedBy = "specifications", fetch = FetchType.LAZY)
+	public Set<Product> getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 }

@@ -15,71 +15,60 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_role")
-public class Role extends BaseEntity
-{
-  private static final long serialVersionUID = -6614052029623997372L;
-  private String name;
-  private Boolean isSystem;
-  private String description;
-  private List<String> authorities = new ArrayList();
-  private Set<Admin> admins = new HashSet();
+@Table(name = "xx_role")
+public class Role extends BaseEntity {
+	private static final long serialVersionUID = -6614052029623997372L;
+	private String name;
+	private Boolean isSystem;
+	private String description;
+	private List<String> authorities = new ArrayList<String>();
+	private Set<Admin> admins = new HashSet<Admin>();
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Column(nullable=false, updatable=false)
-  public Boolean getIsSystem()
-  {
-    return this.isSystem;
-  }
+	@Column(nullable = false, updatable = false)
+	public Boolean getIsSystem() {
+		return this.isSystem;
+	}
 
-  public void setIsSystem(Boolean isSystem)
-  {
-    this.isSystem = isSystem;
-  }
+	public void setIsSystem(Boolean isSystem) {
+		this.isSystem = isSystem;
+	}
 
-  @Length(max=200)
-  public String getDescription()
-  {
-    return this.description;
-  }
+	@Length(max = 200)
+	public String getDescription() {
+		return this.description;
+	}
 
-  public void setDescription(String description)
-  {
-    this.description = description;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  @ElementCollection
-  @CollectionTable(name="xx_role_authority")
-  public List<String> getAuthorities()
-  {
-    return this.authorities;
-  }
+	@ElementCollection
+	@CollectionTable(name = "xx_role_authority")
+	public List<String> getAuthorities() {
+		return this.authorities;
+	}
 
-  public void setAuthorities(List<String> authorities)
-  {
-    this.authorities = authorities;
-  }
+	public void setAuthorities(List<String> authorities) {
+		this.authorities = authorities;
+	}
 
-  @ManyToMany(mappedBy="roles", fetch=FetchType.LAZY)
-  public Set<Admin> getAdmins()
-  {
-    return this.admins;
-  }
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	public Set<Admin> getAdmins() {
+		return this.admins;
+	}
 
-  public void setAdmins(Set<Admin> admins)
-  {
-    this.admins = admins;
-  }
+	public void setAdmins(Set<Admin> admins) {
+		this.admins = admins;
+	}
 }
