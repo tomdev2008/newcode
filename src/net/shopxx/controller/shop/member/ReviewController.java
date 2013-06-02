@@ -11,23 +11,22 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("shopMemberReviewController")
-@RequestMapping({"/member/review"})
-public class ReviewController extends BaseController
-{
-  private static final int IIIlllIl = 10;
+@RequestMapping({ "/member/review" })
+public class ReviewController extends BaseController {
+	private static final int IIIlllIl = 10;
 
-  @Resource(name="memberServiceImpl")
-  private MemberService IIIllllI;
+	@Resource(name = "memberServiceImpl")
+	private MemberService IIIllllI;
 
-  @Resource(name="reviewServiceImpl")
-  private ReviewService IIIlllll;
+	@Resource(name = "reviewServiceImpl")
+	private ReviewService IIIlllll;
 
-  @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String list(Integer pageNumber, ModelMap model)
-  {
-    Member localMember = this.IIIllllI.getCurrent();
-    Pageable localPageable = new Pageable(pageNumber, Integer.valueOf(10));
-    model.addAttribute("page", this.IIIlllll.findPage(localMember, null, null, null, localPageable));
-    return "shop/member/review/list";
-  }
+	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String list(Integer pageNumber, ModelMap model) {
+		Member localMember = this.IIIllllI.getCurrent();
+		Pageable localPageable = new Pageable(pageNumber, Integer.valueOf(10));
+		model.addAttribute("page", this.IIIlllll.findPage(localMember, null,
+				null, null, localPageable));
+		return "shop/member/review/list";
+	}
 }

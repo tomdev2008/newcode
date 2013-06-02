@@ -13,86 +13,95 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("adminArticleCategoryController")
-@RequestMapping({"/admin/article_category"})
-public class ArticleCategoryController extends BaseController
-{
+@RequestMapping({ "/admin/article_category" })
+public class ArticleCategoryController extends BaseController {
 
-  @Resource(name="articleCategoryServiceImpl")
-  private ArticleCategoryService articleCategoryService;
+	@Resource(name = "articleCategoryServiceImpl")
+	private ArticleCategoryService articleCategoryService;
 
-  @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String add(ModelMap model)
-  {
-    model.addAttribute("articleCategoryTree", this.articleCategoryService.findTree());
-    return "/admin/article_category/add";
-  }
+	@RequestMapping(value = { "/add" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String add(ModelMap model) {
+		model.addAttribute("articleCategoryTree",
+				this.articleCategoryService.findTree());
+		return "/admin/article_category/add";
+	}
 
-  @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public String save(ArticleCategory articleCategory, Long parentId, RedirectAttributes redirectAttributes)
-  {
-    articleCategory.setParent((ArticleCategory)this.articleCategoryService.find(parentId));
-    if (!IIIllIlI(articleCategory, new Class[0]))
-      return "/admin/common/error";
-    articleCategory.setTreePath(null);
-    articleCategory.setGrade(null);
-    articleCategory.setChildren(null);
-    articleCategory.setArticles(null);
-    this.articleCategoryService.save(articleCategory);
-    IIIllIlI(redirectAttributes, IIIlllII);
-    return "redirect:list.jhtml";
-  }
+	@RequestMapping(value = { "/save" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	public String save(ArticleCategory articleCategory, Long parentId,
+			RedirectAttributes redirectAttributes) {
+		articleCategory.setParent((ArticleCategory) this.articleCategoryService
+				.find(parentId));
+		if (!IIIllIlI(articleCategory, new Class[0]))
+			return "/admin/common/error";
+		articleCategory.setTreePath(null);
+		articleCategory.setGrade(null);
+		articleCategory.setChildren(null);
+		articleCategory.setArticles(null);
+		this.articleCategoryService.save(articleCategory);
+		IIIllIlI(redirectAttributes, IIIlllII);
+		return "redirect:list.jhtml";
+	}
 
-  @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String edit(Long id, ModelMap model)
-  {
-    ArticleCategory localArticleCategory = (ArticleCategory)this.articleCategoryService.find(id);
-    model.addAttribute("articleCategoryTree", this.articleCategoryService.findTree());
-    model.addAttribute("articleCategory", localArticleCategory);
-    model.addAttribute("children", this.articleCategoryService.findChildren(localArticleCategory));
-    return "/admin/article_category/edit";
-  }
+	@RequestMapping(value = { "/edit" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String edit(Long id, ModelMap model) {
+		ArticleCategory localArticleCategory = (ArticleCategory) this.articleCategoryService
+				.find(id);
+		model.addAttribute("articleCategoryTree",
+				this.articleCategoryService.findTree());
+		model.addAttribute("articleCategory", localArticleCategory);
+		model.addAttribute("children",
+				this.articleCategoryService.findChildren(localArticleCategory));
+		return "/admin/article_category/edit";
+	}
 
-  @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public String update(ArticleCategory articleCategory, Long parentId, RedirectAttributes redirectAttributes)
-  {
-    articleCategory.setParent((ArticleCategory)this.articleCategoryService.find(parentId));
-    if (!IIIllIlI(articleCategory, new Class[0]))
-      return "/admin/common/error";
-    if (articleCategory.getParent() != null)
-    {
-      ArticleCategory localArticleCategory = articleCategory.getParent();
-      if (localArticleCategory.equals(articleCategory))
-        return "/admin/common/error";
-      List localList = this.articleCategoryService.findChildren(localArticleCategory);
-      if ((localList != null) && (localList.contains(localArticleCategory)))
-        return "/admin/common/error";
-    }
-    this.articleCategoryService.update(articleCategory, new String[] { "treePath", "grade", "children", "articles" });
-    IIIllIlI(redirectAttributes, IIIlllII);
-    return "redirect:list.jhtml";
-  }
+	@RequestMapping(value = { "/update" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	public String update(ArticleCategory articleCategory, Long parentId,
+			RedirectAttributes redirectAttributes) {
+		articleCategory.setParent((ArticleCategory) this.articleCategoryService
+				.find(parentId));
+		if (!IIIllIlI(articleCategory, new Class[0]))
+			return "/admin/common/error";
+		if (articleCategory.getParent() != null) {
+			ArticleCategory localArticleCategory = articleCategory.getParent();
+			if (localArticleCategory.equals(articleCategory))
+				return "/admin/common/error";
+			List localList = this.articleCategoryService
+					.findChildren(localArticleCategory);
+			if ((localList != null)
+					&& (localList.contains(localArticleCategory)))
+				return "/admin/common/error";
+		}
+		this.articleCategoryService.update(articleCategory, new String[] {
+				"treePath", "grade", "children", "articles" });
+		IIIllIlI(redirectAttributes, IIIlllII);
+		return "redirect:list.jhtml";
+	}
 
-  @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String list(ModelMap model)
-  {
-    model.addAttribute("articleCategoryTree", this.articleCategoryService.findTree());
-    return "/admin/article_category/list";
-  }
+	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String list(ModelMap model) {
+		model.addAttribute("articleCategoryTree",
+				this.articleCategoryService.findTree());
+		return "/admin/article_category/list";
+	}
 
-  @RequestMapping(value={"/delete"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  @ResponseBody
-  public Message delete(Long id)
-  {
-    ArticleCategory localArticleCategory = (ArticleCategory)this.articleCategoryService.find(id);
-    if (localArticleCategory == null)
-      return IIIllIll;
-    Set localSet1 = localArticleCategory.getChildren();
-    if ((localSet1 != null) && (!localSet1.isEmpty()))
-      return Message.error("admin.articleCategory.deleteExistChildrenNotAllowed", new Object[0]);
-    Set localSet2 = localArticleCategory.getArticles();
-    if ((localSet2 != null) && (!localSet2.isEmpty()))
-      return Message.error("admin.articleCategory.deleteExistArticleNotAllowed", new Object[0]);
-    this.articleCategoryService.delete(id);
-    return IIIlllII;
-  }
+	@RequestMapping(value = { "/delete" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	@ResponseBody
+	public Message delete(Long id) {
+		ArticleCategory localArticleCategory = (ArticleCategory) this.articleCategoryService
+				.find(id);
+		if (localArticleCategory == null)
+			return IIIllIll;
+		Set localSet1 = localArticleCategory.getChildren();
+		if ((localSet1 != null) && (!localSet1.isEmpty()))
+			return Message.error(
+					"admin.articleCategory.deleteExistChildrenNotAllowed",
+					new Object[0]);
+		Set localSet2 = localArticleCategory.getArticles();
+		if ((localSet2 != null) && (!localSet2.isEmpty()))
+			return Message.error(
+					"admin.articleCategory.deleteExistArticleNotAllowed",
+					new Object[0]);
+		this.articleCategoryService.delete(id);
+		return IIIlllII;
+	}
 }

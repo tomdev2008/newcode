@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
 public class DepositDaoImpl extends BaseDaoImpl<Deposit, Long> implements
 		DepositDao {
 	public Page<Deposit> findPage(Member member, Pageable pageable) {
-		if (member == null){
+		if (member == null) {
 			return new Page<Deposit>(null, 0L, pageable);
-		}	
+		}
 		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
 		CriteriaQuery<Deposit> cq = cb.createQuery(Deposit.class);
 		Root<Deposit> root = cq.from(Deposit.class);

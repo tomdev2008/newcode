@@ -3,7 +3,6 @@ package net.shopxx.dao;
 import java.util.List;
 import net.shopxx.entity.Area;
 
-public abstract interface AreaDao extends BaseDao<Area, Long>
-{
-  public abstract List<Area> findRoots(Integer paramInteger);
+public abstract interface AreaDao extends BaseDao<Area, Long> {
+	public abstract List<Area> findRoots(Integer paramInteger);
 }

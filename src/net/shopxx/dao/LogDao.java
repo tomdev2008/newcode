@@ -2,7 +2,6 @@ package net.shopxx.dao;
 
 import net.shopxx.entity.Log;
 
-public abstract interface LogDao extends BaseDao<Log, Long>
-{
-  public abstract void removeAll();
+public abstract interface LogDao extends BaseDao<Log, Long> {
+	public abstract void removeAll();
 }

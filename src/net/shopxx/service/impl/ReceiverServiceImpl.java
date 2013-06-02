@@ -12,27 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("receiverServiceImpl")
 public class ReceiverServiceImpl extends BaseServiceImpl<Receiver, Long>
-  implements ReceiverService
-{
+		implements ReceiverService {
 
-  @Resource(name="receiverDaoImpl")
-  private ReceiverDao receiverDao;
+	@Resource(name = "receiverDaoImpl")
+	private ReceiverDao receiverDao;
 
-  @Resource(name="receiverDaoImpl")
-  public void setBaseDao(ReceiverDao receiverDao)
-  {
-    super.setBaseDao(receiverDao);
-  }
+	@Resource(name = "receiverDaoImpl")
+	public void setBaseDao(ReceiverDao receiverDao) {
+		super.setBaseDao(receiverDao);
+	}
 
-  @Transactional(readOnly=true)
-  public Receiver findDefault(Member member)
-  {
-    return this.receiverDao.findDefault(member);
-  }
+	@Transactional(readOnly = true)
+	public Receiver findDefault(Member member) {
+		return this.receiverDao.findDefault(member);
+	}
 
-  @Transactional(readOnly=true)
-  public Page<Receiver> findPage(Member member, Pageable pageable)
-  {
-    return this.receiverDao.findPage(member, pageable);
-  }
+	@Transactional(readOnly = true)
+	public Page<Receiver> findPage(Member member, Pageable pageable) {
+		return this.receiverDao.findPage(member, pageable);
+	}
 }

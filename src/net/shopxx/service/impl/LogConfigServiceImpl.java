@@ -14,35 +14,28 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 @Service("logConfigServiceImpl")
-public class LogConfigServiceImpl
-  implements LogConfigService
-{
-  @Cacheable({"logConfig"})
-  public List<LogConfig> getAll()
-  {
-    try
-    {
-      File localFile = new ClassPathResource("/shopxx.xml").getFile();
-      Document localDocument = new SAXReader().read(localFile);
-      List localList = localDocument.selectNodes("/shopxx/logConfig");
-      ArrayList localArrayList = new ArrayList();
-      Iterator localIterator = localList.iterator();
-      while (localIterator.hasNext())
-      {
-        Element localElement = (Element)localIterator.next();
-        String str1 = localElement.attributeValue("operation");
-        String str2 = localElement.attributeValue("urlPattern");
-        LogConfig localLogConfig = new LogConfig();
-        localLogConfig.setOperation(str1);
-        localLogConfig.setUrlPattern(str2);
-        localArrayList.add(localLogConfig);
-      }
-      return localArrayList;
-    }
-    catch (Exception localException)
-    {
-      localException.printStackTrace();
-    }
-    return null;
-  }
+public class LogConfigServiceImpl implements LogConfigService {
+	@Cacheable({ "logConfig" })
+	public List<LogConfig> getAll() {
+		try {
+			File localFile = new ClassPathResource("/shopxx.xml").getFile();
+			Document localDocument = new SAXReader().read(localFile);
+			List localList = localDocument.selectNodes("/shopxx/logConfig");
+			ArrayList localArrayList = new ArrayList();
+			Iterator localIterator = localList.iterator();
+			while (localIterator.hasNext()) {
+				Element localElement = (Element) localIterator.next();
+				String str1 = localElement.attributeValue("operation");
+				String str2 = localElement.attributeValue("urlPattern");
+				LogConfig localLogConfig = new LogConfig();
+				localLogConfig.setOperation(str1);
+				localLogConfig.setUrlPattern(str2);
+				localArrayList.add(localLogConfig);
+			}
+			return localArrayList;
+		} catch (Exception localException) {
+			localException.printStackTrace();
+		}
+		return null;
+	}
 }

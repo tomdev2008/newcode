@@ -15,7 +15,8 @@ public class PaymentPluginController extends BaseController {
 
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String list(ModelMap model) {
-		model.addAttribute("paymentPlugins",this.pluginService.getPaymentPlugins());
+		model.addAttribute("paymentPlugins",
+				this.pluginService.getPaymentPlugins());
 		return "/admin/payment_plugin/list";
 	}
 }

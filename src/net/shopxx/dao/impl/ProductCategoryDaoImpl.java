@@ -69,7 +69,8 @@ public class ProductCategoryDaoImpl extends BaseDaoImpl<ProductCategory, Long>
 	public ProductCategory merge(ProductCategory productCategory) {
 		Assert.notNull(productCategory);
 		entityManager(productCategory);
-		Iterator<ProductCategory> localIterator = findChildren(productCategory, null).iterator();
+		Iterator<ProductCategory> localIterator = findChildren(productCategory,
+				null).iterator();
 		while (localIterator.hasNext()) {
 			ProductCategory localProductCategory = (ProductCategory) localIterator
 					.next();

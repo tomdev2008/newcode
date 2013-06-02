@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service("attributeServiceImpl")
 public class AttributeServiceImpl extends BaseServiceImpl<Attribute, Long>
-  implements AttributeService
-{
-  @Resource(name="attributeDaoImpl")
-  public void setBaseDao(AttributeDao attributeDao)
-  {
-    super.setBaseDao(attributeDao);
-  }
+		implements AttributeService {
+	@Resource(name = "attributeDaoImpl")
+	public void setBaseDao(AttributeDao attributeDao) {
+		super.setBaseDao(attributeDao);
+	}
 }

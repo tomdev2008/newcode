@@ -198,8 +198,10 @@ public class OrderController extends BaseController {
 				null, false, null, false, null);
 		model.addAttribute("order", localOrder);
 		model.addAttribute("cartToken", localCart.getToken());
-		model.addAttribute("paymentMethods", this.paymentMethodService.findAll());
-		model.addAttribute("shippingMethods", this.shippingMethodService.findAll());
+		model.addAttribute("paymentMethods",
+				this.paymentMethodService.findAll());
+		model.addAttribute("shippingMethods",
+				this.shippingMethodService.findAll());
 		return "/shop/member/order/info";
 	}
 
@@ -251,7 +253,8 @@ public class OrderController extends BaseController {
 			return Message.warn("shop.order.cartHasChanged", new Object[0]);
 		if (localCart.getIsLowStock())
 			return Message.warn("shop.order.cartLowStock", new Object[0]);
-		Receiver localReceiver = (Receiver) this.receiverService.find(receiverId);
+		Receiver localReceiver = (Receiver) this.receiverService
+				.find(receiverId);
 		if (localReceiver == null)
 			return Message.error("shop.order.receiverNotExsit", new Object[0]);
 		PaymentMethod localPaymentMethod = (PaymentMethod) this.paymentMethodService

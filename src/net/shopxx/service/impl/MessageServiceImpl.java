@@ -12,38 +12,32 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("messageServiceImpl")
 public class MessageServiceImpl extends BaseServiceImpl<Message, Long>
-  implements MessageService
-{
+		implements MessageService {
 
-  @Resource(name="messageDaoImpl")
-  private MessageDao messageDao;
+	@Resource(name = "messageDaoImpl")
+	private MessageDao messageDao;
 
-  @Resource(name="messageDaoImpl")
-  public void setBaseDao(MessageDao messageDao)
-  {
-    super.setBaseDao(messageDao);
-  }
+	@Resource(name = "messageDaoImpl")
+	public void setBaseDao(MessageDao messageDao) {
+		super.setBaseDao(messageDao);
+	}
 
-  @Transactional(readOnly=true)
-  public Page<Message> findPage(Member member, Pageable pageable)
-  {
-    return this.messageDao.findPage(member, pageable);
-  }
+	@Transactional(readOnly = true)
+	public Page<Message> findPage(Member member, Pageable pageable) {
+		return this.messageDao.findPage(member, pageable);
+	}
 
-  @Transactional(readOnly=true)
-  public Page<Message> findDraftPage(Member sender, Pageable pageable)
-  {
-    return this.messageDao.findDraftPage(sender, pageable);
-  }
+	@Transactional(readOnly = true)
+	public Page<Message> findDraftPage(Member sender, Pageable pageable) {
+		return this.messageDao.findDraftPage(sender, pageable);
+	}
 
-  @Transactional(readOnly=true)
-  public Long count(Member member, Boolean read)
-  {
-    return this.messageDao.count(member, read);
-  }
+	@Transactional(readOnly = true)
+	public Long count(Member member, Boolean read) {
+		return this.messageDao.count(member, read);
+	}
 
-  public void delete(Long id, Member member)
-  {
-    this.messageDao.remove(id, member);
-  }
+	public void delete(Long id, Member member) {
+		this.messageDao.remove(id, member);
+	}
 }

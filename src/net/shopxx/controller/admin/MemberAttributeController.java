@@ -60,8 +60,7 @@ public class MemberAttributeController extends BaseController {
 		} else {
 			return "/admin/common/error";
 		}
-		localObject = this.memberAttributeService
-				.findUnusedPropertyIndex();
+		localObject = this.memberAttributeService.findUnusedPropertyIndex();
 		if (localObject == null)
 			return "/admin/common/error";
 		memberAttribute.setPropertyIndex((Integer) localObject);

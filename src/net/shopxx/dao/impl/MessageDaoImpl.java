@@ -73,87 +73,60 @@ public class MessageDaoImpl extends BaseDaoImpl<Message, Long> implements
 		Root<Message> localRoot = cq.from(Message.class);
 		cq.select(localRoot);
 		Predicate predicate = cb.conjunction();
-		predicate = cb.and(new Predicate[] {predicate,cb.isNull(localRoot.get("forMessage")),cb.equal(localRoot.get("isDraft"),	Boolean.valueOf(false)) });
+		predicate = cb.and(new Predicate[] { predicate,
+				cb.isNull(localRoot.get("forMessage")),
+				cb.equal(localRoot.get("isDraft"), Boolean.valueOf(false)) });
 		if (member != null) {
 			if (read != null)
-				predicate = cb.and(predicate,cb.or(cb.and(new Predicate[] {
-												cb.equal(
-														localRoot.get("sender"),
-														member),
-												cb.equal(
-														localRoot
-																.get("senderDelete"),
-														Boolean.valueOf(false)),
-												cb.equal(
-														localRoot
-																.get("senderRead"),
-														read) }),
+				predicate = cb
+						.and(predicate,
+								cb.or(cb.and(new Predicate[] {
+										cb.equal(localRoot.get("sender"),
+												member),
+										cb.equal(localRoot.get("senderDelete"),
+												Boolean.valueOf(false)),
+										cb.equal(localRoot.get("senderRead"),
+												read) }),
 										cb.and(new Predicate[] {
-												cb.equal(
-														localRoot
-																.get("receiver"),
+												cb.equal(localRoot
+														.get("receiver"),
 														member),
-												cb.equal(
-														localRoot
-																.get("receiverDelete"),
+												cb.equal(localRoot
+														.get("receiverDelete"),
 														Boolean.valueOf(false)),
-												cb.equal(
-														localRoot
-																.get("receiverRead"),
+												cb.equal(localRoot
+														.get("receiverRead"),
 														read) })));
 			else
-				predicate = cb.and(predicate,
-						cb.or(cb.and(
-								cb.equal(
-										localRoot.get("sender"), member),
-								cb.equal(
-										localRoot.get("senderDelete"),
-										Boolean.valueOf(false))),
-								cb.and(cb
-										.equal(localRoot.get("receiver"),
-												member), cb
-										.equal(localRoot.get("receiverDelete"),
-												Boolean.valueOf(false)))));
+				predicate = cb.and(predicate, cb.or(cb.and(
+						cb.equal(localRoot.get("sender"), member),
+						cb.equal(localRoot.get("senderDelete"),
+								Boolean.valueOf(false))), cb.and(
+						cb.equal(localRoot.get("receiver"), member),
+						cb.equal(localRoot.get("receiverDelete"),
+								Boolean.valueOf(false)))));
 		} else if (read != null) {
-			predicate = cb
-					.and(predicate,
-							cb.or(
-									cb.and(new Predicate[] {
-											cb
-													.isNull(localRoot
-															.get("sender")),
-											cb.equal(
-													localRoot
-															.get("senderDelete"),
-													Boolean.valueOf(false)),
-											cb.equal(
-													localRoot.get("senderRead"),
-													read) }),
-									cb.and(new Predicate[] {
-											cb
-													.isNull(localRoot
-															.get("receiver")),
-											cb.equal(
-													localRoot
-															.get("receiverDelete"),
-													Boolean.valueOf(false)),
-											cb.equal(
-													localRoot
-															.get("receiverRead"),
-													read) })));
+			predicate = cb.and(predicate, cb.or(
+					cb.and(new Predicate[] {
+							cb.isNull(localRoot.get("sender")),
+							cb.equal(localRoot.get("senderDelete"),
+									Boolean.valueOf(false)),
+							cb.equal(localRoot.get("senderRead"), read) }),
+					cb.and(new Predicate[] {
+							cb.isNull(localRoot.get("receiver")),
+							cb.equal(localRoot.get("receiverDelete"),
+									Boolean.valueOf(false)),
+							cb.equal(localRoot.get("receiverRead"), read) })));
 		} else {
-			predicate = cb.and(predicate,
-					cb.or(
-							cb.and(cb
-									.isNull(localRoot.get("sender")),
-									cb.equal(
-											localRoot.get("senderDelete"),
-											Boolean.valueOf(false))),
-							cb.and(cb
-									.isNull(localRoot.get("receiver")),
-									cb.equal(
-											localRoot.get("receiverDelete"),
-											Boolean.valueOf(false)))));
+			predicate = cb.and(
+					predicate,
+					cb.or(cb.and(
+							cb.isNull(localRoot.get("sender")),
+							cb.equal(localRoot.get("senderDelete"),
+									Boolean.valueOf(false))), cb.and(
+							cb.isNull(localRoot.get("receiver")),
+							cb.equal(localRoot.get("receiverDelete"),
+									Boolean.valueOf(false)))));
 			cq.where(predicate);
 		}
 		return null;

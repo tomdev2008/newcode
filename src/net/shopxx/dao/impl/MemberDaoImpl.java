@@ -72,52 +72,38 @@ public class MemberDaoImpl extends BaseDaoImpl<Member, Long> implements
 
 	public Page<Member> findPurchasePage(Date beginDate, Date endDate,
 			Pageable pageable) {
-		CriteriaBuilder cb = this.entityManager
-				.getCriteriaBuilder();
-		CriteriaQuery<Member> cq = cb
-				.createQuery(Member.class);
+		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Member> cq = cb.createQuery(Member.class);
 		Root<Member> root = cq.from(Member.class);
 		Join join = root.join("orders");
-		cq.multiselect(new Selection[] { root,cb.sum(join.get("amountPaid")) });
+		cq.multiselect(new Selection[] { root, cb.sum(join.get("amountPaid")) });
 		Predicate predicate = cb.conjunction();
 		if (beginDate != null)
-			predicate = cb.and(
-					predicate,
-					cb.greaterThanOrEqualTo(
-							join.get("createDate"), beginDate));
+			predicate = cb.and(predicate,
+					cb.greaterThanOrEqualTo(join.get("createDate"), beginDate));
 		if (endDate != null)
-			predicate = cb.and(
-					predicate,
-					cb.lessThanOrEqualTo(
-							join.get("createDate"), endDate));
+			predicate = cb.and(predicate,
+					cb.lessThanOrEqualTo(join.get("createDate"), endDate));
 		predicate = cb.and(predicate,
-				cb.equal(join.get("orderStatus"),
-						OrderStatus.completed));
+				cb.equal(join.get("orderStatus"), OrderStatus.completed));
 		predicate = cb.and(predicate,
-				cb.equal(join.get("paymentStatus"),
-						OrderPaymentStatus.paid));
+				cb.equal(join.get("paymentStatus"), OrderPaymentStatus.paid));
 		cq.where(predicate);
 		cq.groupBy(new Expression[] { root.get("id") });
-		CriteriaQuery localCriteriaQuery2 = cb
-				.createQuery(Long.class);
+		CriteriaQuery localCriteriaQuery2 = cb.createQuery(Long.class);
 		Root localRoot2 = localCriteriaQuery2.from(Member.class);
 		Join localJoin2 = localRoot2.join("orders");
-		localCriteriaQuery2.select(cb
-				.countDistinct(localRoot2));
+		localCriteriaQuery2.select(cb.countDistinct(localRoot2));
 		Predicate localPredicate2 = cb.conjunction();
 		if (beginDate != null)
-			localPredicate2 = cb.and(
-					localPredicate2,
-					cb.greaterThanOrEqualTo(
-							localJoin2.get("createDate"), beginDate));
+			localPredicate2 = cb.and(localPredicate2, cb.greaterThanOrEqualTo(
+					localJoin2.get("createDate"), beginDate));
 		if (endDate != null)
-			localPredicate2 = cb.and(
-					localPredicate2,
-					cb.lessThanOrEqualTo(
+			localPredicate2 = cb
+					.and(localPredicate2, cb.lessThanOrEqualTo(
 							localJoin2.get("createDate"), endDate));
 		localPredicate2 = cb.and(localPredicate2,
-				cb.equal(localJoin2.get("orderStatus"),
-						OrderStatus.completed));
+				cb.equal(localJoin2.get("orderStatus"), OrderStatus.completed));
 		localCriteriaQuery2.where(localPredicate2);
 		Long localLong = (Long) this.entityManager
 				.createQuery(localCriteriaQuery2)
@@ -125,12 +111,9 @@ public class MemberDaoImpl extends BaseDaoImpl<Member, Long> implements
 		int i = (int) Math.ceil(localLong.longValue() / pageable.getPageSize());
 		if (i < pageable.getPageNumber())
 			pageable.setPageNumber(i);
-		cq
-				.orderBy(new Order[] { cb
-						.desc(cb.sum(join
-								.get("amountPaid"))) });
-		TypedQuery localTypedQuery = this.entityManager.createQuery(
-				cq).setFlushMode(FlushModeType.COMMIT);
+		cq.orderBy(new Order[] { cb.desc(cb.sum(join.get("amountPaid"))) });
+		TypedQuery localTypedQuery = this.entityManager.createQuery(cq)
+				.setFlushMode(FlushModeType.COMMIT);
 		localTypedQuery.setFirstResult((pageable.getPageNumber() - 1)
 				* pageable.getPageSize());
 		localTypedQuery.setMaxResults(pageable.getPageSize());

@@ -7,9 +7,10 @@ import net.shopxx.Order;
 import net.shopxx.entity.Navigation;
 import net.shopxx.entity.Navigation.NavigationPosition;
 
-public abstract interface NavigationService extends BaseService<Navigation, Long>
-{
-  public abstract List<Navigation> findList(NavigationPosition paramPosition);
+public abstract interface NavigationService extends
+		BaseService<Navigation, Long> {
+	public abstract List<Navigation> findList(NavigationPosition paramPosition);
 
-  public abstract List<Navigation> findList(Integer paramInteger, List<Filter> paramList, List<Order> paramList1, String paramString);
+	public abstract List<Navigation> findList(Integer paramInteger,
+			List<Filter> paramList, List<Order> paramList1, String paramString);
 }

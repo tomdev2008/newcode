@@ -8,15 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component("staticJob")
 @Lazy(false)
-public class StaticJob
-{
+public class StaticJob {
 
-  @Resource(name="staticServiceImpl")
-  private StaticService IIIllIlI;
+	@Resource(name = "staticServiceImpl")
+	private StaticService IIIllIlI;
 
-  @Scheduled(cron="${job.static_build.cron}")
-  public void build()
-  {
-    this.IIIllIlI.buildAll();
-  }
+	@Scheduled(cron = "${job.static_build.cron}")
+	public void build() {
+		this.IIIllIlI.buildAll();
+	}
 }

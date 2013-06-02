@@ -20,6 +20,7 @@ import net.shopxx.util.SettingUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.time.DateUtils;
 
@@ -33,7 +34,7 @@ public class Cart extends BaseEntity {
 	public static final String KEY_COOKIE_NAME = "cartKey";
 	private String key;
 	private Member member;
-	private Set<CartItem> cartItems = new HashSet();
+	private Set<CartItem> cartItems = new HashSet<CartItem>();
 
 	@Column(name = "cart_key", nullable = false, updatable = false)
 	public String getKey() {
@@ -65,21 +66,21 @@ public class Cart extends BaseEntity {
 	@Transient
 	public int getPoint() {
 		int i = 0;
-		Object localObject;
+		CartItem cartItem;
 		if (getCartItems() != null) {
-			localIterator = getCartItems().iterator();
-			while (localIterator.hasNext()) {
-				localObject = (CartItem) localIterator.next();
-				if (localObject == null)
+			Iterator<CartItem> cartItemIterator = getCartItems().iterator();
+			while (cartItemIterator.hasNext()) {
+				cartItem = cartItemIterator.next();
+				if (cartItem == null)
 					continue;
-				i = (int) (i + ((CartItem) localObject).getPoint());
+				i = (int) (i + cartItem.getPoint());
 			}
 		}
-		Iterator localIterator = getPromotions().iterator();
-		while (localIterator.hasNext()) {
-			localObject = (Promotion) localIterator.next();
-			i = ((Promotion) localObject).calculatePoint(Integer.valueOf(i))
-					.intValue();
+		Iterator<Promotion> promotionIterator = getPromotions().iterator();
+		Promotion promotion;
+		while (promotionIterator.hasNext()) {
+			promotion = promotionIterator.next();
+			i = promotion.calculatePoint(Integer.valueOf(i)).intValue();
 		}
 		return i;
 	}
@@ -88,7 +89,7 @@ public class Cart extends BaseEntity {
 	public int getWeight() {
 		int i = 0;
 		if (getCartItems() != null) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				if (localCartItem == null)
@@ -103,7 +104,7 @@ public class Cart extends BaseEntity {
 	public int getQuantity() {
 		int i = 0;
 		if (getCartItems() != null) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				if ((localCartItem == null)
@@ -119,7 +120,7 @@ public class Cart extends BaseEntity {
 	public BigDecimal getPrice() {
 		BigDecimal localBigDecimal = new BigDecimal(0);
 		if (getCartItems() != null) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				if ((localCartItem == null)
@@ -136,7 +137,7 @@ public class Cart extends BaseEntity {
 	public BigDecimal getAmount() {
 		Setting localSetting = SettingUtils.get();
 		BigDecimal localBigDecimal = getPrice();
-		Iterator localIterator = getPromotions().iterator();
+		Iterator<Promotion> localIterator = getPromotions().iterator();
 		while (localIterator.hasNext()) {
 			Promotion localPromotion = (Promotion) localIterator.next();
 			localBigDecimal = localPromotion.calculatePrice(localBigDecimal);
@@ -154,22 +155,28 @@ public class Cart extends BaseEntity {
 	@Transient
   public Set<GiftItem> getGiftItems()
   {
-    HashSet localHashSet = new HashSet();
-    Iterator localIterator1 = getPromotions().iterator();
-    while (localIterator1.hasNext())
+    HashSet<GiftItem> localHashSet = new HashSet<GiftItem>();
+    Iterator<Promotion> promotionIterator = getPromotions().iterator();
+    while (promotionIterator.hasNext())
     {
-      Promotion localPromotion = (Promotion)localIterator1.next();
-      if (localPromotion.getGiftItems() == null)
+      Promotion promotion = promotionIterator.next();
+      if (promotion.getGiftItems() == null)
         continue;
-      Iterator localIterator2 = localPromotion.getGiftItems().iterator();
-      while (localIterator2.hasNext())
+      Iterator<GiftItem> giftItemIterator = promotion.getGiftItems().iterator();
+      while (giftItemIterator.hasNext())
       {
-        GiftItem localGiftItem1 = (GiftItem)localIterator2.next();
-        GiftItem localGiftItem2 = (GiftItem)CollectionUtils.find(localHashSet, new Cart.1(this, localGiftItem1));
+        GiftItem giftItem = giftItemIterator.next();
+        GiftItem localGiftItem2 = (GiftItem)CollectionUtils.find(localHashSet, new Predicate() {
+			public boolean evaluate(Object arg0) {
+				GiftItem localGiftItem = (GiftItem) arg0;
+				if(localGiftItem != null)return true;
+				else return false;
+			}
+		});
         if (localGiftItem2 != null)
-          localGiftItem2.setQuantity(Integer.valueOf(localGiftItem2.getQuantity().intValue() + localGiftItem1.getQuantity().intValue()));
+          localGiftItem2.setQuantity(Integer.valueOf(localGiftItem2.getQuantity().intValue() + giftItem.getQuantity().intValue()));
         else
-          localHashSet.add(localGiftItem1);
+          localHashSet.add(localGiftItem2);
       }
     }
     return localHashSet;
@@ -177,28 +184,27 @@ public class Cart extends BaseEntity {
 
 	@Transient
 	public Set<Promotion> getPromotions() {
-		HashSet localHashSet = new HashSet();
-		Object localObject2;
+		HashSet<Promotion> localHashSet = new HashSet<Promotion>();
+		CartItem cartItem;
+		Promotion promotion;
 		if (getCartItems() != null) {
-			localObject2 = getCartItems().iterator();
-			while (((Iterator) localObject2).hasNext()) {
-				localObject1 = (CartItem) ((Iterator) localObject2).next();
-				if ((localObject1 == null)
-						|| (((CartItem) localObject1).getProduct() == null))
+			Iterator<CartItem> cartItemIterator = getCartItems().iterator();
+			while (cartItemIterator.hasNext()) {
+				cartItem = cartItemIterator.next();
+				if ((cartItem == null) || (cartItem.getProduct() == null))
 					continue;
-				localHashSet.addAll(((CartItem) localObject1).getProduct()
-						.getValidPromotions());
+				localHashSet.addAll(cartItem.getProduct().getValidPromotions());
 			}
 		}
-		Object localObject1 = new TreeSet();
-		Iterator localIterator = localHashSet.iterator();
+		TreeSet<Promotion> promotionTreeSet = new TreeSet<Promotion>();
+		Iterator<Promotion> localIterator = localHashSet.iterator();
 		while (localIterator.hasNext()) {
-			localObject2 = (Promotion) localIterator.next();
-			if (!key((Promotion) localObject2))
+			promotion = localIterator.next();
+			if (!key(promotion))
 				continue;
-			((Set) localObject1).add(localObject2);
+			promotionTreeSet.add(promotion);
 		}
-		return (Set<Promotion>) (Set<Promotion>) localObject1;
+		return promotionTreeSet;
 	}
 
 	@Transient
@@ -214,7 +220,7 @@ public class Cart extends BaseEntity {
 			return false;
 		BigDecimal localBigDecimal = new BigDecimal(0);
 		if (getCartItems() != null) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				if (localCartItem == null)
@@ -262,7 +268,7 @@ public class Cart extends BaseEntity {
 	@Transient
 	public CartItem getCartItem(Product product) {
 		if ((product != null) && (getCartItems() != null)) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				if ((localCartItem != null)
@@ -276,7 +282,7 @@ public class Cart extends BaseEntity {
 	@Transient
 	public boolean contains(Product product) {
 		if ((product != null) && (getCartItems() != null)) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				if ((localCartItem != null)
@@ -292,7 +298,7 @@ public class Cart extends BaseEntity {
 		HashCodeBuilder localHashCodeBuilder = new HashCodeBuilder(17, 37)
 				.append(getKey());
 		if (getCartItems() != null) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				localHashCodeBuilder.append(localCartItem.getProduct())
@@ -306,7 +312,7 @@ public class Cart extends BaseEntity {
 	@Transient
 	public boolean getIsLowStock() {
 		if (getCartItems() != null) {
-			Iterator localIterator = getCartItems().iterator();
+			Iterator<CartItem> localIterator = getCartItems().iterator();
 			while (localIterator.hasNext()) {
 				CartItem localCartItem = (CartItem) localIterator.next();
 				if ((localCartItem != null) && (localCartItem.getIsLowStock()))
@@ -323,7 +329,7 @@ public class Cart extends BaseEntity {
 
 	@Transient
 	public boolean isCouponAllowed() {
-		Iterator localIterator = getPromotions().iterator();
+		Iterator<Promotion> localIterator = getPromotions().iterator();
 		while (localIterator.hasNext()) {
 			Promotion localPromotion = (Promotion) localIterator.next();
 			if ((localPromotion != null)

@@ -27,59 +27,56 @@ import org.apache.poi.ss.usermodel.Comment;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
 
-public class ExcelView extends AbstractExcelView
-{
-  private static final String IIIllIlI = "yyyy-MM-dd HH:mm:ss";
-  private String filename;
-  private String sheetName;
-  private String[] properties;
-  private String[] titles;
-  private Integer[] widths;
-  private Converter[] converters;
-  private Collection<?> data;
-  private String[] contents;
+public class ExcelView extends AbstractExcelView {
+	private static final String IIIllIlI = "yyyy-MM-dd HH:mm:ss";
+	private String filename;
+	private String sheetName;
+	private String[] properties;
+	private String[] titles;
+	private Integer[] widths;
+	private Converter[] converters;
+	private Collection<?> data;
+	private String[] contents;
 
-  static
-  {
-    DateConverter localDateConverter = new DateConverter();
-    localDateConverter.setPattern("yyyy-MM-dd HH:mm:ss");
-    ConvertUtils.register(localDateConverter, Date.class);
-  }
+	static {
+		DateConverter localDateConverter = new DateConverter();
+		localDateConverter.setPattern("yyyy-MM-dd HH:mm:ss");
+		ConvertUtils.register(localDateConverter, Date.class);
+	}
 
-  public ExcelView(String filename, String sheetName, String[] properties, String[] titles, Integer[] widths, Converter[] converters, Collection<?> data, String[] contents)
-  {
-    this.filename = filename;
-    this.sheetName = sheetName;
-    this.properties = properties;
-    this.titles = titles;
-    this.widths = widths;
-    this.converters = converters;
-    this.data = data;
-    this.contents = contents;
-  }
+	public ExcelView(String filename, String sheetName, String[] properties,
+			String[] titles, Integer[] widths, Converter[] converters,
+			Collection<?> data, String[] contents) {
+		this.filename = filename;
+		this.sheetName = sheetName;
+		this.properties = properties;
+		this.titles = titles;
+		this.widths = widths;
+		this.converters = converters;
+		this.data = data;
+		this.contents = contents;
+	}
 
-  public ExcelView(String[] properties, String[] titles, Collection<?> data, String[] contents)
-  {
-    this.properties = properties;
-    this.titles = titles;
-    this.data = data;
-    this.contents = contents;
-  }
+	public ExcelView(String[] properties, String[] titles, Collection<?> data,
+			String[] contents) {
+		this.properties = properties;
+		this.titles = titles;
+		this.data = data;
+		this.contents = contents;
+	}
 
-  public ExcelView(String[] properties, String[] titles, Collection<?> data)
-  {
-    this.properties = properties;
-    this.titles = titles;
-    this.data = data;
-  }
+	public ExcelView(String[] properties, String[] titles, Collection<?> data) {
+		this.properties = properties;
+		this.titles = titles;
+		this.data = data;
+	}
 
-  public ExcelView(String[] properties, Collection<?> data)
-  {
-    this.properties = properties;
-    this.data = data;
-  }
+	public ExcelView(String[] properties, Collection<?> data) {
+		this.properties = properties;
+		this.data = data;
+	}
 
-  public void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response)
+	public void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response)
   {
     Assert.notEmpty(this.properties);
     HSSFSheet localHSSFSheet;
@@ -188,83 +185,67 @@ public class ExcelView extends AbstractExcelView
       response.setHeader("Content-disposition", "attachment");
   }
 
-  public String getFileName()
-  {
-    return this.filename;
-  }
+	public String getFileName() {
+		return this.filename;
+	}
 
-  public void setFileName(String filename)
-  {
-    this.filename = filename;
-  }
+	public void setFileName(String filename) {
+		this.filename = filename;
+	}
 
-  public String getSheetName()
-  {
-    return this.sheetName;
-  }
+	public String getSheetName() {
+		return this.sheetName;
+	}
 
-  public void setSheetName(String sheetName)
-  {
-    this.sheetName = sheetName;
-  }
+	public void setSheetName(String sheetName) {
+		this.sheetName = sheetName;
+	}
 
-  public String[] getProperties()
-  {
-    return this.properties;
-  }
+	public String[] getProperties() {
+		return this.properties;
+	}
 
-  public void setProperties(String[] properties)
-  {
-    this.properties = properties;
-  }
+	public void setProperties(String[] properties) {
+		this.properties = properties;
+	}
 
-  public String[] getTitles()
-  {
-    return this.titles;
-  }
+	public String[] getTitles() {
+		return this.titles;
+	}
 
-  public void setTitles(String[] titles)
-  {
-    this.titles = titles;
-  }
+	public void setTitles(String[] titles) {
+		this.titles = titles;
+	}
 
-  public Integer[] getWidths()
-  {
-    return this.widths;
-  }
+	public Integer[] getWidths() {
+		return this.widths;
+	}
 
-  public void setWidths(Integer[] widths)
-  {
-    this.widths = widths;
-  }
+	public void setWidths(Integer[] widths) {
+		this.widths = widths;
+	}
 
-  public Converter[] getConverters()
-  {
-    return this.converters;
-  }
+	public Converter[] getConverters() {
+		return this.converters;
+	}
 
-  public void setConverters(Converter[] converters)
-  {
-    this.converters = converters;
-  }
+	public void setConverters(Converter[] converters) {
+		this.converters = converters;
+	}
 
-  public Collection<?> getData()
-  {
-    return this.data;
-  }
+	public Collection<?> getData() {
+		return this.data;
+	}
 
-  public void setData(Collection<?> data)
-  {
-    this.data = data;
-  }
+	public void setData(Collection<?> data) {
+		this.data = data;
+	}
 
-  public String[] getContents()
-  {
-    return this.contents;
-  }
+	public String[] getContents() {
+		return this.contents;
+	}
 
-  public void setContents(String[] contents)
-  {
-    this.contents = contents;
-  }
+	public void setContents(String[] contents) {
+		this.contents = contents;
+	}
 }

@@ -82,7 +82,8 @@ public class MemberRankDaoImpl extends BaseDaoImpl<MemberRank, Long> implements
 	public void remove(MemberRank memberRank) {
 		if ((memberRank != null) && (!memberRank.getIsDefault().booleanValue())) {
 			String str = "select product from Product product join product.memberPrice memberPrice where index(memberPrice) = :memberRank";
-			List<Product> localList = this.entityManager.createQuery(str, Product.class)
+			List<Product> localList = this.entityManager
+					.createQuery(str, Product.class)
 					.setFlushMode(FlushModeType.COMMIT)
 					.setParameter("memberRank", memberRank).getResultList();
 			for (int i = 0; i < localList.size(); i++) {

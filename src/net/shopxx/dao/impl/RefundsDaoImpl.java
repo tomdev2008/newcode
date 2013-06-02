@@ -5,7 +5,6 @@ import net.shopxx.entity.Refunds;
 import org.springframework.stereotype.Repository;
 
 @Repository("refundsDaoImpl")
-public class RefundsDaoImpl extends BaseDaoImpl<Refunds, Long>
-  implements RefundsDao
-{
+public class RefundsDaoImpl extends BaseDaoImpl<Refunds, Long> implements
+		RefundsDao {
 }

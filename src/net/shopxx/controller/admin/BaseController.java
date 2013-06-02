@@ -21,8 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class BaseController {
 	protected static final String IIIllIlI = "/admin/common/error";
-	protected static final Message IIIllIll = Message.error("admin.message.error", new Object[0]);
-	protected static final Message IIIlllII = Message.success("admin.message.success", new Object[0]);
+	protected static final Message IIIllIll = Message.error(
+			"admin.message.error", new Object[0]);
+	protected static final Message IIIlllII = Message.success(
+			"admin.message.success", new Object[0]);
 	private static final String IIIlllIl = "constraintViolations";
 
 	@Resource(name = "validator")

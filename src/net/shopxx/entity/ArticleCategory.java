@@ -17,143 +17,120 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_article_category")
-public class ArticleCategory extends OrderEntity
-{
-  private static final long serialVersionUID = -5132652107151648662L;
-  public static final String TREE_PATH_SEPARATOR = ",";
-  private static final String IIIllIlI = "/article/list";
-  private static final String IIIllIll = ".jhtml";
-  private String name;
-  private String seoTitle;
-  private String seoKeywords;
-  private String seoDescription;
-  private String treePath;
-  private Integer grade;
-  private ArticleCategory parent;
-  private Set<ArticleCategory> children = new HashSet();
-  private Set<Article> articles = new HashSet();
+@Table(name = "xx_article_category")
+public class ArticleCategory extends OrderEntity {
+	private static final long serialVersionUID = -5132652107151648662L;
+	public static final String TREE_PATH_SEPARATOR = ",";
+	private static final String IIIllIlI = "/article/list";
+	private static final String IIIllIll = ".jhtml";
+	private String name;
+	private String seoTitle;
+	private String seoKeywords;
+	private String seoDescription;
+	private String treePath;
+	private Integer grade;
+	private ArticleCategory parent;
+	private Set<ArticleCategory> children = new HashSet<ArticleCategory>();
+	private Set<Article> articles = new HashSet<Article>();
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Length(max=200)
-  public String getSeoTitle()
-  {
-    return this.seoTitle;
-  }
+	@Length(max = 200)
+	public String getSeoTitle() {
+		return this.seoTitle;
+	}
 
-  public void setSeoTitle(String seoTitle)
-  {
-    this.seoTitle = seoTitle;
-  }
+	public void setSeoTitle(String seoTitle) {
+		this.seoTitle = seoTitle;
+	}
 
-  @Length(max=200)
-  public String getSeoKeywords()
-  {
-    return this.seoKeywords;
-  }
+	@Length(max = 200)
+	public String getSeoKeywords() {
+		return this.seoKeywords;
+	}
 
-  public void setSeoKeywords(String seoKeywords)
-  {
-    this.seoKeywords = seoKeywords;
-  }
+	public void setSeoKeywords(String seoKeywords) {
+		this.seoKeywords = seoKeywords;
+	}
 
-  @Length(max=200)
-  public String getSeoDescription()
-  {
-    return this.seoDescription;
-  }
+	@Length(max = 200)
+	public String getSeoDescription() {
+		return this.seoDescription;
+	}
 
-  public void setSeoDescription(String seoDescription)
-  {
-    this.seoDescription = seoDescription;
-  }
+	public void setSeoDescription(String seoDescription) {
+		this.seoDescription = seoDescription;
+	}
 
-  @Column(nullable=false)
-  public String getTreePath()
-  {
-    return this.treePath;
-  }
+	@Column(nullable = false)
+	public String getTreePath() {
+		return this.treePath;
+	}
 
-  public void setTreePath(String treePath)
-  {
-    this.treePath = treePath;
-  }
+	public void setTreePath(String treePath) {
+		this.treePath = treePath;
+	}
 
-  @Column(nullable=false)
-  public Integer getGrade()
-  {
-    return this.grade;
-  }
+	@Column(nullable = false)
+	public Integer getGrade() {
+		return this.grade;
+	}
 
-  public void setGrade(Integer grade)
-  {
-    this.grade = grade;
-  }
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
 
-  @ManyToOne(fetch=FetchType.LAZY)
-  public ArticleCategory getParent()
-  {
-    return this.parent;
-  }
+	@ManyToOne(fetch = FetchType.LAZY)
+	public ArticleCategory getParent() {
+		return this.parent;
+	}
 
-  public void setParent(ArticleCategory parent)
-  {
-    this.parent = parent;
-  }
+	public void setParent(ArticleCategory parent) {
+		this.parent = parent;
+	}
 
-  @OneToMany(mappedBy="parent", fetch=FetchType.LAZY)
-  @OrderBy("order asc")
-  public Set<ArticleCategory> getChildren()
-  {
-    return this.children;
-  }
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+	@OrderBy("order asc")
+	public Set<ArticleCategory> getChildren() {
+		return this.children;
+	}
 
-  public void setChildren(Set<ArticleCategory> children)
-  {
-    this.children = children;
-  }
+	public void setChildren(Set<ArticleCategory> children) {
+		this.children = children;
+	}
 
-  @OneToMany(mappedBy="articleCategory", fetch=FetchType.LAZY)
-  public Set<Article> getArticles()
-  {
-    return this.articles;
-  }
+	@OneToMany(mappedBy = "articleCategory", fetch = FetchType.LAZY)
+	public Set<Article> getArticles() {
+		return this.articles;
+	}
 
-  public void setArticles(Set<Article> articles)
-  {
-    this.articles = articles;
-  }
+	public void setArticles(Set<Article> articles) {
+		this.articles = articles;
+	}
 
-  @Transient
-  public List<Long> getTreePaths()
-  {
-    ArrayList localArrayList = new ArrayList();
-    String[] arrayOfString1 = StringUtils.split(getTreePath(), ",");
-    if (arrayOfString1 != null)
-      for (String str : arrayOfString1)
-        localArrayList.add(Long.valueOf(str));
-    return localArrayList;
-  }
+	@Transient
+	public List<Long> getTreePaths() {
+		ArrayList<Long> localArrayList = new ArrayList<Long>();
+		String[] arrayOfString1 = StringUtils.split(getTreePath(), ",");
+		if (arrayOfString1 != null)
+			for (String str : arrayOfString1)
+				localArrayList.add(Long.valueOf(str));
+		return localArrayList;
+	}
 
-  @Transient
-  public String getPath()
-  {
-    if (getId() != null)
-      return "/article/list/" + getId() + ".jhtml";
-    return null;
-  }
+	@Transient
+	public String getPath() {
+		if (getId() != null)
+			return "/article/list/" + getId() + ".jhtml";
+		return null;
+	}
 }
-
-

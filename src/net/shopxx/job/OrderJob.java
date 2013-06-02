@@ -8,15 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component("orderJob")
 @Lazy(false)
-public class OrderJob
-{
+public class OrderJob {
 
-  @Resource(name="orderServiceImpl")
-  private OrderService IIIllIlI;
+	@Resource(name = "orderServiceImpl")
+	private OrderService IIIllIlI;
 
-  @Scheduled(cron="${job.order_release_stock.cron}")
-  public void releaseStock()
-  {
-    this.IIIllIlI.releaseStock();
-  }
+	@Scheduled(cron = "${job.order_release_stock.cron}")
+	public void releaseStock() {
+		this.IIIllIlI.releaseStock();
+	}
 }

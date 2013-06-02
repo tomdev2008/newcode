@@ -55,7 +55,8 @@ public class ParameterGroupDaoImpl extends BaseDaoImpl<ParameterGroup, Long>
 				Parameter localParameter = (Parameter) parameterGroup
 						.getParameters().get(i);
 				String str = "select product from Product product join product.parameterValue parameterValue where index(parameterValue) = :parameter";
-				List localList = this.entityManager.createQuery(str, Product.class)
+				List localList = this.entityManager
+						.createQuery(str, Product.class)
 						.setFlushMode(FlushModeType.COMMIT)
 						.setParameter("parameter", localParameter)
 						.getResultList();

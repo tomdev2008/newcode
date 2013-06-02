@@ -18,158 +18,137 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="xx_brand")
-public class Brand extends OrderEntity
-{
-  private static final long serialVersionUID = -6109590619136943215L;
-  public enum BrandType
-  {
-    text, image;
-  }
-  private static final String IIIllIlI = "/brand/content";
-  private static final String IIIllIll = ".jhtml";
-  private String name;
-  private BrandType type;
-  private String logo;
-  private String url;
-  private String introduction;
-  private Set<Product> products = new HashSet();
-  private Set<ProductCategory> productCategories = new HashSet();
-  private Set<Promotion> promotions = new HashSet();
+@Table(name = "xx_brand")
+public class Brand extends OrderEntity {
+	private static final long serialVersionUID = -6109590619136943215L;
 
-  @NotEmpty
-  @Length(max=200)
-  @Column(nullable=false)
-  public String getName()
-  {
-    return this.name;
-  }
+	public enum BrandType {
+		text, image;
+	}
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+	private static final String IIIllIlI = "/brand/content";
+	private static final String IIIllIll = ".jhtml";
+	private String name;
+	private BrandType type;
+	private String logo;
+	private String url;
+	private String introduction;
+	private Set<Product> products = new HashSet<Product>();
+	private Set<ProductCategory> productCategories = new HashSet<ProductCategory>();
+	private Set<Promotion> promotions = new HashSet<Promotion>();
 
-  @NotNull
-  @Column(nullable=false)
-  public BrandType getType()
-  {
-    return this.type;
-  }
+	@NotEmpty
+	@Length(max = 200)
+	@Column(nullable = false)
+	public String getName() {
+		return this.name;
+	}
 
-  public void setType(BrandType type)
-  {
-    this.type = type;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Length(max=200)
-  public String getLogo()
-  {
-    return this.logo;
-  }
+	@NotNull
+	@Column(nullable = false)
+	public BrandType getType() {
+		return this.type;
+	}
 
-  public void setLogo(String logo)
-  {
-    this.logo = logo;
-  }
+	public void setType(BrandType type) {
+		this.type = type;
+	}
 
-  @Length(max=200)
-  public String getUrl()
-  {
-    return this.url;
-  }
+	@Length(max = 200)
+	public String getLogo() {
+		return this.logo;
+	}
 
-  public void setUrl(String url)
-  {
-    this.url = url;
-  }
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
 
-  @Lob
-  public String getIntroduction()
-  {
-    return this.introduction;
-  }
+	@Length(max = 200)
+	public String getUrl() {
+		return this.url;
+	}
 
-  public void setIntroduction(String introduction)
-  {
-    this.introduction = introduction;
-  }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-  @OneToMany(mappedBy="brand", fetch=FetchType.LAZY)
-  public Set<Product> getProducts()
-  {
-    return this.products;
-  }
+	@Lob
+	public String getIntroduction() {
+		return this.introduction;
+	}
 
-  public void setProducts(Set<Product> products)
-  {
-    this.products = products;
-  }
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
 
-  @ManyToMany(mappedBy="brands", fetch=FetchType.LAZY)
-  @OrderBy("order asc")
-  public Set<ProductCategory> getProductCategories()
-  {
-    return this.productCategories;
-  }
+	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
+	public Set<Product> getProducts() {
+		return this.products;
+	}
 
-  public void setProductCategories(Set<ProductCategory> productCategories)
-  {
-    this.productCategories = productCategories;
-  }
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 
-  @ManyToMany(mappedBy="brands", fetch=FetchType.LAZY)
-  public Set<Promotion> getPromotions()
-  {
-    return this.promotions;
-  }
+	@ManyToMany(mappedBy = "brands", fetch = FetchType.LAZY)
+	@OrderBy("order asc")
+	public Set<ProductCategory> getProductCategories() {
+		return this.productCategories;
+	}
 
-  public void setPromotions(Set<Promotion> promotions)
-  {
-    this.promotions = promotions;
-  }
+	public void setProductCategories(Set<ProductCategory> productCategories) {
+		this.productCategories = productCategories;
+	}
 
-  @Transient
-  public String getPath()
-  {
-    if (getId() != null)
-      return "/brand/content/" + getId() + ".jhtml";
-    return null;
-  }
+	@ManyToMany(mappedBy = "brands", fetch = FetchType.LAZY)
+	public Set<Promotion> getPromotions() {
+		return this.promotions;
+	}
 
-  @PreRemove
-  public void preRemove()
-  {
-    Set localSet = getProducts();
-    if (localSet != null)
-    {
-      localObject2 = localSet.iterator();
-      while (((Iterator)localObject2).hasNext())
-      {
-        localObject1 = (Product)((Iterator)localObject2).next();
-        ((Product)localObject1).setBrand(null);
-      }
-    }
-    Object localObject1 = getProductCategories();
-    Object localObject3;
-    if (localObject1 != null)
-    {
-      localObject3 = ((Set)localObject1).iterator();
-      while (((Iterator)localObject3).hasNext())
-      {
-        localObject2 = (ProductCategory)((Iterator)localObject3).next();
-        ((ProductCategory)localObject2).getBrands().remove(this);
-      }
-    }
-    Object localObject2 = getPromotions();
-    if (localObject2 != null)
-    {
-      Iterator localIterator = ((Set)localObject2).iterator();
-      while (localIterator.hasNext())
-      {
-        localObject3 = (Promotion)localIterator.next();
-        ((Promotion)localObject3).getBrands().remove(this);
-      }
-    }
-  }
+	public void setPromotions(Set<Promotion> promotions) {
+		this.promotions = promotions;
+	}
+
+	@Transient
+	public String getPath() {
+		if (getId() != null)
+			return "/brand/content/" + getId() + ".jhtml";
+		return null;
+	}
+
+	@PreRemove
+	public void preRemove() {
+		Set<Product> localSet = getProducts();
+		Product product;
+		if (localSet != null) {
+			Iterator<Product> productIterator = localSet.iterator();
+			while (productIterator.hasNext()) {
+				product = productIterator.next();
+				product.setBrand(null);
+			}
+		}
+		Set<ProductCategory> productCategorySet = getProductCategories();
+		ProductCategory productCategory;
+		if (productCategorySet != null) {
+			Iterator<ProductCategory> productCategoryIterator = productCategorySet
+					.iterator();
+			while (productCategoryIterator.hasNext()) {
+				productCategory = productCategoryIterator.next();
+				productCategory.getBrands().remove(this);
+			}
+		}
+		Set<Promotion> promotionSet = getPromotions();
+		Promotion promotion;
+		if (promotionSet != null) {
+			Iterator<Promotion> localIterator = promotionSet.iterator();
+			while (localIterator.hasNext()) {
+				promotion = localIterator.next();
+				promotion.getBrands().remove(this);
+			}
+		}
+	}
 }

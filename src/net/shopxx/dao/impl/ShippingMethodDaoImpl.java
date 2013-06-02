@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository("shippingMethodDaoImpl")
 public class ShippingMethodDaoImpl extends BaseDaoImpl<ShippingMethod, Long>
-  implements ShippingMethodDao
-{
+		implements ShippingMethodDao {
 }

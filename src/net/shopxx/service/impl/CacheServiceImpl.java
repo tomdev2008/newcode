@@ -13,51 +13,48 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 @Service("cacheServiceImpl")
-public class CacheServiceImpl
-  implements CacheService
-{
+public class CacheServiceImpl implements CacheService {
 
-  @Resource(name="ehCacheManager")
-  private CacheManager IIIllIlI;
+	@Resource(name = "ehCacheManager")
+	private CacheManager IIIllIlI;
 
-  @Resource(name="messageSource")
-  private ReloadableResourceBundleMessageSource IIIllIll;
+	@Resource(name = "messageSource")
+	private ReloadableResourceBundleMessageSource IIIllIll;
 
-  @Resource(name="freeMarkerConfigurer")
-  private FreeMarkerConfigurer IIIlllII;
+	@Resource(name = "freeMarkerConfigurer")
+	private FreeMarkerConfigurer IIIlllII;
 
-  public String getDiskStorePath()
-  {
-    return this.IIIllIlI.getConfiguration().getDiskStoreConfiguration().getPath();
-  }
+	public String getDiskStorePath() {
+		return this.IIIllIlI.getConfiguration().getDiskStoreConfiguration()
+				.getPath();
+	}
 
-  public int getCacheSize()
-  {
-    int i = 0;
-    String[] arrayOfString1 = this.IIIllIlI.getCacheNames();
-    if (arrayOfString1 != null)
-      for (String str : arrayOfString1)
-      {
-        Ehcache localEhcache = this.IIIllIlI.getEhcache(str);
-        if (localEhcache == null)
-          continue;
-        i += localEhcache.getSize();
-      }
-    return i;
-  }
+	public int getCacheSize() {
+		int i = 0;
+		String[] arrayOfString1 = this.IIIllIlI.getCacheNames();
+		if (arrayOfString1 != null)
+			for (String str : arrayOfString1) {
+				Ehcache localEhcache = this.IIIllIlI.getEhcache(str);
+				if (localEhcache == null)
+					continue;
+				i += localEhcache.getSize();
+			}
+		return i;
+	}
 
-  @CacheEvict(value={"setting", "authorization", "logConfig", "template", "shipping", "area", "seo", "adPosition", "memberAttribute", "navigation", "tag", "friendLink", "brand", "article", "articleCategory", "product", "productCategory", "review", "consultation", "promotion"}, allEntries=true)
-  public void clear()
-  {
-    this.IIIllIll.clearCache();
-    try
-    {
-      this.IIIlllII.getConfiguration().setSharedVariable("setting", SettingUtils.get());
-    }
-    catch (TemplateModelException localTemplateModelException)
-    {
-      localTemplateModelException.printStackTrace();
-    }
-    this.IIIlllII.getConfiguration().clearTemplateCache();
-  }
+	@CacheEvict(value = { "setting", "authorization", "logConfig", "template",
+			"shipping", "area", "seo", "adPosition", "memberAttribute",
+			"navigation", "tag", "friendLink", "brand", "article",
+			"articleCategory", "product", "productCategory", "review",
+			"consultation", "promotion" }, allEntries = true)
+	public void clear() {
+		this.IIIllIll.clearCache();
+		try {
+			this.IIIlllII.getConfiguration().setSharedVariable("setting",
+					SettingUtils.get());
+		} catch (TemplateModelException localTemplateModelException) {
+			localTemplateModelException.printStackTrace();
+		}
+		this.IIIlllII.getConfiguration().clearTemplateCache();
+	}
 }

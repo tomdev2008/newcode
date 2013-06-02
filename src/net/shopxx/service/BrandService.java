@@ -5,7 +5,7 @@ import net.shopxx.Filter;
 import net.shopxx.Order;
 import net.shopxx.entity.Brand;
 
-public abstract interface BrandService extends BaseService<Brand, Long>
-{
-  public abstract List<Brand> findList(Integer paramInteger, List<Filter> paramList, List<Order> paramList1, String paramString);
+public abstract interface BrandService extends BaseService<Brand, Long> {
+	public abstract List<Brand> findList(Integer paramInteger,
+			List<Filter> paramList, List<Order> paramList1, String paramString);
 }

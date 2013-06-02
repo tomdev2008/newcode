@@ -14,69 +14,72 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("adminShippingMethodController")
-@RequestMapping({"/admin/shipping_method"})
-public class ShippingMethodController extends BaseController
-{
+@RequestMapping({ "/admin/shipping_method" })
+public class ShippingMethodController extends BaseController {
 
-  @Resource(name="shippingMethodServiceImpl")
-  private ShippingMethodService shippingMethodService;
+	@Resource(name = "shippingMethodServiceImpl")
+	private ShippingMethodService shippingMethodService;
 
-  @Resource(name="deliveryCorpServiceImpl")
-  private DeliveryCorpService deliveryCorpService;
+	@Resource(name = "deliveryCorpServiceImpl")
+	private DeliveryCorpService deliveryCorpService;
 
-  @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String add(ModelMap model)
-  {
-    model.addAttribute("deliveryCorps", this.deliveryCorpService.findAll());
-    return "/admin/shipping_method/add";
-  }
+	@RequestMapping(value = { "/add" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String add(ModelMap model) {
+		model.addAttribute("deliveryCorps", this.deliveryCorpService.findAll());
+		return "/admin/shipping_method/add";
+	}
 
-  @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public String save(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, RedirectAttributes redirectAttributes)
-  {
-    shippingMethod.setDefaultDeliveryCorp((DeliveryCorp)this.deliveryCorpService.find(defaultDeliveryCorpId));
-    if (!IIIllIlI(shippingMethod, new Class[0]))
-      return "/admin/common/error";
-    shippingMethod.setPaymentMethods(null);
-    shippingMethod.setOrders(null);
-    this.shippingMethodService.save(shippingMethod);
-    IIIllIlI(redirectAttributes, IIIlllII);
-    return "redirect:list.jhtml";
-  }
+	@RequestMapping(value = { "/save" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	public String save(ShippingMethod shippingMethod,
+			Long defaultDeliveryCorpId, RedirectAttributes redirectAttributes) {
+		shippingMethod
+				.setDefaultDeliveryCorp((DeliveryCorp) this.deliveryCorpService
+						.find(defaultDeliveryCorpId));
+		if (!IIIllIlI(shippingMethod, new Class[0]))
+			return "/admin/common/error";
+		shippingMethod.setPaymentMethods(null);
+		shippingMethod.setOrders(null);
+		this.shippingMethodService.save(shippingMethod);
+		IIIllIlI(redirectAttributes, IIIlllII);
+		return "redirect:list.jhtml";
+	}
 
-  @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String edit(Long id, ModelMap model)
-  {
-    model.addAttribute("deliveryCorps", this.deliveryCorpService.findAll());
-    model.addAttribute("shippingMethod", this.shippingMethodService.find(id));
-    return "/admin/shipping_method/edit";
-  }
+	@RequestMapping(value = { "/edit" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String edit(Long id, ModelMap model) {
+		model.addAttribute("deliveryCorps", this.deliveryCorpService.findAll());
+		model.addAttribute("shippingMethod",
+				this.shippingMethodService.find(id));
+		return "/admin/shipping_method/edit";
+	}
 
-  @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public String update(ShippingMethod shippingMethod, Long defaultDeliveryCorpId, RedirectAttributes redirectAttributes)
-  {
-    shippingMethod.setDefaultDeliveryCorp((DeliveryCorp)this.deliveryCorpService.find(defaultDeliveryCorpId));
-    if (!IIIllIlI(shippingMethod, new Class[0]))
-      return "/admin/common/error";
-    this.shippingMethodService.update(shippingMethod, new String[] { "paymentMethods", "orders" });
-    IIIllIlI(redirectAttributes, IIIlllII);
-    return "redirect:list.jhtml";
-  }
+	@RequestMapping(value = { "/update" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	public String update(ShippingMethod shippingMethod,
+			Long defaultDeliveryCorpId, RedirectAttributes redirectAttributes) {
+		shippingMethod
+				.setDefaultDeliveryCorp((DeliveryCorp) this.deliveryCorpService
+						.find(defaultDeliveryCorpId));
+		if (!IIIllIlI(shippingMethod, new Class[0]))
+			return "/admin/common/error";
+		this.shippingMethodService.update(shippingMethod, new String[] {
+				"paymentMethods", "orders" });
+		IIIllIlI(redirectAttributes, IIIlllII);
+		return "redirect:list.jhtml";
+	}
 
-  @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String list(Pageable pageable, ModelMap model)
-  {
-    model.addAttribute("page", this.shippingMethodService.findPage(pageable));
-    return "/admin/shipping_method/list";
-  }
+	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String list(Pageable pageable, ModelMap model) {
+		model.addAttribute("page",
+				this.shippingMethodService.findPage(pageable));
+		return "/admin/shipping_method/list";
+	}
 
-  @RequestMapping(value={"/delete"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  @ResponseBody
-  public Message delete(Long[] ids)
-  {
-    if (ids.length >= this.shippingMethodService.count())
-      return Message.error("admin.common.deleteAllNotAllowed", new Object[0]);
-    this.shippingMethodService.delete(ids);
-    return IIIlllII;
-  }
+	@RequestMapping(value = { "/delete" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	@ResponseBody
+	public Message delete(Long[] ids) {
+		if (ids.length >= this.shippingMethodService.count())
+			return Message.error("admin.common.deleteAllNotAllowed",
+					new Object[0]);
+		this.shippingMethodService.delete(ids);
+		return IIIlllII;
+	}
 }

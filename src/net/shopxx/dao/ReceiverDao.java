@@ -5,9 +5,9 @@ import net.shopxx.Pageable;
 import net.shopxx.entity.Member;
 import net.shopxx.entity.Receiver;
 
-public abstract interface ReceiverDao extends BaseDao<Receiver, Long>
-{
-  public abstract Receiver findDefault(Member paramMember);
+public abstract interface ReceiverDao extends BaseDao<Receiver, Long> {
+	public abstract Receiver findDefault(Member paramMember);
 
-  public abstract Page<Receiver> findPage(Member paramMember, Pageable paramPageable);
+	public abstract Page<Receiver> findPage(Member paramMember,
+			Pageable paramPageable);
 }

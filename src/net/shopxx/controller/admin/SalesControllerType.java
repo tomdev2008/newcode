@@ -1,6 +1,5 @@
 package net.shopxx.controller.admin;
 
-public enum SalesControllerType
-{
-  year, month;
+public enum SalesControllerType {
+	year, month;
 }

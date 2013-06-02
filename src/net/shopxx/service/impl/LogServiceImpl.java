@@ -7,21 +7,18 @@ import net.shopxx.service.LogService;
 import org.springframework.stereotype.Service;
 
 @Service("logServiceImpl")
-public class LogServiceImpl extends BaseServiceImpl<Log, Long>
-  implements LogService
-{
+public class LogServiceImpl extends BaseServiceImpl<Log, Long> implements
+		LogService {
 
-  @Resource(name="logDaoImpl")
-  private LogDao IIIllIlI;
+	@Resource(name = "logDaoImpl")
+	private LogDao IIIllIlI;
 
-  @Resource(name="logDaoImpl")
-  public void setBaseDao(LogDao logDao)
-  {
-    super.setBaseDao(logDao);
-  }
+	@Resource(name = "logDaoImpl")
+	public void setBaseDao(LogDao logDao) {
+		super.setBaseDao(logDao);
+	}
 
-  public void clear()
-  {
-    this.IIIllIlI.removeAll();
-  }
+	public void clear() {
+		this.IIIllIlI.removeAll();
+	}
 }

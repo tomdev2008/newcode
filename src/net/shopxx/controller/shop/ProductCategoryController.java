@@ -7,17 +7,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("shopProductCategoryController")
-@RequestMapping({"/product_category"})
-public class ProductCategoryController extends BaseController
-{
+@RequestMapping({ "/product_category" })
+public class ProductCategoryController extends BaseController {
 
-  @Resource(name="productCategoryServiceImpl")
-  private ProductCategoryService IIIlllIl;
+	@Resource(name = "productCategoryServiceImpl")
+	private ProductCategoryService IIIlllIl;
 
-  @RequestMapping(method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String index(ModelMap model)
-  {
-    model.addAttribute("rootProductCategories", this.IIIlllIl.findRoots());
-    return "/shop/product_category/index";
-  }
+	@RequestMapping(method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String index(ModelMap model) {
+		model.addAttribute("rootProductCategories", this.IIIlllIl.findRoots());
+		return "/shop/product_category/index";
+	}
 }

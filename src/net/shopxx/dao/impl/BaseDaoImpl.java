@@ -62,7 +62,8 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 		CriteriaQuery<T> localCriteriaQuery = localCriteriaBuilder
 				.createQuery(this.entityClass);
 		localCriteriaQuery.select(localCriteriaQuery.from(this.entityClass));
-		return this.entityManager(localCriteriaQuery, first, count, filters, orders);
+		return this.entityManager(localCriteriaQuery, first, count, filters,
+				orders);
 	}
 
 	public Page<T> findPage(Pageable pageable) {

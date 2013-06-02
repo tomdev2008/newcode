@@ -18,127 +18,125 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("consultationServiceImpl")
-public class ConsultationServiceImpl extends BaseServiceImpl<Consultation, Long>
-  implements ConsultationService
-{
+public class ConsultationServiceImpl extends
+		BaseServiceImpl<Consultation, Long> implements ConsultationService {
 
-  @Resource(name="consultationDaoImpl")
-  private ConsultationDao consultationDao;
+	@Resource(name = "consultationDaoImpl")
+	private ConsultationDao consultationDao;
 
-  @Resource(name="staticServiceImpl")
-  private StaticService staticService;
+	@Resource(name = "staticServiceImpl")
+	private StaticService staticService;
 
-  @Resource(name="consultationDaoImpl")
-  public void setBaseDao(ConsultationDao consultationDao)
-  {
-    super.setBaseDao(consultationDao);
-  }
+	@Resource(name = "consultationDaoImpl")
+	public void setBaseDao(ConsultationDao consultationDao) {
+		super.setBaseDao(consultationDao);
+	}
 
-  @Transactional(readOnly=true)
-  public List<Consultation> findList(Member member, Product product, Boolean isShow, Integer count, List<Filter> filters, List<Order> orders)
-  {
-    return this.consultationDao.findList(member, product, isShow, count, filters, orders);
-  }
+	@Transactional(readOnly = true)
+	public List<Consultation> findList(Member member, Product product,
+			Boolean isShow, Integer count, List<Filter> filters,
+			List<Order> orders) {
+		return this.consultationDao.findList(member, product, isShow, count,
+				filters, orders);
+	}
 
-  @Transactional(readOnly=true)
-  @Cacheable({"consultation"})
-  public List<Consultation> findList(Member member, Product product, Boolean isShow, Integer count, List<Filter> filters, List<Order> orders, String cacheRegion)
-  {
-    return this.consultationDao.findList(member, product, isShow, count, filters, orders);
-  }
+	@Transactional(readOnly = true)
+	@Cacheable({ "consultation" })
+	public List<Consultation> findList(Member member, Product product,
+			Boolean isShow, Integer count, List<Filter> filters,
+			List<Order> orders, String cacheRegion) {
+		return this.consultationDao.findList(member, product, isShow, count,
+				filters, orders);
+	}
 
-  @Transactional(readOnly=true)
-  public Page<Consultation> findPage(Member member, Product product, Boolean isShow, Pageable pageable)
-  {
-    return this.consultationDao.findPage(member, product, isShow, pageable);
-  }
+	@Transactional(readOnly = true)
+	public Page<Consultation> findPage(Member member, Product product,
+			Boolean isShow, Pageable pageable) {
+		return this.consultationDao.findPage(member, product, isShow, pageable);
+	}
 
-  @Transactional(readOnly=true)
-  public Long count(Member member, Product product, Boolean isShow)
-  {
-    return this.consultationDao.count(member, product, isShow);
-  }
+	@Transactional(readOnly = true)
+	public Long count(Member member, Product product, Boolean isShow) {
+		return this.consultationDao.count(member, product, isShow);
+	}
 
-  @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
-  public void reply(Consultation consultation, Consultation replyConsultation)
-  {
-    if ((consultation == null) || (replyConsultation == null))
-      return;
-    consultation.setIsShow(Boolean.valueOf(true));
-    this.consultationDao.merge(consultation);
-    replyConsultation.setIsShow(Boolean.valueOf(true));
-    replyConsultation.setProduct(consultation.getProduct());
-    replyConsultation.setForConsultation(consultation);
-    this.consultationDao.persist(replyConsultation);
-    Product localProduct = consultation.getProduct();
-    if (localProduct != null)
-    {
-      this.consultationDao.flush();
-      this.staticService.build(localProduct);
-    }
-  }
+	@CacheEvict(value = { "product", "productCategory", "review",
+			"consultation" }, allEntries = true)
+	public void reply(Consultation consultation, Consultation replyConsultation) {
+		if ((consultation == null) || (replyConsultation == null))
+			return;
+		consultation.setIsShow(Boolean.valueOf(true));
+		this.consultationDao.merge(consultation);
+		replyConsultation.setIsShow(Boolean.valueOf(true));
+		replyConsultation.setProduct(consultation.getProduct());
+		replyConsultation.setForConsultation(consultation);
+		this.consultationDao.persist(replyConsultation);
+		Product localProduct = consultation.getProduct();
+		if (localProduct != null) {
+			this.consultationDao.flush();
+			this.staticService.build(localProduct);
+		}
+	}
 
-  @Transactional
-  @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
-  public void save(Consultation consultation)
-  {
-    super.save(consultation);
-    Product localProduct = consultation.getProduct();
-    if (localProduct != null)
-    {
-      this.consultationDao.flush();
-      this.staticService.build(localProduct);
-    }
-  }
+	@Transactional
+	@CacheEvict(value = { "product", "productCategory", "review",
+			"consultation" }, allEntries = true)
+	public void save(Consultation consultation) {
+		super.save(consultation);
+		Product localProduct = consultation.getProduct();
+		if (localProduct != null) {
+			this.consultationDao.flush();
+			this.staticService.build(localProduct);
+		}
+	}
 
-  @Transactional
-  @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
-  public Consultation update(Consultation consultation)
-  {
-    Consultation localConsultation = (Consultation)super.update(consultation);
-    Product localProduct = localConsultation.getProduct();
-    if (localProduct != null)
-    {
-      this.consultationDao.flush();
-      this.staticService.build(localProduct);
-    }
-    return localConsultation;
-  }
+	@Transactional
+	@CacheEvict(value = { "product", "productCategory", "review",
+			"consultation" }, allEntries = true)
+	public Consultation update(Consultation consultation) {
+		Consultation localConsultation = (Consultation) super
+				.update(consultation);
+		Product localProduct = localConsultation.getProduct();
+		if (localProduct != null) {
+			this.consultationDao.flush();
+			this.staticService.build(localProduct);
+		}
+		return localConsultation;
+	}
 
-  @Transactional
-  @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
-  public Consultation update(Consultation consultation, String[] ignoreProperties)
-  {
-    return (Consultation)super.update(consultation, ignoreProperties);
-  }
+	@Transactional
+	@CacheEvict(value = { "product", "productCategory", "review",
+			"consultation" }, allEntries = true)
+	public Consultation update(Consultation consultation,
+			String[] ignoreProperties) {
+		return (Consultation) super.update(consultation, ignoreProperties);
+	}
 
-  @Transactional
-  @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
-  public void delete(Long id)
-  {
-    super.delete(id);
-  }
+	@Transactional
+	@CacheEvict(value = { "product", "productCategory", "review",
+			"consultation" }, allEntries = true)
+	public void delete(Long id) {
+		super.delete(id);
+	}
 
-  @Transactional
-  @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
-  public void delete(Long[] ids)
-  {
-    super.delete(ids);
-  }
+	@Transactional
+	@CacheEvict(value = { "product", "productCategory", "review",
+			"consultation" }, allEntries = true)
+	public void delete(Long[] ids) {
+		super.delete(ids);
+	}
 
-  @Transactional
-  @CacheEvict(value={"product", "productCategory", "review", "consultation"}, allEntries=true)
-  public void delete(Consultation consultation)
-  {
-    if (consultation != null)
-    {
-      super.delete(consultation);
-      Product localProduct = consultation.getProduct();
-      if (localProduct != null)
-      {
-        this.consultationDao.flush();
-        this.staticService.build(localProduct);
-      }
-    }
-  }
+	@Transactional
+	@CacheEvict(value = { "product", "productCategory", "review",
+			"consultation" }, allEntries = true)
+	public void delete(Consultation consultation) {
+		if (consultation != null) {
+			super.delete(consultation);
+			Product localProduct = consultation.getProduct();
+			if (localProduct != null) {
+				this.consultationDao.flush();
+				this.staticService.build(localProduct);
+			}
+		}
+	}
 }

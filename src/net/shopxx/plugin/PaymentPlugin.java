@@ -16,159 +16,157 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.springframework.stereotype.Component;
 
-public abstract class PaymentPlugin implements Comparable<PaymentPlugin>
-{
-  public static final String PAYMENT_NAME_ATTRIBUTE_NAME = "paymentName";
-  public static final String FEE_TYPE_ATTRIBUTE_NAME = "feeType";
-  public static final String FEE_ATTRIBUTE_NAME = "fee";
-  public static final String LOGO_ATTRIBUTE_NAME = "logo";
-  public static final String DESCRIPTION_ATTRIBUTE_NAME = "description";
+public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
+	public static final String PAYMENT_NAME_ATTRIBUTE_NAME = "paymentName";
+	public static final String FEE_TYPE_ATTRIBUTE_NAME = "feeType";
+	public static final String FEE_ATTRIBUTE_NAME = "fee";
+	public static final String LOGO_ATTRIBUTE_NAME = "logo";
+	public static final String DESCRIPTION_ATTRIBUTE_NAME = "description";
 
-  public enum PaymentPluginFeeType
-  {
-    scale, fixed;
-  }
-  public enum PaymentPluginMethod
-  {
-    post, get;
-  }
-  
-  @Resource(name="pluginConfigServiceImpl")
-  private PluginConfigService pluginConfigService;
+	public enum PaymentPluginFeeType {
+		scale, fixed;
+	}
 
-  public final String getId()
-  {
-    return ((Component)getClass().getAnnotation(Component.class)).value();
-  }
+	public enum PaymentPluginMethod {
+		post, get;
+	}
 
-  public abstract String getName();
+	@Resource(name = "pluginConfigServiceImpl")
+	private PluginConfigService pluginConfigService;
 
-  public abstract String getVersion();
+	public final String getId() {
+		return ((Component) getClass().getAnnotation(Component.class)).value();
+	}
 
-  public abstract String getAuthor();
+	public abstract String getName();
 
-  public abstract String getSiteUrl();
+	public abstract String getVersion();
 
-  public abstract String getInstallUrl();
+	public abstract String getAuthor();
 
-  public abstract String getUninstallUrl();
+	public abstract String getSiteUrl();
 
-  public abstract String getSettingUrl();
+	public abstract String getInstallUrl();
 
-  public boolean getIsInstalled()
-  {
-    return this.pluginConfigService.pluginIdExists(getId());
-  }
+	public abstract String getUninstallUrl();
 
-  public PluginConfig getPluginConfig()
-  {
-    return this.pluginConfigService.findByPluginId(getId());
-  }
+	public abstract String getSettingUrl();
 
-  public boolean getIsEnabled()
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? localPluginConfig.getIsEnabled().booleanValue() : false;
-  }
+	public boolean getIsInstalled() {
+		return this.pluginConfigService.pluginIdExists(getId());
+	}
 
-  public String getAttribute(String name)
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? localPluginConfig.getAttribute(name) : null;
-  }
+	public PluginConfig getPluginConfig() {
+		return this.pluginConfigService.findByPluginId(getId());
+	}
 
-  public Integer getOrder()
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? localPluginConfig.getOrder() : null;
-  }
+	public boolean getIsEnabled() {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? localPluginConfig.getIsEnabled()
+				.booleanValue() : false;
+	}
 
-  public String getPaymentName()
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? localPluginConfig.getAttribute("paymentName") : null;
-  }
+	public String getAttribute(String name) {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? localPluginConfig.getAttribute(name)
+				: null;
+	}
 
-  public PaymentPluginFeeType getFeeType()
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? PaymentPluginFeeType.valueOf(localPluginConfig.getAttribute("feeType")) : null;
-  }
+	public Integer getOrder() {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? localPluginConfig.getOrder() : null;
+	}
 
-  public BigDecimal getFee()
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? new BigDecimal(localPluginConfig.getAttribute("fee")) : null;
-  }
+	public String getPaymentName() {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? localPluginConfig
+				.getAttribute("paymentName") : null;
+	}
 
-  public String getLogo()
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? localPluginConfig.getAttribute("logo") : null;
-  }
+	public PaymentPluginFeeType getFeeType() {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? PaymentPluginFeeType
+				.valueOf(localPluginConfig.getAttribute("feeType")) : null;
+	}
 
-  public String getDescription()
-  {
-    PluginConfig localPluginConfig = getPluginConfig();
-    return localPluginConfig != null ? localPluginConfig.getAttribute("description") : null;
-  }
+	public BigDecimal getFee() {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? new BigDecimal(
+				localPluginConfig.getAttribute("fee")) : null;
+	}
 
-  public abstract String getUrl();
+	public String getLogo() {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? localPluginConfig
+				.getAttribute("logo") : null;
+	}
 
-  public abstract PaymentPluginMethod getMethod();
+	public String getDescription() {
+		PluginConfig localPluginConfig = getPluginConfig();
+		return localPluginConfig != null ? localPluginConfig
+				.getAttribute("description") : null;
+	}
 
-  public abstract Integer getTimeout();
+	public abstract String getUrl();
 
-  public abstract Map<String, String> getParameterMap(String paramString1, BigDecimal paramBigDecimal, String paramString2, HttpServletRequest paramHttpServletRequest);
+	public abstract PaymentPluginMethod getMethod();
 
-  public abstract boolean verify(String paramString, HttpServletRequest paramHttpServletRequest);
+	public abstract Integer getTimeout();
 
-  public abstract BigDecimal getAmount(String paramString, HttpServletRequest paramHttpServletRequest);
+	public abstract Map<String, String> getParameterMap(String paramString1,
+			BigDecimal paramBigDecimal, String paramString2,
+			HttpServletRequest paramHttpServletRequest);
 
-  public abstract String getNotifyContext(String paramString, HttpServletRequest paramHttpServletRequest);
+	public abstract boolean verify(String paramString,
+			HttpServletRequest paramHttpServletRequest);
 
-  protected String pluginConfigService(String paramString)
-  {
-    Setting localSetting = SettingUtils.get();
-    return localSetting.getSiteUrl() + "/payment/return/" + paramString + ".jhtml";
-  }
+	public abstract BigDecimal getAmount(String paramString,
+			HttpServletRequest paramHttpServletRequest);
 
-  protected String IIIllIll(String paramString)
-  {
-    Setting localSetting = SettingUtils.get();
-    return localSetting.getSiteUrl() + "/payment/notify/" + paramString + ".jhtml";
-  }
+	public abstract String getNotifyContext(String paramString,
+			HttpServletRequest paramHttpServletRequest);
 
-  public final BigDecimal getFee(BigDecimal amount)
-  {
-    Setting localSetting = SettingUtils.get();
-    BigDecimal localBigDecimal;
-    if (getFeeType() == PaymentPluginFeeType.scale)
-      localBigDecimal = amount.multiply(getFee());
-    else
-      localBigDecimal = getFee();
-    return localSetting.setScale(localBigDecimal);
-  }
+	protected String pluginConfigService(String paramString) {
+		Setting localSetting = SettingUtils.get();
+		return localSetting.getSiteUrl() + "/payment/return/" + paramString
+				+ ".jhtml";
+	}
 
-  public boolean equals(Object obj)
-  {
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    if (this == obj)
-      return true;
-    PaymentPlugin localPaymentPlugin = (PaymentPlugin)obj;
-    return new EqualsBuilder().append(getId(), localPaymentPlugin.getId()).isEquals();
-  }
+	protected String IIIllIll(String paramString) {
+		Setting localSetting = SettingUtils.get();
+		return localSetting.getSiteUrl() + "/payment/notify/" + paramString
+				+ ".jhtml";
+	}
 
-  public int hashCode()
-  {
-    return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
-  }
+	public final BigDecimal getFee(BigDecimal amount) {
+		Setting localSetting = SettingUtils.get();
+		BigDecimal localBigDecimal;
+		if (getFeeType() == PaymentPluginFeeType.scale)
+			localBigDecimal = amount.multiply(getFee());
+		else
+			localBigDecimal = getFee();
+		return localSetting.setScale(localBigDecimal);
+	}
 
-  public int compareTo(PaymentPlugin paymentPlugin)
-  {
-    return new CompareToBuilder().append(getOrder(), paymentPlugin.getOrder()).append(getId(), paymentPlugin.getId()).toComparison();
-  }
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (this == obj)
+			return true;
+		PaymentPlugin localPaymentPlugin = (PaymentPlugin) obj;
+		return new EqualsBuilder().append(getId(), localPaymentPlugin.getId())
+				.isEquals();
+	}
+
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
+	}
+
+	public int compareTo(PaymentPlugin paymentPlugin) {
+		return new CompareToBuilder()
+				.append(getOrder(), paymentPlugin.getOrder())
+				.append(getId(), paymentPlugin.getId()).toComparison();
+	}
 }

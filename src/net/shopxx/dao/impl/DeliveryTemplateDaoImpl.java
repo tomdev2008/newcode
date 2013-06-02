@@ -27,8 +27,8 @@ public class DeliveryTemplateDaoImpl extends
 		Assert.notNull(deliveryTemplate);
 		if (deliveryTemplate.getIsDefault().booleanValue()) {
 			String str = "update DeliveryTemplate deliveryTemplate set deliveryTemplate.isDefault = false where deliveryTemplate.isDefault = true";
-			this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT)
-					.executeUpdate();
+			this.entityManager.createQuery(str)
+					.setFlushMode(FlushModeType.COMMIT).executeUpdate();
 		}
 		super.persist(deliveryTemplate);
 	}
@@ -37,7 +37,8 @@ public class DeliveryTemplateDaoImpl extends
 		Assert.notNull(deliveryTemplate);
 		if (deliveryTemplate.getIsDefault().booleanValue()) {
 			String str = "update DeliveryTemplate deliveryTemplate set deliveryTemplate.isDefault = false where deliveryTemplate.isDefault = true and deliveryTemplate != :deliveryTemplate";
-			this.entityManager.createQuery(str).setFlushMode(FlushModeType.COMMIT)
+			this.entityManager.createQuery(str)
+					.setFlushMode(FlushModeType.COMMIT)
 					.setParameter("deliveryTemplate", deliveryTemplate)
 					.executeUpdate();
 		}

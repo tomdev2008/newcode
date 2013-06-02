@@ -5,7 +5,5 @@ import net.shopxx.entity.Ad;
 import org.springframework.stereotype.Repository;
 
 @Repository("adDaoImpl")
-public class AdDaoImpl extends BaseDaoImpl<Ad, Long>
-  implements AdDao
-{
+public class AdDaoImpl extends BaseDaoImpl<Ad, Long> implements AdDao {
 }

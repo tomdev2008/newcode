@@ -18,62 +18,69 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-public class BaseController
-{
-  protected static final String IIIllIlI = "/shop/common/error";
-  protected static final Message IIIllIll = Message.error("shop.message.error", new Object[0]);
-  protected static final Message IIIlllII = Message.success("shop.message.success", new Object[0]);
-  private static final String IIIlllIl = "constraintViolations";
+public class BaseController {
+	protected static final String IIIllIlI = "/shop/common/error";
+	protected static final Message IIIllIll = Message.error(
+			"shop.message.error", new Object[0]);
+	protected static final Message IIIlllII = Message.success(
+			"shop.message.success", new Object[0]);
+	private static final String IIIlllIl = "constraintViolations";
 
-  @Resource(name="validator")
-  private Validator validator;
+	@Resource(name = "validator")
+	private Validator validator;
 
-  @InitBinder
-  protected void IIIllIlI(WebDataBinder paramWebDataBinder)
-  {
-    paramWebDataBinder.registerCustomEditor(String.class, new HtmlCleanEditor(true, true));
-    paramWebDataBinder.registerCustomEditor(Date.class, new DateEditor(true));
-  }
+	@InitBinder
+	protected void IIIllIlI(WebDataBinder paramWebDataBinder) {
+		paramWebDataBinder.registerCustomEditor(String.class,
+				new HtmlCleanEditor(true, true));
+		paramWebDataBinder.registerCustomEditor(Date.class,
+				new DateEditor(true));
+	}
 
-  protected boolean IIIllIlI(Object paramObject, Class<?>[] paramArrayOfClass)
-  {
-    Set localSet = this.validator.validate(paramObject, paramArrayOfClass);
-    if (localSet.isEmpty())
-      return true;
-    RequestAttributes localRequestAttributes = RequestContextHolder.currentRequestAttributes();
-    localRequestAttributes.setAttribute("constraintViolations", localSet, 0);
-    return false;
-  }
+	protected boolean IIIllIlI(Object paramObject, Class<?>[] paramArrayOfClass) {
+		Set localSet = this.validator.validate(paramObject, paramArrayOfClass);
+		if (localSet.isEmpty())
+			return true;
+		RequestAttributes localRequestAttributes = RequestContextHolder
+				.currentRequestAttributes();
+		localRequestAttributes
+				.setAttribute("constraintViolations", localSet, 0);
+		return false;
+	}
 
-  protected boolean IIIllIlI(Class<?> paramClass, String paramString, Object paramObject, Class<?>[] paramArrayOfClass)
-  {
-    Set localSet = this.validator.validateValue(paramClass, paramString, paramObject, paramArrayOfClass);
-    if (localSet.isEmpty())
-      return true;
-    RequestAttributes localRequestAttributes = RequestContextHolder.currentRequestAttributes();
-    localRequestAttributes.setAttribute("constraintViolations", localSet, 0);
-    return false;
-  }
+	protected boolean IIIllIlI(Class<?> paramClass, String paramString,
+			Object paramObject, Class<?>[] paramArrayOfClass) {
+		Set localSet = this.validator.validateValue(paramClass, paramString,
+				paramObject, paramArrayOfClass);
+		if (localSet.isEmpty())
+			return true;
+		RequestAttributes localRequestAttributes = RequestContextHolder
+				.currentRequestAttributes();
+		localRequestAttributes
+				.setAttribute("constraintViolations", localSet, 0);
+		return false;
+	}
 
-  protected String IIIllIlI(BigDecimal paramBigDecimal, boolean paramBoolean1, boolean paramBoolean2)
-  {
-    Setting setting = SettingUtils.get();
-    String str = setting.setScale(paramBigDecimal).toString();
-    if (paramBoolean1)
-      str = setting.getCurrencySign() + str;
-    if (paramBoolean2)
-      str = str + setting.getCurrencyUnit();
-    return str;
-  }
+	protected String IIIllIlI(BigDecimal paramBigDecimal,
+			boolean paramBoolean1, boolean paramBoolean2) {
+		Setting setting = SettingUtils.get();
+		String str = setting.setScale(paramBigDecimal).toString();
+		if (paramBoolean1)
+			str = setting.getCurrencySign() + str;
+		if (paramBoolean2)
+			str = str + setting.getCurrencyUnit();
+		return str;
+	}
 
-  protected String IIIllIlI(String paramString, Object[] paramArrayOfObject)
-  {
-    return SpringUtils.getMessage(paramString, paramArrayOfObject);
-  }
+	protected String IIIllIlI(String paramString, Object[] paramArrayOfObject) {
+		return SpringUtils.getMessage(paramString, paramArrayOfObject);
+	}
 
-  protected void IIIllIlI(RedirectAttributes paramRedirectAttributes, Message paramMessage)
-  {
-    if ((paramRedirectAttributes != null) && (paramMessage != null))
-      paramRedirectAttributes.addFlashAttribute(FlashMessageDirective.FLASH_MESSAGE_ATTRIBUTE_NAME, paramMessage);
-  }
+	protected void IIIllIlI(RedirectAttributes paramRedirectAttributes,
+			Message paramMessage) {
+		if ((paramRedirectAttributes != null) && (paramMessage != null))
+			paramRedirectAttributes.addFlashAttribute(
+					FlashMessageDirective.FLASH_MESSAGE_ATTRIBUTE_NAME,
+					paramMessage);
+	}
 }

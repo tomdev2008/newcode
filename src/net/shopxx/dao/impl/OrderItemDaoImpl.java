@@ -5,7 +5,6 @@ import net.shopxx.entity.OrderItem;
 import org.springframework.stereotype.Repository;
 
 @Repository("orderItemDaoImpl")
-public class OrderItemDaoImpl extends BaseDaoImpl<OrderItem, Long>
-  implements OrderItemDao
-{
+public class OrderItemDaoImpl extends BaseDaoImpl<OrderItem, Long> implements
+		OrderItemDao {
 }

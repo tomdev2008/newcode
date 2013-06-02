@@ -10,20 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("shopPromotionController")
-@RequestMapping({"/promotion"})
-public class PromotionController extends BaseController
-{
+@RequestMapping({ "/promotion" })
+public class PromotionController extends BaseController {
 
-  @Resource(name="promotionServiceImpl")
-  private PromotionService IIIlllIl;
+	@Resource(name = "promotionServiceImpl")
+	private PromotionService IIIlllIl;
 
-  @RequestMapping(value={"/content/{id}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String content(@PathVariable Long id, ModelMap model)
-  {
-    Promotion localPromotion = (Promotion)this.IIIlllIl.find(id);
-    if (localPromotion == null)
-      throw new ResourceNotFoundException();
-    model.addAttribute("promotion", localPromotion);
-    return "/shop/promotion/content";
-  }
+	@RequestMapping(value = { "/content/{id}" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String content(@PathVariable Long id, ModelMap model) {
+		Promotion localPromotion = (Promotion) this.IIIlllIl.find(id);
+		if (localPromotion == null)
+			throw new ResourceNotFoundException();
+		model.addAttribute("promotion", localPromotion);
+		return "/shop/promotion/content";
+	}
 }

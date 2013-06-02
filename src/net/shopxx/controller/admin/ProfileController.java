@@ -12,47 +12,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("adminProfileController")
-@RequestMapping({"/admin/profile"})
-public class ProfileController extends BaseController
-{
+@RequestMapping({ "/admin/profile" })
+public class ProfileController extends BaseController {
 
-  @Resource(name="adminServiceImpl")
-  private AdminService adminService;
+	@Resource(name = "adminServiceImpl")
+	private AdminService adminService;
 
-  @RequestMapping(value={"/check_current_password"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  @ResponseBody
-  public boolean checkCurrentPassword(String currentPassword)
-  {
-    if (StringUtils.isEmpty(currentPassword))
-      return false;
-    Admin localAdmin = this.adminService.getCurrent();
-    return StringUtils.equals(DigestUtils.md5Hex(currentPassword), localAdmin.getPassword());
-  }
+	@RequestMapping(value = { "/check_current_password" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	@ResponseBody
+	public boolean checkCurrentPassword(String currentPassword) {
+		if (StringUtils.isEmpty(currentPassword))
+			return false;
+		Admin localAdmin = this.adminService.getCurrent();
+		return StringUtils.equals(DigestUtils.md5Hex(currentPassword),
+				localAdmin.getPassword());
+	}
 
-  @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String edit(ModelMap model)
-  {
-    model.addAttribute("admin", this.adminService.getCurrent());
-    return "/admin/profile/edit";
-  }
+	@RequestMapping(value = { "/edit" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String edit(ModelMap model) {
+		model.addAttribute("admin", this.adminService.getCurrent());
+		return "/admin/profile/edit";
+	}
 
-  @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public String update(String currentPassword, String password, String email, RedirectAttributes redirectAttributes)
-  {
-    if (!IIIllIlI(Admin.class, "email", email, new Class[0]))
-      return "/admin/common/error";
-    Admin localAdmin = this.adminService.getCurrent();
-    if ((StringUtils.isNotEmpty(currentPassword)) && (StringUtils.isNotEmpty(password)))
-    {
-      if (!IIIllIlI(Admin.class, "password", password, new Class[0]))
-        return "/admin/common/error";
-      if (!StringUtils.equals(DigestUtils.md5Hex(currentPassword), localAdmin.getPassword()))
-        return "/admin/common/error";
-      localAdmin.setPassword(DigestUtils.md5Hex(password));
-    }
-    localAdmin.setEmail(email);
-    this.adminService.update(localAdmin);
-    IIIllIlI(redirectAttributes, IIIlllII);
-    return "redirect:edit.jhtml";
-  }
+	@RequestMapping(value = { "/update" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	public String update(String currentPassword, String password, String email,
+			RedirectAttributes redirectAttributes) {
+		if (!IIIllIlI(Admin.class, "email", email, new Class[0]))
+			return "/admin/common/error";
+		Admin localAdmin = this.adminService.getCurrent();
+		if ((StringUtils.isNotEmpty(currentPassword))
+				&& (StringUtils.isNotEmpty(password))) {
+			if (!IIIllIlI(Admin.class, "password", password, new Class[0]))
+				return "/admin/common/error";
+			if (!StringUtils.equals(DigestUtils.md5Hex(currentPassword),
+					localAdmin.getPassword()))
+				return "/admin/common/error";
+			localAdmin.setPassword(DigestUtils.md5Hex(password));
+		}
+		localAdmin.setEmail(email);
+		this.adminService.update(localAdmin);
+		IIIllIlI(redirectAttributes, IIIlllII);
+		return "redirect:edit.jhtml";
+	}
 }

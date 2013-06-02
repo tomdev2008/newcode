@@ -7,9 +7,10 @@ import net.shopxx.Order;
 import net.shopxx.entity.FriendLink;
 import net.shopxx.entity.FriendLink.FriendLinkType;
 
-public abstract interface FriendLinkService extends BaseService<FriendLink, Long>
-{
-  public abstract List<FriendLink> findList(FriendLinkType paramType);
+public abstract interface FriendLinkService extends
+		BaseService<FriendLink, Long> {
+	public abstract List<FriendLink> findList(FriendLinkType paramType);
 
-  public abstract List<FriendLink> findList(Integer paramInteger, List<Filter> paramList, List<Order> paramList1, String paramString);
+	public abstract List<FriendLink> findList(Integer paramInteger,
+			List<Filter> paramList, List<Order> paramList1, String paramString);
 }

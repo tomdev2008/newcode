@@ -13,43 +13,40 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 @Controller("adminTemplateController")
-@RequestMapping({"/admin/template"})
-public class TemplateController extends BaseController
-{
+@RequestMapping({ "/admin/template" })
+public class TemplateController extends BaseController {
 
-  @Resource(name="freeMarkerConfigurer")
-  private FreeMarkerConfigurer freeMarkerConfigurer;
+	@Resource(name = "freeMarkerConfigurer")
+	private FreeMarkerConfigurer freeMarkerConfigurer;
 
-  @Resource(name="templateServiceImpl")
-  private TemplateService templateService;
+	@Resource(name = "templateServiceImpl")
+	private TemplateService templateService;
 
-  @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String edit(String id, ModelMap model)
-  {
-    if (StringUtils.isEmpty(id))
-      return "/admin/common/error";
-    model.addAttribute("template", this.templateService.get(id));
-    model.addAttribute("content", this.templateService.read(id));
-    return "/admin/template/edit";
-  }
+	@RequestMapping(value = { "/edit" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String edit(String id, ModelMap model) {
+		if (StringUtils.isEmpty(id))
+			return "/admin/common/error";
+		model.addAttribute("template", this.templateService.get(id));
+		model.addAttribute("content", this.templateService.read(id));
+		return "/admin/template/edit";
+	}
 
-  @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public String update(String id, String content, RedirectAttributes redirectAttributes)
-  {
-    if ((StringUtils.isEmpty(id)) || (content == null))
-      return "/admin/common/error";
-    this.templateService.write(id, content);
-    this.freeMarkerConfigurer.getConfiguration().clearTemplateCache();
-    IIIllIlI(redirectAttributes, IIIlllII);
-    return "redirect:list.jhtml";
-  }
+	@RequestMapping(value = { "/update" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	public String update(String id, String content,
+			RedirectAttributes redirectAttributes) {
+		if ((StringUtils.isEmpty(id)) || (content == null))
+			return "/admin/common/error";
+		this.templateService.write(id, content);
+		this.freeMarkerConfigurer.getConfiguration().clearTemplateCache();
+		IIIllIlI(redirectAttributes, IIIlllII);
+		return "redirect:list.jhtml";
+	}
 
-  @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public String list(TemplateType type, ModelMap model)
-  {
-    model.addAttribute("type", type);
-    model.addAttribute("types", TemplateType.values());
-    model.addAttribute("templates", this.templateService.getList(type));
-    return "/admin/template/list";
-  }
+	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String list(TemplateType type, ModelMap model) {
+		model.addAttribute("type", type);
+		model.addAttribute("types", TemplateType.values());
+		model.addAttribute("templates", this.templateService.getList(type));
+		return "/admin/template/list";
+	}
 }

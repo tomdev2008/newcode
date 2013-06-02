@@ -15,70 +15,61 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("friendLinkServiceImpl")
 public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, Long>
-  implements FriendLinkService
-{
+		implements FriendLinkService {
 
-  @Resource(name="friendLinkDaoImpl")
-  public FriendLinkDao friendLinkDao;
+	@Resource(name = "friendLinkDaoImpl")
+	public FriendLinkDao friendLinkDao;
 
-  @Resource(name="friendLinkDaoImpl")
-  public void setBaseDao(FriendLinkDao friendLinkDao)
-  {
-    super.setBaseDao(friendLinkDao);
-  }
+	@Resource(name = "friendLinkDaoImpl")
+	public void setBaseDao(FriendLinkDao friendLinkDao) {
+		super.setBaseDao(friendLinkDao);
+	}
 
-  @Transactional(readOnly=true)
-  public List<FriendLink> findList(FriendLink.Type type)
-  {
-    return this.friendLinkDao.findList(type);
-  }
+	@Transactional(readOnly = true)
+	public List<FriendLink> findList(FriendLink.Type type) {
+		return this.friendLinkDao.findList(type);
+	}
 
-  @Transactional(readOnly=true)
-  @Cacheable({"friendLink"})
-  public List<FriendLink> findList(Integer count, List<Filter> filters, List<Order> orders, String cacheRegion)
-  {
-    return this.friendLinkDao.findList(null, count, filters, orders);
-  }
+	@Transactional(readOnly = true)
+	@Cacheable({ "friendLink" })
+	public List<FriendLink> findList(Integer count, List<Filter> filters,
+			List<Order> orders, String cacheRegion) {
+		return this.friendLinkDao.findList(null, count, filters, orders);
+	}
 
-  @Transactional
-  @CacheEvict(value={"friendLink"}, allEntries=true)
-  public void save(FriendLink friendLink)
-  {
-    super.save(friendLink);
-  }
+	@Transactional
+	@CacheEvict(value = { "friendLink" }, allEntries = true)
+	public void save(FriendLink friendLink) {
+		super.save(friendLink);
+	}
 
-  @Transactional
-  @CacheEvict(value={"friendLink"}, allEntries=true)
-  public FriendLink update(FriendLink friendLink)
-  {
-    return (FriendLink)super.update(friendLink);
-  }
+	@Transactional
+	@CacheEvict(value = { "friendLink" }, allEntries = true)
+	public FriendLink update(FriendLink friendLink) {
+		return (FriendLink) super.update(friendLink);
+	}
 
-  @Transactional
-  @CacheEvict(value={"friendLink"}, allEntries=true)
-  public FriendLink update(FriendLink friendLink, String[] ignoreProperties)
-  {
-    return (FriendLink)super.update(friendLink, ignoreProperties);
-  }
+	@Transactional
+	@CacheEvict(value = { "friendLink" }, allEntries = true)
+	public FriendLink update(FriendLink friendLink, String[] ignoreProperties) {
+		return (FriendLink) super.update(friendLink, ignoreProperties);
+	}
 
-  @Transactional
-  @CacheEvict(value={"friendLink"}, allEntries=true)
-  public void delete(Long id)
-  {
-    super.delete(id);
-  }
+	@Transactional
+	@CacheEvict(value = { "friendLink" }, allEntries = true)
+	public void delete(Long id) {
+		super.delete(id);
+	}
 
-  @Transactional
-  @CacheEvict(value={"friendLink"}, allEntries=true)
-  public void delete(Long[] ids)
-  {
-    super.delete(ids);
-  }
+	@Transactional
+	@CacheEvict(value = { "friendLink" }, allEntries = true)
+	public void delete(Long[] ids) {
+		super.delete(ids);
+	}
 
-  @Transactional
-  @CacheEvict(value={"friendLink"}, allEntries=true)
-  public void delete(FriendLink friendLink)
-  {
-    super.delete(friendLink);
-  }
+	@Transactional
+	@CacheEvict(value = { "friendLink" }, allEntries = true)
+	public void delete(FriendLink friendLink) {
+		super.delete(friendLink);
+	}
 }

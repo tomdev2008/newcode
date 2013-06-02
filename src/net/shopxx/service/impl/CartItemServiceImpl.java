@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service("cartItemServiceImpl")
 public class CartItemServiceImpl extends BaseServiceImpl<CartItem, Long>
-  implements CartItemService
-{
-  @Resource(name="cartItemDaoImpl")
-  public void setBaseDao(CartItemDao cartItemDao)
-  {
-    super.setBaseDao(cartItemDao);
-  }
+		implements CartItemService {
+	@Resource(name = "cartItemDaoImpl")
+	public void setBaseDao(CartItemDao cartItemDao) {
+		super.setBaseDao(cartItemDao);
+	}
 }
