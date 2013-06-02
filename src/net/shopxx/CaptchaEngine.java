@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Font;
 import org.springframework.core.io.ClassPathResource;
 
+@SuppressWarnings("unused")
 public class CaptchaEngine extends ListImageCaptchaEngine {
 	private static final int IIIllIlI = 80;
 	private static final int IIIllIll = 28;

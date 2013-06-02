@@ -1,8 +1,8 @@
 package net.shopxx;
 
 import java.math.BigDecimal;
+
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Fieldable;
 import org.hibernate.search.bridge.LuceneOptions;
 import org.hibernate.search.bridge.builtin.NumericFieldBridge;
 

@@ -9,6 +9,7 @@ import net.shopxx.Order.OrderDirection;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+@SuppressWarnings("unused")
 public class Pageable implements Serializable {
 	private static final long serialVersionUID = -3930180379790344299L;
 	private static final int IIIllIlI = 1;

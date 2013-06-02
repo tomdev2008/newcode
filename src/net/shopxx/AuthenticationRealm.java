@@ -1,14 +1,15 @@
 package net.shopxx;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import net.shopxx.entity.Admin;
 import net.shopxx.service.AdminService;
 import net.shopxx.service.CaptchaService;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -27,10 +28,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 public class AuthenticationRealm extends AuthorizingRealm {
 
 	@Resource(name = "captchaServiceImpl")
-	private CaptchaService IIIllIlI;
+	private CaptchaService captchaService;
 
 	@Resource(name = "adminServiceImpl")
-	private AdminService IIIllIll;
+	private AdminService adminService;
 
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			org.apache.shiro.authc.AuthenticationToken token) {
@@ -40,10 +41,10 @@ public class AuthenticationRealm extends AuthorizingRealm {
 		String str3 = localAuthenticationToken.getCaptchaId();
 		String str4 = localAuthenticationToken.getCaptcha();
 		String str5 = localAuthenticationToken.getHost();
-		if (!this.IIIllIlI.isValid(Setting.CaptchaType.adminLogin, str3, str4))
+		if (!this.captchaService.isValid(Setting.CaptchaType.adminLogin, str3, str4))
 			throw new UnsupportedTokenException();
 		if ((str1 != null) && (str2 != null)) {
-			Admin localAdmin = this.IIIllIll.findByUsername(str1);
+			Admin localAdmin = this.adminService.findByUsername(str1);
 			if (localAdmin == null)
 				throw new UnknownAccountException();
 			if (!localAdmin.getIsEnabled().booleanValue())
@@ -62,7 +63,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 						localAdmin.setLoginFailureCount(Integer.valueOf(0));
 						localAdmin.setIsLocked(Boolean.valueOf(false));
 						localAdmin.setLockedDate(null);
-						this.IIIllIll.update(localAdmin);
+						this.adminService.update(localAdmin);
 					} else {
 						throw new LockedAccountException();
 					}
@@ -70,7 +71,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 					localAdmin.setLoginFailureCount(Integer.valueOf(0));
 					localAdmin.setIsLocked(Boolean.valueOf(false));
 					localAdmin.setLockedDate(null);
-					this.IIIllIll.update(localAdmin);
+					this.adminService.update(localAdmin);
 				}
 			if (!DigestUtils.md5Hex(str2).equals(localAdmin.getPassword())) {
 				i = localAdmin.getLoginFailureCount().intValue() + 1;
@@ -79,13 +80,13 @@ public class AuthenticationRealm extends AuthorizingRealm {
 					localAdmin.setLockedDate(new Date());
 				}
 				localAdmin.setLoginFailureCount(Integer.valueOf(i));
-				this.IIIllIll.update(localAdmin);
+				this.adminService.update(localAdmin);
 				throw new IncorrectCredentialsException();
 			}
 			localAdmin.setLoginIp(str5);
 			localAdmin.setLoginDate(new Date());
 			localAdmin.setLoginFailureCount(Integer.valueOf(0));
-			this.IIIllIll.update(localAdmin);
+			this.adminService.update(localAdmin);
 			return new SimpleAuthenticationInfo(new Principal(
 					localAdmin.getId(), str1), str2, getName());
 		}
@@ -97,7 +98,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 		Principal localPrincipal = (Principal) principals.fromRealm(getName())
 				.iterator().next();
 		if (localPrincipal != null) {
-			List localList = this.IIIllIll.findAuthorities(localPrincipal
+			List<String> localList = this.adminService.findAuthorities(localPrincipal
 					.getId());
 			if (localList != null) {
 				SimpleAuthorizationInfo localSimpleAuthorizationInfo = new SimpleAuthorizationInfo();

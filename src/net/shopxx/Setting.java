@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@SuppressWarnings("unused")
 public class Setting implements Serializable {
 	private static final long serialVersionUID = -1478999889661796840L;
 	public static final String CACHE_NAME = "setting";

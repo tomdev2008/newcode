@@ -33,7 +33,7 @@ public class ArticleListDirective extends BaseDirective {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
   {
     Long localLong = (Long)FreemarkerUtils.getParameter("articleCategoryId", Long.class, params);
-    Long[] arrayOfLong = (Long[])FreemarkerUtils.getParameter("tagIds", [Ljava.lang.Long.class, params);
+    Long[] arrayOfLong = (Long[])FreemarkerUtils.getParameter("tagIds", Long.class, params);
     ArticleCategory localArticleCategory = (ArticleCategory)this.articleCategoryService.find(localLong);
     List localList1 = this.tagService.findList(arrayOfLong);
     Object localObject;

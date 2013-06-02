@@ -92,8 +92,8 @@ public class ExcelView extends AbstractExcelView {
     Object localObject5;
     if ((this.titles != null) && (this.titles.length > 0))
     {
-      localObject1 = localHSSFSheet.createRow(i);
-      ((HSSFRow)localObject1).setHeight(400);
+      localObject1 = (HSSFRow)localHSSFSheet.createRow(i);
+      localObject1.setHeight((short) 400);
       for (int j = 0; j < this.properties.length; j++)
       {
         localObject2 = ((HSSFRow)localObject1).createCell(j);
@@ -110,7 +110,7 @@ public class ExcelView extends AbstractExcelView {
         if (j == 0)
         {
           localObject4 = localHSSFSheet.createDrawingPatriarch();
-          localObject5 = ((HSSFPatriarch)localObject4).createComment(new HSSFClientAnchor(0, 0, 0, 0, 1, 1, 4, 4));
+          localObject5 = ((HSSFPatriarch)localObject4).createComment(new HSSFClientAnchor());
           ((HSSFComment)localObject5).setString(new HSSFRichTextString("Powered By SHOP++"));
           ((HSSFCell)localObject2).setCellComment((Comment)localObject5);
         }
@@ -130,7 +130,7 @@ public class ExcelView extends AbstractExcelView {
       Iterator localIterator = this.data.iterator();
       while (localIterator.hasNext())
       {
-        localObject1 = localIterator.next();
+        localObject1 = (HSSFRow) localIterator.next();
         localObject2 = localHSSFSheet.createRow(i);
         for (int n = 0; n < this.properties.length; n++)
         {

@@ -3,7 +3,7 @@ package net.shopxx;
 import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
+@SuppressWarnings("unused")
 public class Filter implements Serializable {
 	private static final long serialVersionUID = -8712382358441065075L;
 

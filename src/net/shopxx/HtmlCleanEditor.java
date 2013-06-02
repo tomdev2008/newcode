@@ -7,7 +7,7 @@ import org.jsoup.safety.Whitelist;
 public class HtmlCleanEditor extends PropertyEditorSupport {
 	private boolean trim;
 	private boolean emptyAsNull;
-	private Whitelist IIIlllII = Whitelist.none();
+	private Whitelist whitelist = Whitelist.none();
 
 	public HtmlCleanEditor(boolean trim, boolean emptyAsNull) {
 		this.trim = trim;
@@ -18,7 +18,7 @@ public class HtmlCleanEditor extends PropertyEditorSupport {
 			Whitelist whitelist) {
 		this.trim = trim;
 		this.emptyAsNull = emptyAsNull;
-		this.IIIlllII = whitelist;
+		this.whitelist = whitelist;
 	}
 
 	public String getAsText() {
@@ -29,7 +29,7 @@ public class HtmlCleanEditor extends PropertyEditorSupport {
 	public void setAsText(String text) {
 		if (text != null) {
 			String str = this.trim ? text.trim() : text;
-			str = Jsoup.clean(str, this.IIIlllII);
+			str = Jsoup.clean(str, this.whitelist);
 			if ((this.emptyAsNull) && ("".equals(str)))
 				str = null;
 			setValue(str);

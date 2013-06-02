@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.commons.lang.time.DateUtils;
 
+@SuppressWarnings("unused")
 public class DateEditor extends PropertyEditorSupport {
 	private static final String IIIllIlI = "yyyy-MM-dd HH:mm:ss";
 	private boolean emptyAsNull;
