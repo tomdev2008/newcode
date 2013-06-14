@@ -14,24 +14,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class FileController extends BaseController {
 
 	@Resource(name = "filePlugin")
-	private FilePlugin IIIlllIl;
+	private FilePlugin filePlugin;
 
 	@Resource(name = "pluginConfigServiceImpl")
-	private PluginConfigService IIIllllI;
+	private PluginConfigService pluginConfigService;
 
 	@RequestMapping(value = { "/setting" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String setting(ModelMap model) {
-		PluginConfig localPluginConfig = this.IIIlllIl.getPluginConfig();
+		PluginConfig localPluginConfig = this.filePlugin.getPluginConfig();
 		model.addAttribute("pluginConfig", localPluginConfig);
 		return "/net/shopxx/plugin/file/setting";
 	}
 
 	@RequestMapping(value = { "/update" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
 	public String update(Integer order, RedirectAttributes redirectAttributes) {
-		PluginConfig localPluginConfig = this.IIIlllIl.getPluginConfig();
+		PluginConfig localPluginConfig = this.filePlugin.getPluginConfig();
 		localPluginConfig.setIsEnabled(Boolean.valueOf(true));
 		localPluginConfig.setOrder(order);
-		this.IIIllllI.update(localPluginConfig);
+		this.pluginConfigService.update(localPluginConfig);
 		IIIllIlI(redirectAttributes, IIIlllII);
 		return "redirect:/admin/storage_plugin/list.jhtml";
 	}

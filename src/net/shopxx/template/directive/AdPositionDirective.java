@@ -16,24 +16,24 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 @Component("adPositionDirective")
 public class AdPositionDirective extends BaseDirective {
-	private static final String IIIllIlI = "adPosition";
+	private static final String POSITION_VALUE_PARAMETER_NAME = "adPosition";
 
 	@Resource(name = "freeMarkerConfigurer")
-	private FreeMarkerConfigurer IIIllIll;
+	private FreeMarkerConfigurer freeMarkerConfigurer;
 
 	@Resource(name = "adPositionServiceImpl")
-	private AdPositionService IIIlllII;
+	private AdPositionService adPositionService;
 
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) {
 		Long localLong = IIIllIlI(params);
 		boolean bool = IIIllIlI(env, params);
-		String str = IIIllIll(env, params);
+		String str = freeMarkerConfigurer(env, params);
 		AdPosition localAdPosition;
 		if (bool)
-			localAdPosition = this.IIIlllII.find(localLong, str);
+			localAdPosition = this.adPositionService.find(localLong, str);
 		else
-			localAdPosition = (AdPosition) this.IIIlllII.find(localLong);
+			localAdPosition = (AdPosition) this.adPositionService.find(localLong);
 		if (body != null)
 			IIIllIlI("adPosition", localAdPosition, env, body);
 		else if ((localAdPosition != null)
@@ -44,7 +44,7 @@ public class AdPositionDirective extends BaseDirective {
 				Writer localWriter = env.getOut();
 				new Template("adTemplate", new StringReader(
 						localAdPosition.getTemplate()),
-						this.IIIllIll.getConfiguration()).process(localHashMap,
+						this.freeMarkerConfigurer.getConfiguration()).process(localHashMap,
 						localWriter);
 			} catch (Exception localException1) {
 				localException1.printStackTrace();

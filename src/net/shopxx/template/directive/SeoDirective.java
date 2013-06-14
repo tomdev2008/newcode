@@ -21,7 +21,7 @@ public class SeoDirective extends BaseDirective {
 	private static final String IIIllIll = "seo";
 
 	@Resource(name = "seoServiceImpl")
-	private SeoService IIIlllII;
+	private SeoService seoService;
 
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) {
@@ -31,9 +31,9 @@ public class SeoDirective extends BaseDirective {
 		String str = IIIllIll(env, params);
 		Seo localSeo;
 		if (bool)
-			localSeo = this.IIIlllII.find(localType, str);
+			localSeo = this.seoService.find(localType, str);
 		else
-			localSeo = this.IIIlllII.find(localType);
+			localSeo = this.seoService.find(localType);
 		IIIllIlI("seo", localSeo, env, body);
 	}
 }

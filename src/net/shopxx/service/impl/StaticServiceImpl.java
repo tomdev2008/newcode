@@ -1,19 +1,20 @@
 package net.shopxx.service.impl;
 
-import freemarker.template.Configuration;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+
 import net.shopxx.Filter;
+import net.shopxx.Template;
 import net.shopxx.dao.ArticleDao;
 import net.shopxx.dao.BrandDao;
 import net.shopxx.dao.ProductDao;
@@ -23,6 +24,7 @@ import net.shopxx.entity.Product;
 import net.shopxx.service.StaticService;
 import net.shopxx.service.TemplateService;
 import net.shopxx.util.FreemarkerUtils;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,7 +101,7 @@ public class StaticServiceImpl implements StaticService, ServletContextAware {
 	public int build(Article article) {
 		Assert.notNull(article);
 		delete(article);
-		net.shopxx.Template localTemplate = this.templateService
+		Template localTemplate = this.templateService
 				.get("articleContent");
 		int i = 0;
 		if (article.getIsPublication().booleanValue()) {
@@ -119,7 +121,7 @@ public class StaticServiceImpl implements StaticService, ServletContextAware {
 	public int build(Product product) {
 		Assert.notNull(product);
 		delete(product);
-		net.shopxx.Template localTemplate = this.templateService
+		Template localTemplate = this.templateService
 				.get("productContent");
 		int i = 0;
 		if (product.getIsMarketable().booleanValue()) {
@@ -133,7 +135,7 @@ public class StaticServiceImpl implements StaticService, ServletContextAware {
 
 	@Transactional(readOnly = true)
 	public int buildIndex() {
-		net.shopxx.Template localTemplate = this.templateService.get("index");
+		Template localTemplate = this.templateService.get("index");
 		return build(localTemplate.getTemplatePath(),
 				localTemplate.getStaticPath());
 	}
@@ -141,9 +143,9 @@ public class StaticServiceImpl implements StaticService, ServletContextAware {
 	@Transactional(readOnly = true)
 	public int buildSitemap() {
 		int i = 0;
-		net.shopxx.Template localTemplate1 = this.templateService
+		Template localTemplate1 = this.templateService
 				.get("sitemapIndex");
-		net.shopxx.Template localTemplate2 = this.templateService
+		Template localTemplate2 = this.templateService
 				.get("sitemap");
 		HashMap localHashMap = new HashMap();
 		ArrayList localArrayList = new ArrayList();
@@ -246,9 +248,9 @@ public class StaticServiceImpl implements StaticService, ServletContextAware {
 	@Transactional(readOnly = true)
 	public int buildOther() {
 		int i = 0;
-		net.shopxx.Template localTemplate1 = this.templateService
+		Template localTemplate1 = this.templateService
 				.get("shopCommonJs");
-		net.shopxx.Template localTemplate2 = this.templateService
+		Template localTemplate2 = this.templateService
 				.get("adminCommonJs");
 		i += build(localTemplate1.getTemplatePath(),
 				localTemplate1.getStaticPath());
@@ -323,16 +325,16 @@ public class StaticServiceImpl implements StaticService, ServletContextAware {
 
 	@Transactional(readOnly = true)
 	public int deleteIndex() {
-		net.shopxx.Template localTemplate = this.templateService.get("index");
+		Template localTemplate = this.templateService.get("index");
 		return delete(localTemplate.getStaticPath());
 	}
 
 	@Transactional(readOnly = true)
 	public int deleteOther() {
 		int i = 0;
-		net.shopxx.Template localTemplate1 = this.templateService
+		Template localTemplate1 = this.templateService
 				.get("shopCommonJs");
-		net.shopxx.Template localTemplate2 = this.templateService
+		Template localTemplate2 = this.templateService
 				.get("adminCommonJs");
 		i += delete(localTemplate1.getStaticPath());
 		i += delete(localTemplate2.getStaticPath());

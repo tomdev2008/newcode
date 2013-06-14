@@ -29,13 +29,13 @@ public class ReviewListDirective extends BaseDirective {
 	private static final String IIIlllIl = "reviews";
 
 	@Resource(name = "reviewServiceImpl")
-	private ReviewService IIIllllI;
+	private ReviewService reviewService;
 
 	@Resource(name = "memberServiceImpl")
-	private MemberService IIIlllll;
+	private MemberService memberService;
 
 	@Resource(name = "productServiceImpl")
-	private ProductService IIlIIIII;
+	private ProductService productService;
 
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) {
@@ -45,8 +45,8 @@ public class ReviewListDirective extends BaseDirective {
 				Long.class, params);
 		ReviewType localType = (ReviewType) FreemarkerUtils.getParameter(
 				"type", ReviewType.class, params);
-		Member localMember = (Member) this.IIIlllll.find(localLong1);
-		Product localProduct = (Product) this.IIlIIIII.find(localLong2);
+		Member localMember = (Member) this.memberService.find(localLong1);
+		Product localProduct = (Product) this.productService.find(localLong2);
 		Object localObject;
 		if (((localLong1 != null) && (localMember == null))
 				|| ((localLong2 != null) && (localProduct == null))) {
@@ -58,11 +58,11 @@ public class ReviewListDirective extends BaseDirective {
 			List localList1 = IIIllIlI(params, Review.class, new String[0]);
 			List localList2 = IIIllIlI(params, new String[0]);
 			if (bool)
-				localObject = this.IIIllllI.findList(localMember, localProduct,
+				localObject = this.reviewService.findList(localMember, localProduct,
 						localType, Boolean.valueOf(true), localInteger,
 						localList1, localList2, str);
 			else
-				localObject = this.IIIllllI.findList(localMember, localProduct,
+				localObject = this.reviewService.findList(localMember, localProduct,
 						localType, Boolean.valueOf(true), localInteger,
 						localList1, localList2);
 		}

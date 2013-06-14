@@ -16,10 +16,10 @@ import org.springframework.web.context.ServletContextAware;
 
 @Component("filePlugin")
 public class FilePlugin extends StoragePlugin implements ServletContextAware {
-	private ServletContext IIIllIlI;
+	private ServletContext servletContext;
 
 	public void setServletContext(ServletContext servletContext) {
-		this.IIIllIlI = servletContext;
+		this.servletContext = servletContext;
 	}
 
 	public String getName() {
@@ -51,7 +51,7 @@ public class FilePlugin extends StoragePlugin implements ServletContextAware {
 	}
 
 	public void upload(String path, File file, String contentType) {
-		File localFile = new File(this.IIIllIlI.getRealPath(path));
+		File localFile = new File(this.servletContext.getRealPath(path));
 		try {
 			FileUtils.moveFile(file, localFile);
 		} catch (IOException localIOException) {
@@ -67,7 +67,7 @@ public class FilePlugin extends StoragePlugin implements ServletContextAware {
 	public List<FileInfo> browser(String path) {
 		Setting localSetting = SettingUtils.get();
 		ArrayList localArrayList = new ArrayList();
-		File localFile1 = new File(this.IIIllIlI.getRealPath(path));
+		File localFile1 = new File(this.servletContext.getRealPath(path));
 		if ((localFile1.exists()) && (localFile1.isDirectory()))
 			for (File localFile2 : localFile1.listFiles()) {
 				FileInfo localFileInfo = new FileInfo();

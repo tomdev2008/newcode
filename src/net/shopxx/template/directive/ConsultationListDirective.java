@@ -23,13 +23,13 @@ public class ConsultationListDirective extends BaseDirective {
 	private static final String IIIlllII = "consultations";
 
 	@Resource(name = "consultationServiceImpl")
-	private ConsultationService IIIlllIl;
+	private ConsultationService consultationService;
 
 	@Resource(name = "memberServiceImpl")
-	private MemberService IIIllllI;
+	private MemberService memberService;
 
 	@Resource(name = "productServiceImpl")
-	private ProductService IIIlllll;
+	private ProductService productService;
 
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) {
@@ -37,8 +37,8 @@ public class ConsultationListDirective extends BaseDirective {
 				Long.class, params);
 		Long localLong2 = (Long) FreemarkerUtils.getParameter("productId",
 				Long.class, params);
-		Member localMember = (Member) this.IIIllllI.find(localLong1);
-		Product localProduct = (Product) this.IIIlllll.find(localLong2);
+		Member localMember = (Member) this.memberService.find(localLong1);
+		Product localProduct = (Product) this.productService.find(localLong2);
 		boolean bool = IIIllIlI(env, params);
 		String str = IIIllIll(env, params);
 		Integer localInteger = IIIllIll(params);
@@ -49,11 +49,11 @@ public class ConsultationListDirective extends BaseDirective {
 				|| ((localLong2 != null) && (localProduct == null)))
 			localObject = new ArrayList();
 		else if (bool)
-			localObject = this.IIIlllIl.findList(localMember, localProduct,
+			localObject = this.consultationService.findList(localMember, localProduct,
 					Boolean.valueOf(true), localInteger, localList1,
 					localList2, str);
 		else
-			localObject = this.IIIlllIl
+			localObject = this.consultationService
 					.findList(localMember, localProduct, Boolean.valueOf(true),
 							localInteger, localList1, localList2);
 		IIIllIlI("consultations", localObject, env, body);

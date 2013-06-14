@@ -1,29 +1,31 @@
 package net.shopxx.plugin.oss;
 
-import com.aliyun.openservices.oss.OSSClient;
-import com.aliyun.openservices.oss.model.ListObjectsRequest;
-import com.aliyun.openservices.oss.model.OSSObjectSummary;
-import com.aliyun.openservices.oss.model.ObjectListing;
-import com.aliyun.openservices.oss.model.ObjectMetadata;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.List<Lnet.shopxx.FileInfo;>;
+
 import net.shopxx.FileInfo;
 import net.shopxx.entity.PluginConfig;
 import net.shopxx.plugin.StoragePlugin;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
+
+import com.aliyun.openservices.oss.OSSClient;
+import com.aliyun.openservices.oss.model.ListObjectsRequest;
+import com.aliyun.openservices.oss.model.OSSObjectSummary;
+import com.aliyun.openservices.oss.model.ObjectListing;
+import com.aliyun.openservices.oss.model.ObjectMetadata;
 
 @Component("ossPlugin")
 public class OssPlugin extends StoragePlugin
 {
   public String getName()
   {
-    return "闃块噷浜戝瓨鍌�;
+    return "OSS存储";
   }
 
   public String getVersion()

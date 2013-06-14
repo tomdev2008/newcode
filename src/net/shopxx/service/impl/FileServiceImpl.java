@@ -3,27 +3,30 @@ package net.shopxx.service.impl;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.List<Lnet.shopxx.FileInfo;>;
-import java.util.Map;
 import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+
 import net.shopxx.FileInfo;
-import net.shopxx.FileInfo.FileType;
-import net.shopxx.FileInfo.OrderType;
+import net.shopxx.FileInfo.FileInfoFileType;
+import net.shopxx.FileInfo.FileInfoOrderType;
 import net.shopxx.Setting;
 import net.shopxx.plugin.StoragePlugin;
 import net.shopxx.service.FileService;
 import net.shopxx.service.PluginService;
 import net.shopxx.util.FreemarkerUtils;
 import net.shopxx.util.SettingUtils;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
@@ -51,7 +54,7 @@ public class FileServiceImpl
     this.taskExecutor.execute(new FileServiceImpl.1(this, paramFile, paramStoragePlugin, paramString1, paramString2));
   }
 
-  public boolean isValid(FileInfo.FileType fileType, MultipartFile multipartFile)
+  public boolean isValid(FileInfoFileType fileType, MultipartFile multipartFile)
   {
     if (multipartFile == null)
       return false;
@@ -59,11 +62,11 @@ public class FileServiceImpl
     if ((localSetting.getUploadMaxSize() != null) && (localSetting.getUploadMaxSize().intValue() != 0) && (multipartFile.getSize() > localSetting.getUploadMaxSize().intValue() * 1024L * 1024L))
       return false;
     String[] arrayOfString;
-    if (fileType == FileInfo.FileType.flash)
+    if (fileType == FileInfoFileType.flash)
       arrayOfString = localSetting.getUploadFlashExtensions();
-    else if (fileType == FileInfo.FileType.media)
+    else if (fileType == FileInfoFileType.media)
       arrayOfString = localSetting.getUploadMediaExtensions();
-    else if (fileType == FileInfo.FileType.file)
+    else if (fileType == FileInfoFileType.file)
       arrayOfString = localSetting.getUploadFileExtensions();
     else
       arrayOfString = localSetting.getUploadImageExtensions();
@@ -72,17 +75,17 @@ public class FileServiceImpl
     return false;
   }
 
-  public String upload(FileInfo.FileType fileType, MultipartFile multipartFile, boolean async)
+  public String upload(FileInfoFileType fileType, MultipartFile multipartFile, boolean async)
   {
     if (multipartFile == null)
       return null;
     Setting localSetting = SettingUtils.get();
     String str1;
-    if (fileType == FileInfo.FileType.flash)
+    if (fileType == FileInfoFileType.flash)
       str1 = localSetting.getFlashUploadPath();
-    else if (fileType == FileInfo.FileType.media)
+    else if (fileType == FileInfoFileType.media)
       str1 = localSetting.getMediaUploadPath();
-    else if (fileType == FileInfo.FileType.file)
+    else if (fileType == FileInfoFileType.file)
       str1 = localSetting.getFileUploadPath();
     else
       str1 = localSetting.getImageUploadPath();
@@ -121,22 +124,22 @@ public class FileServiceImpl
     return null;
   }
 
-  public String upload(FileInfo.FileType fileType, MultipartFile multipartFile)
+  public String upload(FileInfoFileType fileType, MultipartFile multipartFile)
   {
     return upload(fileType, multipartFile, false);
   }
 
-  public String uploadLocal(FileInfo.FileType fileType, MultipartFile multipartFile)
+  public String uploadLocal(FileInfoFileType fileType, MultipartFile multipartFile)
   {
     if (multipartFile == null)
       return null;
     Setting localSetting = SettingUtils.get();
     String str1;
-    if (fileType == FileInfo.FileType.flash)
+    if (fileType == FileInfoFileType.flash)
       str1 = localSetting.getFlashUploadPath();
-    else if (fileType == FileInfo.FileType.media)
+    else if (fileType == FileInfoFileType.media)
       str1 = localSetting.getMediaUploadPath();
-    else if (fileType == FileInfo.FileType.file)
+    else if (fileType == FileInfoFileType.file)
       str1 = localSetting.getFileUploadPath();
     else
       str1 = localSetting.getImageUploadPath();
@@ -159,7 +162,7 @@ public class FileServiceImpl
     return null;
   }
 
-  public List<FileInfo> browser(String path, FileInfo.FileType fileType, FileInfo.OrderType orderType)
+  public List<FileInfo> browser(String path, FileInfoFileType fileType, FileInfoOrderType orderType)
   {
     if (path != null)
     {
@@ -174,11 +177,11 @@ public class FileServiceImpl
     }
     Setting localSetting = SettingUtils.get();
     String str1;
-    if (fileType == FileInfo.FileType.flash)
+    if (fileType == FileInfoFileType.flash)
       str1 = localSetting.getFlashUploadPath();
-    else if (fileType == FileInfo.FileType.media)
+    else if (fileType == FileInfoFileType.media)
       str1 = localSetting.getMediaUploadPath();
-    else if (fileType == FileInfo.FileType.file)
+    else if (fileType == FileInfoFileType.file)
       str1 = localSetting.getFileUploadPath();
     else
       str1 = localSetting.getImageUploadPath();
@@ -193,14 +196,39 @@ public class FileServiceImpl
       StoragePlugin localStoragePlugin = (StoragePlugin)localIterator.next();
       localObject = localStoragePlugin.browser(str2);
     }
-    if (orderType == FileInfo.OrderType.size)
+    if (orderType == FileInfoOrderType.size)
       Collections.sort((List)localObject, new FileServiceImpl.SizeComparator(this, null));
-    else if (orderType == FileInfo.OrderType.type)
+    else if (orderType == FileInfoOrderType.type)
       Collections.sort((List)localObject, new FileServiceImpl.TypeComparator(this, null));
     else
       Collections.sort((List)localObject, new FileServiceImpl.NameComparator(this, null));
     return (List<FileInfo>)localObject;
   }
-  
+  private class NameComparator implements Comparator<FileInfo>{
+
+	final FileServiceImpl fileServiceImpl;
+
+	public int compare(FileInfo fileInfos1, FileInfo fileInfos2)
+	{
+		return (new CompareToBuilder()).append(!fileInfos1.getIsDirectory().booleanValue(), !fileInfos2.getIsDirectory().booleanValue()).append(fileInfos1.getName(), fileInfos2.getName()).toComparison();
+	}
+
+	public volatile int compare(Object obj, Object obj1)
+	{
+		return compare((FileInfo)obj, (FileInfo)obj1);
+	}
+
+	private NameComparator()
+	{
+		fileServiceImpl = FileServiceImpl.this;
+		super();
+	}
+
+	NameComparator(NameComparator namecomparator)
+	{
+		this();
+	}
 }
+}
+
 
