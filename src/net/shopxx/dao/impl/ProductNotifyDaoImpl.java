@@ -30,83 +30,83 @@ public class ProductNotifyDaoImpl extends BaseDaoImpl<ProductNotify, Long>
 
 	public Page<ProductNotify> findPage(Member member, Boolean isMarketable,
 			Boolean isOutOfStock, Boolean hasSent, Pageable pageable) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+		CriteriaQuery<ProductNotify> cq = cb
 				.createQuery(ProductNotify.class);
-		Root localRoot = localCriteriaQuery.from(ProductNotify.class);
-		localCriteriaQuery.select(localRoot);
-		Predicate localPredicate = localCriteriaBuilder.conjunction();
+		Root<ProductNotify> root = cq.from(ProductNotify.class);
+		cq.select(root);
+		Predicate localPredicate = cb.conjunction();
 		if (member != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("member"), member));
+			localPredicate = cb
+					.and(localPredicate, cb.equal(
+							root.get("member"), member));
 		if (isMarketable != null)
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.equal(
-							localRoot.get("product").get("isMarketable"),
+			localPredicate = cb.and(localPredicate,
+					cb.equal(
+							root.get("product").get("isMarketable"),
 							isMarketable));
 		if (isOutOfStock != null) {
-			Path localPath1 = localRoot.get("product").get("stock");
-			Path localPath2 = localRoot.get("product").get("allocatedStock");
+			Path localPath1 = root.get("product").get("stock");
+			Path localPath2 = root.get("product").get("allocatedStock");
 			if (isOutOfStock.booleanValue())
-				localPredicate = localCriteriaBuilder.and(new Predicate[] {
+				localPredicate = cb.and(new Predicate[] {
 						localPredicate,
-						localCriteriaBuilder.isNotNull(localPath1),
-						localCriteriaBuilder.lessThanOrEqualTo(localPath1,
+						cb.isNotNull(localPath1),
+						cb.lessThanOrEqualTo(localPath1,
 								localPath2) });
 			else
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localCriteriaBuilder.or(localCriteriaBuilder
-								.isNull(localPath1), localCriteriaBuilder
+				localPredicate = cb.and(localPredicate,
+						cb.or(cb
+								.isNull(localPath1), cb
 								.greaterThan(localPath1, localPath2)));
 		}
 		if (hasSent != null)
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("hasSent"),
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("hasSent"),
 							hasSent));
-		localCriteriaQuery.where(localPredicate);
-		return super.entityManager(localCriteriaQuery, pageable);
+		cq.where(localPredicate);
+		return super.entityManager(cq, pageable);
 	}
 
 	public Long count(Member member, Boolean isMarketable,
 			Boolean isOutOfStock, Boolean hasSent) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+		CriteriaQuery<ProductNotify> cq = cb
 				.createQuery(ProductNotify.class);
-		Root localRoot = localCriteriaQuery.from(ProductNotify.class);
-		localCriteriaQuery.select(localRoot);
-		Predicate localPredicate = localCriteriaBuilder.conjunction();
+		Root<ProductNotify> root = cq.from(ProductNotify.class);
+		cq.select(root);
+		Predicate localPredicate = cb.conjunction();
 		if (member != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("member"), member));
+			localPredicate = cb
+					.and(localPredicate, cb.equal(
+							root.get("member"), member));
 		if (isMarketable != null)
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.equal(
-							localRoot.get("product").get("isMarketable"),
+			localPredicate = cb.and(localPredicate,
+					cb.equal(
+							root.get("product").get("isMarketable"),
 							isMarketable));
 		if (isOutOfStock != null) {
-			Path localPath1 = localRoot.get("product").get("stock");
-			Path localPath2 = localRoot.get("product").get("allocatedStock");
+			Path localPath1 = root.get("product").get("stock");
+			Path localPath2 = root.get("product").get("allocatedStock");
 			if (isOutOfStock.booleanValue())
-				localPredicate = localCriteriaBuilder.and(new Predicate[] {
+				localPredicate = cb.and(new Predicate[] {
 						localPredicate,
-						localCriteriaBuilder.isNotNull(localPath1),
-						localCriteriaBuilder.lessThanOrEqualTo(localPath1,
+						cb.isNotNull(localPath1),
+						cb.lessThanOrEqualTo(localPath1,
 								localPath2) });
 			else
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localCriteriaBuilder.or(localCriteriaBuilder
-								.isNull(localPath1), localCriteriaBuilder
+				localPredicate = cb.and(localPredicate,
+						cb.or(cb
+								.isNull(localPath1), cb
 								.greaterThan(localPath1, localPath2)));
 		}
 		if (hasSent != null)
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("hasSent"),
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("hasSent"),
 							hasSent));
-		localCriteriaQuery.where(localPredicate);
-		return super.entityManager(localCriteriaQuery, null);
+		cq.where(localPredicate);
+		return super.entityManager(cq, null,null);
 	}
 }

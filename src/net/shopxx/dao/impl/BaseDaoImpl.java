@@ -42,11 +42,14 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 	@PersistenceContext
 	protected EntityManager entityManager;
 
+	/**
+	 * 获取实际的泛型类
+	 */
+	@SuppressWarnings("unchecked")
 	public BaseDaoImpl() {
-		Type localType = getClass().getGenericSuperclass();
-		Type[] arrayOfType = ((ParameterizedType) localType)
-				.getActualTypeArguments();
-		this.entityClass = ((Class) arrayOfType[0]);
+		ParameterizedType parameterizedType =  (ParameterizedType) getClass().getGenericSuperclass();
+        Type[] types = parameterizedType.getActualTypeArguments();
+        this.entityClass = (Class<T>) types[0];
 	}
 
 	public T find(ID id) {
@@ -57,29 +60,28 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 
 	public List<T> findList(Integer first, Integer count, List<Filter> filters,
 			List<net.shopxx.Order> orders) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
-				.getCriteriaBuilder();
-		CriteriaQuery<T> localCriteriaQuery = localCriteriaBuilder
+		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb
 				.createQuery(this.entityClass);
-		localCriteriaQuery.select(localCriteriaQuery.from(this.entityClass));
-		return this.entityManager(localCriteriaQuery, first, count, filters,
+		cq.select(cq.from(this.entityClass));
+		return this.entityManager(cq, first, count, filters,
 				orders);
 	}
 
 	public Page<T> findPage(Pageable pageable) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager..getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder.createQuery(this.entityClass);
-		localCriteriaQuery.select(localCriteriaQuery.from(this.entityClass));
-		return entityManager(localCriteriaQuery, pageable);
+		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(this.entityClass);
+		cq.select(cq.from(this.entityClass));
+		return entityManager(cq, pageable);
 	}
 
 	public long count(Filter[] filters) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+		CriteriaQuery<T> cq = cb
 				.createQuery(this.entityClass);
-		localCriteriaQuery.select(localCriteriaQuery.from(this.entityClass));
-		return entityManager(localCriteriaQuery,
+		cq.select(cq.from(this.entityClass));
+		return entityManager(cq,
 				filters != null ? Arrays.asList(filters) : null).longValue();
 	}
 
@@ -136,21 +138,21 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 		Assert.notNull(paramCriteriaQuery);
 		Assert.notNull(paramCriteriaQuery.getSelection());
 		Assert.notEmpty(paramCriteriaQuery.getRoots());
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
-		Root localRoot = entityManager(paramCriteriaQuery);
+		Root<T> root = entityManager(paramCriteriaQuery);
 		entityClass(paramCriteriaQuery, paramList);
 		IIIlllII(paramCriteriaQuery, paramList1);
 		if (paramCriteriaQuery.getOrderList().isEmpty())
 			if (OrderEntity.class.isAssignableFrom(this.entityClass))
 				paramCriteriaQuery
-						.orderBy(new javax.persistence.criteria.Order[] { localCriteriaBuilder
-								.asc(localRoot.get("order")) });
+						.orderBy(new javax.persistence.criteria.Order[] { cb
+								.asc(root.get("order")) });
 			else
 				paramCriteriaQuery
-						.orderBy(new javax.persistence.criteria.Order[] { localCriteriaBuilder
-								.desc(localRoot.get("createDate")) });
-		TypedQuery localTypedQuery = this.entityManager.createQuery(
+						.orderBy(new javax.persistence.criteria.Order[] { cb
+								.desc(root.get("createDate")) });
+		TypedQuery<T> localTypedQuery = this.entityManager.createQuery(
 				paramCriteriaQuery).setFlushMode(FlushModeType.COMMIT);
 		if (paramInteger1 != null)
 			localTypedQuery.setFirstResult(paramInteger1.intValue());
@@ -166,20 +168,20 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 		Assert.notEmpty(paramCriteriaQuery.getRoots());
 		if (paramPageable == null)
 			paramPageable = new Pageable();
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
-		Root localRoot = entityManager(paramCriteriaQuery);
+		Root<T> root = entityManager(paramCriteriaQuery);
 		entityClass(paramCriteriaQuery, paramPageable);
 		IIIlllII(paramCriteriaQuery, paramPageable);
 		if (paramCriteriaQuery.getOrderList().isEmpty())
 			if (OrderEntity.class.isAssignableFrom(this.entityClass))
 				paramCriteriaQuery
-						.orderBy(new javax.persistence.criteria.Order[] { localCriteriaBuilder
-								.asc(localRoot.get("order")) });
+						.orderBy(new javax.persistence.criteria.Order[] { cb
+								.asc(root.get("order")) });
 			else
 				paramCriteriaQuery
-						.orderBy(new javax.persistence.criteria.Order[] { localCriteriaBuilder
-								.desc(localRoot.get("createDate")) });
+						.orderBy(new javax.persistence.criteria.Order[] { cb
+								.desc(root.get("createDate")) });
 		long l = entityManager(paramCriteriaQuery, null).longValue();
 		int i = (int) Math.ceil(l / paramPageable.getPageSize());
 		if (i < paramPageable.getPageNumber())
@@ -197,28 +199,28 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 		Assert.notNull(paramCriteriaQuery);
 		Assert.notNull(paramCriteriaQuery.getSelection());
 		Assert.notEmpty(paramCriteriaQuery.getRoots());
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
 		entityClass(paramCriteriaQuery, paramList);
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
+		CriteriaQuery cq = cb
 				.createQuery(Long.class);
 		Iterator localIterator = paramCriteriaQuery.getRoots().iterator();
 		while (localIterator.hasNext()) {
-			localRoot1 = (Root) localIterator.next();
-			Root localRoot2 = localCriteriaQuery.from(localRoot1.getJavaType());
-			localRoot2.alias(entityManager(localRoot1));
-			entityManager(localRoot1, localRoot2);
+			root1 = (Root) localIterator.next();
+			Root root2 = cq.from(root1.getJavaType());
+			root2.alias(entityManager(root1));
+			entityManager(root1, root2);
 		}
-		Root localRoot1 = entityManager(localCriteriaQuery,
+		Root root1 = entityManager(cq,
 				paramCriteriaQuery.getResultType());
-		localCriteriaQuery.select(localCriteriaBuilder.count(localRoot1));
+		cq.select(cb.count(root1));
 		if (paramCriteriaQuery.getGroupList() != null)
-			localCriteriaQuery.groupBy(paramCriteriaQuery.getGroupList());
+			cq.groupBy(paramCriteriaQuery.getGroupList());
 		if (paramCriteriaQuery.getGroupRestriction() != null)
-			localCriteriaQuery.having(paramCriteriaQuery.getGroupRestriction());
+			cq.having(paramCriteriaQuery.getGroupRestriction());
 		if (paramCriteriaQuery.getRestriction() != null)
-			localCriteriaQuery.where(paramCriteriaQuery.getRestriction());
-		return (Long) this.entityManager.createQuery(localCriteriaQuery)
+			cq.where(paramCriteriaQuery.getRestriction());
+		return (Long) this.entityManager.createQuery(cq)
 				.setFlushMode(FlushModeType.COMMIT).getSingleResult();
 	}
 
@@ -250,9 +252,9 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 				&& (paramClass != null)) {
 			Iterator localIterator = paramCriteriaQuery.getRoots().iterator();
 			while (localIterator.hasNext()) {
-				Root localRoot = (Root) localIterator.next();
-				if (paramClass.equals(localRoot.getJavaType()))
-					return (Root) localRoot.as(paramClass);
+				Root root = (Root) localIterator.next();
+				if (paramClass.equals(root.getJavaType()))
+					return (Root) root.as(paramClass);
 			}
 		}
 		return null;
@@ -294,13 +296,13 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 		if ((paramCriteriaQuery == null) || (paramList == null)
 				|| (paramList.isEmpty()))
 			return;
-		Root localRoot = entityManager(paramCriteriaQuery);
-		if (localRoot == null)
+		Root root = entityManager(paramCriteriaQuery);
+		if (root == null)
 			return;
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
 		Predicate localPredicate = paramCriteriaQuery.getRestriction() != null ? paramCriteriaQuery
-				.getRestriction() : localCriteriaBuilder.conjunction();
+				.getRestriction() : cb.conjunction();
 		Iterator localIterator = paramList.iterator();
 		while (localIterator.hasNext()) {
 			Filter localFilter = (Filter) localIterator.next();
@@ -312,78 +314,78 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 				if ((localFilter.getIgnoreCase() != null)
 						&& (localFilter.getIgnoreCase().booleanValue())
 						&& ((localFilter.getValue() instanceof String)))
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.equal(localCriteriaBuilder
-									.lower(localRoot.get(localFilter
+					localPredicate = cb.and(localPredicate,
+							cb.equal(cb
+									.lower(root.get(localFilter
 											.getProperty())),
 									((String) localFilter.getValue())
 											.toLowerCase()));
 				else
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.equal(
-									localRoot.get(localFilter.getProperty()),
+					localPredicate = cb.and(localPredicate,
+							cb.equal(
+									root.get(localFilter.getProperty()),
 									localFilter.getValue()));
 			} else if ((localFilter.getOperator() == FilterOperator.ne)
 					&& (localFilter.getValue() != null)) {
 				if ((localFilter.getIgnoreCase() != null)
 						&& (localFilter.getIgnoreCase().booleanValue())
 						&& ((localFilter.getValue() instanceof String)))
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.notEqual(localCriteriaBuilder
-									.lower(localRoot.get(localFilter
+					localPredicate = cb.and(localPredicate,
+							cb.notEqual(cb
+									.lower(root.get(localFilter
 											.getProperty())),
 									((String) localFilter.getValue())
 											.toLowerCase()));
 				else
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.notEqual(
-									localRoot.get(localFilter.getProperty()),
+					localPredicate = cb.and(localPredicate,
+							cb.notEqual(
+									root.get(localFilter.getProperty()),
 									localFilter.getValue()));
 			} else if ((localFilter.getOperator() == FilterOperator.gt)
 					&& (localFilter.getValue() != null)) {
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localCriteriaBuilder.gt(
-								localRoot.get(localFilter.getProperty()),
+				localPredicate = cb.and(localPredicate,
+						cb.gt(
+								root.get(localFilter.getProperty()),
 								(Number) localFilter.getValue()));
 			} else if ((localFilter.getOperator() == FilterOperator.lt)
 					&& (localFilter.getValue() != null)) {
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localCriteriaBuilder.lt(
-								localRoot.get(localFilter.getProperty()),
+				localPredicate = cb.and(localPredicate,
+						cb.lt(
+								root.get(localFilter.getProperty()),
 								(Number) localFilter.getValue()));
 			} else if ((localFilter.getOperator() == FilterOperator.ge)
 					&& (localFilter.getValue() != null)) {
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localCriteriaBuilder.ge(
-								localRoot.get(localFilter.getProperty()),
+				localPredicate = cb.and(localPredicate,
+						cb.ge(
+								root.get(localFilter.getProperty()),
 								(Number) localFilter.getValue()));
 			} else if ((localFilter.getOperator() == FilterOperator.le)
 					&& (localFilter.getValue() != null)) {
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localCriteriaBuilder.le(
-								localRoot.get(localFilter.getProperty()),
+				localPredicate = cb.and(localPredicate,
+						cb.le(
+								root.get(localFilter.getProperty()),
 								(Number) localFilter.getValue()));
 			} else if ((localFilter.getOperator() == FilterOperator.like)
 					&& (localFilter.getValue() != null)
 					&& ((localFilter.getValue() instanceof String))) {
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localCriteriaBuilder.like(
-								localRoot.get(localFilter.getProperty()),
+				localPredicate = cb.and(localPredicate,
+						cb.like(
+								root.get(localFilter.getProperty()),
 								(String) localFilter.getValue()));
 			} else if ((localFilter.getOperator() == FilterOperator.in)
 					&& (localFilter.getValue() != null)) {
-				localPredicate = localCriteriaBuilder.and(
+				localPredicate = cb.and(
 						localPredicate,
-						localRoot.get(localFilter.getProperty()).in(
+						root.get(localFilter.getProperty()).in(
 								new Object[] { localFilter.getValue() }));
 			} else if (localFilter.getOperator() == FilterOperator.isNull) {
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localRoot.get(localFilter.getProperty()).isNull());
+				localPredicate = cb.and(localPredicate,
+						root.get(localFilter.getProperty()).isNull());
 			} else {
 				if (localFilter.getOperator() != FilterOperator.isNotNull)
 					continue;
-				localPredicate = localCriteriaBuilder.and(localPredicate,
-						localRoot.get(localFilter.getProperty()).isNotNull());
+				localPredicate = cb.and(localPredicate,
+						root.get(localFilter.getProperty()).isNotNull());
 			}
 		}
 		paramCriteriaQuery.where(localPredicate);
@@ -393,18 +395,18 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 			Pageable paramPageable) {
 		if ((paramCriteriaQuery == null) || (paramPageable == null))
 			return;
-		Root localRoot = entityManager(paramCriteriaQuery);
-		if (localRoot == null)
+		Root root = entityManager(paramCriteriaQuery);
+		if (root == null)
 			return;
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
 		Predicate localPredicate = paramCriteriaQuery.getRestriction() != null ? paramCriteriaQuery
-				.getRestriction() : localCriteriaBuilder.conjunction();
+				.getRestriction() : cb.conjunction();
 		if ((StringUtils.isNotEmpty(paramPageable.getSearchProperty()))
 				&& (StringUtils.isNotEmpty(paramPageable.getSearchValue())))
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.like(
-							localRoot.get(paramPageable.getSearchProperty()),
+			localPredicate = cb.and(localPredicate,
+					cb.like(
+							root.get(paramPageable.getSearchProperty()),
 							"%" + paramPageable.getSearchValue() + "%"));
 		if (paramPageable.getFilters() != null) {
 			Iterator localIterator = paramPageable.getFilters().iterator();
@@ -418,17 +420,17 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 					if ((localFilter.getIgnoreCase() != null)
 							&& (localFilter.getIgnoreCase().booleanValue())
 							&& ((localFilter.getValue() instanceof String)))
-						localPredicate = localCriteriaBuilder.and(
+						localPredicate = cb.and(
 								localPredicate,
-								localCriteriaBuilder.equal(localCriteriaBuilder
-										.lower(localRoot.get(localFilter
+								cb.equal(cb
+										.lower(root.get(localFilter
 												.getProperty())),
 										((String) localFilter.getValue())
 												.toLowerCase()));
 					else
-						localPredicate = localCriteriaBuilder.and(
+						localPredicate = cb.and(
 								localPredicate,
-								localCriteriaBuilder.equal(localRoot
+								cb.equal(root
 										.get(localFilter.getProperty()),
 										localFilter.getValue()));
 				} else if ((localFilter.getOperator() == FilterOperator.ne)
@@ -436,67 +438,67 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 					if ((localFilter.getIgnoreCase() != null)
 							&& (localFilter.getIgnoreCase().booleanValue())
 							&& ((localFilter.getValue() instanceof String)))
-						localPredicate = localCriteriaBuilder
+						localPredicate = cb
 								.and(localPredicate,
-										localCriteriaBuilder.notEqual(
-												localCriteriaBuilder
-														.lower(localRoot
+										cb.notEqual(
+												cb
+														.lower(root
 																.get(localFilter
 																		.getProperty())),
 												((String) localFilter
 														.getValue())
 														.toLowerCase()));
 					else
-						localPredicate = localCriteriaBuilder.and(
+						localPredicate = cb.and(
 								localPredicate,
-								localCriteriaBuilder.notEqual(localRoot
+								cb.notEqual(root
 										.get(localFilter.getProperty()),
 										localFilter.getValue()));
 				} else if ((localFilter.getOperator() == FilterOperator.gt)
 						&& (localFilter.getValue() != null)) {
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.gt(
-									localRoot.get(localFilter.getProperty()),
+					localPredicate = cb.and(localPredicate,
+							cb.gt(
+									root.get(localFilter.getProperty()),
 									(Number) localFilter.getValue()));
 				} else if ((localFilter.getOperator() == FilterOperator.lt)
 						&& (localFilter.getValue() != null)) {
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.lt(
-									localRoot.get(localFilter.getProperty()),
+					localPredicate = cb.and(localPredicate,
+							cb.lt(
+									root.get(localFilter.getProperty()),
 									(Number) localFilter.getValue()));
 				} else if ((localFilter.getOperator() == FilterOperator.ge)
 						&& (localFilter.getValue() != null)) {
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.ge(
-									localRoot.get(localFilter.getProperty()),
+					localPredicate = cb.and(localPredicate,
+							cb.ge(
+									root.get(localFilter.getProperty()),
 									(Number) localFilter.getValue()));
 				} else if ((localFilter.getOperator() == FilterOperator.le)
 						&& (localFilter.getValue() != null)) {
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.le(
-									localRoot.get(localFilter.getProperty()),
+					localPredicate = cb.and(localPredicate,
+							cb.le(
+									root.get(localFilter.getProperty()),
 									(Number) localFilter.getValue()));
 				} else if ((localFilter.getOperator() == FilterOperator.like)
 						&& (localFilter.getValue() != null)
 						&& ((localFilter.getValue() instanceof String))) {
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localCriteriaBuilder.like(
-									localRoot.get(localFilter.getProperty()),
+					localPredicate = cb.and(localPredicate,
+							cb.like(
+									root.get(localFilter.getProperty()),
 									(String) localFilter.getValue()));
 				} else if ((localFilter.getOperator() == FilterOperator.in)
 						&& (localFilter.getValue() != null)) {
-					localPredicate = localCriteriaBuilder.and(
+					localPredicate = cb.and(
 							localPredicate,
-							localRoot.get(localFilter.getProperty()).in(
+							root.get(localFilter.getProperty()).in(
 									new Object[] { localFilter.getValue() }));
 				} else if (localFilter.getOperator() == FilterOperator.isNull) {
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localRoot.get(localFilter.getProperty()).isNull());
+					localPredicate = cb.and(localPredicate,
+							root.get(localFilter.getProperty()).isNull());
 				} else {
 					if (localFilter.getOperator() != FilterOperator.isNotNull)
 						continue;
-					localPredicate = localCriteriaBuilder.and(localPredicate,
-							localRoot.get(localFilter.getProperty())
+					localPredicate = cb.and(localPredicate,
+							root.get(localFilter.getProperty())
 									.isNotNull());
 				}
 			}
@@ -509,10 +511,10 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 		if ((paramCriteriaQuery == null) || (paramList == null)
 				|| (paramList.isEmpty()))
 			return;
-		Root localRoot = entityManager(paramCriteriaQuery);
-		if (localRoot == null)
+		Root root = entityManager(paramCriteriaQuery);
+		if (root == null)
 			return;
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
 		ArrayList localArrayList = new ArrayList();
 		if (!paramCriteriaQuery.getOrderList().isEmpty())
@@ -522,12 +524,12 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 			net.shopxx.Order localOrder = (net.shopxx.Order) localIterator
 					.next();
 			if (localOrder.getDirection() == OrderDirection.asc) {
-				localArrayList.add(localCriteriaBuilder.asc(localRoot
+				localArrayList.add(cb.asc(root
 						.get(localOrder.getProperty())));
 			} else {
 				if (localOrder.getDirection() != OrderDirection.desc)
 					continue;
-				localArrayList.add(localCriteriaBuilder.desc(localRoot
+				localArrayList.add(cb.desc(root
 						.get(localOrder.getProperty())));
 			}
 		}
@@ -538,10 +540,10 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 			Pageable paramPageable) {
 		if ((paramCriteriaQuery == null) || (paramPageable == null))
 			return;
-		Root localRoot = entityManager(paramCriteriaQuery);
-		if (localRoot == null)
+		Root<T> root = entityManager(paramCriteriaQuery);
+		if (root == null)
 			return;
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
+		CriteriaBuilder cb = this.entityManager
 				.getCriteriaBuilder();
 		ArrayList localArrayList = new ArrayList();
 		if (!paramCriteriaQuery.getOrderList().isEmpty())
@@ -549,10 +551,10 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 		if ((StringUtils.isNotEmpty(paramPageable.getOrderProperty()))
 				&& (paramPageable.getOrderDirection() != null))
 			if (paramPageable.getOrderDirection() == OrderDirection.asc)
-				localArrayList.add(localCriteriaBuilder.asc(localRoot
+				localArrayList.add(cb.asc(root
 						.get(paramPageable.getOrderProperty())));
 			else if (paramPageable.getOrderDirection() == OrderDirection.desc)
-				localArrayList.add(localCriteriaBuilder.desc(localRoot
+				localArrayList.add(cb.desc(root
 						.get(paramPageable.getOrderProperty())));
 		if (paramPageable.getOrders() != null) {
 			Iterator localIterator = paramPageable.getOrders().iterator();
@@ -560,12 +562,12 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> implements
 				net.shopxx.Order localOrder = (net.shopxx.Order) localIterator
 						.next();
 				if (localOrder.getDirection() == OrderDirection.asc) {
-					localArrayList.add(localCriteriaBuilder.asc(localRoot
+					localArrayList.add(cb.asc(root
 							.get(localOrder.getProperty())));
 				} else {
 					if (localOrder.getDirection() != OrderDirection.desc)
 						continue;
-					localArrayList.add(localCriteriaBuilder.desc(localRoot
+					localArrayList.add(cb.desc(root
 							.get(localOrder.getProperty())));
 				}
 			}

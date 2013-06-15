@@ -26,123 +26,86 @@ public class ReviewDaoImpl extends BaseDaoImpl<Review, Long> implements
 	public List<Review> findList(Member member, Product product,
 			ReviewType type, Boolean isShow, Integer count,
 			List<Filter> filters, List<Order> orders) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
-				.getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
-				.createQuery(Review.class);
-		Root localRoot = localCriteriaQuery.from(Review.class);
-		localCriteriaQuery.select(localRoot);
-		Predicate localPredicate = localCriteriaBuilder.conjunction();
+		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
+		Root<Review> root = cq.from(Review.class);
+		cq.select(root);
+		Predicate localPredicate = cb.conjunction();
 		if (member != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("member"), member));
+			localPredicate = cb.and(localPredicate,cb.equal(root.get("member"), member));
 		if (product != null)
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("product"),
-							product));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("product"), product));
 		if (type == ReviewType.positive)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.ge(localRoot.get("score"),
-							Integer.valueOf(4)));
+			localPredicate = cb.and(localPredicate,cb.ge(root.get("score"), Integer.valueOf(4)));
 		else if (type == ReviewType.moderate)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("score"),
-							Integer.valueOf(3)));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("score"), Integer.valueOf(3)));
 		else if (type == ReviewType.negative)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.le(localRoot.get("score"),
-							Integer.valueOf(2)));
+			localPredicate = cb.and(localPredicate,cb.le(root.get("score"), Integer.valueOf(2)));
 		if (isShow != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("isShow"), isShow));
-		localCriteriaQuery.where(localPredicate);
-		return super.entityManager(localCriteriaQuery, null, count, filters,
-				orders);
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("isShow"), isShow));
+		cq.where(localPredicate);
+		return super.entityManager(cq, null, count, filters, orders);
 	}
 
 	public Page<Review> findPage(Member member, Product product,
 			ReviewType type, Boolean isShow, Pageable pageable) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
-				.getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
-				.createQuery(Review.class);
-		Root localRoot = localCriteriaQuery.from(Review.class);
-		localCriteriaQuery.select(localRoot);
-		Predicate localPredicate = localCriteriaBuilder.conjunction();
+		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
+		Root<Review> root = cq.from(Review.class);
+		cq.select(root);
+		Predicate localPredicate = cb.conjunction();
 		if (member != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("member"), member));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("member"), member));
 		if (product != null)
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("product"),
-							product));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("product"), product));
 		if (type == ReviewType.positive)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.ge(localRoot.get("score"),
-							Integer.valueOf(4)));
+			localPredicate = cb.and(localPredicate,
+					cb.ge(root.get("score"), Integer.valueOf(4)));
 		else if (type == ReviewType.moderate)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("score"),
-							Integer.valueOf(3)));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("score"), Integer.valueOf(3)));
 		else if (type == ReviewType.negative)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.le(localRoot.get("score"),
-							Integer.valueOf(2)));
+			localPredicate = cb.and(localPredicate,
+					cb.le(root.get("score"), Integer.valueOf(2)));
 		if (isShow != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("isShow"), isShow));
-		localCriteriaQuery.where(localPredicate);
-		return super.entityManager(localCriteriaQuery, pageable);
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("isShow"), isShow));
+		cq.where(localPredicate);
+		return super.entityManager(cq, pageable);
 	}
 
 	public Long count(Member member, Product product, ReviewType type,
 			Boolean isShow) {
-		CriteriaBuilder localCriteriaBuilder = this.entityManager
-				.getCriteriaBuilder();
-		CriteriaQuery localCriteriaQuery = localCriteriaBuilder
-				.createQuery(Review.class);
-		Root localRoot = localCriteriaQuery.from(Review.class);
-		localCriteriaQuery.select(localRoot);
-		Predicate localPredicate = localCriteriaBuilder.conjunction();
+		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
+		Root<Review> root = cq.from(Review.class);
+		cq.select(root);
+		Predicate localPredicate = cb.conjunction();
 		if (member != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("member"), member));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("member"), member));
 		if (product != null)
-			localPredicate = localCriteriaBuilder.and(localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("product"),
-							product));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("product"), product));
 		if (type == ReviewType.positive)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.ge(localRoot.get("score"),
-							Integer.valueOf(4)));
+			localPredicate = cb.and(localPredicate,
+					cb.ge(root.get("score"), Integer.valueOf(4)));
 		else if (type == ReviewType.moderate)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.equal(localRoot.get("score"),
-							Integer.valueOf(3)));
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("score"), Integer.valueOf(3)));
 		else if (type == ReviewType.negative)
-			localPredicate = localCriteriaBuilder.and(
-					localPredicate,
-					localCriteriaBuilder.le(localRoot.get("score"),
-							Integer.valueOf(2)));
+			localPredicate = cb.and(localPredicate,
+					cb.le(root.get("score"), Integer.valueOf(2)));
 		if (isShow != null)
-			localPredicate = localCriteriaBuilder
-					.and(localPredicate, localCriteriaBuilder.equal(
-							localRoot.get("isShow"), isShow));
-		localCriteriaQuery.where(localPredicate);
-		return super.entityManager(localCriteriaQuery, null);
+			localPredicate = cb.and(localPredicate,
+					cb.equal(root.get("isShow"), isShow));
+		cq.where(localPredicate);
+		return super.entityManager(cq, null);
 	}
 
 	public boolean isReviewed(Member member, Product product) {

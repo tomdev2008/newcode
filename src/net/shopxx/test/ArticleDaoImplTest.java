@@ -67,7 +67,7 @@ public class ArticleDaoImplTest {
 		}
 		this.articleCategoryDao.flush();
 		this.articleCategoryDao.clear();
-		for (i = 0; i < IIlIIIII.length; i++) {
+		for (int i = 0; i < IIlIIIII.length; i++) {
 			str = "test" + i;
 			localObject = new Tag();
 			((Tag) localObject).setName(str);
@@ -78,7 +78,7 @@ public class ArticleDaoImplTest {
 		}
 		this.tagDao.flush();
 		this.tagDao.clear();
-		for (i = 0; i < IIIlllll.length; i++) {
+		for (int i = 0; i < IIIlllll.length; i++) {
 			str = "test" + i;
 			localObject = new Article();
 			((Article) localObject).setTitle(str);
@@ -113,9 +113,9 @@ public class ArticleDaoImplTest {
 
 	@Test
 	public void testFindList() {
-		ArrayList localArrayList = new ArrayList();
-		localArrayList.add((Tag) this.tagDao.find(IIlIIIII[0]));
-		localArrayList.add((Tag) this.tagDao.find(IIlIIIII[2]));
+		ArrayList<Tag> localArrayList = new ArrayList<Tag>();
+		localArrayList.add(this.tagDao.find(IIlIIIII[0]));
+		localArrayList.add(this.tagDao.find(IIlIIIII[2]));
 		MatcherAssert.assertThat(
 				Integer.valueOf(this.articleDao.findList(null, localArrayList,
 						null, null, null).size()),
